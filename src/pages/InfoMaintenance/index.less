@@ -1,0 +1,54 @@
+.InfoMaintenance {
+  min-width: 1200px;
+  margin: 0 auto;
+  padding: 24px;
+  background-color: #fff;
+  > div {
+    width: 1200px;
+    .header {
+      display: flex;
+      justify-content: space-between;
+      > div {
+        display: flex;
+      }
+      .name {
+        width: auto;
+        height: 100px;
+        padding: 0 20px;
+        font-size: 20px;
+        line-height: 100px;
+        text-align: center;
+      }
+      .btn {
+        margin-top: 34px;
+      }
+    }
+    .Forms {
+      position: relative;
+      > div:nth-child(2) {
+        position: absolute;
+        right: 0;
+        bottom: 10px;
+        :global {
+          .ant-form-item-control-input-content {
+            display: flex;
+            justify-content: flex-end;
+            .ant-btn-primary {
+              margin-right: 20px;
+            }
+          }
+        }
+      }
+      :global {
+        .ant-form-item {
+          flex-direction: initial;
+          .ant-form-item-label {
+            flex: initial;
+            width: 125px;
+            text-align: right;
+          }
+        }
+      }
+    }
+  }
+}
