@@ -1,0 +1,47 @@
+{
+  "name": "ysp-oauth-web",
+  "version": "1.0.0",
+  "private": true,
+  "description": "云适配oauth认证web端",
+  "scripts": {
+    "start": "umi dev",
+    "build": "umi build",
+    "postinstall": "umi generate tmp",
+    "prettier": "prettier --write '**/*.{js,jsx,tsx,ts,less,md,json}'",
+    "test": "umi-test",
+    "test:coverage": "umi-test --coverage",
+    "lint": "eslint src --ext .ts,.tsx,.js,jsx",
+    "lint_fix": "eslint src --ext .ts,.tsx,.js,jsx --fix"
+  },
+  "gitHooks": {
+    "pre-commit": "lint-staged"
+  },
+  "lint-staged": {
+    "*.{js,jsx,less,md,json}": [
+      "prettier --write"
+    ],
+    "*.ts?(x)": [
+      "prettier --parser=typescript --write"
+    ]
+  },
+  "dependencies": {
+    "antd": "^4.16.11",
+    "react": "17.x",
+    "react-dom": "17.x",
+    "umi": "^3.5.15"
+  },
+  "devDependencies": {
+    "@types/react": "^17.0.0",
+    "@types/react-dom": "^17.0.0",
+    "@typescript-eslint/eslint-plugin": "^4.28.1",
+    "@umijs/preset-react": "1.x",
+    "@umijs/test": "^3.5.15",
+    "eslint": "^7.30.0",
+    "eslint-config-alloy": "^4.1.0",
+    "eslint-plugin-react": "^7.24.0",
+    "lint-staged": "^10.0.7",
+    "prettier": "^2.3.2",
+    "typescript": "^4.1.2",
+    "yorkie": "^2.0.0"
+  }
+}

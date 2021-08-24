@@ -1,0 +1,6 @@
+.umi/
+.umi-production/
+
+node_modules/
+build/
+dist/

@@ -1,0 +1,17 @@
+@import '/src/theme-default.less';
+.homeContent {
+  // background-color: #fff;
+
+  :global {
+    .ant-carousel {
+      border-radius: @padding-md;
+      overflow: hidden;
+
+      .slick-slide {
+        img {
+          width: 100%;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,89 @@
+@import '~antd/es/style/themes/default.less';
+
+@pro-header-hover-bg: rgba(0, 0, 0, 0.025);
+
+.menu {
+  :global(.anticon) {
+    margin-right: 8px;
+  }
+  :global(.ant-dropdown-menu-item) {
+    min-width: 160px;
+  }
+}
+
+.right {
+  display: flex;
+  float: right;
+  margin-left: auto;
+  overflow: hidden;
+  height: 100%;
+  .action {
+    display: flex;
+    align-items: center;
+    width: max-content;
+    padding: 0 8px;
+    cursor: pointer;
+    transition: all 0.3s;
+    > span {
+      vertical-align: middle;
+    }
+    .name {
+      padding-right: 16px;
+    }
+    &:hover {
+      background: @pro-header-hover-bg;
+    }
+    &:global(.opened) {
+      background: @pro-header-hover-bg;
+    }
+  }
+  .search {
+    padding: 0 12px;
+    &:hover {
+      background: transparent;
+    }
+  }
+  .account {
+    .avatar {
+      margin-right: 8px;
+      color: @primary-color;
+      vertical-align: top;
+      background: rgba(255, 255, 255, 0.85);
+      border-radius: 0;
+    }
+  }
+}
+
+.dark {
+  .action {
+    &:hover {
+      background: #252a3d;
+    }
+    &:global(.opened) {
+      background: #252a3d;
+    }
+  }
+}
+
+.Forms {
+  :global {
+    .ant-form-item {
+      flex-direction: initial;
+      .ant-form-item-label {
+        text-align: right;
+        width: 95px;
+        flex: initial;
+        margin-top: 5px;
+      }
+    }
+  }
+}
+.Btn {
+  background-color: @primary-color;
+  border: none;
+  color: #fff;
+}
+.Btn:hover {
+  background-color: @primary-color;
+  color: #fff;
+}
