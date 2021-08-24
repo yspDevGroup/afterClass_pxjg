@@ -2,14 +2,13 @@
  * @description: 运行时配置
  * @author: zpl
  * @Date: 2021-08-09 10:44:42
- * @LastEditTime: 2021-08-24 11:45:40
- * @LastEditors: zpl
+ * @LastEditTime: 2021-08-24 17:55:39
+ * @LastEditors: Sissle Lynn
  */
 import { notification, message } from 'antd';
 import type { RequestConfig } from 'umi';
 import type { ResponseError } from 'umi-request';
-
-import { getCurrentUser } from '@/services/user';
+import { currentUser as getCurrentUser } from './services/after-class-pxjg/user';
 import LoadingPage from '@/components/Loading';
 import { getAuthorization, getCookie } from './utils';
 
@@ -28,8 +27,8 @@ export async function getInitialState(): Promise<InitialState> {
   const fetchUserInfo = async (): Promise<UserInfo | null> => {
     const res = await getCurrentUser();
     const { status, data } = res;
-    if (status === 'ok') {
-      return data;
+    if (status === 'ok' && data?.info) {
+      return data.info;
     }
     message.warn(res.message === 'Invalid Token!' ? '未登录' : res.message);
     return null;

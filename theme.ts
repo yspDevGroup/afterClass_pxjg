@@ -2,35 +2,49 @@
  * @description: 表态配置主题
  * @author: zpl
  * @Date: 2021-08-09 14:38:53
- * @LastEditTime: 2021-08-18 15:11:45
+ * @LastEditTime: 2021-08-24 18:25:25
  * @LastEditors: Sissle Lynn
  */
+const mainFontSize = 14;
+const paddingSize = 16;
 export default {
-  '@primary-color': '#14B0FF', // 全局主色
+  '@primary-color': 'rgba(36, 54, 81, 1)', // 全局主色
   '@second-color': '#F2AF2A', // 二级菜单色
-  '@link-color': '#3CA0FD', // 链接色
-  '@success-color': '#52c41a', // 成功色
-  '@warning-color': '#faad14', // 警告色
-  '@error-color': '#f5222d', // 错误色
-  '@font-size-base': '14px', // 主字号
-  '@font-size-lg': '16px', // 大字号
-  '@font-size-sm': '12px', // 小字号
+  '@switch-color': 'rgba(72, 132, 255, 1)',
+  '@link-color': 'rgba(72, 132, 255, 1)', // link 链接颜色
+  '@success-color': 'rgba(82, 196, 26, 1)', // 成功色
+  '@warning-color': 'rgba(255, 178, 24, 1)', // 警告色
+  '@error-color': 'rgba(234, 17, 28, 1)', // 错误色
+  '@font-size-base': `${mainFontSize}px`, // 主字号
+  '@font-size-lg': `${mainFontSize + 2}px`, // 大字号
+  '@font-size-sm': `${mainFontSize - 2}px`, // 小字号
   // '@line-height-base': '28px', // 默认行高
   '@heading-color': '#222222', // 标题色
-  '@text-color': '#222222', // 主文本色
-  '@text-color-secondary': '#666666', // 次文本色
-  '@disabled-color': '#b2b2b2', // 失效色
+  '@text-color': 'rgba(51, 51, 51, 1)', // 主文本色
+  '@text-color-secondary': 'rgba(102, 102, 102, 1)', // 二级文本色
+  '@normal-color': 'rgba(153, 153, 153, 1)', // 提示文本颜色
+  '@disabled-color': 'rgba(187, 187, 187, 1)', // 禁用、失效色
+  '@divider-color': 'rgba(238, 238, 238, 1)', // 分割线
   '@border-radius-base': '4px', // 组件/浮层圆角
+  '@padding-lg': `${paddingSize + 8}px`,
+  '@padding-md': `${paddingSize}px`,
+  '@padding-sm': `${paddingSize - 8}px`,
 
   // Buttons
   '@btn-primary-color': '#fff',
-  '@btn-primary-bg': '@primary-color',
+  '@btn-primary-bg': '#4884ff',
+  '@btn-default-border': 'rgba(160, 160, 160, 1)', // btn边框色
+  '@btn-default-color': 'rgba(153, 153, 153, 1)', // 正常按钮颜色
 
   // Border color
   '@border-color-base': '#d2d2d2', // 边框色
   '@border-color-split': '#dde2e8', // 拆分组件内部的边框
 
+  // hover color
+  '@item-hover-bg': 'rgba(36, 54, 81, 0.3)', // 内容hover颜色
+  '@input-hover-border-color': '#3E88F8', // input hover状态描边
+
   // Layout
-  '@layout-body-background': '#f5f7f9',
-  '@layout-header-background': '#f5f7f9'
+  '@layout-body-background': 'rgba(251, 251, 251, 1)',
+  '@layout-header-background': 'rgba(251, 251, 251, 1)'
 };

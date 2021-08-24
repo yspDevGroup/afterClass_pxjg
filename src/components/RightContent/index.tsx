@@ -19,13 +19,6 @@ const GlobalHeaderRight: React.FC = () => {
       >
         <QuestionCircleOutlined style={{color:isIndexPage ? '#14B0FF' : '#fff'}} />
       </span> */}
-      <span>
-        <SmileOutlined style={{
-          paddingRight:'16px',
-          color:'#14B0FF'
-        }} />
-        您好，欢迎进入智慧校园！
-      </span>
       <Avatar />
     </Space>
   );

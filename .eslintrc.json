@@ -22,11 +22,16 @@
     // myGlobal: false
     "CustomWindow": true,
     "React": true,
+    "API": true,
     "ENV_title": true,
+    "ENV_subTitle": true,
+    "ENV_copyRight": true,
     "ENV_backUrl": true,
     "ENV_debug": true,
     "AuthType": true,
+    "PlatType": true,
     "UserInfo": true,
+    "TokenInfo": true,
     "InitialState": true
   },
   "rules": {

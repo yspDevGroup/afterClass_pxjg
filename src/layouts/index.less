@@ -1,0 +1,113 @@
+.bodyLayout {
+  :global {
+    // 调整左侧菜单
+    .ant-pro-sider.ant-layout-sider {
+      background-color: @primary-color;
+
+      .ant-pro-sider-logo {
+        justify-content: center;
+        height: 80px;
+        background-color: rgba(33, 48, 69, 1);
+
+        h1 {
+          margin: 0;
+          color: #fff;
+        }
+
+        img {
+          height: auto !important;
+        }
+
+        & + div {
+          margin-top: @padding-lg;
+        }
+      }
+
+      .ant-menu {
+        background: transparent;
+
+        .ant-menu-item::after {
+          border-right: 3px solid rgba(62, 136, 248, 1);
+        }
+
+        .ant-menu-item,
+        .ant-menu-submenu {
+          .ant-pro-menu-item-title,
+          .anticon,
+          .ant-menu-submenu-arrow {
+            color: rgba(255, 255, 255, 0.6);
+          }
+
+          &.ant-menu-item-selected,
+          &:active,
+          .ant-menu-submenu-title:active {
+            background: rgba(62, 136, 248, 1);
+
+            span {
+              color: #fff;
+            }
+          }
+        }
+
+        .ant-menu-inline {
+          background: rgba(33, 48, 69, 1);
+        }
+      }
+    }
+  }
+
+  .customPageHeader {
+    :global {
+      .ant-page-header.has-breadcrumb {
+        padding-top: @padding-md;
+      }
+
+      .ant-page-header {
+        display: flex;
+        height: 80px;
+        box-shadow: 0 1px 0 #e3e6f2;
+
+        .ant-page-header-heading {
+          flex: auto;
+        }
+
+        .ant-breadcrumb {
+          display: flex;
+          flex: auto;
+          align-items: center;
+          min-width: 200px;
+          text-align: justify;
+
+          > span {
+            display: flex;
+          }
+
+          & + .ant-page-header-heading {
+            width: 200px;
+          }
+        }
+      }
+
+      .ant-pro-grid-content {
+        .ant-pro-table {
+          .ant-table-wrapper {
+            width: 100%;
+            overflow: auto;
+
+            .ant-table {
+              min-width: 700px;
+
+              .ui-table-col-elp {
+                display: inline-block;
+                width: 100%;
+                overflow: hidden;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

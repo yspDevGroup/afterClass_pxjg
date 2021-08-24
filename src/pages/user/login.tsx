@@ -2,8 +2,8 @@
  * @description: 登录页
  * @author: zpl
  * @Date: 2021-07-22 08:52:55
- * @LastEditTime: 2021-08-24 12:00:05
- * @LastEditors: zpl
+ * @LastEditTime: 2021-08-24 17:57:09
+ * @LastEditors: Sissle Lynn
  */
 import { useState } from 'react';
 import { history, Link, Redirect, useModel } from 'umi';
@@ -11,13 +11,10 @@ import { Button, message } from 'antd';
 import CustomForm from '@/components/CustomForm';
 import type { FormInstance } from 'antd/lib/form/hooks/useForm';
 import type { FormItemType } from '@/components/CustomForm/interfice';
-import { postAccount } from '@/services/user';
 import { getOauthToken, getQueryString, gotoLink, saveOAuthToken } from '@/utils';
-import leftBg from '@/assets/leftBg.png';
-import peopleBg from '@/assets/peopleBg.png';
-import rightBg from '@/assets/rightBg.png';
 import logo from '@/assets/logo.png';
 import styles from './index.less';
+import { postAccount } from '@/services/after-class-pxjg/auth';
 
 const formLayout: {
   labelCol: {
@@ -98,26 +95,20 @@ const LoginPage = () => {
   };
 
   if (initialState?.currentUser) {
-    const redirect = getRedirectUrl() || '/';
+    const redirect = getRedirectUrl() || '/schoolManagement';
     if (redirect.startsWith('http')) {
       window.location.href = redirect;
       return;
     }
-    return <Redirect to={redirect}></Redirect>;
+    return <Redirect to={redirect} />;
   }
   return (
     <div className={styles.container}>
       <div className={styles.content}>
-        <div className={styles.leftBg}>
-          <img src={leftBg} />
-        </div>
-        <div className={styles.middleBg}>
-          <img src={peopleBg} />
-        </div>
         <div className={styles.main}>
           <div className={styles.top}>
             <img src={logo} />
-            <h3>智慧校园</h3>
+            <h3>课后服务平台</h3>
           </div>
           <div className={styles.form}>
             <CustomForm setForm={setForm} formLayout={formLayout} formItems={formItemList} hideBtn={true} />
@@ -125,9 +116,6 @@ const LoginPage = () => {
               登录
             </Button>
           </div>
-        </div>
-        <div className={styles.rightBg}>
-          <img src={rightBg} />
         </div>
       </div>
     </div>

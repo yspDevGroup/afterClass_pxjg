@@ -2,8 +2,8 @@
  * @description: 工具类
  * @author: zpl
  * @Date: 2021-08-09 10:36:53
- * @LastEditTime: 2021-08-24 12:01:31
- * @LastEditors: zpl
+ * @LastEditTime: 2021-08-24 17:05:44
+ * @LastEditors: Sissle Lynn
  */
 import { history } from 'umi';
 
@@ -16,7 +16,7 @@ import { history } from 'umi';
 export const getQueryString = (name: string) => {
   const regs = new RegExp(`(^|&)${name}=([^&]*)(&|$)`);
   const r = decodeURI(window.location.search.substr(1)).match(regs);
-  if (r != null) return unescape(r[2]);
+  if (r !== null) return unescape(r[2]);
   return null;
 };
 

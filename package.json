@@ -1,8 +1,8 @@
 {
-  "name": "ysp-oauth-web",
+  "name": "after-class-pxjg",
   "version": "1.0.0",
   "private": true,
-  "description": "云适配oauth认证web端",
+  "description": "课后服务——培训机构端",
   "scripts": {
     "start": "umi dev",
     "build": "umi build",
@@ -10,6 +10,7 @@
     "prettier": "prettier --write '**/*.{js,jsx,tsx,ts,less,md,json}'",
     "test": "umi-test",
     "test:coverage": "umi-test --coverage",
+    "openapi": "umi openapi",
     "lint": "eslint src --ext .ts,.tsx,.js,jsx",
     "lint_fix": "eslint src --ext .ts,.tsx,.js,jsx --fix"
   },
@@ -25,6 +26,9 @@
     ]
   },
   "dependencies": {
+    "@ant-design/pro-layout": "^6.5.0",
+    "@ant-design/pro-table": "^2.46.1",
+    "@umijs/plugin-openapi": "^1.3.0",
     "antd": "^4.16.11",
     "react": "17.x",
     "react-dom": "17.x",
@@ -34,7 +38,8 @@
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
     "@typescript-eslint/eslint-plugin": "^4.28.1",
-    "@umijs/preset-react": "1.x",
+    "@typescript-eslint/parser": "^4.28.1",
+    "@umijs/preset-react": "^1.8.17",
     "@umijs/test": "^3.5.15",
     "eslint": "^7.30.0",
     "eslint-config-alloy": "^4.1.0",
