@@ -2,7 +2,7 @@
  * @description:
  * @author: Sissle Lynn
  * @Date: 2021-08-24 19:59:45
- * @LastEditTime: 2021-08-24 20:39:18
+ * @LastEditTime: 2021-08-25 11:23:24
  * @LastEditors: Sissle Lynn
  */
 export const schoolList = [
@@ -175,7 +175,6 @@ export const schoolList = [
     SSQY: '雁塔区',
     XH: "http://resource.xkedu.cn:83/badge/5b3f4944-680d-4d49-9c18-a3ac1d5dcf47.png",
     XXDZ: "西安市雁塔区电子正街69号唐园小区内",
-    XXYWMC: "Middle School of xi'an Electronic Science and Technology",
     DZXX: "xkedu@163.com",
     LXDH: "(029) 88219434",
     XD: '小学',

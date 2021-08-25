@@ -2,16 +2,19 @@
  * @description: 表态配置主题
  * @author: zpl
  * @Date: 2021-08-09 14:38:53
- * @LastEditTime: 2021-08-24 18:25:25
+ * @LastEditTime: 2021-08-25 14:20:09
  * @LastEditors: Sissle Lynn
  */
 const mainFontSize = 14;
 const paddingSize = 16;
+const mainColor = 'rgba(72, 132, 255, 1)';
+const menuColor='rgba(36, 54, 81, 1)';
+
 export default {
-  '@primary-color': 'rgba(36, 54, 81, 1)', // 全局主色
-  '@second-color': '#F2AF2A', // 二级菜单色
-  '@switch-color': 'rgba(72, 132, 255, 1)',
-  '@link-color': 'rgba(72, 132, 255, 1)', // link 链接颜色
+  '@primary-color': mainColor, // 全局主色
+  '@second-color': menuColor, // 二级菜单色
+  '@switch-color':  mainColor,
+  '@link-color': mainColor, // link 链接颜色
   '@success-color': 'rgba(82, 196, 26, 1)', // 成功色
   '@warning-color': 'rgba(255, 178, 24, 1)', // 警告色
   '@error-color': 'rgba(234, 17, 28, 1)', // 错误色

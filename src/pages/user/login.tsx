@@ -2,7 +2,7 @@
  * @description: 登录页
  * @author: zpl
  * @Date: 2021-07-22 08:52:55
- * @LastEditTime: 2021-08-24 17:57:09
+ * @LastEditTime: 2021-08-25 08:52:26
  * @LastEditors: Sissle Lynn
  */
 import { useState } from 'react';
@@ -47,7 +47,7 @@ const formItemList: FormItemType[] = [
     key: 'autoLogin',
     type: 'checkbox',
     name: 'autoLogin',
-    desc: '记住密码'
+    desc: '记住密码',
   }
 ];
 

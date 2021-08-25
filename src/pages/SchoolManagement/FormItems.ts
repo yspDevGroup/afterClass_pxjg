@@ -2,7 +2,7 @@
  * @description: 学校基本信息表单元素
  * @author: Sissle Lynn
  * @Date: 2021-08-02 15:12:46
- * @LastEditTime: 2021-08-20 15:55:19
+ * @LastEditTime: 2021-08-25 11:22:23
  * @LastEditors: Sissle Lynn
  */
 import { FormItemType } from "@/components/CustomForm/interfice"
@@ -28,10 +28,10 @@ export const basicForm: FormItemType[] = [
       },
       {
         type: 'input',
-        label: '英文名称',
+        label: '学段',
         placeholder: '——',
-        name: 'XXYWMC',
-        key: 'XXYWMC',
+        name: 'XD',
+        key: 'XD',
       },
     ],
   },
@@ -48,10 +48,10 @@ export const basicForm: FormItemType[] = [
       },
       {
         type: 'input',
-        label: '学校网址',
+        label: '行政区划',
         placeholder: '——',
-        name: 'ZYDZ',
-        key: 'ZYDZ',
+        name: 'SSQY',
+        key: 'SSQY',
       },
     ],
   },
@@ -68,32 +68,12 @@ export const basicForm: FormItemType[] = [
       },
       {
         type: 'input',
-        label: '传真号码',
-        placeholder: '——',
-        name: 'CZDH',
-        key: 'CZDH',
-      },
-    ],
-  },
-  {
-    type: 'group',
-    key: 'group6',
-    groupItems: [
-      {
-        type: 'input',
         label: '电子信箱',
         placeholder: '——',
         name: 'DZXX',
         key: 'DZXX',
       },
-      {
-        type: 'input',
-        label: '邮政编码',
-        placeholder: '——',
-        name: 'XXYZBM',
-        key: 'XXYZBM',
-      },
-    ]
+    ],
   },
   {
     type: 'group',

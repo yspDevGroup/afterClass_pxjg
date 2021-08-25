@@ -1,0 +1,53 @@
+.schoolWrapper{
+  padding: @padding-lg;
+  background: #ffffff;
+  .schoolInfoBody {
+    .schoolInfoTitle {
+      display: flex;
+      justify-content: space-between;
+      padding: @padding-lg 0;
+
+      .schoolInfoLogo {
+        padding: 0 @padding-lg;
+
+        img {
+          width: 60px;
+          height: 60px;
+        }
+      }
+
+      .schoolInfoTitleHeader {
+        color: @text-color;
+        font-weight: bold;
+        font-size: 18px;
+        flex: 1;
+
+        p {
+          margin-bottom: 0;
+          line-height: 60px;
+        }
+      }
+    }
+
+    .schoolInfoBasic {
+      :global {
+        .ant-form-item-label {
+          text-align: left;
+        }
+
+        .ant-form-item-control-input {
+          line-height: 32px;
+        }
+
+        .ant-input[disabled] {
+          color: @text-color;
+          background-color: inherit;
+          border: none;
+          cursor: default;
+          resize: none;
+          text-overflow: ellipsis;
+        }
+      }
+    }
+  }
+}
