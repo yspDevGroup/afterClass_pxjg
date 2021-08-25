@@ -1,5 +1,6 @@
 .bodyLayout {
   :global {
+
     // 调整左侧菜单
     .ant-pro-sider.ant-layout-sider {
       background-color: @primary-color;
@@ -18,7 +19,7 @@
           height: auto !important;
         }
 
-        & + div {
+        &+div {
           margin-top: @padding-lg;
         }
       }
@@ -32,6 +33,7 @@
 
         .ant-menu-item,
         .ant-menu-submenu {
+
           .ant-pro-menu-item-title,
           .anticon,
           .ant-menu-submenu-arrow {
@@ -78,11 +80,11 @@
           min-width: 200px;
           text-align: justify;
 
-          > span {
+          >span {
             display: flex;
           }
 
-          & + .ant-page-header-heading {
+          &+.ant-page-header-heading {
             width: 200px;
           }
         }
@@ -90,6 +92,9 @@
 
       .ant-pro-grid-content {
         .ant-pro-table {
+          .ant-pro-table-list-toolbar-left {
+            gap: 0 !important;
+          }
           .ant-table-wrapper {
             width: 100%;
             overflow: auto;

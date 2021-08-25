@@ -1,4 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable complexity */
 import React, { useEffect } from 'react';
 import { Button, Col, Form, Row, Divider } from 'antd';
 import {
@@ -12,9 +12,10 @@ import {
   FormRadio,
   FormSwitch,
   FormCustom,
-  FormUpload,
   FormInputNumber,
-  FormCheckbox
+  FormCheckbox,
+  FormDateRange,
+  FormButton
 } from './CustomFormItem';
 
 import type { FormInstance } from 'antd';
@@ -32,7 +33,8 @@ import type {
   FormItemType,
   FormUploadProps,
   FormCheckboxProps,
-  FormDropMenuProps
+  FormDropMenuProps,
+  FormButtonProps
 } from './interfice';
 
 import styles from './index.module.less';
@@ -40,9 +42,10 @@ import styles from './index.module.less';
 const onPdfClick = (url: string | undefined) => {
   window.open(`${url}`);
 };
-const renderFormItems = (formItems: FormItemType[]) => {
+const renderFormItems = (formItems: FormItemType[], formDisabled: boolean) => {
   return formItems.map((formItem) => {
-    const { type, key, groupItems, span, flex, ...currentProps } = formItem;
+    const { type, key, groupItems, cls, span, flex, ...currentProps } = formItem;
+    currentProps.disabled = currentProps.disabled ? currentProps.disabled : formDisabled;
     switch (type) {
       case 'input':
         return <FormInput {...(currentProps as FormInputProps)} key={key} />;
@@ -58,6 +61,8 @@ const renderFormItems = (formItems: FormItemType[]) => {
         return <FormTime {...(currentProps as FormTimeProps)} key={key} />;
       case 'timeRange':
         return <FormTimeRange {...(currentProps as FormTimeRangeProps)} key={key} />;
+      case 'dateRange':
+        return <FormDateRange {...(currentProps as FormTimeRangeProps)} key={key} />;
       case 'textArea':
         return <FormTextArea {...(currentProps as FormTextAreaProps)} key={key} />;
       case 'radio':
@@ -66,15 +71,20 @@ const renderFormItems = (formItems: FormItemType[]) => {
         return <FormSwitch {...(currentProps as FormSwitchProps)} key={key} />;
       case 'custom':
         return <FormCustom {...(currentProps as FormCustomProps)} key={key} />;
-      case 'upload':
-        return <FormUpload {...(currentProps as FormUploadProps)} key={key} />;
       case 'checkbox':
         return <FormCheckbox {...(currentProps as FormCheckboxProps)} key={key} />;
-
+      case 'button':
+        return <FormButton {...(currentProps as FormButtonProps)} key={key} />;
+      case 'upload':
+        return <></>;
       case 'group': {
         const colW = 24 / (groupItems ? groupItems.length : 1);
         return (
-          <Row gutter={typeof formItem.gutter === 'undefined' ? 10 : formItem.gutter} key={key}>
+          <Row
+            className={cls}
+            gutter={typeof formItem.gutter === 'undefined' ? 10 : formItem.gutter}
+            key={key}
+          >
             {groupItems?.map((item) => {
               const wInfo: {
                 span?: number | string;
@@ -96,8 +106,8 @@ const renderFormItems = (formItems: FormItemType[]) => {
               item.style = { ...item.style, flexWrap: 'nowrap' };
               const colKey = `Col${item.key || item.label}`;
               return (
-                <Col {...wInfo} key={colKey}>
-                  {renderFormItems([item])}
+                <Col className={item.cls} {...wInfo} key={colKey}>
+                  {renderFormItems([item], formDisabled)}
                 </Col>
               );
             })}
@@ -136,8 +146,9 @@ type Props = {
     };
   };
   formItems: FormItemType[];
+  formDisabled?: boolean; // form是否为可读状态
   values?: any;
-  hideBtn: boolean;
+  hideBtn?: boolean;
   layoutType?: 'horizontal' | 'vertical' | 'inline';
   onFinish?: (values: any) => void;
   onFinishFailed?: ({
@@ -165,6 +176,7 @@ const CustomForm = (props: Props) => {
     values,
     layoutType = 'horizontal',
     hideBtn = false,
+    formDisabled = false,
     setForm,
     onFinish,
     onFinishFailed,
@@ -195,7 +207,7 @@ const CustomForm = (props: Props) => {
         layout={layoutType}
         style={style}
       >
-        {renderFormItems(formItems)}
+        {renderFormItems(formItems, formDisabled)}
       </Form>
       {!hideBtn && (
         <Row justify="center" className={styles.footer}>

@@ -2,7 +2,7 @@
  * @description:
  * @author: zpl
  * @Date: 2020-07-30 10:21:18
- * @LastEditTime: 2021-08-16 14:33:45
+ * @LastEditTime: 2021-08-16 16:21:01
  * @LastEditors: Sissle Lynn
  */
 import type { UploadListType } from 'antd/es/upload/interface';
@@ -11,6 +11,15 @@ import type { RowProps } from 'antd/lib/grid/row';
 import type { IconType } from 'antd/lib/notification';
 import type { SwitchChangeEventHandler } from 'antd/lib/switch';
 import type { DataNode } from 'antd/lib/tree';
+
+export type FormButtonProps = {
+  disabled?: boolean;
+  onClick?: (event: any) => void;
+  ghost?: boolean;
+  block?: boolean;
+  // eslint-disable-next-line no-undef
+  text: string | (() => JSX.Element);
+} & FormItemProps;
 
 export type FormInputProps = {
   suffix?: string;
@@ -57,12 +66,12 @@ export type FormTreeSelectProps = {
 
 export type FormCheckboxProps = {
   disabled?: boolean;
-  desc?: string;
-  options: {
+  colNum?: number;
+  items: {
     value: string | number;
-    label: string;
+    text: string;
   }[];
-  defaultValue?: [];
+  defaultValue?: string[] | number[];
 } & FormItemProps;
 
 export type FormRadioProps = {
@@ -124,7 +133,7 @@ export type FormUploadProps = {
   listType?: UploadListType;
   icon?: React.RefAttributes<IconType>;
   normFile?: (e: any) => any;
-  uploadProps?: Record<string, unknown>;
+  uploadProps?: {};
   accept?: string;
 } & FormItemProps;
 
@@ -141,6 +150,7 @@ export type FormItemType = (
   | FormSwitchProps
   | FormCustomProps
   | FormUploadProps
+  | FormButtonProps
   | FormCheckboxProps
 ) & {
   key?: string | number;
@@ -153,6 +163,7 @@ export type FormItemType = (
   | 'radio'
   | 'time'
   | 'timeRange'
+  | 'dateRange'
   | 'textArea'
   | 'switch'
   | 'custom'
@@ -162,7 +173,8 @@ export type FormItemType = (
   | 'pdf'
   | 'upload'
   | 'checkbox'
-  | 'dropMenu';
+  | 'dropMenu'
+  | 'button';
   /**
    * 类型为group横向排列时，需要设置子数组
    *
@@ -170,6 +182,10 @@ export type FormItemType = (
    * @memberof FormItemType
    */
   groupItems?: FormItemType[];
+  /**
+   * 单独设置类名
+   */
+  cls?: string;
   /**
    * 类型为group横向排列时，可设置宽度，不设置时为平均分配
    *
@@ -203,11 +219,11 @@ export type FormItemType = (
   /**
    * Checkbox
    */
-  options?: Record<string, unknown>[];
+  options?: {}[];
   /**
    * 下拉菜单数据传输
    */
-  data?: Record<string, unknown>;
+  data?: {};
   handleCate?: (data: any) => void;
   handleLevel?: (data: any) => void;
 } & RowProps;

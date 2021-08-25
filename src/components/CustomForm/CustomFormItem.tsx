@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   Form,
   Input,
@@ -7,17 +7,15 @@ import {
   Radio,
   Switch,
   TreeSelect,
-  Upload,
-  Button,
   InputNumber,
   Checkbox,
-  Dropdown,
-  Menu,
-  message
+  Row,
+  Col,
+  TimePicker,
+  Button
 } from 'antd';
 import type { Moment } from 'moment';
 import moment from 'moment';
-import { UploadOutlined } from '@ant-design/icons/lib/icons';
 
 import type {
   FormInputProps,
@@ -30,12 +28,11 @@ import type {
   FormSwitchProps,
   FormTimeProps,
   FormTreeSelectProps,
-  FormUploadProps,
   FormInputNumberProps,
   FormCheckboxProps,
-  FormDropMenuProps,
-  MenuProp
+  FormButtonProps
 } from './interfice';
+import { useModel } from 'umi';
 
 const { TextArea } = Input;
 
@@ -72,7 +69,11 @@ export const FormInputNumber = (props: FormInputNumberProps) => {
   return (
     <Form.Item {...formProps}>
       {percent ? (
-        <InputNumber disabled={disabled} max={100} min={0} formatter={(value) => `${value}%`} />
+        <InputNumber
+          disabled={disabled}
+          formatter={(value) => `${value}%`}
+          parser={(value) => value!.replace('%', '')}
+        />
       ) : (
         <InputNumber disabled={disabled} />
       )}
@@ -91,7 +92,11 @@ export const FormPassword = (props: FormPasswordProps) => {
 
   return (
     <Form.Item {...formProps}>
-      <Input.Password disabled={disabled} placeholder={placeholder || '请输入'} onChange={onChange} />
+      <Input.Password
+        disabled={disabled}
+        placeholder={placeholder || '请输入'}
+        onChange={onChange}
+      />
     </Form.Item>
   );
 };
@@ -136,7 +141,15 @@ export const FormSelect = (props: FormSelectProps) => {
  * @returns
  */
 export const FormTreeSelect = (props: FormTreeSelectProps) => {
-  const { disabled, dropdownStyle, placeholder, treeData, onChange, defaultExpandAll, ...formProps } = props;
+  const {
+    disabled,
+    dropdownStyle,
+    placeholder,
+    treeData,
+    onChange,
+    defaultExpandAll,
+    ...formProps
+  } = props;
   return (
     <Form.Item {...formProps}>
       <TreeSelect
@@ -175,22 +188,6 @@ export const FormRadio = (props: FormRadioProps) => {
   );
 };
 
-// -----------------------------FormCheckbox------------------------------------
-/**
- * 表单radio选择框
- *
- * @param {FormCheckboxProps} props
- * @returns
- */
-export const FormCheckbox = (props: FormCheckboxProps) => {
-  const { disabled, options,desc, defaultValue, ...formProps } = props;
-  return (
-    <Form.Item {...formProps}>
-      <Checkbox disabled={disabled}>{desc}</Checkbox>
-    </Form.Item>
-  );
-};
-
 // -----------------------------FormTime------------------------------------
 /**
  * 表单时间选择器
@@ -199,13 +196,19 @@ export const FormCheckbox = (props: FormCheckboxProps) => {
  * @return {*}
  */
 export const FormTime = (props: FormTimeProps) => {
-  const { disabled, subtype, onChange, ...formProps } = props;
+  const { disabled, subtype = 'date', onChange, ...formProps } = props;
   return (
     <Form.Item {...formProps}>
-      {subtype && subtype === 'year' ? (
-        <DatePicker disabled={disabled} onChange={onChange} />
+      {subtype === 'time' ? (
+        <TimePicker
+          disabled={disabled}
+          minuteStep={15}
+          format="HH:mm"
+          onChange={onChange}
+          style={{ width: '100%' }}
+        />
       ) : (
-        <DatePicker disabled={disabled} showTime onChange={onChange} format="YYYY-MM-DD HH:mm" />
+        <DatePicker disabled={disabled} showTime onChange={onChange} format="YYYY-MM-DD" />
       )}
     </Form.Item>
   );
@@ -221,7 +224,7 @@ const range = (start: number, end: number) => {
 };
 const disabledRangeTime = () => {
   return {
-    disabledMinutes: () => range(1, 30).concat(range(31, 60))
+    disabledMinutes: () => range(1, 30).concat(range(31, 60)),
   };
 };
 const disabledDate = (current: Moment) => {
@@ -243,11 +246,31 @@ export const FormTimeRange = (props: FormTimeRangeProps) => {
         disabled={disabled}
         showTime={{
           hideDisabledOptions: true,
-          defaultValue: [moment('00:00:00', 'HH:mm:ss'), moment('23:59:59', 'HH:mm:ss')]
+          defaultValue: [moment('00:00:00', 'HH:mm:ss'), moment('23:59:59', 'HH:mm:ss')],
         }}
         disabledDate={disabledDate}
         disabledTime={disabledRangeTime}
         format="YYYY-MM-DD HH:mm"
+        onChange={onChange}
+        style={{ width: '100%' }}
+      />
+    </Form.Item>
+  );
+};
+
+/**
+ * 表单时间(日期)范围选择框
+ *
+ * @param {FormTimeRangeProps} props
+ * @returns
+ */
+export const FormDateRange = (props: FormTimeRangeProps) => {
+  const { disabled, onChange, ...formProps } = props;
+  return (
+    <Form.Item {...formProps}>
+      <DatePicker.RangePicker
+        disabled={disabled}
+        format="YYYY-MM-DD"
         onChange={onChange}
         style={{ width: '100%' }}
       />
@@ -289,20 +312,38 @@ export const FormCustom = (props: FormCustomProps) => {
   return <Form.Item {...formProps}>{children}</Form.Item>;
 };
 
-// -----------------------------FormPassword------------------------------------
+// -----------------------------FormCheckbox------------------------------------
 /**
- * 表单上传
+ * 表单Checkbox选择框
  *
- * @param {FormUploadProps} props
+ * @param {FormCheckboxProps} props
  * @returns
  */
-export const FormUpload = (props: FormUploadProps) => {
-  const { disabled, name, action, listType, normFile, accept, uploadProps, ...formProps } = props;
+export const FormCheckbox = (props: FormCheckboxProps) => {
+  const { disabled, items, colNum = 6, defaultValue, ...formProps } = props;
   return (
-    <Form.Item {...formProps} name={name} valuePropName="fileList" getValueFromEvent={normFile}>
-      <Upload {...uploadProps} disabled={disabled} accept={accept}>
-        <Button icon={<UploadOutlined />}>上传附件</Button>
-      </Upload>
+    <Form.Item {...formProps}>
+      <Checkbox.Group disabled={disabled} defaultValue={defaultValue}>
+        <Row>
+          {items.map((item) => (
+            <Col span={colNum} key={item.value}>
+              <Checkbox key={item.value} value={item.value} />
+              {item.text}
+            </Col>
+          ))}
+        </Row>
+      </Checkbox.Group>
+    </Form.Item>
+  );
+};
+
+export const FormButton = (props: FormButtonProps) => {
+  const { disabled, text, onClick, ghost, block, ...formProps } = props;
+  return (
+    <Form.Item {...formProps}>
+      <Button disabled={disabled} onClick={onClick} ghost={ghost} block={block}>
+        {text}
+      </Button>
     </Form.Item>
   );
 };
