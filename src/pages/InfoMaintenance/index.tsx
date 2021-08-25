@@ -2,24 +2,21 @@
  * @description:
  * @author: wsl
  * @Date: 2021-08-24 16:46:37
- * @LastEditTime: 2021-08-25 16:17:09
+ * @LastEditTime: 2021-08-25 18:29:23
  * @LastEditors: wsl
  */
 import React, { useEffect, useState } from 'react';
-import { Button, Form, Input, Image, Divider, Row, Col, Modal, Alert, message } from 'antd';
+import { Button, Form, Input, Image, Divider, Row, Col, Modal, Alert, message, Popconfirm } from 'antd';
 import styles from './index.less';
 import { useModel } from 'umi';
 import AvatarUpload from '@/components/AvatarUpload';
-import { createKHJYJG, getKHJYJG, KHJYJG, updateKHJYJG } from '@/services/after-class-pxjg/khjyjg';
+import { createKHJYJG, KHJYJG, updateKHJYJG } from '@/services/after-class-pxjg/khjyjg';
 
 const InfoMaintenance = () => {
   const { initialState } = useModel('@@initialState');
   const { currentUser } = initialState || {};
-  // const [InitialValues, setInitialValues] = useState<any>();
-  const [isModalVisible, setIsModalVisible] = useState(false);
-  // const [InformationId, setInformationId] = useState<string>();
+  const [state, setstate] = useState(false);
   const [form] = Form.useForm();
-  const [RZfrom] = Form.useForm();
   useEffect(() => {
     (async () => {
       const res = await KHJYJG({ id: currentUser!.jgId! });
@@ -30,20 +27,10 @@ const InfoMaintenance = () => {
       }
     })();
   }, []);
-  const RZsubmit = async (params: any) => {
-    console.log(params);
-  };
-  const showModal = () => {
-    setIsModalVisible(true);
-  };
 
-  const handleOk = () => {
-    // RZfrom.submit();
-    // setIsModalVisible(false);
-  };
-
-  const handleCancel = () => {
-    setIsModalVisible(false);
+  const confirm = () => {
+    setstate(true);
+    message.success('申请成功');
   };
 
   const submit = async (params: any) => {
@@ -76,14 +63,27 @@ const InfoMaintenance = () => {
     <div className={styles.InfoMaintenance}>
       <div>
         <div className={styles.header}>
-          <div>
+          {/* <div>
             <Image width={100} src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png" />
             <div className={styles.name}>梦想家</div>
-          </div>
-
-          <Button type="primary" className={styles.btn} onClick={showModal} disabled={currentUser?.jgId ? false : true}>
-            申请入驻
-          </Button>
+          </div> */}
+          {state === false ? (
+            <Popconfirm
+              placement="topRight"
+              title="确定机构信息填写完整且信息无误后，点击确定申请加入白名单"
+              onConfirm={confirm}
+              okText="确定"
+              cancelText="取消"
+            >
+              <Button type="primary" className={styles.btn} disabled={currentUser?.jgId ? false : true}>
+                申请入驻
+              </Button>
+            </Popconfirm>
+          ) : (
+            <>
+              <Alert message="已成功加入资源池" type="success" style={{ height: 34 }} />
+            </>
+          )}
         </div>
 
         <Divider />
@@ -92,6 +92,19 @@ const InfoMaintenance = () => {
             <Col span={12}>
               <Form.Item name="id" hidden>
                 <Input disabled />
+              </Form.Item>
+              <Form.Item
+                name="QYMC"
+                key="QYMC"
+                label="企业名称："
+                rules={[
+                  {
+                    required: true,
+                    message: '请输入企业名称'
+                  }
+                ]}
+              >
+                <Input placeholder="请输入" />
               </Form.Item>
               <Form.Item
                 name="ZZJGDM"
@@ -175,6 +188,9 @@ const InfoMaintenance = () => {
                   </Form.Item>
                 </Col>
               </Row>
+              <Form.Item name="QYTB" key="QYTB" label="企业LOGO：">
+                <AvatarUpload />
+              </Form.Item>
             </Col>
           </Row>
           <Form.Item>
@@ -186,7 +202,7 @@ const InfoMaintenance = () => {
             </Button>
           </Form.Item>
         </Form>
-        <Modal
+        {/* <Modal
           title="申请入驻"
           visible={isModalVisible}
           onOk={handleOk}
@@ -195,11 +211,11 @@ const InfoMaintenance = () => {
           cancelText="取消"
         >
           <Alert
-            message="确定机构信息填写完整且信息无误后，输入“入驻密钥”申请加入白名单。(入驻密钥由区县教育局统一下发)"
+            message="确定机构信息填写完整且信息无误后，点击确认申请加入白名单。"
             type="warning"
             style={{ marginBottom: '20px' }}
-          />
-          <Form
+          /> */}
+        {/* <Form
             form={RZfrom}
             //  initialValues={InitialValues}
             onFinish={RZsubmit}
@@ -217,8 +233,8 @@ const InfoMaintenance = () => {
             >
               <Input placeholder="请输入" />
             </Form.Item>
-          </Form>
-        </Modal>
+          </Form> */}
+        {/* </Modal> */}
       </div>
     </div>
   );
