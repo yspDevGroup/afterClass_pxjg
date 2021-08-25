@@ -136,14 +136,8 @@ export async function createKHKCSJ(body: API.CreateKHKCSJ, options?: { [key: str
       id?: string;
       KCMC?: string;
       KCTP?: string;
-      KCZT?: '待发布' | '已发布' | '已下架' | '已结课';
+      KCZT?: string;
       KCMS?: string;
-      KKRQ?: string | any;
-      JKRQ?: string | any;
-      BMKSSJ?: string;
-      BMJSSJ?: string;
-      XNXQId?: string;
-      XNXQ?: { id?: string; XN?: string; XQ?: string; KSRQ?: string | any; JSRQ?: string | any };
       KHKCLX?: { id?: string; KCLX?: string };
       KHBJSJs?: {
         id?: string;

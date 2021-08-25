@@ -49,6 +49,8 @@ type UserInfo = {
   userId?: string;
   /** 微信用户ID(教师) */
   UserId?: string;
+  /** 机构ID */
+  jgId?: string;
   /** 微信用户企业ID */
   CorpId?: string;
   subscriber_info?: {

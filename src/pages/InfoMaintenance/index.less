@@ -1,10 +1,12 @@
 .InfoMaintenance {
-  min-width: 1200px;
+  width: 100%;
   margin: 0 auto;
   padding: 24px;
   background-color: #fff;
   > div {
-    width: 1200px;
+    min-width: 800px;
+    max-width: 1200px;
+    margin: 0 auto;
     .header {
       display: flex;
       justify-content: space-between;
@@ -26,15 +28,23 @@
     .Forms {
       position: relative;
       > div:nth-child(2) {
-        position: absolute;
-        right: 0;
-        bottom: 10px;
         :global {
           .ant-form-item-control-input-content {
             display: flex;
-            justify-content: flex-end;
+            justify-content: center;
+            margin-top: 20px;
             .ant-btn-primary {
-              margin-right: 20px;
+              margin-right: 50px;
+            }
+          }
+        }
+      }
+      .rows {
+        padding-left: 26px;
+        :global {
+          .ant-col-12 {
+            .ant-form-item-label {
+              width: 98px;
             }
           }
         }
