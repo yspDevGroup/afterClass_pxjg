@@ -66,12 +66,13 @@ export type FormTreeSelectProps = {
 
 export type FormCheckboxProps = {
   disabled?: boolean;
+  desc?: string;
   colNum?: number;
   items: {
     value: string | number;
     text: string;
   }[];
-  defaultValue?: string[] | number[];
+  defaultValue?: [];
 } & FormItemProps;
 
 export type FormRadioProps = {

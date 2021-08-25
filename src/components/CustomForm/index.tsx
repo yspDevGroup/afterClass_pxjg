@@ -12,6 +12,7 @@ import {
   FormRadio,
   FormSwitch,
   FormCustom,
+  FormUpload,
   FormInputNumber,
   FormCheckbox,
   FormDateRange,
@@ -71,12 +72,12 @@ const renderFormItems = (formItems: FormItemType[], formDisabled: boolean) => {
         return <FormSwitch {...(currentProps as FormSwitchProps)} key={key} />;
       case 'custom':
         return <FormCustom {...(currentProps as FormCustomProps)} key={key} />;
+      case 'upload':
+        return <FormUpload {...(currentProps as FormUploadProps)} key={key} />;
       case 'checkbox':
         return <FormCheckbox {...(currentProps as FormCheckboxProps)} key={key} />;
       case 'button':
         return <FormButton {...(currentProps as FormButtonProps)} key={key} />;
-      case 'upload':
-        return <></>;
       case 'group': {
         const colW = 24 / (groupItems ? groupItems.length : 1);
         return (

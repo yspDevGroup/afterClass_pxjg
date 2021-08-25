@@ -16,6 +16,8 @@ import {
 } from 'antd';
 import type { Moment } from 'moment';
 import moment from 'moment';
+import { UploadOutlined } from '@ant-design/icons/lib/icons';
+import { useModel } from 'umi';
 
 import type {
   FormInputProps,
@@ -28,11 +30,11 @@ import type {
   FormSwitchProps,
   FormTimeProps,
   FormTreeSelectProps,
+  FormUploadProps,
   FormInputNumberProps,
   FormCheckboxProps,
   FormButtonProps
 } from './interfice';
-import { useModel } from 'umi';
 
 const { TextArea } = Input;
 
@@ -320,22 +322,44 @@ export const FormCustom = (props: FormCustomProps) => {
  * @returns
  */
 export const FormCheckbox = (props: FormCheckboxProps) => {
-  const { disabled, items, colNum = 6, defaultValue, ...formProps } = props;
+  const { disabled, items,desc, colNum = 6, defaultValue, ...formProps } = props;
   return (
     <Form.Item {...formProps}>
-      <Checkbox.Group disabled={disabled} defaultValue={defaultValue}>
+
+     {desc ? <Checkbox disabled={disabled}>{desc}</Checkbox> :''}
+
+
+      {items ? <Checkbox.Group disabled={disabled} defaultValue={defaultValue}>
         <Row>
-          {items.map((item) => (
+          {items?.map((item) => (
             <Col span={colNum} key={item.value}>
               <Checkbox key={item.value} value={item.value} />
               {item.text}
             </Col>
           ))}
         </Row>
-      </Checkbox.Group>
+      </Checkbox.Group> : ''}
     </Form.Item>
   );
 };
+
+/**
+ * 表单上传
+ *
+ * @param {FormUploadProps} props
+ * @returns
+ */
+export const FormUpload = (props: FormUploadProps) => {
+  const { disabled, name, action, listType, normFile, accept, uploadProps, ...formProps } = props;
+  return (
+    <Form.Item {...formProps} name={name} valuePropName="fileList" getValueFromEvent={normFile}>
+      <Upload {...uploadProps} disabled={disabled} accept={accept}>
+        <Button icon={<UploadOutlined />}>上传附件</Button>
+      </Upload>
+    </Form.Item>
+  );
+};
+
 
 export const FormButton = (props: FormButtonProps) => {
   const { disabled, text, onClick, ghost, block, ...formProps } = props;
