@@ -35,10 +35,12 @@ import type {
   FormUploadProps,
   FormCheckboxProps,
   FormDropMenuProps,
-  FormButtonProps
+  FormButtonProps,
+  UploadImageProp
 } from './interfice';
 
 import styles from './index.module.less';
+import UploadImage from './components/UploadImage';
 
 const onPdfClick = (url: string | undefined) => {
   window.open(`${url}`);
@@ -78,6 +80,12 @@ const renderFormItems = (formItems: FormItemType[], formDisabled: boolean) => {
         return <FormCheckbox {...(currentProps as FormCheckboxProps)} key={key} />;
       case 'button':
         return <FormButton {...(currentProps as FormButtonProps)} key={key} />;
+      case 'uploadImage':
+        return (
+          <Form.Item {...currentProps} key={key}>
+            <UploadImage { ...currentProps} key={key} />
+          </Form.Item>
+          );
       case 'group': {
         const colW = 24 / (groupItems ? groupItems.length : 1);
         return (

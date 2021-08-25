@@ -17,5 +17,15 @@ export default [
   {
     path: '/schoolManagement',
     name: '学校管理'
-  }
+  },
+  {
+    path: '/courseManagement',
+    name: '课程管理',
+  },
+  // {
+  //   path: '/courseManagement/edit',
+  //   component: '../pages/CourseManagement/components/MechanismCourse/edit',
+  //   hideInMenu: 'true',
+  //   // name: '课程管理-编辑',
+  // },
 ];

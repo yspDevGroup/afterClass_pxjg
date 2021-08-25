@@ -112,6 +112,24 @@ export type MenuProp = {
   id: string;
   name: string;
 };
+export type UploadImageProp = {
+/**
+   * 上传图片组件-回显地址
+   */
+ imageurl?: string;
+ /**
+  * 上传图片组件-上传地址
+  */
+ upurl?: string;
+ /**
+  * 上传图片组件-发到后台的文件参数名
+  */
+ imagename?: string;
+ /**
+  * 上传图片组件-文件状态改变的回调
+  */
+ handleImageChange?: (value?: any)=>void;
+};
 export type FormDropMenuProps = {
   disabled?: boolean;
   data?: {
@@ -175,7 +193,8 @@ export type FormItemType = (
   | 'upload'
   | 'checkbox'
   | 'dropMenu'
-  | 'button';
+  | 'button'
+  | 'uploadImage'
   /**
    * 类型为group横向排列时，需要设置子数组
    *
@@ -227,4 +246,5 @@ export type FormItemType = (
   data?: {};
   handleCate?: (data: any) => void;
   handleLevel?: (data: any) => void;
-} & RowProps;
+} & RowProps
+  & UploadImageProp;
