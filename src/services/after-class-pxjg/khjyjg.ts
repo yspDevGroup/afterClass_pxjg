@@ -16,6 +16,8 @@ export async function KHJYJG(
     status?: 'ok' | 'error';
     data: {
       id?: string;
+      QYMC?: string;
+      QYTB?: string;
       ZZJGDM?: string;
       FRDBXM?: string;
       FRDBSFZH?: string;
@@ -60,6 +62,8 @@ export async function createKHJYJG(body: API.CreateKHJYJG, options?: { [key: str
     status?: 'ok' | 'error';
     data: {
       id?: string;
+      QYMC?: string;
+      QYTB?: string;
       ZZJGDM?: string;
       FRDBXM?: string;
       FRDBSFZH?: string;
@@ -125,6 +129,75 @@ export async function updateKHJYJG(
       'Content-Type': 'application/json'
     },
     params: { ...queryParams },
+    data: body,
+    ...(options || {})
+  });
+}
+
+/** 获取机构的合作学校 POST /khjyjg/cooperateSchool */
+export async function cooperateSchool(
+  body: {
+    /** 学段信息 */
+    XD?: string[];
+    /** 学校名称 */
+    name?: string;
+    JGId?: string;
+    /** 页数 */
+    page?: number;
+    /** 每页记录数 */
+    pageSize?: number;
+  },
+  options?: { [key: string]: any }
+) {
+  return request<any>('/khjyjg/cooperateSchool', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    data: body,
+    ...(options || {})
+  });
+}
+
+/** 获取机构的课程信息 POST /khjyjg/getCourses */
+export async function getCourses(
+  body: {
+    JGId?: string;
+    /** 课程引入状态 */
+    YRZT?: string[];
+    /** 页数 */
+    page?: number;
+    /** 每页记录数 */
+    pageSize?: number;
+  },
+  options?: { [key: string]: any }
+) {
+  return request<any>('/khjyjg/getCourses', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    data: body,
+    ...(options || {})
+  });
+}
+
+/** 查看机构的已入驻课程 POST /khjyjg/cooperateCourse */
+export async function cooperateCourse(
+  body: {
+    JGId?: string;
+    /** 页数 */
+    page?: number;
+    /** 每页记录数 */
+    pageSize?: number;
+  },
+  options?: { [key: string]: any }
+) {
+  return request<any>('/khjyjg/cooperateCourse', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
     data: body,
     ...(options || {})
   });

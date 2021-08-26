@@ -2,7 +2,7 @@
  * @description:
  * @author: wsl
  * @Date: 2021-08-24 16:46:37
- * @LastEditTime: 2021-08-26 08:40:00
+ * @LastEditTime: 2021-08-26 19:26:15
  * @LastEditors: wsl
  */
 import React, { useEffect, useState } from 'react';
@@ -11,26 +11,45 @@ import styles from './index.less';
 import { useModel } from 'umi';
 import AvatarUpload from '@/components/AvatarUpload';
 import { createKHJYJG, KHJYJG, updateKHJYJG } from '@/services/after-class-pxjg/khjyjg';
+import { createKHJGRZSQ } from '@/services/after-class-pxjg/khjgrzsq';
 
 const InfoMaintenance = () => {
   const { initialState } = useModel('@@initialState');
   const { currentUser } = initialState || {};
   const [state, setstate] = useState(false);
+  const [disabled, setDisabled] = useState(true);
+  const [XZQHM, setXZQHM] = useState<string>();
+  const [KHJYJGId, setKHJYJGId] = useState<string>();
+  const { username, id } = currentUser!;
   const [form] = Form.useForm();
+
   useEffect(() => {
     (async () => {
       const res = await KHJYJG({ id: currentUser!.jgId! });
       if (res.status === 'ok') {
+        console.log(res);
         form.setFieldsValue(res.data);
+        setXZQHM(res.data.XZQHM);
+        setKHJYJGId(res.data.id);
       } else {
         form.setFieldsValue({});
       }
     })();
   }, []);
 
-  const confirm = () => {
-    setstate(true);
-    message.success('申请成功');
+  const confirm = async () => {
+    // setstate(true);
+    const rescreateKHJGRZSQ = await createKHJGRZSQ({
+      XZQHM: XZQHM,
+      SQR: username,
+      SQRId: id,
+      KHJYJGId: KHJYJGId
+    });
+    if (rescreateKHJGRZSQ.status === 'ok') {
+      message.success('申请成功');
+    } else {
+      message.error('申请失败');
+    }
   };
 
   const submit = async (params: any) => {
@@ -42,6 +61,7 @@ const InfoMaintenance = () => {
         const Data = resCreateKHJYJG.data;
         form.scrollToField(Data);
         message.success('保存成功');
+        setDisabled(true);
       } else {
         message.error(resCreateKHJYJG.message);
       }
@@ -49,6 +69,7 @@ const InfoMaintenance = () => {
       const resUpdateKHJYJG = await updateKHJYJG({ id: currentUser!.jgId! }, data);
       if (resUpdateKHJYJG.status === 'ok') {
         message.success('修改成功');
+        setDisabled(true);
       } else {
         message.error(resUpdateKHJYJG.message);
       }
@@ -56,17 +77,16 @@ const InfoMaintenance = () => {
   };
 
   const onReset = () => {
-    form.resetFields();
+    setDisabled(true);
+  };
+  const onEditor = () => {
+    setDisabled(false);
   };
 
   return (
     <div className={styles.InfoMaintenance}>
       <div>
         <div className={styles.header}>
-          {/* <div>
-            <Image width={100} src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png" />
-            <div className={styles.name}>梦想家</div>
-          </div> */}
           {state === false ? (
             <Popconfirm
               placement="topRight"
@@ -107,7 +127,7 @@ const InfoMaintenance = () => {
                   }
                 ]}
               >
-                <Input placeholder="请输入" />
+                <Input placeholder="请输入" disabled={disabled} />
               </Form.Item>
               <Form.Item
                 name="ZZJGDM"
@@ -120,10 +140,20 @@ const InfoMaintenance = () => {
                   }
                 ]}
               >
-                <Input placeholder="请输入" />
+                <Input placeholder="请输入" disabled={disabled} />
               </Form.Item>
-              <Form.Item name="FRDBXM" key="FRDBXM" label="法人代表姓名：">
-                <Input placeholder="请输入" />
+              <Form.Item
+                name="FRDBXM"
+                key="FRDBXM"
+                label="法人代表姓名："
+                rules={[
+                  {
+                    required: true,
+                    message: '法人代表姓名'
+                  }
+                ]}
+              >
+                <Input placeholder="请输入" disabled={disabled} />
               </Form.Item>
               <Form.Item
                 name="FRDBSFZH"
@@ -136,13 +166,23 @@ const InfoMaintenance = () => {
                   }
                 ]}
               >
-                <Input placeholder="请输入" />
+                <Input placeholder="请输入" disabled={disabled} />
               </Form.Item>
               <Form.Item name="QYJGDZ" key="QYJGDZ" label="企业机构地址：">
-                <Input placeholder="请输入" />
+                <Input placeholder="请输入" disabled={disabled} />
               </Form.Item>
-              <Form.Item name="LXRXM" key="LXRXM" label="联系人姓名：">
-                <Input placeholder="请输入" />
+              <Form.Item
+                name="LXRXM"
+                key="LXRXM"
+                label="联系人姓名："
+                rules={[
+                  {
+                    required: true,
+                    message: '联系人姓名'
+                  }
+                ]}
+              >
+                <Input placeholder="请输入" disabled={disabled} />
               </Form.Item>
               <Form.Item
                 name="LXDH"
@@ -150,12 +190,16 @@ const InfoMaintenance = () => {
                 label="联系电话："
                 rules={[
                   {
+                    required: true,
+                    message: '请输入联系电话'
+                  },
+                  {
                     pattern: new RegExp(/^(13[0-9]|14[01456879]|15[0-35-9]|16[2567]|17[0-8]|18[0-9]|19[0-35-9])\d{8}$/),
                     message: '请输入正确的手机号'
                   }
                 ]}
               >
-                <Input placeholder="请输入" />
+                <Input placeholder="请输入" disabled={disabled} />
               </Form.Item>
             </Col>
             <Col span={2}></Col>
@@ -171,13 +215,13 @@ const InfoMaintenance = () => {
                   }
                 ]}
               >
-                <Input placeholder="请输入" />
+                <Input placeholder="请输入" disabled={disabled} />
               </Form.Item>
               <Form.Item name="JGFWFW" key="JGFWFW" label="机构服务范围：">
-                <Input placeholder="请输入" />
+                <Input placeholder="请输入" disabled={disabled} />
               </Form.Item>
               <Form.Item name="JGJJ" key="JGJJ" label="机构简介：">
-                <Input.TextArea placeholder="说点什么..." rows={8} />
+                <Input.TextArea placeholder="说点什么..." rows={4} disabled={disabled} />
               </Form.Item>
               <Row className={styles.rows}>
                 <Col span={12}>
@@ -194,12 +238,20 @@ const InfoMaintenance = () => {
             </Col>
           </Row>
           <Form.Item>
-            <Button type="primary" htmlType="submit">
-              保存
-            </Button>
-            <Button htmlType="button" onClick={onReset}>
-              重置
-            </Button>
+            {disabled === true ? (
+              <button onClick={onEditor} className={styles.btn}>
+                点击编辑
+              </button>
+            ) : (
+              <>
+                <Button type="primary" htmlType="submit">
+                  保存
+                </Button>
+                <Button htmlType="button" onClick={onReset}>
+                  取消
+                </Button>
+              </>
+            )}
           </Form.Item>
         </Form>
         {/* <Modal

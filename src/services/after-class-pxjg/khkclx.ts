@@ -14,7 +14,7 @@ export async function getKHKCLX(
   const { id: param0, ...queryParams } = params;
   return request<{
     status?: 'ok' | 'error';
-    data: { id?: string; KCLX?: string; KBYS?: string };
+    data: { id?: string; KCLX?: string };
     message?: string;
   }>(`/khkclx/${param0}`, {
     method: 'GET',
@@ -62,7 +62,7 @@ export async function getAllKHKCLX(
 export async function createKHKCLX(body: API.CreateKHKCLX, options?: { [key: string]: any }) {
   return request<{
     status?: 'ok' | 'error';
-    data: { id?: string; KCLX?: string; KBYS?: string };
+    data: { id?: string; KCLX?: string };
     message?: string;
   }>('/khkclx/create', {
     method: 'PUT',

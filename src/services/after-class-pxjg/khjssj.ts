@@ -123,3 +123,19 @@ export async function updateKHJSSJ(
     ...(options || {})
   });
 }
+
+/** 查看教师课表 POST /khjssj/getSchedule */
+export async function getSchedule(options?: { [key: string]: any }) {
+  return request<any>('/khjssj/getSchedule', {
+    method: 'POST',
+    ...(options || {})
+  });
+}
+
+/** 查看教师所教课程 POST /khjssj/getCourse */
+export async function getCourse(options?: { [key: string]: any }) {
+  return request<any>('/khjssj/getCourse', {
+    method: 'POST',
+    ...(options || {})
+  });
+}

@@ -4,9 +4,6 @@
   padding: 16px 24px 24px;
   background-color: #fff;
   > div {
-    // min-width: 800px;
-    // max-width: 1200px;
-    // margin: 0 auto;
     .header {
       display: flex;
       justify-content: flex-end;
@@ -28,8 +25,8 @@
     }
     .Forms {
       position: relative;
-      min-width: 800px;
-      max-width: 1200px;
+      width: 85%;
+      min-width: 850px;
       margin: 0 auto;
       > div:nth-child(2) {
         :global {
@@ -42,6 +39,14 @@
             }
           }
         }
+      }
+      .btn {
+        padding: 5px 10px;
+        color: #fff;
+        background: #4884ff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
       }
       .rows {
         padding-left: 26px;
@@ -60,6 +65,14 @@
             flex: initial;
             width: 125px;
             text-align: right;
+          }
+          .ant-input[disabled] {
+            color: @text-color;
+            text-overflow: ellipsis;
+            background-color: inherit;
+            border: none;
+            cursor: default;
+            resize: none;
           }
         }
       }

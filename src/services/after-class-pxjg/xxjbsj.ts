@@ -44,6 +44,7 @@ export async function getXXJBSJ(options?: { [key: string]: any }) {
       ZJXYYM?: string;
       FJXYYM?: string;
       ZSBJ?: string;
+      XD?: string;
     };
     message?: string;
   }>('/xxjbsj/', {
@@ -122,6 +123,7 @@ export async function createXXJBSJ(body: API.CreateXXJBSJ, options?: { [key: str
       ZJXYYM?: string;
       FJXYYM?: string;
       ZSBJ?: string;
+      XD?: string;
     };
     message?: string;
   }>('/xxjbsj/create', {

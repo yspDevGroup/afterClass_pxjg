@@ -2,11 +2,11 @@
 /* eslint-disable */
 import { request } from 'umi';
 
-/** 根据ID获取课后课程申请记录 GET /khkcsq/${param0} */
-export async function KHKCSQ(
+/** 根据ID获取机构入驻申请记录 GET /khjgrzsq/${param0} */
+export async function KHJGRZSQ(
   params: {
     // path
-    /** 课程申请记录ID */
+    /** 机构入驻申请记录ID */
     id: string;
   },
   options?: { [key: string]: any }
@@ -18,51 +18,53 @@ export async function KHKCSQ(
       id?: string;
       ZT?: string;
       BZ?: string;
+      XZQHM?: string;
       SQR?: string;
       SQRId?: string;
       SPR?: string;
       SPRId?: string;
     };
     message?: string;
-  }>(`/khkcsq/${param0}`, {
+  }>(`/khjgrzsq/${param0}`, {
     method: 'GET',
     params: { ...queryParams },
     ...(options || {})
   });
 }
 
-/** 删除课后课程申请记录 DELETE /khkcsq/${param0} */
-export async function deleteKHKCSQ(
+/** 删除机构入驻申请记录 DELETE /khjgrzsq/${param0} */
+export async function deleteKHJGRZSQ(
   params: {
     // path
-    /** 课程申请记录ID */
+    /** 机构入驻申请记录ID */
     id: string;
   },
   options?: { [key: string]: any }
 ) {
   const { id: param0, ...queryParams } = params;
-  return request<{ status?: 'ok' | 'error'; message?: string }>(`/khkcsq/${param0}`, {
+  return request<{ status?: 'ok' | 'error'; message?: string }>(`/khjgrzsq/${param0}`, {
     method: 'DELETE',
     params: { ...queryParams },
     ...(options || {})
   });
 }
 
-/** 创建课后课程申请记录 PUT /khkcsq/create */
-export async function createKHKCSQ(body: API.CreateKHKCSQ, options?: { [key: string]: any }) {
+/** 创建机构入驻申请记录 PUT /khjgrzsq/create */
+export async function createKHJGRZSQ(body: API.CreateKHJGRZSQ, options?: { [key: string]: any }) {
   return request<{
     status?: 'ok' | 'error';
     data: {
       id?: string;
-      ZT?: string;
+      ZT?: any;
       BZ?: string;
+      XZQHM?: string;
       SQR?: string;
       SQRId?: string;
       SPR?: string;
       SPRId?: string;
     };
     message?: string;
-  }>('/khkcsq/create', {
+  }>('/khjgrzsq/create', {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json'
@@ -72,13 +74,9 @@ export async function createKHKCSQ(body: API.CreateKHKCSQ, options?: { [key: str
   });
 }
 
-/** 获取课后课程申请记录 POST /khkcsq/getAll */
-export async function getKHKCSQ(
+/** 获取机构入驻申请记录 POST /khjgrzsq/getAll */
+export async function getKHJGRZSQ(
   body: {
-    /** 机构ID */
-    JGId?: string;
-    /** 课程引入状态 */
-    ZT?: string[];
     /** 页数 */
     page?: number;
     /** 每页记录数 */
@@ -88,9 +86,9 @@ export async function getKHKCSQ(
 ) {
   return request<{
     status?: 'ok' | 'error';
-    data?: { count?: number; rows?: API.KHKCSQ[] };
+    data?: { count?: number; rows?: API.KHJGRZSQ[] };
     message?: string;
-  }>('/khkcsq/getAll', {
+  }>('/khjgrzsq/getAll', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -100,18 +98,18 @@ export async function getKHKCSQ(
   });
 }
 
-/** 更新课后课程申请记录 PUT /khkcsq/update/${param0} */
-export async function updateKHKCSQ(
+/** 更新机构入驻申请记录 PUT /khjgrzsq/update/${param0} */
+export async function updateKHJGRZSQ(
   params: {
     // path
-    /** 课程申请记录ID */
+    /** 机构入驻申请记录ID */
     id: string;
   },
-  body: API.UpdateKHKCSQ,
+  body: API.UpdateKHJGRZSQ,
   options?: { [key: string]: any }
 ) {
   const { id: param0, ...queryParams } = params;
-  return request<{ status?: 'ok' | 'error'; message?: string }>(`/khkcsq/update/${param0}`, {
+  return request<{ status?: 'ok' | 'error'; message?: string }>(`/khjgrzsq/update/${param0}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json'

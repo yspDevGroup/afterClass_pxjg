@@ -33,6 +33,7 @@ export async function currentUser(options?: { [key: string]: any }) {
     data?: {
       info: {
         id?: string;
+        jgId?: string;
         XXDM?: string;
         loginName?: string;
         username?: string;
@@ -105,6 +106,7 @@ export async function createUser(body: API.CreateUser, options?: { [key: string]
     status?: 'ok' | 'error';
     data: {
       id?: string;
+      jgId?: string;
       XXDM?: string;
       loginName?: string;
       username?: string;
