@@ -9,7 +9,7 @@ export async function getBJSJ(
     /** 班级ID */
     id: string;
   },
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{
@@ -38,7 +38,7 @@ export async function getBJSJ(
   }>(`/bjsj/${param0}`, {
     method: 'GET',
     params: { ...queryParams },
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -49,13 +49,13 @@ export async function deleteBJSJ(
     /** 班级ID */
     id: string;
   },
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{ status?: 'ok' | 'error'; message?: string }>(`/bjsj/${param0}`, {
     method: 'DELETE',
     params: { ...queryParams },
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -69,7 +69,7 @@ export async function getAllBJSJ(
     /** 每页记录数 */
     pageSize?: number;
   },
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   return request<{
     status?: 'ok' | 'error';
@@ -78,10 +78,10 @@ export async function getAllBJSJ(
   }>('/bjsj/', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -113,10 +113,10 @@ export async function createBJSJ(body: API.CreateBJSJ, options?: { [key: string]
   }>('/bjsj/create', {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -128,17 +128,17 @@ export async function updateBJSJ(
     id: string;
   },
   body: API.UpdateBJSJ,
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{ status?: 'ok' | 'error'; message?: string }>(`/bjsj/update/${param0}`, {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     params: { ...queryParams },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -152,15 +152,15 @@ export async function addTeacher(
     /** 教师ID */
     JZGJBSJId?: string;
   },
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   return request<{ status?: 'ok' | 'error'; message?: string }>('/bjsj/addTeacher', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -170,7 +170,7 @@ export async function classTeachers(
     /** 班级ID */
     bjId?: string;
   },
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   return request<{
     status?: 'ok' | 'error';
@@ -183,10 +183,10 @@ export async function classTeachers(
   }>('/bjsj/classTeachers', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -205,18 +205,21 @@ export async function updateClassTeacher(
     /** 教师ID */
     JZGJBSJId?: string;
   },
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   const { id: param0, ...queryParams } = params;
-  return request<{ status?: 'ok' | 'error'; message?: string }>(`/bjsj/updateClassTeacher/${param0}`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
+  return request<{ status?: 'ok' | 'error'; message?: string }>(
+    `/bjsj/updateClassTeacher/${param0}`,
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      params: { ...queryParams },
+      data: body,
+      ...(options || {}),
     },
-    params: { ...queryParams },
-    data: body,
-    ...(options || {})
-  });
+  );
 }
 
 /** 删除班级任课老师信息 DELETE /bjsj/classTeacher/${param0} */
@@ -226,12 +229,12 @@ export async function deleteClassTeacher(
     /** 班级任课老师信息ID */
     id: string;
   },
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{ status?: 'ok' | 'error'; message?: string }>(`/bjsj/classTeacher/${param0}`, {
     method: 'DELETE',
     params: { ...queryParams },
-    ...(options || {})
+    ...(options || {}),
   });
 }

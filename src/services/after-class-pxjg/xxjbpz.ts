@@ -11,10 +11,10 @@ export async function createXXJBPZ(body: API.CreateXXJBPZ, options?: { [key: str
   }>('/xxjbpz/create', {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -26,17 +26,17 @@ export async function updateXXJBPZ(
     id: string;
   },
   body: API.UpdateXXJBPZ,
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{ status?: 'ok' | 'error'; message?: string }>(`/xxjbpz/update/${param0}`, {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     params: { ...queryParams },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -45,14 +45,14 @@ export async function allXXJBPZ(
   body: {
     XQSJId?: string;
   },
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   return request<{ status?: 'ok' | 'error'; data?: API.XXJBPZ[]; message?: string }>('/xxjbpz/', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }

@@ -12,15 +12,15 @@ export async function getAllPKSJ(
     /** 学年学期ID */
     XNXQId?: string;
   },
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   return request<{ status?: 'ok' | 'error'; data?: API.PKSJ[]; message?: string }>('/pksj/getAll', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -29,10 +29,10 @@ export async function createPKSJ(body: API.CreatePKSJ[], options?: { [key: strin
   return request<{ status?: 'ok' | 'error'; message?: string }>('/pksj/create', {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -43,13 +43,13 @@ export async function deletePKSJ(
     /** 排课ID */
     id: string;
   },
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{ status?: 'ok' | 'error'; message?: string }>(`/pksj/${param0}`, {
     method: 'DELETE',
     params: { ...queryParams },
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -61,17 +61,17 @@ export async function updatePKSJ(
     id: string;
   },
   body: API.UpdatePKSJ,
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{ status?: 'ok' | 'error'; message?: string }>(`/pksj/update/${param0}`, {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     params: { ...queryParams },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -83,16 +83,19 @@ export async function getByTeacher(
     /** 教师ID */
     JZGJBSJId?: string;
   },
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
-  return request<{ status?: 'ok' | 'error'; data?: API.Schedule[]; message?: string }>('/pksj/getByTeacher', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
+  return request<{ status?: 'ok' | 'error'; data?: API.Schedule[]; message?: string }>(
+    '/pksj/getByTeacher',
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      data: body,
+      ...(options || {}),
     },
-    data: body,
-    ...(options || {})
-  });
+  );
 }
 
 /** 查询所有排课数据,并根据年级班级分组 POST /pksj/allGroupByNJ */
@@ -105,14 +108,17 @@ export async function allGroupByNJ(
     /** 学年学期ID */
     XNXQId?: string;
   },
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
-  return request<{ status?: 'ok' | 'error'; data?: API.Schedule[]; message?: string }>('/pksj/allGroupByNJ', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
+  return request<{ status?: 'ok' | 'error'; data?: API.Schedule[]; message?: string }>(
+    '/pksj/allGroupByNJ',
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      data: body,
+      ...(options || {}),
     },
-    data: body,
-    ...(options || {})
-  });
+  );
 }

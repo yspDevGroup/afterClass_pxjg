@@ -9,7 +9,7 @@ export async function KHJGRZSQ(
     /** 机构入驻申请记录ID */
     id: string;
   },
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{
@@ -23,12 +23,15 @@ export async function KHJGRZSQ(
       SQRId?: string;
       SPR?: string;
       SPRId?: string;
+      RZSJ?: string;
+      createdAt?: string;
+      updatedAt?: string;
     };
     message?: string;
   }>(`/khjgrzsq/${param0}`, {
     method: 'GET',
     params: { ...queryParams },
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -39,13 +42,13 @@ export async function deleteKHJGRZSQ(
     /** 机构入驻申请记录ID */
     id: string;
   },
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{ status?: 'ok' | 'error'; message?: string }>(`/khjgrzsq/${param0}`, {
     method: 'DELETE',
     params: { ...queryParams },
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -55,46 +58,51 @@ export async function createKHJGRZSQ(body: API.CreateKHJGRZSQ, options?: { [key:
     status?: 'ok' | 'error';
     data: {
       id?: string;
-      ZT?: any;
+      ZT?: string;
       BZ?: string;
       XZQHM?: string;
       SQR?: string;
       SQRId?: string;
       SPR?: string;
       SPRId?: string;
+      RZSJ?: string;
+      createdAt?: string;
+      updatedAt?: string;
     };
     message?: string;
   }>('/khjgrzsq/create', {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
 /** 获取机构入驻申请记录 POST /khjgrzsq/getAll */
 export async function getKHJGRZSQ(
   body: {
+    /** 状态 */
+    ZT?: string[];
+    /** 行政区划码 */
+    XZQHM?: string;
+    /** 课后教育机构ID */
+    KHJYJGId?: string;
     /** 页数 */
     page?: number;
     /** 每页记录数 */
     pageSize?: number;
   },
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
-  return request<{
-    status?: 'ok' | 'error';
-    data?: { count?: number; rows?: API.KHJGRZSQ[] };
-    message?: string;
-  }>('/khjgrzsq/getAll', {
+  return request<any>('/khjgrzsq/getAll', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -106,16 +114,16 @@ export async function updateKHJGRZSQ(
     id: string;
   },
   body: API.UpdateKHJGRZSQ,
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{ status?: 'ok' | 'error'; message?: string }>(`/khjgrzsq/update/${param0}`, {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     params: { ...queryParams },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }

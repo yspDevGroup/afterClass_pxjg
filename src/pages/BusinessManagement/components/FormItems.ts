@@ -2,7 +2,7 @@
  * @description: 学校基本信息表单元素
  * @author: Sissle Lynn
  * @Date: 2021-08-02 15:12:46
- * @LastEditTime: 2021-08-25 11:22:23
+ * @LastEditTime: 2021-08-26 19:41:07
  * @LastEditors: Sissle Lynn
  */
 import { FormItemType } from "@/components/CustomForm/interfice"
@@ -37,6 +37,26 @@ export const basicForm: FormItemType[] = [
   },
   {
     type: 'group',
+    key: 'group2',
+    groupItems: [
+      {
+        type: 'input',
+        label: '联系人',
+        placeholder: '——',
+        name: 'LXR',
+        key: 'LXDR',
+      },
+      {
+        type: 'input',
+        label: '联系电话',
+        placeholder: '——',
+        name: 'LXDH',
+        key: 'LXDH',
+      },
+    ]
+  },
+  {
+    type: 'group',
     key: 'group3',
     groupItems: [
       {
@@ -61,10 +81,10 @@ export const basicForm: FormItemType[] = [
     groupItems: [
       {
         type: 'input',
-        label: '联系电话',
+        label: '邮政编码',
         placeholder: '——',
-        name: 'LXDH',
-        key: 'LXDH',
+        name: 'XXYZBM',
+        key: 'XXYZBM',
       },
       {
         type: 'input',

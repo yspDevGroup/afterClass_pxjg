@@ -11,10 +11,10 @@ export async function postAccount(body: API.LoginParams, options?: { [key: strin
   }>('/auth/account', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -22,6 +22,6 @@ export async function postAccount(body: API.LoginParams, options?: { [key: strin
 export async function outLogin(options?: { [key: string]: any }) {
   return request<{ status?: 'ok' | 'error' }>('/auth/outLogin', {
     method: 'POST',
-    ...(options || {})
+    ...(options || {}),
   });
 }

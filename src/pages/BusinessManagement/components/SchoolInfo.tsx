@@ -1,50 +1,45 @@
 /*
  * @description:
  * @author: Sissle Lynn
- * @Date: 2021-08-24 20:21:44
- * @LastEditTime: 2021-08-25 16:01:51
+ * @Date: 2021-08-26 16:24:39
+ * @LastEditTime: 2021-08-26 19:54:53
  * @LastEditors: Sissle Lynn
  */
 import React, { useRef } from 'react';
-import { Empty, Tabs } from 'antd';
-
-import styles from './index.less';
+import styles from './schoolInfo.less';
 import CustomForm from '@/components/CustomForm';
-import { basicForm } from './FormItems';
+import { basicForm } from '../components/FormItems';
+import defaultImg from '@/assets/vector.png';
 
-const { TabPane } = Tabs;
 const formItemLayout = {
   labelCol: { flex: '7em' },
   wrapperCol: { flex: 'auto' },
 };
-const SchoolInfo = (props: any) => {
-  const { state } = props.history.location;
-  console.log(state);
+const SchoolInfo = (props: { values: any }) => {
+  const { values } = props;
   return (
-    <Tabs defaultActiveKey="basicalInfo" className={styles.schoolWrapper}>
-      <TabPane tab="基本信息" key="basicalInfo">
-        <div className={styles.schoolInfoBody}>
-          {/* 学校基本信息标题 */}
-          <div className={styles.schoolInfoTitle}>
-            <div className={styles.schoolInfoLogo}>
-              <img src={state?.XH} alt='logo' />
-            </div>
-            <div className={styles.schoolInfoTitleHeader} >
-              <p>{state?.XXMC}</p>
-            </div>
+    <div className={styles.schoolWrapper}>
+      <div className={styles.schoolInfoBody}>
+        {/* 学校基本信息标题 */}
+        <div className={styles.schoolInfoTitle}>
+          <div className={styles.schoolInfoLogo}>
+            <img src={values?.XH || defaultImg} alt='logo' />
           </div>
-          <div className={styles.schoolInfoBasic}>
-            <CustomForm
-              values={state}
-              formItems={basicForm}
-              formLayout={formItemLayout}
-              hideBtn={true}
-              formDisabled={true}
-            />
+          <div className={styles.schoolInfoTitleHeader} >
+            <p>{values?.XXMC}</p>
           </div>
         </div>
-      </TabPane>
-      <TabPane tab="课程信息" key="courseInfo">
+        <div className={styles.schoolInfoBasic}>
+          <CustomForm
+            values={values}
+            formItems={basicForm}
+            formLayout={formItemLayout}
+            hideBtn={true}
+            formDisabled={true}
+          />
+        </div>
+      </div>
+      {/* <TabPane tab="课程信息" key="courseInfo">
         {state?.KCXX?.length ? <div className={styles.courseIntro}>
           <ul>
             {state?.KCXX.map((item: any) => {
@@ -68,8 +63,8 @@ const SchoolInfo = (props: any) => {
             })}
           </ul>
         </div> : <Empty description='暂无课程信息' />}
-      </TabPane>
-    </Tabs>
+      </TabPane> */}
+    </div>
   );
 };
 

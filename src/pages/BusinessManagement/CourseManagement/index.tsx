@@ -2,28 +2,49 @@
  * @description:
  * @author: Sissle Lynn
  * @Date: 2021-08-24 14:37:02
- * @LastEditTime: 2021-08-26 09:28:04
+ * @LastEditTime: 2021-08-26 19:26:13
  * @LastEditors: Sissle Lynn
  */
 import React, { useRef, useState } from 'react';
-import ProTable from '@ant-design/pro-table';
+import { Link, useModel } from 'umi';
+import { Button, Divider, FormInstance, message, Modal, Tag } from 'antd';
+import ProTable, { RequestData } from '@ant-design/pro-table';
 import type { ActionType, ProColumns } from '@ant-design/pro-table';
-import { Link } from 'umi';
+import OperationForm from '../components/operationForm';
+import { TableListParams } from '@/constant';
 
-import { applyCourseList, courseList } from '../mock';
 import styles from './index.less';
-import Tag from 'antd/es/tag';
-import { Button, Divider, Modal } from 'antd';
-import OperationForm from './components/operationForm';
+import { KHKCSQSJ } from '../data';
+import { getKHKCSQ, updateKHKCSQ } from '@/services/after-class-pxjg/khkcsq';
 
 const CourseManagement = () => {
+  const { initialState } = useModel('@@initialState');
+  const { currentUser } = initialState || {};
   // 列表对象引用，可主动执行刷新等操作
   const actionRef = useRef<ActionType>();
   // 设置模态框显示状态
   const [modalVisible, setModalVisible] = useState<boolean>(false);
+  // 模态框的新增或编辑form定义
+  const [form, setForm] = useState<FormInstance<any>>();
+  const [recordId, setRecordId] = useState<string>();
   const [activeKey, setActiveKey] = useState<string>('audit');
-
-  const columns: ProColumns<any>[] = [
+  const handleSubmit = async () => {
+    try {
+      const values = await form?.validateFields();
+      const { id, ...rest } = values;
+      const result = await updateKHKCSQ({ id }, { ...rest });
+      if (result.status === 'ok') {
+        message.success('审核操作成功');
+        setModalVisible(false);
+        actionRef.current?.reload();
+      } else {
+        message.error(result.message);
+      }
+    } catch (errorInfo) {
+      console.log('Failed:', errorInfo);
+    }
+  };
+  const columns: ProColumns<KHKCSQSJ>[] = [
     {
       title: '序号',
       dataIndex: 'index',
@@ -33,30 +54,21 @@ const CourseManagement = () => {
     },
     {
       title: '申请学校',
-      key: 'YRXY',
-      dataIndex: 'YRXY',
+      key: 'XXJBSJ',
+      dataIndex: 'XXJBSJ',
       align: 'center',
-      hideInTable: activeKey === 'all',
-      render: (_, record) => {
-        const school = record.YRXY?.split(/,/g);
-        return <div>
-          {school?.map((item: string, index: number) => item)}
-        </div>
-      },
+      width: 220,
+      hideInTable: activeKey !== 'audit',
+      render: (_, record) => record.XXJBSJ?.XXMC,
     },
     {
       title: '课程名称',
-      dataIndex: 'KCMC',
-      key: 'KCMC',
+      dataIndex: 'KHKCSJ',
+      key: 'KHKCSJ',
       align: 'center',
       width: 200,
       ellipsis: true,
-    },
-    {
-      title: '课程类型',
-      dataIndex: 'KCLX',
-      key: 'KCLX',
-      align: 'center',
+      render: (_, record) => record.KHKCSJ?.KCMC,
     },
     {
       title: '适用年级',
@@ -65,15 +77,15 @@ const CourseManagement = () => {
       align: 'center',
       ellipsis: true,
       render: (_, record) => {
-        const grade = record.SYNJ?.split(/,/g);
+        const grade = record.KHKCSJ?.NJSJs;
         return <div>
-          {grade?.map((item: string, index: number) => {
-            return <span key={item}>
+          {grade?.map((item, index) => {
+            return <span key={item.id}>
               {index > 2 ? '' : index === 2 ?
-                <Tag key='more' color="#EFEFEF" style={{ color: '#333' }}>...</Tag> : <Tag color="#EFEFEF" style={{ color: '#333' }}>{item}</Tag>}
+                <Tag key='more' color="#EFEFEF" style={{ color: '#333' }}>...</Tag> :
+                <Tag color="#EFEFEF" style={{ color: '#333' }}>{item.NJMC}</Tag>}
             </span>
-          }
-          )}
+          })}
         </div>
       },
     },
@@ -83,60 +95,68 @@ const CourseManagement = () => {
       dataIndex: 'YRXY',
       align: 'center',
       hideInTable: activeKey === 'audit',
-      render: (_, record) => {
-        const school = record.YRXY?.split(/,/g);
-        return <div>
-          {school?.map((item: string, index: number) => {
-            return <span key={item}>
-              {index > 1 ? '' : index === 1 ? <Tag key='more'>...</Tag> : <Tag>{item}</Tag>}
-            </span>
-          })}
-        </div>
-      },
+    },
+    {
+      title: '联系人',
+      key: 'LXR',
+      dataIndex: 'LXR',
+      align: 'center',
+      width: 110,
+      hideInTable: activeKey !== 'audit',
+      render: (_, record) => record.XXJBSJ?.LXR,
+    },
+    {
+      title: '联系电话',
+      key: 'LXDH',
+      dataIndex: 'LXDH',
+      align: 'center',
+      width: 180,
+      hideInTable: activeKey !== 'audit',
+      render: (_, record) => record.XXJBSJ?.LXDH,
     },
     {
       title: '申请时间',
-      key: 'SQSJ',
-      dataIndex: 'SQSJ',
-      hideInTable: activeKey === 'all',
+      key: 'createdAt',
+      dataIndex: 'createdAt',
       align: 'center',
-      width: '100'
+      hideInTable: activeKey !== 'audit',
+      width: 200
     },
     {
       title: '操作人',
-      key: 'CZR',
-      dataIndex: 'CZR',
+      key: 'SPR',
+      dataIndex: 'SPR',
       hideInTable: activeKey === 'audit',
       align: 'center',
     },
     {
-      title: '最新操作时间',
-      key: 'CZSJ',
-      dataIndex: 'CZSJ',
-      hideInTable: activeKey === 'audit',
+      title: '状态',
+      key: 'ZT',
+      dataIndex: 'ZT',
+      hideInTable: activeKey !== 'history',
       align: 'center',
-      width: '100'
+      width: 90
     },
     {
       title: '操作',
       valueType: 'option',
-      width: 110,
+      width: 180,
       align: 'center',
       render: (_, record) => {
-        return <>{activeKey === 'all' ? <Link to={{
-          pathname: '/businessManagement/schoolManagement/schoolInfo',
-          state: record
+        return <>{activeKey !== 'audit' ? <Link to={{
+          pathname: '/businessManagement/courseManagement/detail',
+          state: record.XXJBSJ
         }}>详情</Link> :
           <div>
             <Link to={{
-              pathname: '/businessManagement/schoolManagement/schoolInfo',
-              state: record
-            }}>同意</Link>
+              pathname: '/businessManagement/courseManagement/detail',
+              state: record.XXJBSJ
+            }}>学校详情</Link>
             <Divider type='vertical' />
-            <Link to={{
-              pathname: '/businessManagement/schoolManagement/schoolInfo',
-              state: record
-            }}>拒绝</Link>
+            <a onClick={() => {
+              setRecordId(record.id!);
+              setModalVisible(true);
+            }}>审核</a>
           </div>}
         </>
       }
@@ -145,12 +165,51 @@ const CourseManagement = () => {
 
   return (
     <div>
-      <ProTable<any>
+      <ProTable<KHKCSQSJ>
         columns={columns}
         className={styles.courseTable}
         actionRef={actionRef}
         search={false}
-        dataSource={activeKey === 'audit' ? applyCourseList : courseList}
+        request={
+          async (
+            params: KHKCSQSJ & {
+              pageSize?: number;
+              current?: number;
+              keyword?: string;
+            },
+            sort,
+            filter,
+          ): Promise<Partial<RequestData<KHKCSQSJ>>> => {
+            // 表单搜索项会从 params 传入，传递给后端接口。
+            const opts: TableListParams = {
+              ...params,
+              sorter: sort && Object.keys(sort).length ? sort : undefined,
+              filter,
+            };
+            const res = await getKHKCSQ({ JGId: currentUser?.jgId, page: 0, pageSize: 0 }, opts);
+            if (res.status === 'ok') {
+              let data = res.data?.rows;
+              let curData;
+              switch (activeKey) {
+                case 'audit':
+                  curData = data?.filter((item: KHKCSQSJ) => item.ZT === '申请中');
+                  break;
+                case 'duration':
+                  curData = data?.filter((item: KHKCSQSJ) => item.ZT === '服务中');
+                  break;
+                case 'history':
+                  curData = data?.filter((item: KHKCSQSJ) => item.ZT !== '服务中' && item.ZT !== '申请中');
+                  break;
+              };
+              return {
+                data: curData,
+                total: res.data.count,
+                success: true,
+              };
+            }
+            return {}
+          }}
+        // dataSource={activeKey === 'audit' ? applyCourseList : courseList}
         toolbar={{
           menu: {
             type: 'tab',
@@ -161,12 +220,17 @@ const CourseManagement = () => {
                 label: <span>待处理申请</span>,
               },
               {
-                key: 'all',
-                label: <span>已合作课程</span>,
+                key: 'duration',
+                label: <span>合作中课程</span>,
+              },
+              {
+                key: 'history',
+                label: <span>历史课程</span>,
               },
             ],
             onChange: (key) => {
               setActiveKey(key as string);
+              actionRef.current?.reload();
             },
           },
         }}
@@ -180,7 +244,7 @@ const CourseManagement = () => {
         dateFormatter="string"
       />
       <Modal
-        title='引入审核'
+        title='待处理申请'
         destroyOnClose
         width="35vw"
         visible={modalVisible}
@@ -189,7 +253,7 @@ const CourseManagement = () => {
           <Button key="back" onClick={() => setModalVisible(false)}>
             取消
           </Button>,
-          <Button key="submit" type="primary" >
+          <Button key="submit" type="primary" onClick={handleSubmit} >
             确定
           </Button>
         ]}
@@ -198,7 +262,11 @@ const CourseManagement = () => {
         maskClosable={false}
       >
         <OperationForm
-          setModalVisible={setModalVisible}
+          current={{
+            id: recordId,
+            ZT: '已通过'
+          }}
+          setForm={setForm}
         />
       </Modal>
     </div>

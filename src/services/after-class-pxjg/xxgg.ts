@@ -9,17 +9,17 @@ export async function getXXGG(
     /** 学校配置ID */
     id: string;
   },
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{
     status?: 'ok' | 'error';
-    data: { id?: string; BT?: string; NR?: string; ZT?: string; updatedAt?: string };
+    data: { id?: string; BT?: string; NR?: string; ZT?: string; LX?: string; updatedAt?: string };
     message?: string;
   }>(`/xxgg/${param0}`, {
     method: 'GET',
     params: { ...queryParams },
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -30,13 +30,13 @@ export async function deleteXXGG(
     /** 学校配置ID */
     id: string;
   },
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{ status?: 'ok' | 'error'; message?: string }>(`/xxgg/${param0}`, {
     method: 'DELETE',
     params: { ...queryParams },
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -46,15 +46,15 @@ export async function getAllXXGG(
     /** 公告状态 */
     status?: string[];
   },
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   return request<{ status?: 'ok' | 'error'; data?: API.XXGG[]; message?: string }>('/xxgg/all', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -62,15 +62,15 @@ export async function getAllXXGG(
 export async function createXXGG(body: API.CreateXXGG, options?: { [key: string]: any }) {
   return request<{
     status?: 'ok' | 'error';
-    data: { id?: string; BT?: string; NR?: string; ZT?: string; updatedAt?: string };
+    data: { id?: string; BT?: string; NR?: string; ZT?: string; LX?: string; updatedAt?: string };
     message?: string;
   }>('/xxgg/create', {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -82,16 +82,16 @@ export async function updateXXGG(
     id: string;
   },
   body: API.UpdateXXGG,
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{ status?: 'ok' | 'error'; message?: string }>(`/xxgg/update/${param0}`, {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     params: { ...queryParams },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }

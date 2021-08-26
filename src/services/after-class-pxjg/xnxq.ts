@@ -10,7 +10,7 @@ export async function getXNXQ(
     /** 学期 */
     xq?: string;
   },
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   return request<{
     status?: 'ok' | 'error';
@@ -19,10 +19,10 @@ export async function getXNXQ(
   }>('/xnxq', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -30,7 +30,7 @@ export async function getXNXQ(
 export async function getAllXNXQ(options?: { [key: string]: any }) {
   return request<{ status?: 'ok' | 'error'; data?: API.XNXQ[]; message?: string }>('/xnxq/all', {
     method: 'GET',
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -43,10 +43,10 @@ export async function createXNXQ(body: API.CreateXNXQ, options?: { [key: string]
   }>('/xnxq/create', {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -57,13 +57,13 @@ export async function deleteXNXQ(
     /** 学年学期ID */
     id: string;
   },
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{ status?: 'ok' | 'error'; message?: string }>(`/xnxq/${param0}`, {
     method: 'DELETE',
     params: { ...queryParams },
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -75,16 +75,16 @@ export async function updateXNXQ(
     id: string;
   },
   body: API.UpdateXNXQ,
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{ status?: 'ok' | 'error'; message?: string }>(`/xnxq/update/${param0}`, {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     params: { ...queryParams },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }

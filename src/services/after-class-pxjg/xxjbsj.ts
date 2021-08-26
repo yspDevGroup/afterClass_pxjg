@@ -27,6 +27,7 @@ export async function getXXJBSJ(options?: { [key: string]: any }) {
       DWFZRH?: string;
       ZZJGM?: string;
       LXDH?: string;
+      LXR?: string;
       CZDH?: string;
       DZXX?: string;
       ZYDZ?: string;
@@ -49,7 +50,7 @@ export async function getXXJBSJ(options?: { [key: string]: any }) {
     message?: string;
   }>('/xxjbsj/', {
     method: 'GET',
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -65,7 +66,7 @@ export async function getAllXXJBSJ(
     /** 每页记录数 */
     pageSize?: number;
   },
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   return request<{
     status?: 'ok' | 'error';
@@ -74,10 +75,10 @@ export async function getAllXXJBSJ(
   }>('/xxjbsj/getAll', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -106,6 +107,7 @@ export async function createXXJBSJ(body: API.CreateXXJBSJ, options?: { [key: str
       DWFZRH?: string;
       ZZJGM?: string;
       LXDH?: string;
+      LXR?: string;
       CZDH?: string;
       DZXX?: string;
       ZYDZ?: string;
@@ -129,10 +131,10 @@ export async function createXXJBSJ(body: API.CreateXXJBSJ, options?: { [key: str
   }>('/xxjbsj/create', {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -143,13 +145,13 @@ export async function deleteXXJBSJ(
     /** 学校ID */
     id: string;
   },
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{ status?: 'ok' | 'error'; message?: string }>(`/xxjbsj/${param0}`, {
     method: 'DELETE',
     params: { ...queryParams },
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -161,16 +163,16 @@ export async function updateXXJBSJ(
     id: string;
   },
   body: API.UpdateXXJBSJ,
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{ status?: 'ok' | 'error'; message?: string }>(`/xxjbsj/update/${param0}`, {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     params: { ...queryParams },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }

@@ -6,6 +6,6 @@ import { request } from 'umi';
 export async function getStatus(options?: { [key: string]: any }) {
   return request<{ status?: string; version?: string }>('/_app/status', {
     method: 'GET',
-    ...(options || {})
+    ...(options || {}),
   });
 }
