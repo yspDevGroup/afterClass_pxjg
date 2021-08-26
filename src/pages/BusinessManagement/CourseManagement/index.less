@@ -1,6 +1,15 @@
-.schoolWrapper{
-  padding: @padding-lg;
+.schoolWrapper {
+  padding:0 @padding-lg @padding-lg;
   background: #ffffff;
+
+  :global {
+    .ant-tabs-nav-list {
+      .ant-tabs-tab-btn {
+        padding: @padding-sm;
+      }
+    }
+  }
+
   .schoolInfoBody {
     .schoolInfoTitle {
       display: flex;
@@ -46,6 +55,22 @@
           cursor: default;
           resize: none;
           text-overflow: ellipsis;
+        }
+      }
+    }
+  }
+  .courseIntro{
+    ul{
+      list-style: none;
+      padding: 0;
+      .courseItem{
+        display: flex;
+        div:nth-child(1){
+          width: 200px;
+          position: relative;
+          img{
+            width:100%;
+          }
         }
       }
     }

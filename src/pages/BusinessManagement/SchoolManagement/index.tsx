@@ -2,7 +2,7 @@
  * @description:
  * @author: Sissle Lynn
  * @Date: 2021-08-24 14:37:02
- * @LastEditTime: 2021-08-25 07:39:26
+ * @LastEditTime: 2021-08-25 16:21:35
  * @LastEditors: Sissle Lynn
  */
 import React, { useRef } from 'react';
@@ -10,7 +10,7 @@ import ProTable from '@ant-design/pro-table';
 import type { ActionType, ProColumns } from '@ant-design/pro-table';
 import { Link } from 'umi';
 
-import { schoolList } from './mock';
+import { schoolList } from '../mock';
 import styles from './index.less';
 
 const SchoolManagement = () => {
@@ -21,7 +21,7 @@ const SchoolManagement = () => {
     {
       title: '序号',
       dataIndex: 'index',
-      valueType: 'indexBorder',
+      valueType: 'index',
       width: 58,
       align:'center',
     },
@@ -72,7 +72,7 @@ const SchoolManagement = () => {
       align: 'center',
       render: (_, record) => (
         <Link to={{
-          pathname: '/schoolManagement/schoolInfo',
+          pathname: '/businessManagement/schoolManagement/schoolInfo',
           state: record
         }}>详情</Link>
       )
@@ -81,9 +81,8 @@ const SchoolManagement = () => {
 
   return (
     <ProTable<any>
-      bordered
       columns={columns}
-      className={styles.termTable}
+      className={styles.schoolTable}
       actionRef={actionRef}
       search={false}
       dataSource={schoolList}

@@ -2,7 +2,7 @@
  * @description:
  * @author: Sissle Lynn
  * @Date: 2021-08-24 19:59:45
- * @LastEditTime: 2021-08-25 11:23:24
+ * @LastEditTime: 2021-08-26 09:31:15
  * @LastEditors: Sissle Lynn
  */
 export const schoolList = [
@@ -208,4 +208,30 @@ export const schoolList = [
       }
     ],
   },
+];
+export const applyCourseList = [
+  {
+    KCMC: 'Python趣味编程',
+    KCLX: '兴趣课',
+    SYNJ: '三年级,四年级,五年级',
+    YRXY: '高新六小',
+    SQSJ: '2021-08-24'
+  },
+  {
+    KCMC: 'Python趣味编程',
+    KCLX: '兴趣课',
+    SYNJ: '三年级,四年级,五年级',
+    YRXY: '高新一小',
+    SQSJ: '2021-08-24'
+  }
+];
+export const courseList = [
+  {
+    KCMC: 'Python趣味编程',
+    KCLX: '兴趣课',
+    SYNJ: '三年级,四年级,五年级',
+    YRXY: '西科一小,高新二小,高新三小',
+    CZR: '张清越',
+    CZSJ: '2021-08-22'
+  }
 ];
