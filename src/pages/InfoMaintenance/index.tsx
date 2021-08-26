@@ -2,7 +2,7 @@
  * @description:
  * @author: wsl
  * @Date: 2021-08-24 16:46:37
- * @LastEditTime: 2021-08-25 18:29:23
+ * @LastEditTime: 2021-08-26 08:40:00
  * @LastEditors: wsl
  */
 import React, { useEffect, useState } from 'react';
@@ -89,9 +89,12 @@ const InfoMaintenance = () => {
         <Divider />
         <Form form={form} onFinish={submit} className={styles.Forms}>
           <Row>
-            <Col span={12}>
+            <Col span={11}>
               <Form.Item name="id" hidden>
                 <Input disabled />
+              </Form.Item>
+              <Form.Item name="QYTB" key="QYTB" label="企业LOGO：">
+                <AvatarUpload />
               </Form.Item>
               <Form.Item
                 name="QYMC"
@@ -154,11 +157,13 @@ const InfoMaintenance = () => {
               >
                 <Input placeholder="请输入" />
               </Form.Item>
-
+            </Col>
+            <Col span={2}></Col>
+            <Col span={11}>
               <Form.Item
                 name="XZQHM"
                 key="XZQHM"
-                label="行政区号码："
+                label="行政区编号："
                 rules={[
                   {
                     required: true,
@@ -168,13 +173,11 @@ const InfoMaintenance = () => {
               >
                 <Input placeholder="请输入" />
               </Form.Item>
-            </Col>
-            <Col span={12}>
               <Form.Item name="JGFWFW" key="JGFWFW" label="机构服务范围：">
                 <Input placeholder="请输入" />
               </Form.Item>
               <Form.Item name="JGJJ" key="JGJJ" label="机构简介：">
-                <Input.TextArea placeholder="说点什么..." rows={5} />
+                <Input.TextArea placeholder="说点什么..." rows={8} />
               </Form.Item>
               <Row className={styles.rows}>
                 <Col span={12}>
@@ -188,9 +191,6 @@ const InfoMaintenance = () => {
                   </Form.Item>
                 </Col>
               </Row>
-              <Form.Item name="QYTB" key="QYTB" label="企业LOGO：">
-                <AvatarUpload />
-              </Form.Item>
             </Col>
           </Row>
           <Form.Item>

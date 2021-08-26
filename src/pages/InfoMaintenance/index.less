@@ -1,12 +1,12 @@
 .InfoMaintenance {
   width: 100%;
   margin: 0 auto;
-  padding: 24px;
+  padding: 16px 24px 24px;
   background-color: #fff;
   > div {
-    min-width: 800px;
-    max-width: 1200px;
-    margin: 0 auto;
+    // min-width: 800px;
+    // max-width: 1200px;
+    // margin: 0 auto;
     .header {
       display: flex;
       justify-content: flex-end;
@@ -15,18 +15,22 @@
       }
       .name {
         width: auto;
-        height: 100px;
         padding: 0 20px;
         font-size: 20px;
         line-height: 100px;
         text-align: center;
       }
-      .btn {
-        margin-top: 34px;
+    }
+    :global {
+      .ant-divider {
+        margin-top: 16px;
       }
     }
     .Forms {
       position: relative;
+      min-width: 800px;
+      max-width: 1200px;
+      margin: 0 auto;
       > div:nth-child(2) {
         :global {
           .ant-form-item-control-input-content {
