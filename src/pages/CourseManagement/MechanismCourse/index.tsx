@@ -1,7 +1,9 @@
-import React, { useRef, useState } from 'react'
-import { Tabs, Space, Select, Input, Button } from 'antd';
+import React, { useEffect, useRef, useState } from 'react'
+import { Tabs, Space, Select, Input, Button, Modal } from 'antd';
 import { history } from "umi";
 import ProTable, { ActionType } from '@ant-design/pro-table';
+import Sitclass from './Sitclass';
+import { getAllKHKCSJ } from '@/services/after-class-pxjg/khkcsj';
 const { Search } = Input;
 /**
  * 机构端-课程列表
@@ -9,7 +11,14 @@ const { Search } = Input;
  */
 const MechanismCourse = () => {
   const actionRef = useRef<ActionType>();
-
+  const [modalVisible, setModalVisible] = useState<boolean>(false);
+  useEffect(() => {
+    (
+      async ()=>{
+        const res = await getAllKHKCSJ({page: 0, pageSize: 0});
+      }
+    )()
+  }, [])
   const columns: any[] = [
     {
       title: '课程名称',
@@ -22,11 +31,6 @@ const MechanismCourse = () => {
       key: 'KCLX',
     },
     {
-      title: '适用学段',
-      key: 'SYXD',
-      dataIndex: 'SYXD',
-    },
-    {
       title: '适用年级',
       key: 'SYNJ',
       dataIndex: 'SYNJ',
@@ -35,11 +39,6 @@ const MechanismCourse = () => {
       title: '代课老师',
       key: 'DKLS',
       dataIndex: 'DKLS',
-    },
-    {
-      title: '课程费用',
-      key: 'KCFY',
-      dataIndex: 'KCFY',
     },
     {
       title: '引入数量',
@@ -51,6 +50,7 @@ const MechanismCourse = () => {
       key: 'action',
       render: (text: any, record: any) => (
         <Space size="middle">
+          <a>查看</a>
           <a onClick={()=>{
             history.push('/courseManagement/mechanismCourse/edit')
           }}>编辑</a>
@@ -75,6 +75,7 @@ const MechanismCourse = () => {
           toolBarRender={() => [
             <Button
               key="type"
+              onClick={() => setModalVisible(true)}
             >
               课程类型维护
             </Button>,
@@ -95,9 +96,26 @@ const MechanismCourse = () => {
             reload: false,
             search: {
               placeholder: '课程名称'
-            }
+            },
           }}
         />
+        <Modal
+          title="课程类型维护"
+          destroyOnClose
+          width="500px"
+          visible={modalVisible}
+          onCancel={() => setModalVisible(false)}
+          footer={null}
+          centered
+          maskClosable={false}
+          bodyStyle={{
+            maxHeight: '65vh',
+            minHeight: "300px",
+            overflowY: 'auto',
+          }}
+        >
+          <Sitclass />
+        </Modal>
       </div>
   )
 }
