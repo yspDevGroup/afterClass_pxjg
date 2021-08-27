@@ -2,11 +2,11 @@
  * @description:
  * @author: wsl
  * @Date: 2021-08-24 16:46:37
- * @LastEditTime: 2021-08-27 09:25:31
+ * @LastEditTime: 2021-08-27 20:26:32
  * @LastEditors: wsl
  */
 import React, { useEffect, useState } from 'react';
-import { Button, Form, Input, Image, Divider, Row, Col, Modal, Alert, message, Popconfirm } from 'antd';
+import { Button, Form, Input, Image, Divider, Row, Col, Modal, Alert, message, Popconfirm, Tooltip } from 'antd';
 import styles from './index.less';
 import { useModel } from 'umi';
 import AvatarUpload from '@/components/AvatarUpload';
@@ -15,13 +15,13 @@ import { createKHJGRZSQ } from '@/services/after-class-pxjg/khjgrzsq';
 
 const InfoMaintenance = (props: any) => {
   const { state } = props.history.location;
-  console.log(state);
   const { initialState } = useModel('@@initialState');
   const { currentUser } = initialState || {};
   const [SQstate, setSQstate] = useState(false);
   const [disabled, setDisabled] = useState(typeof state === 'undefined' ? true : false);
   const [XZQHM, setXZQHM] = useState<string>();
   const [KHJYJGId, setKHJYJGId] = useState<string>();
+  const [SQDatas, setSQDatas] = useState<any[]>();
   const { username, id } = currentUser!;
   const [form] = Form.useForm();
 
@@ -29,10 +29,10 @@ const InfoMaintenance = (props: any) => {
     (async () => {
       const res = await KHJYJG({ id: currentUser!.jgId! });
       if (res.status === 'ok') {
-        console.log(res);
         form.setFieldsValue(res.data);
         setXZQHM(res.data.XZQHM);
         setKHJYJGId(res.data.id);
+        setSQDatas(res.data.KHJGRZSQs);
       } else {
         form.setFieldsValue({});
       }
@@ -55,7 +55,6 @@ const InfoMaintenance = (props: any) => {
   };
 
   const submit = async (params: any) => {
-    console.log(params);
     const { id, ...data } = params;
     if (typeof params.id === 'undefined') {
       const resCreateKHJYJG = await createKHJYJG(data);
@@ -89,7 +88,7 @@ const InfoMaintenance = (props: any) => {
     <div className={styles.InfoMaintenance}>
       <div>
         <div className={styles.header}>
-          {SQstate === false ? (
+          {SQDatas?.length === 0 ? (
             <Popconfirm
               placement="topRight"
               title="确定机构信息填写完整且信息无误后，点击确定申请加入白名单"
@@ -97,13 +96,59 @@ const InfoMaintenance = (props: any) => {
               okText="确定"
               cancelText="取消"
             >
-              <Button type="primary" className={styles.btn} disabled={currentUser?.jgId ? false : true}>
+              <Button type="primary" className={styles.RZbtn} disabled={currentUser?.jgId ? false : true}>
                 申请入驻
               </Button>
             </Popconfirm>
           ) : (
             <>
-              <Alert message="已成功加入资源池" type="success" style={{ height: 34 }} />
+              {SQDatas?.[0].LX === 0 ? (
+                SQDatas?.[0].ZT === 0 ? (
+                  <>
+                    <Alert message="申请中" type="warning" style={{ height: 33 }} />
+                  </>
+                ) : SQDatas?.[0].ZT === 1 ? (
+                  <>
+                    <Alert message="恭喜您已成功备案" type="success" style={{ height: 33 }} />
+                  </>
+                ) : SQDatas?.[0].ZT === 2 ? (
+                  <Tooltip title={SQDatas?.[0].BZ}>
+                    <Alert message="申请已驳回" type="error" style={{ height: 33 }} />
+                  </Tooltip>
+                ) : SQDatas?.[0].ZT === 3 ? (
+                  <Tooltip title={SQDatas?.[0].BZ}>
+                    <Alert message="正常结束" type="info" style={{ height: 33 }} />
+                  </Tooltip>
+                ) : SQDatas?.[0].ZT === 4 ? (
+                  <Tooltip title={SQDatas?.[0].BZ}>
+                    <Alert message="异常结束" type="error" style={{ height: 33 }} />
+                  </Tooltip>
+                ) : (
+                  // <Alert message="您已被移出黑名单" type="info" style={{ height: 34 }} />
+                  <></>
+                )
+              ) : SQDatas?.[0].ZT === 1 ? (
+                <>
+                  <Tooltip title={SQDatas?.[0].BZ}>
+                    <Alert message="您已被拉入黑名单" type="error" style={{ height: 33 }} />
+                  </Tooltip>
+                </>
+              ) : (
+                <>
+                  <Alert message="您已被移出黑名单" type="info" style={{ height: 33 }} />
+                  <Popconfirm
+                    placement="topRight"
+                    title="确定机构信息填写完整且信息无误后，点击确定申请加入白名单"
+                    onConfirm={confirm}
+                    okText="确定"
+                    cancelText="取消"
+                  >
+                    <Button type="primary" className={styles.RZbtn} disabled={currentUser?.jgId ? false : true}>
+                      申请入驻
+                    </Button>
+                  </Popconfirm>
+                </>
+              )}
             </>
           )}
         </div>
