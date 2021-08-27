@@ -1,84 +1,167 @@
+/* eslint-disable max-params */
 import React, { useEffect, useRef, useState } from 'react'
-import { Tabs, Space, Select, Input, Button, Modal } from 'antd';
-import { history } from "umi";
+import { Space, Button, Tag, message } from 'antd';
+import { history, useModel } from "umi";
 import ProTable, { ActionType } from '@ant-design/pro-table';
-import Sitclass from './Sitclass';
-import { getAllKHKCSJ } from '@/services/after-class-pxjg/khkcsj';
-const { Search } = Input;
+import classes from '../index.less';
+import { getCourses } from '@/services/after-class-pxjg/khjyjg';
+import EllipsisHint from '@/components/EllipsisHint';
+import { updateKHKCSJ } from '@/services/after-class-pxjg/khkcsj';
+
 /**
  * 机构端-课程列表
  * @returns
  */
 const MechanismCourse = () => {
+  const { initialState } = useModel('@@initialState');
+  const { currentUser } = initialState || {};
   const actionRef = useRef<ActionType>();
-  const [modalVisible, setModalVisible] = useState<boolean>(false);
-  useEffect(() => {
-    (
-      async ()=>{
-        const res = await getAllKHKCSJ({page: 0, pageSize: 0});
-      }
-    )()
-  }, [])
   const columns: any[] = [
     {
       title: '课程名称',
       dataIndex: 'KCMC',
       key: 'KCMC',
-    },
-    {
-      title: '课程类型',
-      dataIndex: 'KCLX',
-      key: 'KCLX',
+      align: 'center',
+      search: false
     },
     {
       title: '适用年级',
-      key: 'SYNJ',
-      dataIndex: 'SYNJ',
+      key: 'NJSJs',
+      dataIndex: 'NJSJs',
+      align: 'center',
+      render: (text: any)=>{
+        return <EllipsisHint
+          width="100%"
+          text={
+            text?.map((item: any)=>{
+              return <Tag key={item.id}>
+                {item.XD === '初中'?`${item.NJMC}`:`${item.XD}${item.NJMC}`}
+                </Tag>
+            })
+          }
+        />
+
+      }
     },
     {
       title: '代课老师',
-      key: 'DKLS',
-      dataIndex: 'DKLS',
+      key: 'KHKCJs',
+      dataIndex: 'KHKCJs',
+      align: 'center',
+      render: (text: any)=>{
+        return <EllipsisHint
+          width="100%"
+          text={
+            text?.map((item: any)=>{
+              return <Tag key={item.KHJSSJ.id}>{item.KHJSSJ.XM}</Tag>
+            })
+          }
+        />
+      }
     },
     {
-      title: '引入数量',
-      key: 'YRSL',
-      dataIndex: 'YRSL',
+      title: '课程状态',
+      key: 'KCZT',
+      dataIndex: 'KCZT',
+      align: 'center',
+      render: (text: any)=>{
+        switch (text) {
+          case 1:
+            return "已发布"
+          case 2:
+            return "已备案"
+          default:
+            return "待发布"
+        }
+      }
     },
     {
       title: '操作',
       key: 'action',
-      render: (text: any, record: any) => (
+      align: 'center',
+      render: (text: any, record: any, index: any, action: any) => (
         <Space size="middle">
-          <a>查看</a>
           <a onClick={()=>{
-            history.push('/courseManagement/mechanismCourse/edit')
-          }}>编辑</a>
-          <a>删除</a>
+            history.push({
+              pathname: `/courseManagement/mechanismCourse/edit`,
+              state: {...record, type: 'info'}
+            });
+          }}>查看</a>
+          {
+            record.KCZT === 0 ?
+              <a onClick={async ()=>{
+                const res = await updateKHKCSJ({id: record?.id},{KCZT: "1"});
+                if(res.status === 'ok'){
+                  message.success('操作成功');
+                  action?.reload();
+                }else{
+                  message.error('操作失败');
+                }
+              }}>发布</a>
+            : record.KCZT === 1 ?
+              <a onClick={async ()=>{
+                const res = await updateKHKCSJ({id: record?.id},{KCZT: "0"});
+                if(res.status === 'ok'){
+                  message.success('操作成功');
+                  action?.reload();
+                }else{
+                  message.error('操作失败');
+                }
+              }}>撤销</a>
+              :''
+          }
+          {
+            record.KCZT === 0 ?
+            <>
+              <a onClick={()=>{
+                history.push({
+                  pathname: `/courseManagement/mechanismCourse/edit`,
+                  state: {...record, type: 'edit'}
+                });
+              }}>编辑</a>
+              <a>删除</a>
+            </>
+            : ''
+          }
         </Space>
       ),
     },
   ];
-  const  data = [
-    {},
-    {}
-  ];
   return (
-      <div>
+      <div className={classes.proTable}>
         <ProTable
           actionRef={actionRef}
           columns={columns}
-          dataSource={data}
           search={false}
           rowKey="id"
           dateFormatter="string"
+          request={async (param = {}, sort, filter) => {
+              const params = {
+                ...sort,
+                ...filter,
+                page: param.current,
+                pageSize: param.pageSize,
+                JGId: currentUser?.jgId,
+                KCMC: param.keyword
+              }
+              const res = await getCourses(params);
+              if(res.status === 'ok'){
+                return {
+                  data: res.data.rows,
+                  success: true,
+                  total: res.data.count
+                };
+              }else{
+                return {
+                  data: [],
+                  success: false,
+                  total: 0
+                };
+
+              }
+            }
+          }
           toolBarRender={() => [
-            <Button
-              key="type"
-              onClick={() => setModalVisible(true)}
-            >
-              课程类型维护
-            </Button>,
             <Button
               type="primary"
               key="primary"
@@ -99,23 +182,6 @@ const MechanismCourse = () => {
             },
           }}
         />
-        <Modal
-          title="课程类型维护"
-          destroyOnClose
-          width="500px"
-          visible={modalVisible}
-          onCancel={() => setModalVisible(false)}
-          footer={null}
-          centered
-          maskClosable={false}
-          bodyStyle={{
-            maxHeight: '65vh',
-            minHeight: "300px",
-            overflowY: 'auto',
-          }}
-        >
-          <Sitclass />
-        </Modal>
       </div>
   )
 }

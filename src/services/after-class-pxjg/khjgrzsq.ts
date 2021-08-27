@@ -16,7 +16,8 @@ export async function KHJGRZSQ(
     status?: 'ok' | 'error';
     data: {
       id?: string;
-      ZT?: string;
+      ZT?: number;
+      LX?: number;
       BZ?: string;
       XZQHM?: string;
       SQR?: string;
@@ -58,7 +59,8 @@ export async function createKHJGRZSQ(body: API.CreateKHJGRZSQ, options?: { [key:
     status?: 'ok' | 'error';
     data: {
       id?: string;
-      ZT?: string;
+      ZT?: number;
+      LX?: number;
       BZ?: string;
       XZQHM?: string;
       SQR?: string;
@@ -84,7 +86,9 @@ export async function createKHJGRZSQ(body: API.CreateKHJGRZSQ, options?: { [key:
 export async function getKHJGRZSQ(
   body: {
     /** 状态 */
-    ZT?: string[];
+    ZT?: number[];
+    /** 类型 */
+    LX?: number;
     /** 行政区划码 */
     XZQHM?: string;
     /** 课后教育机构ID */
@@ -123,6 +127,35 @@ export async function updateKHJGRZSQ(
       'Content-Type': 'application/json',
     },
     params: { ...queryParams },
+    data: body,
+    ...(options || {}),
+  });
+}
+
+/** 拉黑机构 POST /khjgrzsq/block */
+export async function blockKHJGRZSQ(
+  body: {
+    id?: string;
+    /** 备注信息 */
+    BZ?: string;
+    /** 行政区划码 */
+    XZQHM?: string;
+    /** 申请人 */
+    SQR?: string;
+    /** 申请人ID */
+    SQRId?: string;
+    /** 审批人 */
+    SPR?: string;
+    /** 审批人ID */
+    SPRId?: string;
+  },
+  options?: { [key: string]: any },
+) {
+  return request<{ status?: 'ok' | 'error'; data?: string; message?: string }>('/khjgrzsq/block', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
     data: body,
     ...(options || {}),
   });

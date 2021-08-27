@@ -30,6 +30,20 @@ export async function KHJYJG(
       BXXKZ?: string;
       JGJJ?: string;
       ZT?: number;
+      KHJGRZSQs?: {
+        id?: string;
+        ZT?: number;
+        LX?: number;
+        BZ?: string;
+        XZQHM?: string;
+        SQR?: string;
+        SQRId?: string;
+        SPR?: string;
+        SPRId?: string;
+        RZSJ?: string;
+        createdAt?: string;
+        updatedAt?: string;
+      }[];
     };
     message?: string;
   }>(`/khjyjg/${param0}`, {
@@ -76,6 +90,20 @@ export async function createKHJYJG(body: API.CreateKHJYJG, options?: { [key: str
       BXXKZ?: string;
       JGJJ?: string;
       ZT?: number;
+      KHJGRZSQs?: {
+        id?: string;
+        ZT?: number;
+        LX?: number;
+        BZ?: string;
+        XZQHM?: string;
+        SQR?: string;
+        SQRId?: string;
+        SPR?: string;
+        SPRId?: string;
+        RZSJ?: string;
+        createdAt?: string;
+        updatedAt?: string;
+      }[];
     };
     message?: string;
   }>('/khjyjg/create', {
@@ -164,7 +192,7 @@ export async function getCourses(
   body: {
     JGId?: string;
     /** 课程引入状态 */
-    YRZT?: string[];
+    YRZT?: number[];
     /** 页数 */
     page?: number;
     /** 每页记录数 */

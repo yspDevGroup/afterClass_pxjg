@@ -16,7 +16,7 @@ export async function KHKCSQ(
     status?: 'ok' | 'error';
     data: {
       id?: string;
-      ZT?: string;
+      ZT?: number;
       BZ?: string;
       SQR?: string;
       SQRId?: string;
@@ -57,7 +57,7 @@ export async function createKHKCSQ(body: API.CreateKHKCSQ, options?: { [key: str
     status?: 'ok' | 'error';
     data: {
       id?: string;
-      ZT?: string;
+      ZT?: number;
       BZ?: string;
       SQR?: string;
       SQRId?: string;
@@ -84,7 +84,13 @@ export async function getKHKCSQ(
     /** 机构ID */
     JGId?: string;
     /** 课程引入状态 */
-    ZT?: string[];
+    ZT?: number[];
+    /** 课程名称 */
+    KCMC?: string;
+    /** 学校名称 */
+    XXMC?: string;
+    /** 班级状态 */
+    BJZT?: string;
     /** 页数 */
     page?: number;
     /** 每页记录数 */

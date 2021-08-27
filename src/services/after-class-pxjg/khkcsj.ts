@@ -136,7 +136,7 @@ export async function createKHKCSJ(body: API.CreateKHKCSJ, options?: { [key: str
       id?: string;
       KCMC?: string;
       KCTP?: string;
-      KCZT?: string;
+      KCZT?: number;
       KCMS?: string;
       SSJGLX?: string;
       KBYS?: string;

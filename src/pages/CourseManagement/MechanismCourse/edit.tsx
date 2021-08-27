@@ -1,7 +1,7 @@
 /* eslint-disable max-nested-callbacks */
 import React, { useEffect, useState } from 'react'
 import { Button, FormInstance, message, Table } from 'antd';
-import { history } from 'umi';
+import { history, useModel } from 'umi';
 import classes from "../index.less";
 
 import CustomForm from '@/components/CustomForm';
@@ -9,7 +9,7 @@ import { FormItemType } from '@/components/CustomForm/interfice';
 import { getAllKHKCLX } from '@/services/after-class-pxjg/khkclx';
 import { getKHJSSJ } from '@/services/after-class-pxjg/khjssj';
 import { getAllGrades } from '@/services/after-class-pxjg/khjyjg';
-import { createKHKCSJ } from '@/services/after-class-pxjg/khkcsj';
+import { createKHKCSJ, getKHKCSJ, updateKHKCSJ } from '@/services/after-class-pxjg/khkcsj';
 /**
  * 机构端-课程列表-编辑页
  * @returns
@@ -18,14 +18,43 @@ import { createKHKCSJ } from '@/services/after-class-pxjg/khkcsj';
   labelCol: { flex: '12em' },
   wrapperCol: { span: 16 },
 };
-const Edit = () => {
+const Edit = (props: any) => {
+  const {state} = props.location;
+
   const [disabled, setDisabled] = useState(false);
   const [imageUrl, setImageUrl] = useState('');
   const [forms, setForm] = useState<FormInstance<any>>();
   const [KCLXOptions, setKCLXOptions] = useState<any>([]);
   const [JSSJOptions, setJSSJOptions] = useState<any>([]);
   const [NJDataOption, setNJDataOption] = useState<any>([]);
+  const { initialState } = useModel('@@initialState');
+  const { currentUser } = initialState || {};
+  const [formValues, setFormValues] = useState({});
+  const [teacherData, setTeacherData] = useState<any>([]);
+  useEffect(() => {
+    console.log('state',state);
+    if(state?.type === 'info'){
+      setDisabled(true);
+      // 老师表格数据
+      const thData: any[] = [];
+      state.KHKCJs.forEach((item: any)=>{
+        thData.push(item?.KHJSSJ);
+      });
+      setTeacherData(thData);
+    }
+    if(state?.id){
+      // form详情
+      const params = {
+        KCMC: state?.KCMC,
+        KCMS: state?.KCMS,
+        njIds: state?.NJSJs?.map((item: any)=>item?.id),
+        jsIds: state?.KHKCJs?.map((item: any)=>item?.KHJSSJ?.id),
+        KCTP: state?.KCTP
+      }
+      setFormValues(params);
 
+    }
+  }, [])
   useEffect(() => {
     (
       async ()=>{
@@ -74,10 +103,32 @@ const Edit = () => {
     )()
   }, []);
 
+  // 提交的回调
   const onFinish = async (values: any) =>{
-    const res = await createKHKCSJ(values);
-    console.log('res',res);
-
+    const params = {
+      ...values,
+      KCTP:'',
+      KCZT: 0,
+      KHJYJGId: currentUser?.jgId,
+      KHKCLXId: KCLXOptions?.find((item: any)=> item.text === '标准课程').value,
+    }
+    if(state){
+      const res = await updateKHKCSJ({id: state?.id},{...params});
+      if(res.status === 'ok'){
+        message.success('保存成功');
+        history.push('/courseManagement');
+      }else{
+        message.error(res.message);
+      }
+    }else{
+      const res = await createKHKCSJ(params);
+      if(res.status === 'ok'){
+        message.success('保存成功');
+        history.push('/courseManagement');
+      }else{
+        message.error(res.message);
+      }
+    }
   }
   // 文件状态改变的回调
   const handleImageChange = (e?: any) => {
@@ -111,23 +162,6 @@ const Edit = () => {
           key: 'KCMC',
           disabled,
           rules: [{ required: true, message: '请输入课程名称' }]
-        },
-        {}
-      ],
-    },
-    {
-      type: 'group',
-      key: 'group2',
-      groupItems: [
-        {
-          type: 'select',
-          label: '课程类型',
-          placeholder: '请选择',
-          name: 'KCLX',
-          disabled,
-          key: 'KCLX',
-          items: KCLXOptions,
-          rules: [{ required: true, message: '请选择课程类型' }]
         },
         {}
       ],
@@ -173,7 +207,7 @@ const Edit = () => {
       disabled,
       key: 'KCTP',
       imageurl: imageUrl,
-      upurl:'',
+      upurl: '/upload/uploadFile?type=badge',
       accept: '.jpg, .jpeg, .png',
       imagename: 'image',
       handleImageChange,
@@ -183,35 +217,39 @@ const Edit = () => {
       type: 'textArea',
       label: '课程简介',
       placeholder: '请输入',
-      name: 'KCJJ',
+      name: 'KCMS',
       disabled,
-      key: 'KCJJ',
+      key: 'KCMS',
     },
   ]
   const columns: any = [
     {
       title: '姓名',
-      dataIndex: 'name',
-      key: 'name',
-      render: (text: any) => <a>{text}</a>,
+      dataIndex: 'XM',
+      key: 'XM',
+      align: "center"
     },
     {
       title: '联系电话',
-      dataIndex: 'age',
-      key: 'age',
+      dataIndex: 'LXDH',
+      key: 'LXDH',
+      align: "center"
     },
     {
       title: '邮箱',
-      dataIndex: 'address',
-      key: 'address',
+      dataIndex: 'DZXX',
+      key: 'DZXX',
+      align: "center"
     },
   ]
-  const data = [{},{}]
   return (
     <div className={classes.content} style={{padding: 16}}>
-      <div style={{width: "85%", minWidth: "850px", margin: "0 auto" }}>
+      <div
+        style={{width: "85%", minWidth: "850px", margin: "0 auto" }}
+        className={state?.type === 'info' ? classes.formType: ''}
+      >
         <CustomForm
-          values={{}}
+          values={formValues||{}}
           formItems={basicForm}
           formLayout={formItemLayout}
           hideBtn={true}
@@ -220,14 +258,19 @@ const Edit = () => {
             setForm(formValue);
           }}
         />
-        {/* <Table
+        <Table
+          style={{display: state?.type === 'info' ? 'initial' : 'none'}}
           title={()=>"代课老师列表"}
           columns={columns}
-          dataSource={data}
+          dataSource={teacherData}
           pagination={false}
           size='small'
-        /> */}
-        <div style={{display: "flex",justifyContent: "center", marginTop: 24}}>
+        />
+        <div style={{
+          display: state?.type === 'info' ? "none" : "flex",
+          justifyContent: "center",
+          marginTop: 24
+        }}>
           <Button style={{marginRight: 16}} onClick={()=>{history.goBack()}}>取消</Button>
           <Button type='primary'onClick={()=>{
             forms?.submit();

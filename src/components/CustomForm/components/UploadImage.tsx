@@ -67,14 +67,20 @@ const UploadImage = (props: UploadImageProps) => {
                 Authorization: `Bearer ${localStorage.getItem('token')}`,
               }}
             >
-              <Button type="primary" disabled={disabled}>
-                上传
-              </Button>
+              {
+                disabled ? '':
+                <Button type="primary" disabled={disabled}>
+                  上传
+                </Button>
+              }
             </Upload>
           </ImgCrop>
-          <Button disabled={disabled} style={{ marginTop: 8 }} onClick={onResetClick}>
-            重置
-          </Button>
+          {
+            disabled ? '':
+            <Button disabled={disabled} style={{ marginTop: 8 }} onClick={onResetClick}>
+              重置
+            </Button>
+          }
         </div>
       )}
     </div>
