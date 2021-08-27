@@ -2,7 +2,7 @@
  * @description:
  * @author: Sissle Lynn
  * @Date: 2021-08-24 14:37:02
- * @LastEditTime: 2021-08-26 19:26:13
+ * @LastEditTime: 2021-08-27 20:07:53
  * @LastEditors: Sissle Lynn
  */
 import React, { useRef, useState } from 'react';
@@ -11,11 +11,11 @@ import { Button, Divider, FormInstance, message, Modal, Tag } from 'antd';
 import ProTable, { RequestData } from '@ant-design/pro-table';
 import type { ActionType, ProColumns } from '@ant-design/pro-table';
 import OperationForm from '../components/operationForm';
-import { TableListParams } from '@/constant';
+import { applyStatus, TableListParams } from '@/constant';
 
 import styles from './index.less';
 import { KHKCSQSJ } from '../data';
-import { getKHKCSQ, updateKHKCSQ } from '@/services/after-class-pxjg/khkcsq';
+import { updateKHKCSQ, getKHKCSQ } from '@/services/after-class-pxjg/khkcsq';
 
 const CourseManagement = () => {
   const { initialState } = useModel('@@initialState');
@@ -32,7 +32,7 @@ const CourseManagement = () => {
     try {
       const values = await form?.validateFields();
       const { id, ...rest } = values;
-      const result = await updateKHKCSQ({ id }, { ...rest });
+      const result = await updateKHKCSQ({ id }, { ...rest, SQRId: currentUser?.UserId, SPR: currentUser?.username });
       if (result.status === 'ok') {
         message.success('审核操作成功');
         setModalVisible(false);
@@ -53,15 +53,6 @@ const CourseManagement = () => {
       align: 'center',
     },
     {
-      title: '申请学校',
-      key: 'XXJBSJ',
-      dataIndex: 'XXJBSJ',
-      align: 'center',
-      width: 220,
-      hideInTable: activeKey !== 'audit',
-      render: (_, record) => record.XXJBSJ?.XXMC,
-    },
-    {
       title: '课程名称',
       dataIndex: 'KHKCSJ',
       key: 'KHKCSJ',
@@ -69,6 +60,14 @@ const CourseManagement = () => {
       width: 200,
       ellipsis: true,
       render: (_, record) => record.KHKCSJ?.KCMC,
+    },
+    {
+      title: '学校名称',
+      key: 'XXJBSJ',
+      dataIndex: 'XXJBSJ',
+      align: 'center',
+      width: 220,
+      render: (_, record) => record.XXJBSJ?.XXMC,
     },
     {
       title: '适用年级',
@@ -90,11 +89,24 @@ const CourseManagement = () => {
       },
     },
     {
-      title: '引入学校',
-      key: 'YRXY',
-      dataIndex: 'YRXY',
+      title: '任课教师',
+      key: 'RKJS',
+      dataIndex: 'RKJS',
       align: 'center',
-      hideInTable: activeKey === 'audit',
+      width: 110,
+      hideInTable: activeKey !== 'duration',
+      render: (_, record) => {
+        const teacher = record.KHKCSJ?.KHKCJs;
+        return <div>
+          {teacher?.map((item, index) => {
+            return <span key={item.id}>
+              {index > 2 ? '' : index === 2 ?
+                <Tag key='more' >...</Tag> :
+                <Tag>{item.KHJSSJ?.XM}</Tag>}
+            </span>
+          })}
+        </div>
+      },
     },
     {
       title: '联系人',
@@ -130,12 +142,25 @@ const CourseManagement = () => {
       align: 'center',
     },
     {
+      title: '最新操作时间',
+      key: 'updatedAt',
+      dataIndex: 'updatedAt',
+      align: 'center',
+      hideInTable: activeKey === 'audit',
+      width: 200
+    },
+    {
       title: '状态',
       key: 'ZT',
       dataIndex: 'ZT',
       hideInTable: activeKey !== 'history',
       align: 'center',
-      width: 90
+      width: 90,
+      render: (_, record) => {
+        return <span>
+          {record.ZT ? applyStatus[record.ZT] : '-'}
+        </span>
+      }
     },
     {
       title: '操作',
@@ -143,21 +168,27 @@ const CourseManagement = () => {
       width: 180,
       align: 'center',
       render: (_, record) => {
-        return <>{activeKey !== 'audit' ? <Link to={{
-          pathname: '/businessManagement/courseManagement/detail',
-          state: record.XXJBSJ
-        }}>详情</Link> :
+        return <>
           <div>
             <Link to={{
               pathname: '/businessManagement/courseManagement/detail',
-              state: record.XXJBSJ
+              state: {
+                type: 'school',
+                data: record.XXJBSJ
+              }
             }}>学校详情</Link>
             <Divider type='vertical' />
-            <a onClick={() => {
+            {activeKey !== 'audit' ? <Link to={{
+              pathname: '/businessManagement/courseManagement/detail',
+              state: {
+                type: 'course',
+                data: record.KHKCSJ
+              }
+            }}>课程详情</Link> : <a onClick={() => {
               setRecordId(record.id!);
               setModalVisible(true);
-            }}>审核</a>
-          </div>}
+            }}>审核</a>}
+          </div>
         </>
       }
     }
@@ -186,30 +217,17 @@ const CourseManagement = () => {
               sorter: sort && Object.keys(sort).length ? sort : undefined,
               filter,
             };
-            const res = await getKHKCSQ({ JGId: currentUser?.jgId, page: 0, pageSize: 0 }, opts);
+            let status = activeKey === 'audit' ? [0] : activeKey === 'duration' ? [1] : [2, 3];
+            const res = await getKHKCSQ({ JGId: currentUser?.jgId, ZT: status, page: 0, pageSize: 0 }, opts);
             if (res.status === 'ok') {
-              let data = res.data?.rows;
-              let curData;
-              switch (activeKey) {
-                case 'audit':
-                  curData = data?.filter((item: KHKCSQSJ) => item.ZT === '申请中');
-                  break;
-                case 'duration':
-                  curData = data?.filter((item: KHKCSQSJ) => item.ZT === '服务中');
-                  break;
-                case 'history':
-                  curData = data?.filter((item: KHKCSQSJ) => item.ZT !== '服务中' && item.ZT !== '申请中');
-                  break;
-              };
               return {
-                data: curData,
+                data: res.data?.rows,
                 total: res.data.count,
                 success: true,
               };
             }
             return {}
           }}
-        // dataSource={activeKey === 'audit' ? applyCourseList : courseList}
         toolbar={{
           menu: {
             type: 'tab',

@@ -2,7 +2,7 @@
  * @description:
  * @author: Sissle Lynn
  * @Date: 2021-08-24 17:21:12
- * @LastEditTime: 2021-08-26 09:33:27
+ * @LastEditTime: 2021-08-26 20:18:07
  * @LastEditors: Sissle Lynn
  */
 export default [
@@ -25,10 +25,24 @@ export default [
       {
         path: '/businessManagement/schoolManagement',
         name: '合作学校',
+        routes: [
+          {
+            path: '/businessManagement/schoolManagement/detail',
+            hideInMenu: 'true',
+            name: '详情查看',
+          },
+        ]
       },
       {
         path: '/businessManagement/courseManagement',
         name: '合作课程',
+        routes: [
+          {
+            path: '/businessManagement/courseManagement/detail',
+            hideInMenu: 'true',
+            name: '详情查看',
+          },
+        ]
       }
     ]
   }

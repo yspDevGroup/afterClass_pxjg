@@ -3,7 +3,7 @@
  * @description: 通用布局
  * @author: zpl
  * @Date: 2021-08-16 17:31:56
- * @LastEditTime: 2021-08-24 18:18:20
+ * @LastEditTime: 2021-08-27 14:10:30
  * @LastEditors: Sissle Lynn
  */
 import React, { FC, useEffect, useState } from 'react';
@@ -104,7 +104,7 @@ const CommonLayout: FC<IRouteComponentProps> = ({ children, location, route, his
                     <div className="ant-breadcrumb">
                       <span>
                         <span className="ant-breadcrumb-link">
-                          <Link to={currentMenu.path}>{currentMenu.name}</Link>
+                          <Link to={currentMenu.path || '/'}>{currentMenu.name}</Link>
                         </span>
                       </span>
                     </div>

@@ -191,6 +191,7 @@ export async function cooperateSchool(
 export async function getCourses(
   body: {
     JGId?: string;
+    KCMC?: string;
     /** 课程引入状态 */
     YRZT?: number[];
     /** 页数 */

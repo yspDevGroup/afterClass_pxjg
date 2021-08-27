@@ -2,14 +2,15 @@
  * @description:
  * @author: Sissle Lynn
  * @Date: 2021-08-26 16:24:39
- * @LastEditTime: 2021-08-26 19:54:53
+ * @LastEditTime: 2021-08-27 09:41:32
  * @LastEditors: Sissle Lynn
  */
-import React, { useRef } from 'react';
-import styles from './schoolInfo.less';
+import React from 'react';
 import CustomForm from '@/components/CustomForm';
 import { basicForm } from '../components/FormItems';
 import defaultImg from '@/assets/vector.png';
+
+import styles from './components.less';
 
 const formItemLayout = {
   labelCol: { flex: '7em' },
@@ -39,31 +40,6 @@ const SchoolInfo = (props: { values: any }) => {
           />
         </div>
       </div>
-      {/* <TabPane tab="课程信息" key="courseInfo">
-        {state?.KCXX?.length ? <div className={styles.courseIntro}>
-          <ul>
-            {state?.KCXX.map((item: any) => {
-              return <li key={item.id} className={styles.courseItem}>
-                <div>
-                  <img src={item.KCTP} alt="课程封面" />
-                  <p>{item.KCMC}</p>
-                </div>
-                <div>
-                  {item.KHBJSJs?.length ? <ul>
-                    {item.KHBJSJs.map((val: any)=>{
-                      return <li key={val.id}>
-                        <p>{val.BJMC}</p>
-                        <p>课程费用：{val.FY}元</p>
-                        <p>上课时间：{val.KKRQ}——{val.JKRQ}</p>
-                      </li>
-                    })}
-                  </ul> : <Empty description='暂无课程信息' />}
-                </div>
-              </li>
-            })}
-          </ul>
-        </div> : <Empty description='暂无课程信息' />}
-      </TabPane> */}
     </div>
   );
 };

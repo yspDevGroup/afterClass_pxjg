@@ -2,7 +2,7 @@
  * @description:
  * @author: Sissle Lynn
  * @Date: 2021-08-26 11:43:08
- * @LastEditTime: 2021-08-26 16:16:51
+ * @LastEditTime: 2021-08-27 17:52:14
  * @LastEditors: Sissle Lynn
  */
 type NJSJProps = {
@@ -18,15 +18,37 @@ type NJSJProps = {
   createdAt?: string;
   updatedAt?: string;
 };
-
+type KHJSSJProps = {
+  BZ?: string;
+  CSRQ?: string;
+  DZXX?: string;
+  GH?: string;
+  KHJYJGId?: string;
+  LXDH?: string;
+  SFZJH?: string;
+  SFZJLX?: string;
+  XB?: string;
+  XM?: string;
+  XXJBSJId?: string;
+  createdAt?: string;
+  id?: string;
+}
+type KHKCJsProps = {
+  KHJSSJId?: string;
+  KHKCSJId?: string;
+  createdAt?: string;
+  id?: string;
+  updatedAt?: string;
+  KHJSSJ?: KHJSSJProps;
+};
 type KHKCSJProps = {
   KBYS?: string;
   KCMC?: string;
   KCMS?: string;
   KCTP?: string;
-  KCZT?: string;
+  KCZT?: number;
   KHJYJGId?: string;
-  KHKCJs?: string[];
+  KHKCJs?: KHKCJsProps[];
   KHKCLXId?: string;
   NJSJs?: NJSJProps[];
   SSJGLX?: string;
@@ -57,12 +79,12 @@ type XXJBSJProps = {
   XXBBM?: string;
   XXBXLXM?: string;
   XXDM?: string;
-  XXDZ: string;
+  XXDZ?: string;
   XXMC?: string;
   XXRXNL?: number;
   XXRY?: string;
   XXXZ?: number;
-  XXYWMC: string;
+  XXYWMC?: string;
   XXYZBM?: string;
   XXZGBMM?: string;
   XZGH?: string;
@@ -80,7 +102,7 @@ type XXJBSJProps = {
 export type KHKCSQSJ = {
   id?: string;
   /** 申请状态 */
-  ZT?: string;
+  ZT?: number;
   /** 备注信息 */
   BZ?: string;
   /** 申请状人 */
@@ -101,3 +123,6 @@ export type KHKCSQSJ = {
   XXJBSJ?: XXJBSJProps;
   XXJBSJId?: string;
 };
+export type KHHZXYSJ = {
+  KHKCSQs?: KHKCSQSJ[];
+} & XXJBSJProps;

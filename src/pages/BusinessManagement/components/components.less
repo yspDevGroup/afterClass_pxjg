@@ -1,0 +1,166 @@
+.schoolWrapper {
+  padding: @padding-lg;
+  background: #ffffff;
+
+  :global {
+    .ant-tabs-nav-list {
+      .ant-tabs-tab-btn {
+        padding: @padding-sm;
+      }
+    }
+  }
+
+  .schoolInfoBody {
+    width: 85%;
+    margin: 0 auto;
+    min-width: 850px;
+
+    .schoolInfoTitle {
+      display: flex;
+      justify-content: space-between;
+      padding: @padding-lg 0;
+
+      .schoolInfoLogo {
+        padding: 0 @padding-lg;
+
+        img {
+          width: 60px;
+          height: 60px;
+        }
+      }
+
+      .schoolInfoTitleHeader {
+        color: @text-color;
+        font-weight: bold;
+        font-size: 18px;
+        flex: 1;
+
+        p {
+          margin-bottom: 0;
+          line-height: 60px;
+        }
+      }
+    }
+
+    .schoolInfoBasic {
+      :global {
+        .ant-form-item-label {
+          text-align: left;
+        }
+
+        .ant-form-item-control-input {
+          line-height: 32px;
+        }
+
+        .ant-input[disabled] {
+          color: @text-color;
+          background-color: inherit;
+          border: none;
+          cursor: default;
+          resize: none;
+          text-overflow: ellipsis;
+        }
+      }
+    }
+  }
+}
+
+.courseWrapper {
+  background: #ffffff;
+
+  .searchWrapper {
+    padding: @padding-lg;
+    box-shadow: 0px 1px 0px #E4E4E4;
+  }
+
+  .courseIntro {
+    padding:0 @padding-lg @padding-lg;
+
+    .courseItem {
+      padding-bottom: @padding-lg;
+      .moreInfo{
+        display: flex;
+        justify-content: left;
+        align-items: center;
+        box-shadow: 0px 1px 0px #E4E4E4;
+        >div{
+          width: 110px;
+          border: 1px solid #efefef;
+          text-align: center;
+          margin-right: @padding-lg;
+          img{
+            max-width: 100%;
+            height:72px;
+          }
+        }
+        h3{
+          box-shadow:none;
+        }
+      }
+
+      h3 {
+        line-height: 54px;
+        font-size: @font-size-lg;
+        font-weight: bold;
+        margin-bottom: 0;
+        box-shadow: 0px 1px 0px #E4E4E4;
+
+        >span {
+          display: inline-block;
+          height: 22px;
+          line-height: 22px;
+          padding: 0 @padding-md;
+          border-radius: 22px;
+          font-weight: normal;
+          font-size: @font-size-sm;
+          color: #fff;
+          margin-left: @padding-md;
+        }
+
+        .extraDesc {
+          font-weight: normal;
+          font-size: @font-size-base;
+          color: @text-color;
+          line-height: 26px;
+          padding-bottom: @padding-lg;
+
+          p {
+            margin-bottom: 0;
+            span+span{
+              padding-left: @padding-md;
+            }
+          }
+        }
+      }
+
+      :global {
+        .ant-row {
+          padding-top: @padding-lg;
+        }
+
+        .ant-empty-description {
+          color: @normal-color;
+        }
+      }
+
+      .classItem {
+        border-radius: @border-radius-base;
+        border-top: 6px solid;
+        background: #FBFBFB;
+        padding: 0 @padding-md @padding-md;
+
+        p {
+          margin: 0;
+          line-height: 24px;
+          font-size: @font-size-sm;
+          color: @text-color-secondary;
+
+          &:nth-child(1) {
+            font-size: @font-size-base;
+            margin: @padding-sm 0;
+          }
+        }
+      }
+    }
+  }
+}

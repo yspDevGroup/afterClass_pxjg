@@ -20,7 +20,7 @@ const Index = () => {
           state: false
         }}
       >
-        <Button type="primary" o>
+        <Button type="primary">
           完善基本信息
         </Button>
       </Link>

@@ -2,7 +2,7 @@
  * @description:
  * @author: Sissle Lynn
  * @Date: 2021-08-25 18:29:59
- * @LastEditTime: 2021-08-26 17:51:55
+ * @LastEditTime: 2021-08-27 20:05:28
  * @LastEditors: Sissle Lynn
  */
 /* eslint-disable @typescript-eslint/no-unused-vars */
@@ -39,18 +39,25 @@ const OperationForm = (props: PropsType) => {
       label: '审核意见',
       name: 'ZT',
       key: 'ZT',
-      items: [
-        {
-          text: '同意',
-          value: '已通过'
-        },
-        {
-          text: '不同意',
-          value: '已驳回'
-        }
+      items: [{
+        text: '申请中',
+        value: '0'
+      },
+      {
+        text: '同意',
+        value: '1'
+      },
+      {
+        text: '不同意',
+        value: '2'
+      },
+      {
+        text: '结束',
+        value: '3'
+      }
       ],
-      onChange:(e: any)=>{
-        setRequired(e.target.value === '已驳回');
+      onChange: (e: any) => {
+        setRequired(e.target.value === '2');
       }
     },
     {
