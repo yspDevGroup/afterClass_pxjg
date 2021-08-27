@@ -2,7 +2,7 @@
  * @description:
  * @author: wsl
  * @Date: 2021-08-24 16:46:37
- * @LastEditTime: 2021-08-26 19:26:15
+ * @LastEditTime: 2021-08-27 09:25:31
  * @LastEditors: wsl
  */
 import React, { useEffect, useState } from 'react';
@@ -13,11 +13,13 @@ import AvatarUpload from '@/components/AvatarUpload';
 import { createKHJYJG, KHJYJG, updateKHJYJG } from '@/services/after-class-pxjg/khjyjg';
 import { createKHJGRZSQ } from '@/services/after-class-pxjg/khjgrzsq';
 
-const InfoMaintenance = () => {
+const InfoMaintenance = (props: any) => {
+  const { state } = props.history.location;
+  console.log(state);
   const { initialState } = useModel('@@initialState');
   const { currentUser } = initialState || {};
-  const [state, setstate] = useState(false);
-  const [disabled, setDisabled] = useState(true);
+  const [SQstate, setSQstate] = useState(false);
+  const [disabled, setDisabled] = useState(typeof state === 'undefined' ? true : false);
   const [XZQHM, setXZQHM] = useState<string>();
   const [KHJYJGId, setKHJYJGId] = useState<string>();
   const { username, id } = currentUser!;
@@ -38,7 +40,7 @@ const InfoMaintenance = () => {
   }, []);
 
   const confirm = async () => {
-    // setstate(true);
+    // setSQstate(true);
     const rescreateKHJGRZSQ = await createKHJGRZSQ({
       XZQHM: XZQHM,
       SQR: username,
@@ -87,7 +89,7 @@ const InfoMaintenance = () => {
     <div className={styles.InfoMaintenance}>
       <div>
         <div className={styles.header}>
-          {state === false ? (
+          {SQstate === false ? (
             <Popconfirm
               placement="topRight"
               title="确定机构信息填写完整且信息无误后，点击确定申请加入白名单"
@@ -114,7 +116,11 @@ const InfoMaintenance = () => {
                 <Input disabled />
               </Form.Item>
               <Form.Item name="QYTB" key="QYTB" label="企业LOGO：">
-                <AvatarUpload />
+                {disabled === true ? (
+                  <Image width={100} src="https://img2.baidu.com/it/u=171918543,1850609786&fm=26&fmt=auto&gp=0.jpg" />
+                ) : (
+                  <AvatarUpload />
+                )}
               </Form.Item>
               <Form.Item
                 name="QYMC"
@@ -127,7 +133,7 @@ const InfoMaintenance = () => {
                   }
                 ]}
               >
-                <Input placeholder="请输入" disabled={disabled} />
+                <Input placeholder={disabled === false ? '请输入' : '——'} disabled={disabled} />
               </Form.Item>
               <Form.Item
                 name="ZZJGDM"
@@ -140,7 +146,7 @@ const InfoMaintenance = () => {
                   }
                 ]}
               >
-                <Input placeholder="请输入" disabled={disabled} />
+                <Input placeholder={disabled === false ? '请输入' : '——'} disabled={disabled} />
               </Form.Item>
               <Form.Item
                 name="FRDBXM"
@@ -153,7 +159,7 @@ const InfoMaintenance = () => {
                   }
                 ]}
               >
-                <Input placeholder="请输入" disabled={disabled} />
+                <Input placeholder={disabled === false ? '请输入' : '——'} disabled={disabled} />
               </Form.Item>
               <Form.Item
                 name="FRDBSFZH"
@@ -166,10 +172,10 @@ const InfoMaintenance = () => {
                   }
                 ]}
               >
-                <Input placeholder="请输入" disabled={disabled} />
+                <Input placeholder={disabled === false ? '请输入' : '——'} disabled={disabled} />
               </Form.Item>
               <Form.Item name="QYJGDZ" key="QYJGDZ" label="企业机构地址：">
-                <Input placeholder="请输入" disabled={disabled} />
+                <Input placeholder={disabled === false ? '请输入' : '——'} disabled={disabled} />
               </Form.Item>
               <Form.Item
                 name="LXRXM"
@@ -182,7 +188,7 @@ const InfoMaintenance = () => {
                   }
                 ]}
               >
-                <Input placeholder="请输入" disabled={disabled} />
+                <Input placeholder={disabled === false ? '请输入' : '——'} disabled={disabled} />
               </Form.Item>
               <Form.Item
                 name="LXDH"
@@ -199,7 +205,7 @@ const InfoMaintenance = () => {
                   }
                 ]}
               >
-                <Input placeholder="请输入" disabled={disabled} />
+                <Input placeholder={disabled === false ? '请输入' : '——'} disabled={disabled} />
               </Form.Item>
             </Col>
             <Col span={2}></Col>
@@ -215,23 +221,37 @@ const InfoMaintenance = () => {
                   }
                 ]}
               >
-                <Input placeholder="请输入" disabled={disabled} />
+                <Input placeholder={disabled === false ? '请输入' : '——'} disabled={disabled} />
               </Form.Item>
               <Form.Item name="JGFWFW" key="JGFWFW" label="机构服务范围：">
-                <Input placeholder="请输入" disabled={disabled} />
+                <Input placeholder={disabled === false ? '请输入' : '——'} disabled={disabled} />
               </Form.Item>
               <Form.Item name="JGJJ" key="JGJJ" label="机构简介：">
-                <Input.TextArea placeholder="说点什么..." rows={4} disabled={disabled} />
+                <Input.TextArea placeholder={disabled === false ? '请输入' : '——'} rows={4} disabled={disabled} />
               </Form.Item>
               <Row className={styles.rows}>
                 <Col span={12}>
                   <Form.Item name="JGFWYYZZFW" key="YYZZ" label="营业执照：">
-                    <AvatarUpload />
+                    {disabled === true ? (
+                      <Image
+                        width={100}
+                        src="https://img2.baidu.com/it/u=171918543,1850609786&fm=26&fmt=auto&gp=0.jpg"
+                      />
+                    ) : (
+                      <AvatarUpload />
+                    )}
                   </Form.Item>
                 </Col>
                 <Col span={12}>
                   <Form.Item name="BXXKZ" key="BXXKZ" label="办学许可证：">
-                    <AvatarUpload />
+                    {disabled === true ? (
+                      <Image
+                        width={100}
+                        src="https://img2.baidu.com/it/u=171918543,1850609786&fm=26&fmt=auto&gp=0.jpg"
+                      />
+                    ) : (
+                      <AvatarUpload />
+                    )}
                   </Form.Item>
                 </Col>
               </Row>
