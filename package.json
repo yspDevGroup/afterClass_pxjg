@@ -26,6 +26,7 @@
     ]
   },
   "dependencies": {
+    "@ant-design/icons": "^4.6.4",
     "@ant-design/pro-layout": "^6.5.0",
     "@ant-design/pro-table": "^2.46.1",
     "@umijs/plugin-openapi": "^1.3.0",

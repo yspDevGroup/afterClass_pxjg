@@ -7,11 +7,16 @@
     .header {
       display: flex;
       justify-content: flex-end;
-      > div {
-        display: flex;
-      }
       .RZbtn {
         margin-left: 10px;
+      }
+      :global {
+        .ant-alert-message {
+          span {
+            margin-left: 5px;
+            vertical-align: middle;
+          }
+        }
       }
       .name {
         width: auto;

@@ -2,7 +2,7 @@
  * @description:
  * @author: wsl
  * @Date: 2021-08-24 16:46:37
- * @LastEditTime: 2021-08-27 20:26:32
+ * @LastEditTime: 2021-08-28 10:11:49
  * @LastEditors: wsl
  */
 import React, { useEffect, useState } from 'react';
@@ -12,6 +12,7 @@ import { useModel } from 'umi';
 import AvatarUpload from '@/components/AvatarUpload';
 import { createKHJYJG, KHJYJG, updateKHJYJG } from '@/services/after-class-pxjg/khjyjg';
 import { createKHJGRZSQ } from '@/services/after-class-pxjg/khjgrzsq';
+import { QuestionCircleOutlined } from '@ant-design/icons';
 
 const InfoMaintenance = (props: any) => {
   const { state } = props.history.location;
@@ -29,6 +30,7 @@ const InfoMaintenance = (props: any) => {
     (async () => {
       const res = await KHJYJG({ id: currentUser!.jgId! });
       if (res.status === 'ok') {
+        console.log(res);
         form.setFieldsValue(res.data);
         setXZQHM(res.data.XZQHM);
         setKHJYJGId(res.data.id);
@@ -91,7 +93,7 @@ const InfoMaintenance = (props: any) => {
           {SQDatas?.length === 0 ? (
             <Popconfirm
               placement="topRight"
-              title="确定机构信息填写完整且信息无误后，点击确定申请加入白名单"
+              title="确定本机构信息填写完整且无误后，点击“确定”申请备案资格"
               onConfirm={confirm}
               okText="确定"
               cancelText="取消"
@@ -112,33 +114,103 @@ const InfoMaintenance = (props: any) => {
                     <Alert message="恭喜您已成功备案" type="success" style={{ height: 33 }} />
                   </>
                 ) : SQDatas?.[0].ZT === 2 ? (
-                  <Tooltip title={SQDatas?.[0].BZ}>
-                    <Alert message="申请已驳回" type="error" style={{ height: 33 }} />
-                  </Tooltip>
+                  <>
+                    <Tooltip title={SQDatas?.[0].BZ}>
+                      <Alert
+                        message={
+                          <>
+                            申请被驳回
+                            <QuestionCircleOutlined />
+                          </>
+                        }
+                        type="error"
+                        style={{ height: 33 }}
+                      />
+                    </Tooltip>
+                    <Popconfirm
+                      placement="topRight"
+                      title="确定本机构信息填写完整且无误后，点击“确定”申请备案资格"
+                      onConfirm={confirm}
+                      okText="确定"
+                      cancelText="取消"
+                    >
+                      <Button type="primary" className={styles.RZbtn} disabled={currentUser?.jgId ? false : true}>
+                        申请入驻
+                      </Button>
+                    </Popconfirm>
+                  </>
                 ) : SQDatas?.[0].ZT === 3 ? (
-                  <Tooltip title={SQDatas?.[0].BZ}>
-                    <Alert message="正常结束" type="info" style={{ height: 33 }} />
-                  </Tooltip>
+                  <>
+                    <Tooltip title={SQDatas?.[0].BZ}>
+                      <Alert
+                        message={
+                          <>
+                            合作已结束
+                            <QuestionCircleOutlined />
+                          </>
+                        }
+                        type="info"
+                        style={{ height: 33 }}
+                      />
+                    </Tooltip>
+                    <Popconfirm
+                      placement="topRight"
+                      title="确定本机构信息填写完整且无误后，点击“确定”申请备案资格"
+                      onConfirm={confirm}
+                      okText="确定"
+                      cancelText="取消"
+                    >
+                      <Button type="primary" className={styles.RZbtn} disabled={currentUser?.jgId ? false : true}>
+                        申请入驻
+                      </Button>
+                    </Popconfirm>
+                  </>
                 ) : SQDatas?.[0].ZT === 4 ? (
                   <Tooltip title={SQDatas?.[0].BZ}>
-                    <Alert message="异常结束" type="error" style={{ height: 33 }} />
+                    <Alert
+                      message={
+                        <>
+                          合作终止
+                          <QuestionCircleOutlined />
+                        </>
+                      }
+                      type="error"
+                      style={{ height: 33 }}
+                    />
                   </Tooltip>
                 ) : (
-                  // <Alert message="您已被移出黑名单" type="info" style={{ height: 34 }} />
                   <></>
                 )
               ) : SQDatas?.[0].ZT === 1 ? (
                 <>
                   <Tooltip title={SQDatas?.[0].BZ}>
-                    <Alert message="您已被拉入黑名单" type="error" style={{ height: 33 }} />
+                    <Alert
+                      message={
+                        <>
+                          您已失去备案资格
+                          <QuestionCircleOutlined />
+                        </>
+                      }
+                      type="error"
+                      style={{ height: 33 }}
+                    />
                   </Tooltip>
                 </>
               ) : (
                 <>
-                  <Alert message="您已被移出黑名单" type="info" style={{ height: 33 }} />
+                  <Alert
+                    message={
+                      <>
+                        您已恢复备案资格
+                        <QuestionCircleOutlined />
+                      </>
+                    }
+                    type="info"
+                    style={{ height: 33 }}
+                  />
                   <Popconfirm
                     placement="topRight"
-                    title="确定机构信息填写完整且信息无误后，点击确定申请加入白名单"
+                    title="确定本机构信息填写完整且无误后，点击“确定”申请备案资格"
                     onConfirm={confirm}
                     okText="确定"
                     cancelText="取消"
@@ -319,39 +391,6 @@ const InfoMaintenance = (props: any) => {
             )}
           </Form.Item>
         </Form>
-        {/* <Modal
-          title="申请入驻"
-          visible={isModalVisible}
-          onOk={handleOk}
-          onCancel={handleCancel}
-          okText="确认"
-          cancelText="取消"
-        >
-          <Alert
-            message="确定机构信息填写完整且信息无误后，点击确认申请加入白名单。"
-            type="warning"
-            style={{ marginBottom: '20px' }}
-          /> */}
-        {/* <Form
-            form={RZfrom}
-            //  initialValues={InitialValues}
-            onFinish={RZsubmit}
-          >
-            <Form.Item
-              name="RZMY"
-              key="RZMY"
-              label="入驻密钥："
-              rules={[
-                {
-                  required: true,
-                  message: '请输入入驻密钥'
-                }
-              ]}
-            >
-              <Input placeholder="请输入" />
-            </Form.Item>
-          </Form> */}
-        {/* </Modal> */}
       </div>
     </div>
   );
