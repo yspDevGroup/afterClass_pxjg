@@ -140,7 +140,7 @@ const MechanismCourse = () => {
               >
                 编辑
               </a>
-              <Popconfirm title={`确定要删除${record?.KCMC}数据吗?`} onConfirm={() => confirm(record?.id)}>
+              <Popconfirm title={`确定要删除 “${record?.KCMC}” 数据吗?`} onConfirm={() => confirm(record?.id)}>
                 <a>删除</a>
               </Popconfirm>
             </>

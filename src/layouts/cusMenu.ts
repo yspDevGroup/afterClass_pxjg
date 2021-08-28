@@ -2,7 +2,7 @@
  * @description:
  * @author: Sissle Lynn
  * @Date: 2021-08-24 17:21:12
- * @LastEditTime: 2021-08-28 14:31:12
+ * @LastEditTime: 2021-08-26 20:18:07
  * @LastEditors: Sissle Lynn
  */
 export default [
@@ -16,24 +16,12 @@ export default [
   },
   {
     path: '/courseManagement',
-    name: '课程管理',
+    name: '课程管理'
   },
   {
-    path: '/teachingStaff',
-    name: '师资管理',
-    routes: [
-      {
-        path: '/teachingStaff/teacherManagement',
-        name: '教师管理',
-        routes: [
-          {
-            path: '/teachingStaff/teacherManagement/detail',
-            hideInMenu: 'true',
-            name: '详情查看',
-          },
-        ]
-      },
-    ]
+    path: '/courseManagement/mechanismCourse/edit',
+    name: '课程详情',
+    hideInMenu: 'true'
   },
   {
     path: '/businessManagement',
@@ -46,8 +34,8 @@ export default [
           {
             path: '/businessManagement/schoolManagement/detail',
             hideInMenu: 'true',
-            name: '详情查看',
-          },
+            name: '详情查看'
+          }
         ]
       },
       {
@@ -57,8 +45,8 @@ export default [
           {
             path: '/businessManagement/courseManagement/detail',
             hideInMenu: 'true',
-            name: '详情查看',
-          },
+            name: '详情查看'
+          }
         ]
       }
     ]
