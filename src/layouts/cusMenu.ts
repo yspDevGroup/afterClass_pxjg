@@ -24,6 +24,23 @@ export default [
     hideInMenu: 'true'
   },
   {
+    path: '/teachingStaff',
+    name: '师资管理',
+    routes: [
+      {
+        path: '/teachingStaff/teacherManagement',
+        name: '教师管理',
+        routes: [
+          {
+            path: '/teachingStaff/teacherManagement/detail',
+            hideInMenu: 'true',
+            name: '详情查看'
+          }
+        ]
+      }
+    ]
+  },
+  {
     path: '/businessManagement',
     name: '合作管理',
     routes: [
