@@ -2,7 +2,7 @@
  * @description:
  * @author: Sissle Lynn
  * @Date: 2021-08-24 14:37:02
- * @LastEditTime: 2021-08-27 20:07:53
+ * @LastEditTime: 2021-08-28 11:02:01
  * @LastEditors: Sissle Lynn
  */
 import React, { useRef, useState } from 'react';
@@ -15,7 +15,7 @@ import { applyStatus, TableListParams } from '@/constant';
 
 import styles from './index.less';
 import { KHKCSQSJ } from '../data';
-import { updateKHKCSQ, getKHKCSQ } from '@/services/after-class-pxjg/khkcsq';
+import { getKHKCSQ, updateKHKCSQ } from '@/services/after-class-pxjg/khkcsq';
 
 const CourseManagement = () => {
   const { initialState } = useModel('@@initialState');

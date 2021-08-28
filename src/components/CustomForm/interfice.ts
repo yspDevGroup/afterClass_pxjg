@@ -2,7 +2,7 @@
  * @description:
  * @author: zpl
  * @Date: 2020-07-30 10:21:18
- * @LastEditTime: 2021-08-16 16:21:01
+ * @LastEditTime: 2021-08-28 14:22:48
  * @LastEditors: Sissle Lynn
  */
 import type { UploadListType } from 'antd/es/upload/interface';
@@ -117,6 +117,8 @@ export type UploadImageProp = {
    * 上传图片组件-回显地址
    */
  imageurl?: string;
+ imgWidth?: number;
+ imgHeight?: number;
  /**
   * 上传图片组件-上传地址
   */
