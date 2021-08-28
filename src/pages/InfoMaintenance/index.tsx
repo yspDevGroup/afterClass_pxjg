@@ -1,10 +1,4 @@
-/*
- * @description:
- * @author: wsl
- * @Date: 2021-08-24 16:46:37
- * @LastEditTime: 2021-08-28 10:11:49
- * @LastEditors: wsl
- */
+/* eslint-disable complexity */
 import React, { useEffect, useState } from 'react';
 import { Button, Form, Input, Image, Divider, Row, Col, Modal, Alert, message, Popconfirm, Tooltip } from 'antd';
 import styles from './index.less';
@@ -13,12 +7,12 @@ import AvatarUpload from '@/components/AvatarUpload';
 import { createKHJYJG, KHJYJG, updateKHJYJG } from '@/services/after-class-pxjg/khjyjg';
 import { createKHJGRZSQ } from '@/services/after-class-pxjg/khjgrzsq';
 import { QuestionCircleOutlined } from '@ant-design/icons';
+import UploadImage from '@/components/CustomForm/components/UploadImage';
 
 const InfoMaintenance = (props: any) => {
   const { state } = props.history.location;
   const { initialState } = useModel('@@initialState');
   const { currentUser } = initialState || {};
-  const [SQstate, setSQstate] = useState(false);
   const [disabled, setDisabled] = useState(typeof state === 'undefined' ? true : false);
   const [XZQHM, setXZQHM] = useState<string>();
   const [KHJYJGId, setKHJYJGId] = useState<string>();
@@ -85,7 +79,6 @@ const InfoMaintenance = (props: any) => {
   const onEditor = () => {
     setDisabled(false);
   };
-
   return (
     <div className={styles.InfoMaintenance}>
       <div>
@@ -236,7 +229,7 @@ const InfoMaintenance = (props: any) => {
                 {disabled === true ? (
                   <Image width={100} src="https://img2.baidu.com/it/u=171918543,1850609786&fm=26&fmt=auto&gp=0.jpg" />
                 ) : (
-                  <AvatarUpload />
+                  <UploadImage />
                 )}
               </Form.Item>
               <Form.Item
@@ -325,7 +318,7 @@ const InfoMaintenance = (props: any) => {
                 <Input placeholder={disabled === false ? '请输入' : '——'} disabled={disabled} />
               </Form.Item>
             </Col>
-            <Col span={2}></Col>
+            <Col span={2} />
             <Col span={11}>
               <Form.Item
                 name="XZQHM"
@@ -346,32 +339,20 @@ const InfoMaintenance = (props: any) => {
               <Form.Item name="JGJJ" key="JGJJ" label="机构简介：">
                 <Input.TextArea placeholder={disabled === false ? '请输入' : '——'} rows={4} disabled={disabled} />
               </Form.Item>
-              <Row className={styles.rows}>
-                <Col span={12}>
-                  <Form.Item name="JGFWYYZZFW" key="YYZZ" label="营业执照：">
-                    {disabled === true ? (
-                      <Image
-                        width={100}
-                        src="https://img2.baidu.com/it/u=171918543,1850609786&fm=26&fmt=auto&gp=0.jpg"
-                      />
-                    ) : (
-                      <AvatarUpload />
-                    )}
-                  </Form.Item>
-                </Col>
-                <Col span={12}>
-                  <Form.Item name="BXXKZ" key="BXXKZ" label="办学许可证：">
-                    {disabled === true ? (
-                      <Image
-                        width={100}
-                        src="https://img2.baidu.com/it/u=171918543,1850609786&fm=26&fmt=auto&gp=0.jpg"
-                      />
-                    ) : (
-                      <AvatarUpload />
-                    )}
-                  </Form.Item>
-                </Col>
-              </Row>
+              <Form.Item name="JGFWYYZZFW" key="YYZZ" label="营业执照：">
+                {disabled === true ? (
+                  <Image width={100} src="https://img2.baidu.com/it/u=171918543,1850609786&fm=26&fmt=auto&gp=0.jpg" />
+                ) : (
+                  <UploadImage />
+                )}
+              </Form.Item>
+              <Form.Item name="BXXKZ" key="BXXKZ" label="办学许可证：">
+                {disabled === true ? (
+                  <Image width={100} src="https://img2.baidu.com/it/u=171918543,1850609786&fm=26&fmt=auto&gp=0.jpg" />
+                ) : (
+                  <UploadImage />
+                )}
+              </Form.Item>
             </Col>
           </Row>
           <Form.Item>
