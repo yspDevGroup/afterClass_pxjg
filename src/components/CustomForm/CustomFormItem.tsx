@@ -199,7 +199,7 @@ export const FormRadio = (props: FormRadioProps) => {
  * @return {*}
  */
 export const FormTime = (props: FormTimeProps) => {
-  const { disabled, subtype = 'date', onChange, ...formProps } = props;
+  const { disabled, subtype = 'dateTime', onChange, ...formProps } = props;
   return (
     <Form.Item {...formProps}>
       {subtype === 'time' ? (
@@ -211,7 +211,9 @@ export const FormTime = (props: FormTimeProps) => {
           style={{ width: '100%' }}
         />
       ) : (
-        <DatePicker disabled={disabled} showTime onChange={onChange} format="YYYY-MM-DD" />
+        subtype === 'date' ?
+          <DatePicker disabled={disabled} onChange={onChange} format="YYYY-MM-DD" /> :
+          <DatePicker disabled={disabled} showTime onChange={onChange} format="YYYY-MM-DD HH:mm" />
       )}
     </Form.Item>
   );
@@ -323,11 +325,11 @@ export const FormCustom = (props: FormCustomProps) => {
  * @returns
  */
 export const FormCheckbox = (props: FormCheckboxProps) => {
-  const { disabled, items,desc, colNum = 6, defaultValue, ...formProps } = props;
+  const { disabled, items, desc, colNum = 6, defaultValue, ...formProps } = props;
   return (
     <Form.Item {...formProps}>
 
-     {desc ? <Checkbox disabled={disabled}>{desc}</Checkbox> :''}
+      {desc ? <Checkbox disabled={disabled}>{desc}</Checkbox> : ''}
 
 
       {items ? <Checkbox.Group disabled={disabled} defaultValue={defaultValue}>

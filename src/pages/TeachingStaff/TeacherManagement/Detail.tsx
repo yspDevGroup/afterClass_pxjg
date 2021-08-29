@@ -2,7 +2,7 @@
  * @description:
  * @author: Sissle Lynn
  * @Date: 2021-08-28 11:13:07
- * @LastEditTime: 2021-08-28 14:52:31
+ * @LastEditTime: 2021-08-29 18:18:13
  * @LastEditors: Sissle Lynn
  */
 import React, { useState } from 'react';
@@ -15,29 +15,24 @@ const Detail = (props: any) => {
   const { state } = props.history.location;
   // 模态框的新增或编辑form定义
   const [form, setForm] = useState<FormInstance<any>>();
-  const handleSubmit = async () => {
-    try {
-      const values = await form?.validateFields();
-      const { id, ...rest } = values;
-
-    } catch (errorInfo) {
-      console.log('Failed:', errorInfo);
-    }
+  const handleSubmit =  () => {
+    form?.submit();
   };
   return (
-    <div>
+    <div className={styles.contentWrapper}>
       <TeacherInfo
         values={state.data}
         setForm={setForm}
+        readonly = {state.type ==='detail'}
       />
-      <div className={styles.btnWrapper}>
+     {state.type!=='detail' ?<div className={styles.btnWrapper}>
         <Button type="primary" htmlType="submit" onClick={handleSubmit}>
           保存
         </Button>
         <Button htmlType="button" onClick={() => history.go(-1)}>
           取消
         </Button>
-      </div>
+      </div>:''}
     </div>
   );
 };

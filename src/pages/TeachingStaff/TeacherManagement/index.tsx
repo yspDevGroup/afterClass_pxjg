@@ -2,7 +2,7 @@
  * @description:
  * @author: Sissle Lynn
  * @Date: 2021-08-28 09:22:33
- * @LastEditTime: 2021-08-28 14:38:35
+ * @LastEditTime: 2021-08-28 15:39:40
  * @LastEditors: Sissle Lynn
  */
 /*
@@ -20,7 +20,7 @@ import { Link, useModel, history } from 'umi';
 import styles from './index.less';
 import { TableListParams } from '@/constant';
 import { getKHJSSJ } from '@/services/after-class-pxjg/khjssj';
-import { Button } from 'antd';
+import { Button, Divider } from 'antd';
 
 
 const TeacherManagement = () => {
@@ -90,6 +90,16 @@ const TeacherManagement = () => {
               data: record
             }
           }}>教师详情</Link>
+          <Divider type='vertical' />
+          <Link to={{
+            pathname: '/teachingStaff/teacherManagement/detail',
+            state: {
+              type: 'edit',
+              data: record
+            }
+          }}>编辑</Link>
+          <Divider type='vertical' />
+          <a>删除</a>
         </>
       )
     }
@@ -137,7 +147,7 @@ const TeacherManagement = () => {
         }
       }}
       toolBarRender={() => [
-        <Button key="button" type="primary" onClick={() => history.push('/teachingStaff/teacherManagement/detail',{type:'newAdd'})}>
+        <Button key="button" type="primary" onClick={() => history.push('/teachingStaff/teacherManagement/detail', { type: 'newAdd' })}>
           新建
         </Button>
       ]}

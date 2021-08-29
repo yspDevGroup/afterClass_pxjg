@@ -18,10 +18,7 @@ type UploadImageProps = {
 };
 
 const UploadImage = (props: UploadImageProps) => {
-  console.log(props);
   const { upurl, imgWidth = 110,imgHeight = 72,readonly, disabled, accept, imagename, data, handleImageChange } = props;
-  console.log(props);
-
   const [imageUrl, setImageUrl] = useState(props.imageurl);
   useEffect(() => {
     setImageUrl(props.imageurl);
