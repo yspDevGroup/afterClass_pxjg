@@ -2,8 +2,8 @@
  * @description: 工具类
  * @author: zpl
  * @Date: 2021-08-09 10:36:53
- * @LastEditTime: 2021-08-24 17:05:44
- * @LastEditors: Sissle Lynn
+ * @LastEditTime: 2021-08-30 09:45:42
+ * @LastEditors: zpl
  */
 import { history } from 'umi';
 
@@ -47,6 +47,47 @@ export const envjudge = (): PlatType => {
     return 'wx-pc'; // PC端微信
   }
   return 'pc'; // PC
+};
+
+/**
+ * 根据运行环境获取登录地址
+ *
+ * @return {*}
+ */
+export const getLoginPath = (): string => {
+  let loginPath: string;
+  switch (envjudge()) {
+    case 'com-wx-pc': // PC端企业微信
+      loginPath = `${ENV_backUrl}/wechat/platAuth?plat=qywx&isMobile=false`;
+      break;
+    case 'com-wx-mobile': // 手机端企业微信
+      loginPath = `${ENV_backUrl}/wechat/platAuth?plat=qywx&isMobile=true`;
+      break;
+    case 'wx-pc': // PC端微信
+      loginPath = `${ENV_backUrl}/wechat/platAuth?plat=wx&isMobile=false`;
+      break;
+    case 'wx-mobile': // 手机端微信
+      loginPath = `${ENV_backUrl}/wechat/platAuth?plat=wx&isMobile=true`;
+      break;
+    case 'mobile': // 手机
+    case 'pc': // PC
+    default:
+      {
+        const qdCallback = encodeURIComponent(`${ENV_host}/AuthCallback`);
+        const hdCallback = encodeURIComponent(`${ENV_backUrl}/sso/auth/callback?redirect=${qdCallback}`);
+        switch (authType) {
+          case 'authorization_code':
+            loginPath = `${ssoHost}/oauth2/code?client_id=${clientId}&response_type=${authType}&redirect_uri=${''}state=${''}scope=${''}`;
+            break;
+          case 'password':
+          default:
+            loginPath = `${ssoHost}/oauth2/password?response_type=${authType}&client_id=${clientId}&client_secret=${clientSecret}&redirect_uri=${qdCallback}`;
+            break;
+        }
+      }
+      break;
+  }
+  return loginPath;
 };
 
 /**
@@ -109,7 +150,7 @@ export const getOauthToken = () => {
  */
 export const saveOAuthToken = (token: TokenInfo) => {
   localStorage.setItem('ysp_access_token', token.access_token);
-  localStorage.setItem('ysp_expires_in', `${token.expires_in || 0}`);
+  localStorage.setItem('ysp_expires_in', token.expires_in || '0');
   localStorage.setItem('ysp_refresh_token', token.refresh_token || '');
   localStorage.setItem('ysp_token_type', token.token_type || 'Bearer');
 };

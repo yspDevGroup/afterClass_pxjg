@@ -2,10 +2,26 @@
 /* eslint-disable */
 import { request } from 'umi';
 
-/** sso认证回调 GET /sso/auth/callback */
-export async function ssoAuthCallback(options?: { [key: string]: any }) {
-  return request<any>('/sso/auth/callback', {
-    method: 'GET',
+/** 创建SSOToken POST /sso/createToken */
+export async function createSSOToken(
+  body: {
+    /** 认证token */
+    access_token?: string;
+    /** token有效时间 */
+    expires_in?: number;
+    /** 刷新token */
+    refresh_token?: string;
+    /** token类型 */
+    token_type?: string;
+  },
+  options?: { [key: string]: any },
+) {
+  return request<any>('/sso/createToken', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data: body,
     ...(options || {}),
   });
 }

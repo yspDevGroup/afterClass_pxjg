@@ -20,18 +20,21 @@
     // 您的全局变量（设置为 false 表示它不允许被重新赋值）
     // Your global variables (setting to false means it's not allowed to be reassigned)
     // myGlobal: false
+    "PlatType": true,
+    "TokenInfo": true,
     "CustomWindow": true,
     "React": true,
     "API": true,
     "ENV_title": true,
     "ENV_subTitle": true,
     "ENV_copyRight": true,
+    "ENV_host": true,
     "ENV_backUrl": true,
-    "ENV_debug": true,
-    "AuthType": true,
-    "PlatType": true,
+    "ssoHost": true,
+    "authType": true,
+    "clientId": true,
+    "clientSecret": true,
     "UserInfo": true,
-    "TokenInfo": true,
     "InitialState": true
   },
   "rules": {

@@ -14,10 +14,14 @@ declare const ENV_title: string;
 declare const ENV_subTitle: string;
 /** 系统版权 */
 declare const ENV_copyRight: string;
-/** 后台地址 */
-declare const ENV_backUrl: string;
 /** 访问域名 */
 declare const ENV_host: string;
+/** 后台地址 */
+declare const ENV_backUrl: string;
+/** 统一认证地址 */
+declare const ssoHost: string;
+/** 认证类型 */
+declare const authType: 'wechat' | 'password' | 'authorization_code';
 /** 认证客户端id */
 declare const clientId: string;
 /** 认证客户端密钥 */
@@ -73,7 +77,7 @@ type AccessInfo = {
 /** oAuth认证token */
 type TokenInfo = {
   access_token: string;
-  expires_in?: number;
+  expires_in?: string;
   refresh_token?: string;
   token_type?: string;
 };

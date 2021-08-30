@@ -3,11 +3,11 @@
  * @description: 通用布局
  * @author: zpl
  * @Date: 2021-08-16 17:31:56
- * @LastEditTime: 2021-08-27 14:10:30
- * @LastEditors: Sissle Lynn
+ * @LastEditTime: 2021-08-30 09:13:11
+ * @LastEditors: zpl
  */
 import React, { FC, useEffect, useState } from 'react';
-import { IRouteComponentProps, Link, useAccess, useModel, history } from 'umi';
+import { IRouteComponentProps, Link, useAccess, history } from 'umi';
 import ProLayout, { MenuDataItem, PageContainer } from '@ant-design/pro-layout';
 import Footer from '@/components/Footer';
 
@@ -36,13 +36,11 @@ const menuRender = (
 };
 const CommonLayout: FC<IRouteComponentProps> = ({ children, location, route, history, match }) => {
   const { isLogin } = useAccess();
-  const { initialState } = useModel('@@initialState');
   const path = location.pathname.toLowerCase();
-  const isLoginPage = path.startsWith('/user/login') || path.startsWith('/oauth2/authorize');
-  const [hiddenHeader, setHiddenHeader] = useState(isLoginPage || !isLogin);
+  const [hiddenHeader, setHiddenHeader] = useState<boolean>(true);
   useEffect(() => {
     const path = location.pathname.toLowerCase();
-    const isLoginPage = path.startsWith('/user/login') || path.startsWith('/oauth2/authorize');
+    const isLoginPage = path.startsWith('/user/login');
     setHiddenHeader(isLoginPage);
   }, [location.pathname]);
 
@@ -53,7 +51,7 @@ const CommonLayout: FC<IRouteComponentProps> = ({ children, location, route, his
         height: '100vh'
       }}
     >
-      {hiddenHeader ? (
+      {!isLogin || hiddenHeader ? (
         <div>{children}</div>
       ) : (
         <ProLayout
@@ -84,12 +82,6 @@ const CommonLayout: FC<IRouteComponentProps> = ({ children, location, route, his
             menuRender(item, dom)
           }
           onMenuHeaderClick={(e) => console.log(e)}
-          onPageChange={() => {
-            // 如果没有登录或第一次进入首页，重定向到 login
-            if (!initialState?.currentUser) {
-              history.push('/user/login');
-            }
-          }}
           footerRender={() => <Footer />}
         >
           <PageContainer
@@ -104,7 +96,7 @@ const CommonLayout: FC<IRouteComponentProps> = ({ children, location, route, his
                     <div className="ant-breadcrumb">
                       <span>
                         <span className="ant-breadcrumb-link">
-                          <Link to={currentMenu.path || '/'}>{currentMenu.name}</Link>
+                          <Link to={currentMenu?.path || '/'}>{currentMenu.name}</Link>
                         </span>
                       </span>
                     </div>

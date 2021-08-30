@@ -2,8 +2,8 @@
  * @description: 运行时配置
  * @author: zpl
  * @Date: 2021-08-09 10:44:42
- * @LastEditTime: 2021-08-24 17:55:39
- * @LastEditors: Sissle Lynn
+ * @LastEditTime: 2021-08-30 11:08:40
+ * @LastEditors: zpl
  */
 import { notification, message } from 'antd';
 import type { RequestConfig } from 'umi';
@@ -30,7 +30,8 @@ export async function getInitialState(): Promise<InitialState> {
     if (status === 'ok' && data?.info) {
       return data.info;
     }
-    message.warn(res.message === 'Invalid Token!' ? '未登录' : res.message);
+    const isFirstPage = location.pathname !== '/' && !location.pathname.toLowerCase().startsWith('/authcallback');
+    isFirstPage && message.warn(res.message === 'Invalid Token!' ? '未登录' : res.message);
     return null;
   };
   const user = await fetchUserInfo();
@@ -107,7 +108,7 @@ const errorHandler = (error: ResponseError) => {
         }
         break;
       case 401:
-        if (!location.pathname.startsWith('/user/login')) {
+        if (!location.pathname.startsWith('/user/login') && location.pathname !== '/') {
           message.error(errorText);
         }
         break;
