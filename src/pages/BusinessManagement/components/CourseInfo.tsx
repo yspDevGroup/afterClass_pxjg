@@ -2,7 +2,7 @@
  * @description:
  * @author: Sissle Lynn
  * @Date: 2021-08-26 19:54:41
- * @LastEditTime: 2021-08-27 18:32:32
+ * @LastEditTime: 2021-08-30 08:59:51
  * @LastEditors: Sissle Lynn
  */
 import React, { useRef } from 'react';
@@ -12,6 +12,7 @@ import { applyStatus, colorTagDisk } from '@/constant';
 import styles from './components.less';
 import noImg from '@/assets/noImg.png';
 import { fakeClassList } from '../mock';
+import { Link } from 'umi';
 
 const { Search } = Input;
 const CourseItemDom = (props: { course: any, ZT?: number }) => {
@@ -30,7 +31,13 @@ const CourseItemDom = (props: { course: any, ZT?: number }) => {
           <div className={styles.extraDesc}>
             <p>
               授课教师： {course.KHKCJs?.map((item: any) => {
-                return <span key={item.id}>{item.KHJSSJ?.XM}</span>
+                return <Link key={item.id}  to={{
+                  pathname: '/teachingStaff/teacherManagement/detail',
+                  state: {
+                    type: 'detail',
+                    data: item.KHJSSJ
+                  }
+                }}>{item.KHJSSJ?.XM}</Link>
               })}
             </p>
             <p>

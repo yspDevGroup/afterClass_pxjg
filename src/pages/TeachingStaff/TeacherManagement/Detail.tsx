@@ -2,7 +2,7 @@
  * @description:
  * @author: Sissle Lynn
  * @Date: 2021-08-28 11:13:07
- * @LastEditTime: 2021-08-29 18:18:13
+ * @LastEditTime: 2021-08-30 09:13:15
  * @LastEditors: Sissle Lynn
  */
 import React, { useState } from 'react';
@@ -32,7 +32,11 @@ const Detail = (props: any) => {
         <Button htmlType="button" onClick={() => history.go(-1)}>
           取消
         </Button>
-      </div>:''}
+      </div>:<div className={styles.btnWrapper}>
+        <Button type="primary" htmlType="button" onClick={() => history.go(-1)}>
+          返回上一页
+        </Button>
+      </div>}
     </div>
   );
 };
