@@ -1,9 +1,8 @@
 /* eslint-disable complexity */
 import React, { useEffect, useState } from 'react';
-import { Button, Form, Input, Image, Divider, Row, Col, Modal, Alert, message, Popconfirm, Tooltip } from 'antd';
+import { Button, Form, Input, Image, Divider, Row, Col, Alert, message, Popconfirm, Tooltip } from 'antd';
 import styles from './index.less';
 import { useModel } from 'umi';
-import AvatarUpload from '@/components/AvatarUpload';
 import { createKHJYJG, KHJYJG, updateKHJYJG } from '@/services/after-class-pxjg/khjyjg';
 import { createKHJGRZSQ } from '@/services/after-class-pxjg/khjgrzsq';
 import { QuestionCircleOutlined } from '@ant-design/icons';
@@ -20,23 +19,22 @@ const InfoMaintenance = (props: any) => {
   const { username, id } = currentUser!;
   const [form] = Form.useForm();
 
+  const onKHJYJG = async () => {
+    const res = await KHJYJG({ id: currentUser!.jgId! });
+    if (res.status === 'ok') {
+      form.setFieldsValue(res.data);
+      setXZQHM(res.data.XZQHM);
+      setKHJYJGId(res.data.id);
+      setSQDatas(res.data.KHJGRZSQs);
+    } else {
+      form.setFieldsValue({});
+    }
+  };
   useEffect(() => {
-    (async () => {
-      const res = await KHJYJG({ id: currentUser!.jgId! });
-      if (res.status === 'ok') {
-        console.log(res);
-        form.setFieldsValue(res.data);
-        setXZQHM(res.data.XZQHM);
-        setKHJYJGId(res.data.id);
-        setSQDatas(res.data.KHJGRZSQs);
-      } else {
-        form.setFieldsValue({});
-      }
-    })();
+    onKHJYJG();
   }, []);
 
   const confirm = async () => {
-    // setSQstate(true);
     const rescreateKHJGRZSQ = await createKHJGRZSQ({
       XZQHM: XZQHM,
       SQR: username,
@@ -44,6 +42,7 @@ const InfoMaintenance = (props: any) => {
       KHJYJGId: KHJYJGId
     });
     if (rescreateKHJGRZSQ.status === 'ok') {
+      onKHJYJG();
       message.success('申请成功');
     } else {
       message.error('申请失败');
@@ -91,7 +90,7 @@ const InfoMaintenance = (props: any) => {
               okText="确定"
               cancelText="取消"
             >
-              <Button type="primary" className={styles.RZbtn} disabled={currentUser?.jgId ? false : true}>
+              <Button type="primary" className={styles.RZbtn}>
                 申请入驻
               </Button>
             </Popconfirm>
@@ -159,18 +158,31 @@ const InfoMaintenance = (props: any) => {
                     </Popconfirm>
                   </>
                 ) : SQDatas?.[0].ZT === 4 ? (
-                  <Tooltip title={SQDatas?.[0].BZ}>
-                    <Alert
-                      message={
-                        <>
-                          合作终止
-                          <QuestionCircleOutlined />
-                        </>
-                      }
-                      type="error"
-                      style={{ height: 33 }}
-                    />
-                  </Tooltip>
+                  <>
+                    <Tooltip title={SQDatas?.[0].BZ}>
+                      <Alert
+                        message={
+                          <>
+                            合作终止
+                            <QuestionCircleOutlined />
+                          </>
+                        }
+                        type="error"
+                        style={{ height: 33 }}
+                      />
+                    </Tooltip>
+                    <Popconfirm
+                      placement="topRight"
+                      title="确定本机构信息填写完整且无误后，点击“确定”申请备案资格"
+                      onConfirm={confirm}
+                      okText="确定"
+                      cancelText="取消"
+                    >
+                      <Button type="primary" className={styles.RZbtn} disabled={currentUser?.jgId ? false : true}>
+                        申请入驻
+                      </Button>
+                    </Popconfirm>
+                  </>
                 ) : (
                   <></>
                 )
