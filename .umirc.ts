@@ -14,10 +14,11 @@ export default defineConfig({
     ENV_copyRight: '2021 版权所有：陕西凯锐信息技术有限公司',
     ENV_host: 'http://192.168.0.17:8080',
     ENV_backUrl: 'http://192.168.0.17:3000',
-    ssoHost: 'http://192.168.0.17:1000',
+    ssoHost: 'http://platform.test.xianyunshipei.com',
+    // ssoHost: 'http://192.168.0.17:1000',
     authType: 'password',
     clientId: '00002',
-    clientSecret: 'U3JFM1DAjYeenXGspuQHks4lHGQcTc'
+    clientSecret: 'nt7IJNuM/5fgcV64HKk9'
   },
   links: [{ rel: 'icon', href: './title.png' }],
   dynamicImport: {
