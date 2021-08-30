@@ -129,3 +129,49 @@ export async function updateKHKCSQ(
     ...(options || {}),
   });
 }
+
+/** 学校查看机构课程的历史记录 POST /khkcsq/getHistoriesBySchool */
+export async function getHistoriesBySchool(
+  body: {
+    /** 学校ID */
+    XXJBSJId?: string;
+    /** 页数 */
+    page?: number;
+    /** 每页记录数 */
+    pageSize?: number;
+  },
+  options?: { [key: string]: any },
+) {
+  return request<any>('/khkcsq/getHistoriesBySchool', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data: body,
+    ...(options || {}),
+  });
+}
+
+/** 学校查看机构待引入课程 POST /khkcsq/getToIntroduceBySchool */
+export async function getToIntroduceBySchool(
+  body: {
+    /** 行政区划码 */
+    XZQHM?: string;
+    /** 学校ID */
+    XXJBSJId?: string;
+    /** 页数 */
+    page?: number;
+    /** 每页记录数 */
+    pageSize?: number;
+  },
+  options?: { [key: string]: any },
+) {
+  return request<any>('/khkcsq/getToIntroduceBySchool', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data: body,
+    ...(options || {}),
+  });
+}

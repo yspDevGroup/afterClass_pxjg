@@ -2,12 +2,12 @@
  * @description:
  * @author: Sissle Lynn
  * @Date: 2021-08-24 14:37:02
- * @LastEditTime: 2021-08-28 11:02:01
+ * @LastEditTime: 2021-08-30 20:40:43
  * @LastEditors: Sissle Lynn
  */
 import React, { useRef, useState } from 'react';
 import { Link, useModel } from 'umi';
-import { Button, Divider, FormInstance, message, Modal, Tag } from 'antd';
+import { Button, Divider, Input, FormInstance, message, Modal, Tag } from 'antd';
 import ProTable, { RequestData } from '@ant-design/pro-table';
 import type { ActionType, ProColumns } from '@ant-design/pro-table';
 import OperationForm from '../components/operationForm';
@@ -17,6 +17,7 @@ import styles from './index.less';
 import { KHKCSQSJ } from '../data';
 import { getKHKCSQ, updateKHKCSQ } from '@/services/after-class-pxjg/khkcsq';
 
+const { Search } = Input;
 const CourseManagement = () => {
   const { initialState } = useModel('@@initialState');
   const { currentUser } = initialState || {};
@@ -43,6 +44,9 @@ const CourseManagement = () => {
     } catch (errorInfo) {
       console.log('Failed:', errorInfo);
     }
+  };
+  const changeList = (val: string, type: string) => {
+
   };
   const columns: ProColumns<KHKCSQSJ>[] = [
     {
@@ -182,7 +186,11 @@ const CourseManagement = () => {
               pathname: '/businessManagement/courseManagement/detail',
               state: {
                 type: 'course',
-                data: record.KHKCSJ
+                data: {
+                  type:'detail',
+                  xxid: record.XXJBSJId,
+                  jgid: currentUser?.jgId
+                }
               }
             }}>课程详情</Link> : <a onClick={() => {
               setRecordId(record.id!);
@@ -217,6 +225,8 @@ const CourseManagement = () => {
               sorter: sort && Object.keys(sort).length ? sort : undefined,
               filter,
             };
+            console.log(opts);
+
             let status = activeKey === 'audit' ? [0] : activeKey === 'duration' ? [1] : [2, 3];
             const res = await getKHKCSQ({ JGId: currentUser?.jgId, ZT: status, page: 0, pageSize: 0 }, opts);
             if (res.status === 'ok') {
@@ -251,6 +261,12 @@ const CourseManagement = () => {
               actionRef.current?.reload();
             },
           },
+          search: (
+            <div>
+              <Search allowClear placeholder="学校名称" style={{ width: 120 }} onSearch={(value) => changeList('xx', value)} />
+              <Search allowClear placeholder="课程名称" style={{ width: 120 }} onSearch={(value) => changeList('kc', value)} />
+            </div>
+          )
         }}
         options={{
           setting: false,

@@ -2,20 +2,18 @@
  * @description:
  * @author: Sissle Lynn
  * @Date: 2021-08-26 16:24:39
- * @LastEditTime: 2021-08-29 18:31:12
+ * @LastEditTime: 2021-08-30 18:53:39
  * @LastEditors: Sissle Lynn
  */
 import React, { useEffect, useState } from 'react';
+import { useModel } from 'umi';
+import moment from 'moment';
+import { FormInstance, message } from 'antd';
 import CustomForm from '@/components/CustomForm';
-import { basicForm } from './FormItems';
-import defaultImg from '@/assets/vector.png';
+import { FormItemType } from '@/components/CustomForm/interfice';
+import { createKHJSSJ, updateKHJSSJ } from '@/services/after-class-pxjg/khjssj';
 
 import styles from './components.less';
-import { FormInstance, message } from 'antd';
-import { FormItemType } from '@/components/CustomForm/interfice';
-import moment from 'moment';
-import { createKHJSSJ, updateKHJSSJ } from '@/services/after-class-pxjg/khjssj';
-import { useModel } from 'umi';
 
 const formItemLayout = {
   labelCol: { flex: '7em' },
@@ -77,6 +75,7 @@ const SchoolInfo = (props: PropsType) => {
     {
       type: 'group',
       key: 'group1',
+      gutter:[88,88],
       groupItems: [
         {
           type: 'uploadImage',
@@ -113,6 +112,7 @@ const SchoolInfo = (props: PropsType) => {
     {
       type: 'group',
       key: 'group2',
+      gutter:[88,88],
       groupItems: [
         {
           type: 'input',
@@ -120,20 +120,21 @@ const SchoolInfo = (props: PropsType) => {
           name: 'XM',
           key: 'XM',
           rules: [{ required: true, message: '请输入姓名' }],
-          placeholder: readonly ? '-':'',
+          placeholder: readonly ? '-' : '',
         },
         {
           type: 'input',
-          label: '学历',
-          name: 'XL',
-          key: 'XL',
-          placeholder: readonly ? '-':'',
+          label: '毕业院校',
+          name: 'BYYX',
+          key: 'BYYX',
+          placeholder: readonly ? '-' : '',
         },
       ]
     },
     {
       type: 'group',
       key: 'group3',
+      gutter:[88,88],
       groupItems: [
         {
           type: 'radio',
@@ -152,17 +153,39 @@ const SchoolInfo = (props: PropsType) => {
           ],
         },
         {
-          type: 'inputNumber',
-          label: '教龄(月)',
-          name: 'JL',
-          key: 'JL',
-          placeholder: readonly ? '-':'',
+          type: 'input',
+          label: '专业',
+          name: 'SXZY',
+          key: 'ZY',
+          placeholder: readonly ? '-' : '',
         },
       ],
     },
     {
       type: 'group',
       key: 'group4',
+      gutter:[88,88],
+      groupItems: [
+        {
+          type: 'input',
+          label: '民族',
+          name: 'MZ',
+          key: 'MZ',
+          placeholder: readonly ? '-' : '',
+        },
+        {
+          type: 'input',
+          label: '学历',
+          name: 'XL',
+          key: 'XL',
+          placeholder: readonly ? '-' : '',
+        },
+      ],
+    },
+    {
+      type: 'group',
+      key: 'group6',
+      gutter:[88,88],
       groupItems: [
         {
           type: 'time',
@@ -170,14 +193,50 @@ const SchoolInfo = (props: PropsType) => {
           label: '出生日期',
           name: 'CSRQ',
           key: 'CSRQ',
-          placeholder: readonly ? '-':'',
+          placeholder: readonly ? '-' : '',
         },
+        {
+          type: 'inputNumber',
+          label: '教龄(月)',
+          name: 'JL',
+          key: 'JL',
+          placeholder: readonly ? '-' : '',
+        },
+      ]
+    },
+    {
+      type: 'group',
+      key: 'group7',
+      gutter:[88,88],
+      groupItems: [
+        {
+          type: 'input',
+          label: '联系电话',
+          name: 'LXDH',
+          key: 'LXDH',
+          placeholder: readonly ? '-' : '',
+          rules: [{ required: true, message: '请输入联系电话' }],
+        },
+        {
+          type: 'inputNumber',
+          label: '教授科目',
+          name: 'JSKM',
+          key: 'JSKM',
+          placeholder: readonly ? '-' : '',
+        },
+      ]
+    },
+    {
+      type: 'group',
+      key: 'group8',
+      gutter:[88,88],
+      groupItems: [
         {
           type: 'select',
           key: 'SFZJLX',
           name: 'SFZJLX',
           label: '证件类型',
-          placeholder: readonly ? '-':'',
+          placeholder: readonly ? '-' : '',
           items: [
             {
               value: '居民身份证',
@@ -197,46 +256,33 @@ const SchoolInfo = (props: PropsType) => {
             },
           ],
         },
-      ],
-    },
-    {
-      type: 'group',
-      key: 'group7',
-      groupItems: [
-        {
-          type: 'input',
-          label: '联系电话',
-          name: 'LXDH',
-          key: 'LXDH',
-          placeholder: readonly ? '-':'',
-          rules: [{ required: true, message: '请输入联系电话' }],
-        },
-        {
-          type: 'input',
-          key: 'SFZJH',
-          name: 'SFZJH',
-          label: '证件号码',
-          placeholder: readonly ? '-':'',
-        },
-      ]
-    },
-    {
-      type: 'group',
-      key: 'group8',
-      groupItems: [
         {
           type: 'input',
           label: '电子邮箱',
           name: 'DZXX',
           key: 'DZXX',
-          placeholder: readonly ? '-':'',
+          placeholder: readonly ? '-' : '',
+        },
+      ]
+    },
+    {
+      type: 'group',
+      key: 'group9',
+      gutter:[88,88],
+      groupItems: [
+        {
+          type: 'input',
+          key: 'SFZJH',
+          name: 'SFZJH',
+          label: '证件号码',
+          placeholder: readonly ? '-' : '',
         },
         {
           type: 'textArea',
           label: '个人简介',
           name: 'BZ',
           key: 'BZ',
-          placeholder: readonly ? '-':'',
+          placeholder: readonly ? '-' : '',
         },
       ]
     },

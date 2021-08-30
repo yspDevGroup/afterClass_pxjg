@@ -93,6 +93,8 @@ export async function getKHJGRZSQ(
     XZQHM?: string;
     /** 课后教育机构ID */
     KHJYJGId?: string;
+    /** 机构名称 */
+    name?: string;
     /** 页数 */
     page?: number;
     /** 每页记录数 */

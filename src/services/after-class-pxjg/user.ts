@@ -38,6 +38,7 @@ export async function currentUser(options?: { [key: string]: any }) {
         id?: string;
         jgId?: string;
         jyjId?: string;
+        xxId?: string;
         XXDM?: string;
         loginName?: string;
         username?: string;
@@ -112,6 +113,7 @@ export async function createUser(body: API.CreateUser, options?: { [key: string]
       id?: string;
       jgId?: string;
       jyjId?: string;
+      xxId?: string;
       XXDM?: string;
       loginName?: string;
       username?: string;

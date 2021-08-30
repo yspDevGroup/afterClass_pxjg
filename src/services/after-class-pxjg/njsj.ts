@@ -59,6 +59,8 @@ export async function getAllNJSJ(
     NJ?: number;
     /** 年级名称 */
     NJMC?: string;
+    /** 校区ID */
+    XQSJId?: string;
     /** 页数 */
     page?: number;
     /** 每页记录数 */

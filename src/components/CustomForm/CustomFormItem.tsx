@@ -17,7 +17,7 @@ import {
 } from 'antd';
 import type { Moment } from 'moment';
 import moment from 'moment';
-import { UploadOutlined } from '@ant-design/icons/lib/icons';
+import { UploadOutlined } from '@ant-design/icons';
 import { useModel } from 'umi';
 
 import type {

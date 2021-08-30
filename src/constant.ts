@@ -2,7 +2,7 @@
  * @description:
  * @author: Sissle Lynn
  * @Date: 2021-08-04 17:10:53
- * @LastEditTime: 2021-08-27 15:45:19
+ * @LastEditTime: 2021-08-30 19:26:59
  * @LastEditors: Sissle Lynn
  */
 
@@ -41,6 +41,13 @@ export const applyStatus = {
   1: '已通过',
   2: '已驳回',
   3: '已结束'
+};
+/** 定义合作学校课程状态 */
+export const copCourseStatus = {
+  0: '申请中',
+  1: '服务中',
+  2: '已驳回',
+  3: '服务结束'
 };
 
 /** 定义课程状态 */

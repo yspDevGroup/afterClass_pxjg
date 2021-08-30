@@ -2,7 +2,7 @@
  * @description:
  * @author: Sissle Lynn
  * @Date: 2021-08-24 14:37:02
- * @LastEditTime: 2021-08-27 09:44:07
+ * @LastEditTime: 2021-08-30 20:40:59
  * @LastEditors: Sissle Lynn
  */
 import React, { useRef } from 'react';
@@ -12,7 +12,7 @@ import { Link, useModel } from 'umi';
 
 import { schoolList } from '../mock';
 import styles from './index.less';
-import { Divider } from 'antd';
+import { Divider, Tag } from 'antd';
 import { TableListParams } from '@/constant';
 import { cooperateSchool } from '@/services/after-class-pxjg/khjyjg';
 import { KHHZXYSJ } from '../data';
@@ -52,17 +52,19 @@ const SchoolManagement = () => {
       key: 'XD',
       dataIndex: 'XD',
       align: 'center',
-      valueType: 'select',
-      filters: true,
-      onFilter: true,
-      valueEnum: {
-        全学段: { text: '全学段' },
-        学前: { text: '学前' },
-        小学: { text: '小学' },
-        初中: { text: '初中' },
-        高中: { text: '高中' },
-      },
       width: 150,
+      render: (_, record) => {
+        const type = record.XD?.split(/,/g);
+        return <div>
+          {type?.map((item, index) => {
+            return <span key={item}>
+              {index > 2 ? '' : index === 2 ?
+                <Tag key='more' color="#EFEFEF" style={{ color: '#333' }}>...</Tag> :
+                <Tag color="#EFEFEF" style={{ color: '#333' }}>{item}</Tag>}
+            </span>
+          })}
+        </div>
+      },
     },
     {
       title: '联系人',
@@ -108,7 +110,11 @@ const SchoolManagement = () => {
             pathname: '/businessManagement/schoolManagement/detail',
             state: {
               type: 'course',
-              data: record.KHKCSQs
+              data: {
+                type:'list',
+                xxid: record.id,
+                jgid: currentUser?.jgId
+              }
             }
           }}>课程详情</Link>
         </>
@@ -138,7 +144,7 @@ const SchoolManagement = () => {
             sorter: sort && Object.keys(sort).length ? sort : undefined,
             filter,
           };
-          const res = await cooperateSchool({ JGId: currentUser?.jgId, page: 0, pageSize: 0 }, opts);
+          const res = await cooperateSchool({ JGId: currentUser?.jgId, name: opts.keyword || '', page: 0, pageSize: 0 }, opts);
           if (res.status === 'ok') {
             return {
               data: res.data?.rows,
@@ -154,7 +160,8 @@ const SchoolManagement = () => {
         density: false,
         reload: false,
         search: {
-          placeholder: '学校名称'
+          placeholder: '学校名称',
+          allowClear: true
         }
       }}
       rowKey="id"

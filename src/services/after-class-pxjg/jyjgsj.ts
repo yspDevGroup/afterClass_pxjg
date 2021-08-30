@@ -9,7 +9,7 @@ export async function JYJGSJ(
     /** 教育机构ID */
     id: string;
   },
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{
@@ -30,7 +30,7 @@ export async function JYJGSJ(
   }>(`/jyjgsj/${param0}`, {
     method: 'GET',
     params: { ...queryParams },
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -41,13 +41,13 @@ export async function deleteJYJGSJ(
     /** 教育机构ID */
     id: string;
   },
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{ status?: 'ok' | 'error'; message?: string }>(`/jyjgsj/${param0}`, {
     method: 'DELETE',
     params: { ...queryParams },
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -71,10 +71,10 @@ export async function createJYJGSJ(body: API.CreateJYJGSJ, options?: { [key: str
   }>('/jyjgsj/create', {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -86,7 +86,7 @@ export async function getJYJGSJ(
     /** 每页记录数 */
     pageSize?: number;
   },
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   return request<{
     status?: 'ok' | 'error';
@@ -95,10 +95,10 @@ export async function getJYJGSJ(
   }>('/jyjgsj/getAll', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -110,17 +110,17 @@ export async function updateJYJGSJ(
     id: string;
   },
   body: API.UpdateJYJGSJ,
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{ status?: 'ok' | 'error'; message?: string }>(`/jyjgsj/update/${param0}`, {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     params: { ...queryParams },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -136,15 +136,15 @@ export async function getAllSchools(
     /** 每页记录数 */
     pageSize?: number;
   },
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   return request<any>('/jyjgsj/getAllSchools', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -153,6 +153,10 @@ export async function getAllInstitutions(
   body: {
     /** 行政区划码 */
     XZQHM?: string;
+    /** 类型 */
+    LX?: number;
+    /** 状态 */
+    ZT?: number[];
     /** 机构名称 */
     JGMC?: string;
     /** 页数 */
@@ -160,19 +164,19 @@ export async function getAllInstitutions(
     /** 每页记录数 */
     pageSize?: number;
   },
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   return request<any>('/jyjgsj/getAllInstitutions', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
-/** 获取教育机构下的所有本区课程信息 POST /jyjgsj/getAllCourses */
+/** 获取教育机构下的所有本区课程信息(已备案课程) POST /jyjgsj/getAllCourses */
 export async function getAllCourses(
   body: {
     /** 课程名称 */
@@ -188,14 +192,64 @@ export async function getAllCourses(
     /** 每页记录数 */
     pageSize?: number;
   },
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   return request<any>('/jyjgsj/getAllCourses', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     data: body,
-    ...(options || {})
+    ...(options || {}),
+  });
+}
+
+/** 获取教育机构下的所有本区课程信息(待引入课程) POST /jyjgsj/toIntroduceCourses */
+export async function toIntroduceCourses(
+  body: {
+    /** 课程名称 */
+    KCMC?: string;
+    /** 课程类型ID */
+    KHKCLXId?: string;
+    /** 行政区划码 */
+    XZQHM?: string;
+    /** 页数 */
+    page?: number;
+    /** 每页记录数 */
+    pageSize?: number;
+  },
+  options?: { [key: string]: any },
+) {
+  return request<any>('/jyjgsj/toIntroduceCourses', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data: body,
+    ...(options || {}),
+  });
+}
+
+/** 获取机构的课程列表 POST /jyjgsj/getCourses */
+export async function getCourses(
+  body: {
+    JGId?: string;
+    KCMC?: string;
+    /** 课程状态 */
+    KCZT?: number[];
+    /** 页数 */
+    page?: number;
+    /** 每页记录数 */
+    pageSize?: number;
+  },
+  options?: { [key: string]: any },
+) {
+  return request<any>('/jyjgsj/getCourses', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data: body,
+    ...(options || {}),
   });
 }

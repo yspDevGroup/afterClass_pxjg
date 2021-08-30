@@ -45,7 +45,7 @@
     .schoolInfoBasic {
       :global {
         .ant-form-item-label {
-          text-align: left;
+          text-align: right;
         }
 
         .ant-form-item-control-input {
@@ -74,27 +74,31 @@
   }
 
   .courseIntro {
-    padding:0 @padding-lg @padding-lg;
+    padding: @padding-lg @padding-lg;
 
     .courseItem {
       padding-bottom: @padding-lg;
-      .moreInfo{
+
+      .moreInfo {
         display: flex;
         justify-content: left;
         align-items: center;
         box-shadow: 0px 1px 0px #E4E4E4;
-        >div{
+
+        >div {
           width: 110px;
           border: 1px solid #efefef;
           text-align: center;
           margin-right: @padding-lg;
-          img{
+
+          img {
             max-width: 100%;
-            height:72px;
+            height: 72px;
           }
         }
-        h3{
-          box-shadow:none;
+
+        h3 {
+          box-shadow: none;
         }
       }
 
@@ -104,17 +108,42 @@
         font-weight: bold;
         margin-bottom: 0;
         box-shadow: 0px 1px 0px #E4E4E4;
+        position: relative;
 
-        >span {
-          display: inline-block;
-          height: 22px;
-          line-height: 22px;
-          padding: 0 @padding-md;
-          border-radius: 22px;
-          font-weight: normal;
-          font-size: @font-size-sm;
-          color: #fff;
-          margin-left: @padding-md;
+        .extraInfo {
+          >span:nth-child(1) {
+            display: inline-block;
+            height: 22px;
+            line-height: 22px;
+            padding: 0 @padding-md;
+            border-radius: 22px;
+            font-weight: normal;
+            font-size: @font-size-sm;
+            color: #fff;
+            margin-left: @padding-md;
+          }
+
+          span:nth-child(2) {
+            padding-left: @padding-lg;
+            color: @text-color-secondary;
+            font-size: @font-size-sm;
+            font-weight: normal;
+
+            >span {
+              margin-left: @padding-sm;
+            }
+          }
+
+          span:nth-child(3) {
+            position: absolute;
+            color: @primary-color;
+            right: 0;
+            font-size: @font-size-sm;
+
+            >span {
+              margin-left: @padding-sm;
+            }
+          }
         }
 
         .extraDesc {
@@ -126,40 +155,58 @@
 
           p {
             margin-bottom: 0;
-            span+span{
+
+            span+span {
               padding-left: @padding-md;
             }
           }
         }
       }
 
-      :global {
-        .ant-row {
-          padding-top: @padding-lg;
-        }
-
-        .ant-empty-description {
-          color: @normal-color;
-        }
-      }
-
       .classItem {
-        border-radius: @border-radius-base;
-        border-top: 6px solid;
         background: #FBFBFB;
-        padding: 0 @padding-md @padding-md;
+        border-radius: @padding-sm/2;
 
         p {
           margin: 0;
-          line-height: 24px;
+          line-height: 26px;
           font-size: @font-size-sm;
           color: @text-color-secondary;
+          padding: 0 @padding-sm;
+          border-radius: @padding-sm/2 @padding-sm/2 0 0;
 
           &:nth-child(1) {
+            padding: @padding-sm;
             font-size: @font-size-base;
             margin: @padding-sm 0;
+            color: #fff;
+            position: relative;
+
+            span {
+              position: absolute;
+              right: @padding-sm;
+              font-weight: normal;
+            }
+          }
+
+          &:nth-last-child(1) {
+            padding-bottom: @padding-sm;
           }
         }
+      }
+    }
+  }
+
+  :global {
+    .ant-row {
+      padding-top: @padding-lg;
+    }
+
+    .ant-empty {
+      padding: @padding-lg;
+
+      .ant-empty-description {
+        color: @normal-color;
       }
     }
   }
