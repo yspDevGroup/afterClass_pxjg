@@ -11,7 +11,7 @@ const { TabPane } = Tabs;
  * SchoolCourse 学校端
  * @returns
  */
-const index = () => {
+const CourseManagement = () => {
   const callback = (key: any) => {
     console.log(key);
   };
@@ -29,4 +29,6 @@ const index = () => {
   );
 };
 
-export default index;
+CourseManagement.wrappers = ['@/wrappers/auth'];
+
+export default CourseManagement;

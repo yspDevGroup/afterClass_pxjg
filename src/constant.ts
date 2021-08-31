@@ -2,7 +2,7 @@
  * @description:
  * @author: Sissle Lynn
  * @Date: 2021-08-04 17:10:53
- * @LastEditTime: 2021-08-30 19:26:59
+ * @LastEditTime: 2021-08-31 11:51:51
  * @LastEditors: Sissle Lynn
  */
 
@@ -33,7 +33,7 @@ export const paginationConfig: TablePaginationConfig = {
   showTotal: undefined,
 };
 /** 定义tag色盘 */
-export const colorTagDisk = ['#FF8F51', '#53C1FF', '#F8CC34','#7E82FF','#5CE369','#FF8ED4', '#FF6F6F', ];
+export const colorTagDisk = ['#7174E4', '#DF6464', '#50B4ED', '#EE854B', '#36B643',];
 
 /** 定义学校申请状态 */
 export const applyStatus = {

@@ -2,7 +2,7 @@
  * @description:
  * @author: Sissle Lynn
  * @Date: 2021-08-28 11:13:07
- * @LastEditTime: 2021-08-30 09:13:15
+ * @LastEditTime: 2021-08-31 10:54:11
  * @LastEditors: Sissle Lynn
  */
 import React, { useState } from 'react';
@@ -40,5 +40,7 @@ const Detail = (props: any) => {
     </div>
   );
 };
+
+Detail.wrappers = ['@/wrappers/auth'];
 
 export default Detail;

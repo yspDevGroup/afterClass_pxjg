@@ -2,7 +2,7 @@
  * @description:
  * @author: Sissle Lynn
  * @Date: 2021-08-24 14:37:02
- * @LastEditTime: 2021-08-30 20:40:43
+ * @LastEditTime: 2021-08-31 12:24:37
  * @LastEditors: Sissle Lynn
  */
 import React, { useRef, useState } from 'react';
@@ -29,6 +29,8 @@ const CourseManagement = () => {
   const [form, setForm] = useState<FormInstance<any>>();
   const [recordId, setRecordId] = useState<string>();
   const [activeKey, setActiveKey] = useState<string>('audit');
+  const [courseName, setCourseName] = useState<string>('');
+  const [schoolName, setSchoolName] = useState<string>('');
   const handleSubmit = async () => {
     try {
       const values = await form?.validateFields();
@@ -45,8 +47,9 @@ const CourseManagement = () => {
       console.log('Failed:', errorInfo);
     }
   };
-  const changeList = (val: string, type: string) => {
-
+  const changeList = (type: string, val: string) => {
+    type === 'kc' ? setCourseName(val) : setSchoolName(val);
+    actionRef.current?.reload();
   };
   const columns: ProColumns<KHKCSQSJ>[] = [
     {
@@ -187,7 +190,7 @@ const CourseManagement = () => {
               state: {
                 type: 'course',
                 data: {
-                  type:'detail',
+                  type: 'detail',
                   xxid: record.XXJBSJId,
                   jgid: currentUser?.jgId
                 }
@@ -225,10 +228,8 @@ const CourseManagement = () => {
               sorter: sort && Object.keys(sort).length ? sort : undefined,
               filter,
             };
-            console.log(opts);
-
             let status = activeKey === 'audit' ? [0] : activeKey === 'duration' ? [1] : [2, 3];
-            const res = await getKHKCSQ({ JGId: currentUser?.jgId, ZT: status, page: 0, pageSize: 0 }, opts);
+            const res = await getKHKCSQ({ JGId: currentUser?.jgId, ZT: status, KCMC: courseName, XXMC: schoolName, page: 0, pageSize: 0 }, opts);
             if (res.status === 'ok') {
               return {
                 data: res.data?.rows,
@@ -261,18 +262,18 @@ const CourseManagement = () => {
               actionRef.current?.reload();
             },
           },
-          search: (
-            <div>
-              <Search allowClear placeholder="学校名称" style={{ width: 120 }} onSearch={(value) => changeList('xx', value)} />
-              <Search allowClear placeholder="课程名称" style={{ width: 120 }} onSearch={(value) => changeList('kc', value)} />
-            </div>
-          )
         }}
         options={{
           setting: false,
           fullScreen: false,
           density: false,
           reload: false,
+          search: (
+            <div>
+              <Search name='KCMC' style={{ width: 200, marginRight: '16px' }} allowClear placeholder="课程名称" onSearch={(value) => changeList('kc', value)} />
+              <Search name='XXMC' style={{ width: 200 }} allowClear placeholder="学校名称" onSearch={(value) => changeList('xx', value)} />
+            </div>
+          )
         }}
         rowKey="id"
         dateFormatter="string"
@@ -307,4 +308,5 @@ const CourseManagement = () => {
   );
 };
 
+CourseManagement.wrappers = ['@/wrappers/auth'];
 export default CourseManagement;

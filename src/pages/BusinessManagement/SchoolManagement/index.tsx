@@ -2,10 +2,10 @@
  * @description:
  * @author: Sissle Lynn
  * @Date: 2021-08-24 14:37:02
- * @LastEditTime: 2021-08-31 09:00:56
- * @LastEditors: wsl
+ * @LastEditTime: 2021-08-31 12:21:41
+ * @LastEditors: Sissle Lynn
  */
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import ProTable, { RequestData } from '@ant-design/pro-table';
 import type { ActionType, ProColumns } from '@ant-design/pro-table';
 import { Link, useModel } from 'umi';
@@ -22,6 +22,7 @@ const SchoolManagement = () => {
   const { currentUser } = initialState || {};
   // 列表对象引用，可主动执行刷新等操作
   const actionRef = useRef<ActionType>();
+  const [activeKey, setActiveKey] = useState<string>('duration');
 
   const columns: ProColumns<KHHZXYSJ>[] = [
     {
@@ -29,7 +30,7 @@ const SchoolManagement = () => {
       dataIndex: 'index',
       valueType: 'index',
       width: 58,
-      align: 'center'
+      align: 'center',
     },
     {
       title: '学校名称',
@@ -37,7 +38,7 @@ const SchoolManagement = () => {
       key: 'XXMC',
       align: 'center',
       width: 300,
-      ellipsis: true
+      ellipsis: true,
     },
     {
       title: '所属区域',
@@ -45,7 +46,7 @@ const SchoolManagement = () => {
       key: 'SSQY',
       align: 'center',
       width: 90,
-      ellipsis: true
+      ellipsis: true,
     },
     {
       title: '学段',
@@ -55,42 +56,30 @@ const SchoolManagement = () => {
       width: 150,
       render: (_, record) => {
         const type = record.XD?.split(/,/g);
-        return (
-          <div>
-            {type?.map((item, index) => {
-              return (
-                <span key={item}>
-                  {index > 2 ? (
-                    ''
-                  ) : index === 2 ? (
-                    <Tag key="more" color="#EFEFEF" style={{ color: '#333' }}>
-                      ...
-                    </Tag>
-                  ) : (
-                    <Tag color="#EFEFEF" style={{ color: '#333' }}>
-                      {item}
-                    </Tag>
-                  )}
-                </span>
-              );
-            })}
-          </div>
-        );
-      }
+        return <div>
+          {type?.map((item, index) => {
+            return <span key={item}>
+              {index > 2 ? '' : index === 2 ?
+                <Tag key='more' color="#EFEFEF" style={{ color: '#333' }}>...</Tag> :
+                <Tag color="#EFEFEF" style={{ color: '#333' }}>{item}</Tag>}
+            </span>
+          })}
+        </div>
+      },
     },
     {
       title: '联系人',
       key: 'LXR',
       dataIndex: 'LXR',
       align: 'center',
-      width: 110
+      width: 110,
     },
     {
       title: '联系电话',
       key: 'LXDH',
       dataIndex: 'LXDH',
       align: 'center',
-      width: 180
+      width: 180,
     },
     {
       title: '课程数量',
@@ -99,7 +88,7 @@ const SchoolManagement = () => {
       align: 'center',
       width: 90,
       render: (_, record) => {
-        return <div>{record.KHKCSQs?.length}</div>;
+        return <div>{record.KHKCSQs?.length}</div>
       }
     },
     {
@@ -110,33 +99,25 @@ const SchoolManagement = () => {
       align: 'center',
       render: (_, record) => (
         <>
-          <Link
-            to={{
-              pathname: '/businessManagement/schoolManagement/detail',
-              state: {
-                type: 'school',
-                data: record
+          <Link to={{
+            pathname: '/businessManagement/schoolManagement/detail',
+            state: {
+              type: 'school',
+              data: record
+            }
+          }}>学校详情</Link>
+          <Divider type='vertical' />
+          <Link to={{
+            pathname: '/businessManagement/schoolManagement/detail',
+            state: {
+              type: 'course',
+              data: {
+                type: 'list',
+                xxid: record.id,
+                jgid: currentUser?.jgId
               }
-            }}
-          >
-            学校详情
-          </Link>
-          <Divider type="vertical" />
-          <Link
-            to={{
-              pathname: '/businessManagement/schoolManagement/detail',
-              state: {
-                type: 'course',
-                data: {
-                  type: 'list',
-                  xxid: record.id,
-                  jgid: currentUser?.jgId
-                }
-              }
-            }}
-          >
-            课程详情
-          </Link>
+            }
+          }}>课程详情</Link>
         </>
       )
     }
@@ -148,33 +129,52 @@ const SchoolManagement = () => {
       className={styles.schoolTable}
       actionRef={actionRef}
       search={false}
-      request={async (
-        params: KHHZXYSJ & {
-          pageSize?: number;
-          current?: number;
-          keyword?: string;
-        },
-        sort,
-        filter
-      ): Promise<Partial<RequestData<KHHZXYSJ>>> => {
-        // 表单搜索项会从 params 传入，传递给后端接口。
-        const opts: TableListParams = {
-          ...params,
-          sorter: sort && Object.keys(sort).length ? sort : undefined,
-          filter
-        };
-        const res = await cooperateSchool(
-          { JGId: currentUser?.jgId, name: opts.keyword || '', page: 0, pageSize: 0 },
-          opts
-        );
-        if (res.status === 'ok') {
-          return {
-            data: res.data?.rows,
-            total: res.data.count,
-            success: true
+      request={
+        async (
+          params: KHHZXYSJ & {
+            pageSize?: number;
+            current?: number;
+            keyword?: string;
+          },
+          sort,
+          filter,
+        ): Promise<Partial<RequestData<KHHZXYSJ>>> => {
+          // 表单搜索项会从 params 传入，传递给后端接口。
+          const opts: TableListParams = {
+            ...params,
+            sorter: sort && Object.keys(sort).length ? sort : undefined,
+            filter,
           };
-        }
-        return {};
+          let status = activeKey === 'duration' ? 0 : 1;
+          const res = await cooperateSchool({ JGId: currentUser?.jgId, name: opts.keyword || '',type:status, page: 0, pageSize: 0 }, opts);
+          if (res.status === 'ok') {
+            return {
+              data: res.data?.rows,
+              total: res.data.count,
+              success: true,
+            };
+          }
+          return {}
+        }}
+      toolbar={{
+        menu: {
+          type: 'tab',
+          activeKey,
+          items: [
+            {
+              key: 'duration',
+              label: <span>合作中学校</span>,
+            },
+            {
+              key: 'history',
+              label: <span>历史学校</span>,
+            },
+          ],
+          onChange: (key) => {
+            setActiveKey(key as string);
+            actionRef.current?.reload();
+          },
+        },
       }}
       options={{
         setting: false,
@@ -191,5 +191,7 @@ const SchoolManagement = () => {
     />
   );
 };
+
+SchoolManagement.wrappers = ['@/wrappers/auth'];
 
 export default SchoolManagement;

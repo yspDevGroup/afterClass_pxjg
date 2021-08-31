@@ -2,8 +2,8 @@
  * @description: 工具类
  * @author: zpl
  * @Date: 2021-08-09 10:36:53
- * @LastEditTime: 2021-08-30 09:45:42
- * @LastEditors: zpl
+ * @LastEditTime: 2021-08-31 09:19:37
+ * @LastEditors: Sissle Lynn
  */
 import { history } from 'umi';
 
@@ -213,4 +213,35 @@ export const getWidHei = () => {
     width,
     height
   };
+};
+/**
+ * 根据当前时间获取学年学期
+ *
+ * @param {API.XNXQ[]} list
+ * @return {*}  {(API.XNXQ | null)}
+ */
+ export const getCurrentXQ = (list: API.XNXQ[]): API.XNXQ | null => {
+  if (!list.length) {
+    return null;
+  }
+  const today = new Date();
+  const currentXQ = list.find((xq: any) => {
+    const begin = new Date(xq.KSRQ);
+    const end = new Date(xq.JSRQ);
+    if (begin <= today && today <= end) {
+      return true;
+    }
+    return false;
+  });
+  if (currentXQ) {
+    return currentXQ;
+  }
+  // 未找到匹配学期时返回前一个
+  // 先按降序排序
+  const tempList = list.sort((a, b) => new Date(b.KSRQ).getTime() - new Date(a.KSRQ).getTime());
+  const previousXQ = tempList.find((xq) => new Date() >= new Date(xq.JSRQ));
+  if (previousXQ) {
+    return previousXQ;
+  }
+  return tempList[tempList.length - 1];
 };

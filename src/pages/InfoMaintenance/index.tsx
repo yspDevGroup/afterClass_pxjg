@@ -388,4 +388,7 @@ const InfoMaintenance = (props: any) => {
     </div>
   );
 };
+
+InfoMaintenance.wrappers = ['@/wrappers/auth'];
+
 export default InfoMaintenance;

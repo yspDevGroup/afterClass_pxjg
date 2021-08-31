@@ -165,6 +165,8 @@ export async function updateKHJYJG(
 /** 获取机构的合作学校 POST /khjyjg/cooperateSchool */
 export async function cooperateSchool(
   body: {
+    /** 合作状态，0:合作中，1:已结束 */
+    type?: number;
     /** 学段信息 */
     XD?: string[];
     /** 学校名称 */

@@ -2,7 +2,7 @@
  * @description:
  * @author: Sissle Lynn
  * @Date: 2021-08-26 16:26:59
- * @LastEditTime: 2021-08-27 17:33:40
+ * @LastEditTime: 2021-08-31 10:54:36
  * @LastEditors: Sissle Lynn
  */
 import React from 'react';
@@ -18,6 +18,8 @@ const Detail = (props: any) => {
     </div>
   );
 };
+
+Detail.wrappers = ['@/wrappers/auth'];
 
 export default Detail;
 

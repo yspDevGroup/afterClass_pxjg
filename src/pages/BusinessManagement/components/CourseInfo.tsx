@@ -2,7 +2,7 @@
  * @description:
  * @author: Sissle Lynn
  * @Date: 2021-08-26 19:54:41
- * @LastEditTime: 2021-08-30 20:43:16
+ * @LastEditTime: 2021-08-31 11:15:05
  * @LastEditors: Sissle Lynn
  */
 import React, { useEffect, useState } from 'react';
@@ -15,24 +15,33 @@ import noCourse from '@/assets/noCourse.png';
 import noClass from '@/assets/noClass.png';
 import { Link } from 'umi';
 import { getAllCourses, getAllSemester } from '@/services/after-class-pxjg/khjyjg';
+import { getCurrentXQ } from '@/utils';
 
 const { Search } = Input;
 const { Option } = Select;
-const CourseItemDom = (props: { course: any, type: string }) => {
-  const { course, type } = props;
+const CourseItemDom = (props: { course: any, type: string, ind: number }) => {
+  const { course, type, ind } = props;
+  const ZT = course?.KHKCSQs?.[0]?.ZT;
   const [curIndex, setCurIndex] = useState<number | undefined>(0);
   let bgColor = '#58D14E';
-  if (course.KCZT === 1) {
+  if (ZT === 1) {
     bgColor = '#FF9900';
-  } else if (course.KCZT === 2) {
+  } else if (ZT === 2) {
     bgColor = '#e91e63';
   }
+  const handleCollapse = (ind: number) => {
+    if (ind === curIndex) {
+      setCurIndex(undefined);
+    } else {
+      setCurIndex(ind);
+    }
+  };
   return <div className={styles.courseItem}>
     <div>
       <h3>
         {course.KCMC}
         <span className={styles.extraInfo}>
-          <span style={{ backgroundColor: bgColor }}>{copCourseStatus[course.KCZT]}</span>
+          <span style={{ backgroundColor: bgColor }}>{copCourseStatus[ZT]}</span>
           <span>
             适用年级：
             {course.NJSJs?.map((item: any, index: number) => {
@@ -43,11 +52,11 @@ const CourseItemDom = (props: { course: any, type: string }) => {
               </span>
             })}
           </span>
-          {type === 'list' ? <span>课程班详情<DownOutlined /></span> : ''}
+          {type === 'list' ? <span onClick={() => handleCollapse(ind)}>课程班详情 {ind === curIndex ? <UpOutlined /> : <DownOutlined />}</span> : ''}
         </span>
       </h3>
     </div>
-    {course?.KHBJSJs?.length ? <Row gutter={[24, 24]}>
+    {course?.KHBJSJs?.length && ind === curIndex ? <Row gutter={[24, 24]}>
       {course.KHBJSJs.map((item: any, index: number) => {
         const colorInd = Math.ceil(index / 6) < 2 ? index : Math.ceil(Math.ceil(index / 6) * 6 - index);
         return <Col key={item.id} span={6}>
@@ -71,23 +80,24 @@ const CourseItemDom = (props: { course: any, type: string }) => {
           </div>
         </Col>
       })}
-    </Row> : <Empty
+    </Row> : (ind === curIndex ? <Empty
       image={noClass}
       imageStyle={{
         height: 80,
       }}
-      description='暂无班级信息' />}
+      description='暂无班级信息' /> : '')}
   </div>;
 }
 const CourseInfo = (props: { values: any }) => {
   const { type, xxid, jgid } = props.values;
   const [courseList, setCourseList] = useState<any>();
+  const [term, setTerm] = useState<string>();
   const [termList, setTermList] = useState<any>();
-  const getCourseList = async (xxdm: string, jgdm: string) => {
+  const getCourseList = async (xxdm: string, jgdm: string, xnxq?: string) => {
     const res = await getAllCourses({
       KHJYJGId: jgdm,
       XXJBSJId: xxdm,
-      XNXQId: ''
+      XNXQId: xnxq || ''
     });
     if (res?.status === 'ok') {
       setCourseList(res.data);
@@ -101,14 +111,21 @@ const CourseInfo = (props: { values: any }) => {
       XXJBSJId: xxdm,
     });
     if (res?.status === 'ok') {
-      const term = [].map.call(res.data, (item: any) => {
+      const { data = [] } = res;
+      const currentXQ = getCurrentXQ(data);
+      const term = [].map.call(data, (item: any) => {
         return {
           value: item.id,
           text: `${item.XN} ${item.XQ}`
         };
       });
+      term.push({
+        value: '',
+        text: '全部'
+      });
       setTermList(term);
-      getCourseList(xxid, jgid);
+      setTerm(currentXQ?.id || data[0].id);
+      getCourseList(xxid, jgid, currentXQ?.id || data[0].id);
     } else {
       message.error(res.message);
     }
@@ -127,25 +144,31 @@ const CourseInfo = (props: { values: any }) => {
       {type === 'list' && courseList ? <div className={styles.searchWrapper}>
         <Search placeholder="课程名称" allowClear onSearch={onSearch} style={{ width: 200 }} />
         <span style={{ marginLeft: '24px' }}>
-          所属学年学期：<Select style={{ width: 120 }} >
+          所属学年学期：
+          <Select
+            defaultValue={term}
+            style={{ width: 200 }}
+            onChange={(value: string) => getCourseList(xxid, jgid, value)}
+          >
             {termList?.map((item: any) => {
               return <Option key={item.value} value={item.value}>{item.text}</Option>;
             })}
           </Select>
         </span>
-      </div> : ''}
-      {courseList?.length ? <div className={styles.courseIntro}>
-        {courseList.map((val: any, index: number) => {
-          return <CourseItemDom course={val} type={type} key={val.id} />
-        })}
-      </div > : <Empty
-        image={noCourse}
-        imageStyle={{
-          height: 80,
-        }}
-        description='暂无课程信息' />}
-      {/* : <div className={styles.courseIntro}>
-        <CourseItemDom course={values} /></div>} */}
+      </div> : ''
+      }
+      {
+        courseList?.length ? <div className={styles.courseIntro}>
+          {courseList.map((val: any, index: number) => {
+            return <CourseItemDom course={val} type={type} ind={index} key={val.id} />
+          })}
+        </div > : <Empty
+          image={noCourse}
+          imageStyle={{
+            height: 80,
+          }}
+          description='暂无课程信息' />
+      }
     </div >
   );
 };

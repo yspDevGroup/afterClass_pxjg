@@ -2,7 +2,7 @@
  * @description:
  * @author: Sissle Lynn
  * @Date: 2021-08-28 09:22:33
- * @LastEditTime: 2021-08-28 15:39:40
+ * @LastEditTime: 2021-08-31 10:53:53
  * @LastEditors: Sissle Lynn
  */
 /*
@@ -156,5 +156,7 @@ const TeacherManagement = () => {
     />
   );
 };
+
+TeacherManagement.wrappers = ['@/wrappers/auth'];
 
 export default TeacherManagement;
