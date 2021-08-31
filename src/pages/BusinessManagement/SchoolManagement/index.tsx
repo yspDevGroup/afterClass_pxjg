@@ -2,8 +2,8 @@
  * @description:
  * @author: Sissle Lynn
  * @Date: 2021-08-24 14:37:02
- * @LastEditTime: 2021-08-30 20:40:59
- * @LastEditors: Sissle Lynn
+ * @LastEditTime: 2021-08-31 09:00:56
+ * @LastEditors: wsl
  */
 import React, { useRef } from 'react';
 import ProTable, { RequestData } from '@ant-design/pro-table';
@@ -29,7 +29,7 @@ const SchoolManagement = () => {
       dataIndex: 'index',
       valueType: 'index',
       width: 58,
-      align: 'center',
+      align: 'center'
     },
     {
       title: '学校名称',
@@ -37,7 +37,7 @@ const SchoolManagement = () => {
       key: 'XXMC',
       align: 'center',
       width: 300,
-      ellipsis: true,
+      ellipsis: true
     },
     {
       title: '所属区域',
@@ -45,7 +45,7 @@ const SchoolManagement = () => {
       key: 'SSQY',
       align: 'center',
       width: 90,
-      ellipsis: true,
+      ellipsis: true
     },
     {
       title: '学段',
@@ -55,30 +55,42 @@ const SchoolManagement = () => {
       width: 150,
       render: (_, record) => {
         const type = record.XD?.split(/,/g);
-        return <div>
-          {type?.map((item, index) => {
-            return <span key={item}>
-              {index > 2 ? '' : index === 2 ?
-                <Tag key='more' color="#EFEFEF" style={{ color: '#333' }}>...</Tag> :
-                <Tag color="#EFEFEF" style={{ color: '#333' }}>{item}</Tag>}
-            </span>
-          })}
-        </div>
-      },
+        return (
+          <div>
+            {type?.map((item, index) => {
+              return (
+                <span key={item}>
+                  {index > 2 ? (
+                    ''
+                  ) : index === 2 ? (
+                    <Tag key="more" color="#EFEFEF" style={{ color: '#333' }}>
+                      ...
+                    </Tag>
+                  ) : (
+                    <Tag color="#EFEFEF" style={{ color: '#333' }}>
+                      {item}
+                    </Tag>
+                  )}
+                </span>
+              );
+            })}
+          </div>
+        );
+      }
     },
     {
       title: '联系人',
       key: 'LXR',
       dataIndex: 'LXR',
       align: 'center',
-      width: 110,
+      width: 110
     },
     {
       title: '联系电话',
       key: 'LXDH',
       dataIndex: 'LXDH',
       align: 'center',
-      width: 180,
+      width: 180
     },
     {
       title: '课程数量',
@@ -87,7 +99,7 @@ const SchoolManagement = () => {
       align: 'center',
       width: 90,
       render: (_, record) => {
-        return <div>{record.KHKCSQs?.length}</div>
+        return <div>{record.KHKCSQs?.length}</div>;
       }
     },
     {
@@ -98,25 +110,33 @@ const SchoolManagement = () => {
       align: 'center',
       render: (_, record) => (
         <>
-          <Link to={{
-            pathname: '/businessManagement/schoolManagement/detail',
-            state: {
-              type: 'school',
-              data: record
-            }
-          }}>学校详情</Link>
-          <Divider type='vertical' />
-          <Link to={{
-            pathname: '/businessManagement/schoolManagement/detail',
-            state: {
-              type: 'course',
-              data: {
-                type:'list',
-                xxid: record.id,
-                jgid: currentUser?.jgId
+          <Link
+            to={{
+              pathname: '/businessManagement/schoolManagement/detail',
+              state: {
+                type: 'school',
+                data: record
               }
-            }
-          }}>课程详情</Link>
+            }}
+          >
+            学校详情
+          </Link>
+          <Divider type="vertical" />
+          <Link
+            to={{
+              pathname: '/businessManagement/schoolManagement/detail',
+              state: {
+                type: 'course',
+                data: {
+                  type: 'list',
+                  xxid: record.id,
+                  jgid: currentUser?.jgId
+                }
+              }
+            }}
+          >
+            课程详情
+          </Link>
         </>
       )
     }
@@ -128,32 +148,34 @@ const SchoolManagement = () => {
       className={styles.schoolTable}
       actionRef={actionRef}
       search={false}
-      request={
-        async (
-          params: KHHZXYSJ & {
-            pageSize?: number;
-            current?: number;
-            keyword?: string;
-          },
-          sort,
-          filter,
-        ): Promise<Partial<RequestData<KHHZXYSJ>>> => {
-          // 表单搜索项会从 params 传入，传递给后端接口。
-          const opts: TableListParams = {
-            ...params,
-            sorter: sort && Object.keys(sort).length ? sort : undefined,
-            filter,
+      request={async (
+        params: KHHZXYSJ & {
+          pageSize?: number;
+          current?: number;
+          keyword?: string;
+        },
+        sort,
+        filter
+      ): Promise<Partial<RequestData<KHHZXYSJ>>> => {
+        // 表单搜索项会从 params 传入，传递给后端接口。
+        const opts: TableListParams = {
+          ...params,
+          sorter: sort && Object.keys(sort).length ? sort : undefined,
+          filter
+        };
+        const res = await cooperateSchool(
+          { JGId: currentUser?.jgId, name: opts.keyword || '', page: 0, pageSize: 0 },
+          opts
+        );
+        if (res.status === 'ok') {
+          return {
+            data: res.data?.rows,
+            total: res.data.count,
+            success: true
           };
-          const res = await cooperateSchool({ JGId: currentUser?.jgId, name: opts.keyword || '', page: 0, pageSize: 0 }, opts);
-          if (res.status === 'ok') {
-            return {
-              data: res.data?.rows,
-              total: res.data.count,
-              success: true,
-            };
-          }
-          return {}
-        }}
+        }
+        return {};
+      }}
       options={{
         setting: false,
         fullScreen: false,

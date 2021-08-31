@@ -2,8 +2,8 @@
  * @description:
  * @author: Sissle Lynn
  * @Date: 2021-08-24 17:21:12
- * @LastEditTime: 2021-08-28 14:31:12
- * @LastEditors: Sissle Lynn
+ * @LastEditTime: 2021-08-31 10:09:48
+ * @LastEditors: wsl
  */
 export default [
   {
@@ -65,6 +65,20 @@ export default [
             name: '详情查看'
           }
         ]
+      }
+    ]
+  },
+  {
+    path: '/announcements',
+    name: '通知公告',
+    routes: [
+      {
+        name: '通知列表',
+        path: '/announcements/list'
+      },
+      {
+        path: '/announcements/recycleBin',
+        name: '回收站'
       }
     ]
   }
