@@ -2,7 +2,7 @@
  * @description:
  * @author: wsl
  * @Date: 2021-08-09 17:41:43
- * @LastEditTime: 2021-09-01 11:11:42
+ * @LastEditTime: 2021-09-01 11:45:08
  * @LastEditors: wsl
  */
 import React, { useState, useRef, useEffect } from 'react';
@@ -158,7 +158,7 @@ const Notice = () => {
             key="xinjian"
             type="primary"
             onClick={() => {
-              history.push('/announcements/editArticle');
+              history.push('/announcements/notice/editArticle');
             }}
           >
             <PlusOutlined /> 新建

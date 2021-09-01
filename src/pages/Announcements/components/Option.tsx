@@ -7,12 +7,12 @@
  */
 import React from 'react';
 import { Divider, Popconfirm, message, Tooltip } from 'antd';
-import { history } from 'umi';
+import { history, Link } from 'umi';
 import styles from '../index.module.less';
 import { TableListItem } from '../data';
 
 import moment from 'moment';
-import { ClearOutlined } from '@ant-design/icons';
+import { ClearOutlined, EyeOutlined } from '@ant-design/icons';
 import { deleteKHJYTZGG, updateKHJYTZGG } from '@/services/after-class-pxjg/khjytzgg';
 
 type OptType = {
@@ -91,6 +91,21 @@ const UnPubOpt = ({ id, refreshHandler, record }: OptType) => (
       </a>
     </Tooltip>
   </a>
+);
+const View = ({ record }: OptType) => (
+  <Link
+    key="ck"
+    to={{
+      pathname: '/announcements/notice/noticeDetails',
+      state: record
+    }}
+  >
+    <Tooltip title="查看">
+      <a>
+        <EyeOutlined className={styles.chegao} />
+      </a>
+    </Tooltip>
+  </Link>
 );
 
 const UnDelOpt = ({ id, refreshHandler, record }: OptType) => (
@@ -194,7 +209,13 @@ const Option: React.FC<Props> = (props) => {
   const { id, ZT, refreshHandler, record } = props;
   switch (ZT) {
     case '已发布':
-      return <UnPubOpt id={id} refreshHandler={refreshHandler} record={record} />;
+      return (
+        <>
+          <View id={id} refreshHandler={refreshHandler} record={record} />
+          <Divider type="vertical" />
+          <UnPubOpt id={id} refreshHandler={refreshHandler} record={record} />
+        </>
+      );
     case '已删除':
       return (
         <>

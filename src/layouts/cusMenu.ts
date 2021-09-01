@@ -2,7 +2,7 @@
  * @description:
  * @author: Sissle Lynn
  * @Date: 2021-08-24 17:21:12
- * @LastEditTime: 2021-09-01 11:16:47
+ * @LastEditTime: 2021-09-01 11:54:55
  * @LastEditors: wsl
  */
 export default [
@@ -80,6 +80,11 @@ export default [
             path: '/announcements/notice/EditArticle',
             hideInMenu: 'true',
             name: '编辑文章'
+          },
+          {
+            path: '/announcements/notice/noticeDetails',
+            hideInMenu: 'true',
+            name: '公告详情'
           }
         ]
       },
