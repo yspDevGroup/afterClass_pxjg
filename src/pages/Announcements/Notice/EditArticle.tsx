@@ -62,7 +62,7 @@ const EditArticle = () => {
         const result = await createKHJYTZGG(data);
         if (result.status === 'ok') {
           message.success('保存成功');
-          history.push('/announcements/list');
+          history.push('/announcements/Notice');
         } else {
           message.error('保存失败，请联系管理员或稍后再试。');
         }
@@ -70,7 +70,7 @@ const EditArticle = () => {
         const resUpdateXXTZGG = await updateKHJYTZGG({ id: id }, data);
         if (resUpdateXXTZGG.status === 'ok') {
           message.success('修改成功');
-          history.push('/announcements/list');
+          history.push('/announcements/Notice');
         } else {
           message.error('修改失败，请联系管理员或稍后再试。');
         }
