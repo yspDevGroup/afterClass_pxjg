@@ -2,7 +2,7 @@
  * @description:
  * @author: wsl
  * @Date: 2021-08-09 17:41:43
- * @LastEditTime: 2021-08-31 10:16:20
+ * @LastEditTime: 2021-09-01 11:11:42
  * @LastEditors: wsl
  */
 import React, { useState, useRef, useEffect } from 'react';
@@ -11,34 +11,16 @@ import { Button, Switch, message } from 'antd';
 import type { ProColumns, ActionType } from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
 import { history } from 'umi';
-import Option from './components/Option';
-import type { TableListItem } from './data';
-import styles from './index.module.less';
-import { defImg } from './data';
+import Option from '../components/Option';
+import type { TableListItem } from '../data';
+import styles from '../index.module.less';
 import moment from 'moment';
 import { getKHJYTZGG, updateKHJYTZGG } from '@/services/after-class-pxjg/khjytzgg';
 
-const TableList: React.FC = () => {
+const Notice = () => {
   const [dataSource, setDataSource] = useState<API.JYJGTZGG[]>();
   const actionRef = useRef<ActionType>();
 
-  const ongetXXTZGG = async () => {
-    const resgetXXTZGG = await getKHJYTZGG({
-      BT: '',
-      LX: 0,
-      ZT: ['已发布', '草稿'],
-      /** 页数 */
-      page: 0,
-      /** 每页记录数 */
-      pageSize: 0
-    });
-    if (resgetXXTZGG.status === 'ok') {
-      setDataSource(resgetXXTZGG.data?.rows);
-    }
-  };
-  useEffect(() => {
-    ongetXXTZGG();
-  }, []);
   const columns: ProColumns<TableListItem>[] = [
     {
       title: '标题',
@@ -92,7 +74,7 @@ const TableList: React.FC = () => {
                 const resUpdateJYJGTZGG = await updateKHJYTZGG({ id: record.id }, data);
                 if (resUpdateJYJGTZGG.status === 'ok') {
                   message.success('设置成功');
-                  ongetXXTZGG();
+                  actionRef?.current?.reload();
                 } else {
                   message.error('设置失败，请联系管理员或稍后再试。');
                 }
@@ -128,7 +110,7 @@ const TableList: React.FC = () => {
                 const resUpdateJYJGTZGG = await updateKHJYTZGG({ id: record.id }, data);
                 if (resUpdateJYJGTZGG.status === 'ok') {
                   message.success('设置成功');
-                  ongetXXTZGG();
+                  actionRef?.current?.reload();
                 } else {
                   message.error('设置失败，请联系管理员或稍后再试。');
                 }
@@ -152,10 +134,9 @@ const TableList: React.FC = () => {
             id={record.id}
             ZT={record.ZT}
             record={record}
-            ongetXXTZGG={ongetXXTZGG}
             refreshHandler={() => {
               if (actionRef.current) {
-                actionRef.current.reload();
+                actionRef?.current?.reload();
               }
             }}
           />
@@ -217,4 +198,5 @@ const TableList: React.FC = () => {
   );
 };
 
-export default TableList;
+Notice.wrappers = ['@/wrappers/auth'];
+export default Notice;

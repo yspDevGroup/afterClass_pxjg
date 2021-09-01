@@ -2,8 +2,8 @@
  * @description:
  * @author: Sissle Lynn
  * @Date: 2021-08-24 17:21:12
- * @LastEditTime: 2021-08-28 14:31:12
- * @LastEditors: Sissle Lynn
+ * @LastEditTime: 2021-09-01 11:16:47
+ * @LastEditors: wsl
  */
 export default [
   {
@@ -73,12 +73,26 @@ export default [
     name: '通知公告',
     routes: [
       {
-        name: '通知列表',
-        path: '/announcements/list'
+        name: '内部通知',
+        path: '/announcements/notice',
+        routes: [
+          {
+            path: '/announcements/notice/EditArticle',
+            hideInMenu: 'true',
+            name: '编辑文章'
+          }
+        ]
       },
       {
-        path: '/announcements/recycleBin',
-        name: '回收站'
+        path: '/announcements/policy',
+        name: '政策公告',
+        routes: [
+          {
+            path: '/announcements/policy/articleDetails',
+            hideInMenu: 'true',
+            name: '政策详情'
+          }
+        ]
       }
     ]
   }

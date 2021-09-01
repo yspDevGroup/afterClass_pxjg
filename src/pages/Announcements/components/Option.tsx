@@ -12,12 +12,6 @@ import styles from '../index.module.less';
 import { TableListItem } from '../data';
 
 import moment from 'moment';
-// import editorImg from '@/assets/editor.png';
-// import ashbinImg from '@/assets/ashbin.png';
-// import huifu from '@/assets/huifu.png';
-// import chegao from '@/assets/chegao.png';
-// import fabu from '@/assets/fabu.png';
-// eslint-disable-next-line @typescript-eslint/no-duplicate-imports
 import { ClearOutlined } from '@ant-design/icons';
 import { deleteKHJYTZGG, updateKHJYTZGG } from '@/services/after-class-pxjg/khjytzgg';
 
@@ -25,13 +19,12 @@ type OptType = {
   id: string;
   refreshHandler: () => void;
   record?: TableListItem;
-  ongetXXTZGG: () => Promise<void>;
 };
 
 const EditOpt = ({ id }: { id: string }) => (
   <a
     onClick={() => {
-      history.push(`/announcements/EditArticle?id=${id}`);
+      history.push(`/announcements/notice/EditArticle?id=${id}`);
     }}
   >
     <Tooltip title="编辑">
@@ -42,7 +35,7 @@ const EditOpt = ({ id }: { id: string }) => (
   </a>
 );
 
-const PubOpt = ({ id, refreshHandler, record, ongetXXTZGG }: OptType) => (
+const PubOpt = ({ id, refreshHandler, record }: OptType) => (
   <a
     onClick={async () => {
       const data = {
@@ -54,7 +47,7 @@ const PubOpt = ({ id, refreshHandler, record, ongetXXTZGG }: OptType) => (
         const resupdateKHJYTZGG = await updateKHJYTZGG({ id: record!.id }, data);
         if (resupdateKHJYTZGG.status === 'ok') {
           message.info('发布成功');
-          ongetXXTZGG();
+          refreshHandler();
         } else {
           message.error('发布失败，请联系管理员或稍后重试。');
         }
@@ -71,7 +64,7 @@ const PubOpt = ({ id, refreshHandler, record, ongetXXTZGG }: OptType) => (
   </a>
 );
 
-const UnPubOpt = ({ id, refreshHandler, record, ongetXXTZGG }: OptType) => (
+const UnPubOpt = ({ id, refreshHandler, record }: OptType) => (
   <a
     onClick={async () => {
       const data = {
@@ -83,7 +76,7 @@ const UnPubOpt = ({ id, refreshHandler, record, ongetXXTZGG }: OptType) => (
         const resupdateKHJYTZGG = await updateKHJYTZGG({ id: record!.id }, data);
         if (resupdateKHJYTZGG.status === 'ok') {
           message.info('撤稿成功');
-          ongetXXTZGG();
+          refreshHandler();
         } else {
           message.error('撤稿失败，请联系管理员或稍后重试。');
         }
@@ -100,7 +93,7 @@ const UnPubOpt = ({ id, refreshHandler, record, ongetXXTZGG }: OptType) => (
   </a>
 );
 
-const UnDelOpt = ({ id, ongetXXTZGG, record }: OptType) => (
+const UnDelOpt = ({ id, refreshHandler, record }: OptType) => (
   <a
     href="#"
     onClick={async () => {
@@ -113,7 +106,7 @@ const UnDelOpt = ({ id, ongetXXTZGG, record }: OptType) => (
         const resupdateKHJYTZGG = await updateKHJYTZGG({ id: record!.id }, data);
         if (resupdateKHJYTZGG.status === 'ok') {
           message.info('恢复成功');
-          ongetXXTZGG();
+          refreshHandler();
         } else {
           message.error('恢复失败，请联系管理员或稍后重试。');
         }
@@ -130,20 +123,15 @@ const UnDelOpt = ({ id, ongetXXTZGG, record }: OptType) => (
   </a>
 );
 
-const DelOpt = ({ id, ongetXXTZGG, record }: OptType) => (
+const DelOpt = ({ id, refreshHandler, record }: OptType) => (
   <Popconfirm
-    title="确定要删除吗?"
+    title="彻底删除后数据将不可恢复，是否删除?"
     onConfirm={async () => {
-      const data = {
-        ...record,
-        ZT: '已删除',
-        RQ: moment(record!.RQ).format()
-      };
       try {
-        const resupdateKHJYTZGG = await updateKHJYTZGG({ id: id }, data);
-        if (resupdateKHJYTZGG.status === 'ok') {
+        const result = await deleteKHJYTZGG({ id: id });
+        if (result.status === 'ok') {
           message.info('删除成功');
-          ongetXXTZGG();
+          refreshHandler();
         } else {
           message.error('删除失败，请联系管理员或稍后重试。');
         }
@@ -155,15 +143,17 @@ const DelOpt = ({ id, ongetXXTZGG, record }: OptType) => (
     cancelText="No"
     placement="topLeft"
   >
-    <Tooltip title="删除">
-      <a>
-        <div className={styles.delectImg} />
-      </a>
-    </Tooltip>
+    <a href="#" style={{ color: 'red' }}>
+      <Tooltip title="删除">
+        <a>
+          <div className={styles.delectImg} />
+        </a>
+      </Tooltip>
+    </a>
   </Popconfirm>
 );
 
-const RealDelOpt = ({ id, ongetXXTZGG }: OptType) => (
+const RealDelOpt = ({ id, refreshHandler }: OptType) => (
   <Popconfirm
     title="彻底删除后数据将不可恢复，是否删除?"
     onConfirm={async () => {
@@ -171,7 +161,7 @@ const RealDelOpt = ({ id, ongetXXTZGG }: OptType) => (
         const result = await deleteKHJYTZGG({ id: id });
         if (result.status === 'ok') {
           message.info('删除成功');
-          ongetXXTZGG();
+          refreshHandler();
         } else {
           message.error('删除失败，请联系管理员或稍后重试。');
         }
@@ -198,20 +188,19 @@ type Props = {
   ZT: string;
   refreshHandler: () => void;
   record?: TableListItem;
-  ongetXXTZGG: () => Promise<void>;
 };
 
 const Option: React.FC<Props> = (props) => {
-  const { id, ZT, refreshHandler, record, ongetXXTZGG } = props;
+  const { id, ZT, refreshHandler, record } = props;
   switch (ZT) {
     case '已发布':
-      return <UnPubOpt id={id} refreshHandler={refreshHandler} record={record} ongetXXTZGG={ongetXXTZGG} />;
+      return <UnPubOpt id={id} refreshHandler={refreshHandler} record={record} />;
     case '已删除':
       return (
         <>
-          <UnDelOpt id={id} refreshHandler={refreshHandler} record={record} ongetXXTZGG={ongetXXTZGG} />
+          <UnDelOpt id={id} refreshHandler={refreshHandler} record={record} />
           <Divider type="vertical" />
-          <RealDelOpt id={id} refreshHandler={refreshHandler} record={record} ongetXXTZGG={ongetXXTZGG} />
+          <RealDelOpt id={id} refreshHandler={refreshHandler} record={record} />
         </>
       );
     default:
@@ -219,9 +208,9 @@ const Option: React.FC<Props> = (props) => {
         <>
           <EditOpt id={id} />
           <Divider type="vertical" />
-          <PubOpt id={id} refreshHandler={refreshHandler} record={record} ongetXXTZGG={ongetXXTZGG} />
+          <PubOpt id={id} refreshHandler={refreshHandler} record={record} />
           <Divider type="vertical" />
-          <DelOpt id={id} refreshHandler={refreshHandler} record={record} ongetXXTZGG={ongetXXTZGG} />
+          <DelOpt id={id} refreshHandler={refreshHandler} record={record} />
         </>
       );
   }

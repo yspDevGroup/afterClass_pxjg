@@ -3,14 +3,12 @@ import React, { useEffect, useState } from 'react';
 import { Row, Col, Divider, Form, Input, Select, Image, Switch, DatePicker, Button, Space, message } from 'antd';
 import dayjs from 'dayjs';
 // 引入编辑器组件
-import type { ExtendControlType } from 'braft-editor';
 import BraftEditor from 'braft-editor';
-// import { defImg } from './data';
 // 引入编辑器样式
 import 'braft-editor/dist/index.css';
 import { history, useModel } from 'umi';
-import styles from './index.module.less';
-import AvatarUpload from './components/AvatarUpload';
+import styles from '../index.module.less';
+import AvatarUpload from '../components/AvatarUpload';
 import { createKHJYTZGG, KHJYTZGG, updateKHJYTZGG } from '@/services/after-class-pxjg/khjytzgg';
 
 const { Option } = Select;
@@ -271,5 +269,5 @@ const EditArticle = () => {
     </>
   );
 };
-
+EditArticle.wrappers = ['@/wrappers/auth'];
 export default EditArticle;
