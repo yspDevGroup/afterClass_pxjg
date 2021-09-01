@@ -36,9 +36,9 @@ export async function currentUser(options?: { [key: string]: any }) {
     data?: {
       info: {
         id?: string;
-        jgId?: string;
-        jyjId?: string;
-        xxId?: string;
+        jgId?: string | any;
+        jyjId?: string | any;
+        xxId?: string | any;
         XXDM?: string;
         loginName?: string;
         username?: string;
@@ -111,9 +111,9 @@ export async function createUser(body: API.CreateUser, options?: { [key: string]
     status?: 'ok' | 'error';
     data: {
       id?: string;
-      jgId?: string;
-      jyjId?: string;
-      xxId?: string;
+      jgId?: string | any;
+      jyjId?: string | any;
+      xxId?: string | any;
       XXDM?: string;
       loginName?: string;
       username?: string;

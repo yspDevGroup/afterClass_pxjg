@@ -176,3 +176,20 @@ export async function updateXXJBSJ(
     ...(options || {}),
   });
 }
+
+/** 获取学校的首页统计数据 POST /xxjbsj/homePage */
+export async function homePage(
+  body: {
+    XXJBSJId?: string;
+  },
+  options?: { [key: string]: any },
+) {
+  return request<any>('/xxjbsj/homePage', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data: body,
+    ...(options || {}),
+  });
+}

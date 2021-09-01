@@ -2,7 +2,7 @@
  * @description:
  * @author: Sissle Lynn
  * @Date: 2021-08-24 14:37:02
- * @LastEditTime: 2021-08-31 12:21:41
+ * @LastEditTime: 2021-09-01 09:31:27
  * @LastEditors: Sissle Lynn
  */
 import React, { useRef, useState } from 'react';
@@ -10,7 +10,6 @@ import ProTable, { RequestData } from '@ant-design/pro-table';
 import type { ActionType, ProColumns } from '@ant-design/pro-table';
 import { Link, useModel } from 'umi';
 
-import { schoolList } from '../mock';
 import styles from './index.less';
 import { Divider, Tag } from 'antd';
 import { TableListParams } from '@/constant';

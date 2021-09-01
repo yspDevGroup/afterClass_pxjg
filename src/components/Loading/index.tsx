@@ -2,7 +2,7 @@
  * @description: 统一定义loading
  * @author: zpl
  * @Date: 2021-07-20 16:59:30
- * @LastEditTime: 2021-08-16 17:11:12
+ * @LastEditTime: 2021-09-01 16:58:40
  * @LastEditors: Sissle Lynn
  */
 import React from 'react';
@@ -19,7 +19,7 @@ const Loading = () => {
           top: '50%',
           left: '50%',
           transform: 'translate(-50%, -50%)',
-          width: '100px'
+          width: '200px'
         }}
       />
     </div>

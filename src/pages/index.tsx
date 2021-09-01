@@ -1,30 +1,15 @@
-import React from 'react';
-import { Access, useAccess, history, Link } from 'umi';
-import { Button, Carousel } from 'antd';
-import img from '../assets/Company.png';
+import React, { useState } from 'react';
+import Register from '@/components/IndexComp/register';
+import IndexComp from '@/components/IndexComp';
 
-import styles from './index.less';
 
 const Index = () => {
-  const toRZ = () => {
-    history.push('/infoMaintenance?type=false');
-  };
+  const [isRegistered, setIsRegistered] = useState<boolean>(true);
+  if (isRegistered) {
+    return <IndexComp />
+  }
   return (
-    <div className={styles.Index}>
-      <p className={styles.hello}>你好，欢迎使用课后服务平台</p>
-      <img src={img} alt="" />
-      <p className={styles.apply}>使用前，请先完善本机构相关基本信息后，提交入驻申请。</p>
-      <Link
-        to={{
-          pathname: '/infoMaintenance',
-          state: false
-        }}
-      >
-        <Button type="primary">
-          完善基本信息
-        </Button>
-      </Link>
-    </div>
+    <Register />
   );
 };
 Index.title = '主页';

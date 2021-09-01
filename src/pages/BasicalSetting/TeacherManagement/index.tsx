@@ -2,7 +2,7 @@
  * @description:
  * @author: Sissle Lynn
  * @Date: 2021-08-28 09:22:33
- * @LastEditTime: 2021-08-31 10:53:53
+ * @LastEditTime: 2021-09-01 19:10:15
  * @LastEditors: Sissle Lynn
  */
 /*
@@ -84,15 +84,15 @@ const TeacherManagement = () => {
       render: (_, record) => (
         <>
           <Link to={{
-            pathname: '/teachingStaff/teacherManagement/detail',
+            pathname: '/basicalSetting/teacherManagement/detail',
             state: {
               type: 'detail',
               data: record
             }
-          }}>教师详情</Link>
+          }}>详情</Link>
           <Divider type='vertical' />
           <Link to={{
-            pathname: '/teachingStaff/teacherManagement/detail',
+            pathname: '/basicalSetting/teacherManagement/detail',
             state: {
               type: 'edit',
               data: record
@@ -147,7 +147,7 @@ const TeacherManagement = () => {
         }
       }}
       toolBarRender={() => [
-        <Button key="button" type="primary" onClick={() => history.push('/teachingStaff/teacherManagement/detail', { type: 'newAdd' })}>
+        <Button key="button" type="primary" onClick={() => history.push('/basicalSetting/teacherManagement/detail', { type: 'newAdd' })}>
           新建
         </Button>
       ]}

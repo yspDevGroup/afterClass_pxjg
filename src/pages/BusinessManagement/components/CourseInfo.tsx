@@ -2,10 +2,11 @@
  * @description:
  * @author: Sissle Lynn
  * @Date: 2021-08-26 19:54:41
- * @LastEditTime: 2021-08-31 11:15:05
+ * @LastEditTime: 2021-09-01 19:11:15
  * @LastEditors: Sissle Lynn
  */
 import React, { useEffect, useState } from 'react';
+import { Link } from 'umi';
 import { Input, Empty, Row, Col, message, Tag, Select } from 'antd';
 import { UpOutlined, RightOutlined, DownOutlined } from '@ant-design/icons';
 import { copCourseStatus, colorTagDisk } from '@/constant';
@@ -13,7 +14,6 @@ import { copCourseStatus, colorTagDisk } from '@/constant';
 import styles from './components.less';
 import noCourse from '@/assets/noCourse.png';
 import noClass from '@/assets/noClass.png';
-import { Link } from 'umi';
 import { getAllCourses, getAllSemester } from '@/services/after-class-pxjg/khjyjg';
 import { getCurrentXQ } from '@/utils';
 
@@ -67,7 +67,7 @@ const CourseItemDom = (props: { course: any, type: string, ind: number }) => {
             </p>
             <p>任课老师：{item.KHBJJs?.map((val: any) => {
               return <Link key={val.id} to={{
-                pathname: '/teachingStaff/teacherManagement/detail',
+                pathname: '/basicalSetting/teacherManagement/detail',
                 state: {
                   type: 'detail',
                   data: course

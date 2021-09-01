@@ -398,6 +398,70 @@ declare namespace API {
     KCSJId?: string;
   };
 
+  type JYJGSJ = {
+    id: string;
+    /** 部门编码 */
+    BMBM?: string;
+    /** 部门名称 */
+    BMMC?: string;
+    /** 上级部编码 */
+    SJBMBM?: string;
+    /** 部门级别,0省教育厅/1地级市/2县区 */
+    BMJB?: number;
+    /** 行政区划 */
+    XZQH?: string;
+    /** 机构类型,0教育管理机构/1学前教育机构/2中小学/3中职教育机构/4高等教育机构/5高职教育机构剖 */
+    JGLX?: number;
+    /** 部门IP范围 */
+    BMIPFW?: string;
+    /** 备注 */
+    BZ?: string;
+    /** 状态 */
+    ZT?: number;
+  };
+
+  type CreateJYJGSJ = {
+    /** 部门编码 */
+    BMBM?: string;
+    /** 部门名称 */
+    BMMC?: string;
+    /** 上级部编码 */
+    SJBMBM?: string;
+    /** 部门级别,0省教育厅/1地级市/2县区 */
+    BMJB?: number;
+    /** 行政区划 */
+    XZQH?: string;
+    /** 机构类型,0教育管理机构/1学前教育机构/2中小学/3中职教育机构/4高等教育机构/5高职教育机构剖 */
+    JGLX?: number;
+    /** 部门IP范围 */
+    BMIPFW?: string;
+    /** 备注 */
+    BZ?: string;
+    /** 状态 */
+    ZT?: number;
+  };
+
+  type UpdateJYJGSJ = {
+    /** 部门编码 */
+    BMBM?: string;
+    /** 部门名称 */
+    BMMC?: string;
+    /** 上级部编码 */
+    SJBMBM?: string;
+    /** 部门级别,0省教育厅/1地级市/2县区 */
+    BMJB?: number;
+    /** 行政区划 */
+    XZQH?: string;
+    /** 机构类型,0教育管理机构/1学前教育机构/2中小学/3中职教育机构/4高等教育机构/5高职教育机构剖 */
+    JGLX?: number;
+    /** 部门IP范围 */
+    BMIPFW?: string;
+    /** 备注 */
+    BZ?: string;
+    /** 状态 */
+    ZT?: number;
+  };
+
   type JYJGTZGG = {
     id: string;
     /** 标题 */
@@ -492,70 +556,6 @@ declare namespace API {
     SFTJ?: number;
     /** 内容 */
     NR?: string;
-  };
-
-  type JYJGSJ = {
-    id: string;
-    /** 部门编码 */
-    BMBM?: string;
-    /** 部门名称 */
-    BMMC?: string;
-    /** 上级部编码 */
-    SJBMBM?: string;
-    /** 部门级别,0省教育厅/1地级市/2县区 */
-    BMJB?: number;
-    /** 行政区划 */
-    XZQH?: string;
-    /** 机构类型,0教育管理机构/1学前教育机构/2中小学/3中职教育机构/4高等教育机构/5高职教育机构剖 */
-    JGLX?: number;
-    /** 部门IP范围 */
-    BMIPFW?: string;
-    /** 备注 */
-    BZ?: string;
-    /** 状态 */
-    ZT?: number;
-  };
-
-  type CreateJYJGSJ = {
-    /** 部门编码 */
-    BMBM?: string;
-    /** 部门名称 */
-    BMMC?: string;
-    /** 上级部编码 */
-    SJBMBM?: string;
-    /** 部门级别,0省教育厅/1地级市/2县区 */
-    BMJB?: number;
-    /** 行政区划 */
-    XZQH?: string;
-    /** 机构类型,0教育管理机构/1学前教育机构/2中小学/3中职教育机构/4高等教育机构/5高职教育机构剖 */
-    JGLX?: number;
-    /** 部门IP范围 */
-    BMIPFW?: string;
-    /** 备注 */
-    BZ?: string;
-    /** 状态 */
-    ZT?: number;
-  };
-
-  type UpdateJYJGSJ = {
-    /** 部门编码 */
-    BMBM?: string;
-    /** 部门名称 */
-    BMMC?: string;
-    /** 上级部编码 */
-    SJBMBM?: string;
-    /** 部门级别,0省教育厅/1地级市/2县区 */
-    BMJB?: number;
-    /** 行政区划 */
-    XZQH?: string;
-    /** 机构类型,0教育管理机构/1学前教育机构/2中小学/3中职教育机构/4高等教育机构/5高职教育机构剖 */
-    JGLX?: number;
-    /** 部门IP范围 */
-    BMIPFW?: string;
-    /** 备注 */
-    BZ?: string;
-    /** 状态 */
-    ZT?: number;
   };
 
   type JZGCFSJ = {
@@ -684,72 +684,6 @@ declare namespace API {
     QJDM?: string;
     /** 教师ID */
     JZGJBSJId?: string;
-  };
-
-  type JZGLWSJ = {
-    id: string;
-    /** 名称 */
-    MC: string;
-    /** 编号 */
-    BH?: string;
-    /** 日期 */
-    RQ?: string | any;
-    /** 出版号 */
-    CBH?: string;
-    /** 刊物 */
-    KW?: string;
-    /** 刊物级别 */
-    KWJB?: string;
-    /** 期数 */
-    QS?: string;
-    /** 内容 */
-    NR?: string;
-    /** 来源 */
-    LY?: string;
-  };
-
-  type CreateJZGLWSJ = {
-    /** 名称 */
-    MC: string;
-    /** 编号 */
-    BH?: string;
-    /** 日期 */
-    RQ?: string | any;
-    /** 出版号 */
-    CBH?: string;
-    /** 刊物 */
-    KW?: string;
-    /** 刊物级别 */
-    KWJB?: string;
-    /** 期数 */
-    QS?: string;
-    /** 内容 */
-    NR?: string;
-    /** 来源 */
-    LY?: string;
-    /** 教师ID */
-    JZGJBSJId?: string;
-  };
-
-  type UpdateJZGLWSJ = {
-    /** 名称 */
-    MC?: string;
-    /** 编号 */
-    BH?: string;
-    /** 日期 */
-    RQ?: string | any;
-    /** 出版号 */
-    CBH?: string;
-    /** 刊物 */
-    KW?: string;
-    /** 刊物级别 */
-    KWJB?: string;
-    /** 期数 */
-    QS?: string;
-    /** 内容 */
-    NR?: string;
-    /** 来源 */
-    LY?: string;
   };
 
   type JZGKTYJ = {
@@ -888,6 +822,134 @@ declare namespace API {
     JX?: string;
     /** 内容 */
     NR?: string;
+  };
+
+  type JZGLWSJ = {
+    id: string;
+    /** 名称 */
+    MC: string;
+    /** 编号 */
+    BH?: string;
+    /** 日期 */
+    RQ?: string | any;
+    /** 出版号 */
+    CBH?: string;
+    /** 刊物 */
+    KW?: string;
+    /** 刊物级别 */
+    KWJB?: string;
+    /** 期数 */
+    QS?: string;
+    /** 内容 */
+    NR?: string;
+    /** 来源 */
+    LY?: string;
+  };
+
+  type CreateJZGLWSJ = {
+    /** 名称 */
+    MC: string;
+    /** 编号 */
+    BH?: string;
+    /** 日期 */
+    RQ?: string | any;
+    /** 出版号 */
+    CBH?: string;
+    /** 刊物 */
+    KW?: string;
+    /** 刊物级别 */
+    KWJB?: string;
+    /** 期数 */
+    QS?: string;
+    /** 内容 */
+    NR?: string;
+    /** 来源 */
+    LY?: string;
+    /** 教师ID */
+    JZGJBSJId?: string;
+  };
+
+  type UpdateJZGLWSJ = {
+    /** 名称 */
+    MC?: string;
+    /** 编号 */
+    BH?: string;
+    /** 日期 */
+    RQ?: string | any;
+    /** 出版号 */
+    CBH?: string;
+    /** 刊物 */
+    KW?: string;
+    /** 刊物级别 */
+    KWJB?: string;
+    /** 期数 */
+    QS?: string;
+    /** 内容 */
+    NR?: string;
+    /** 来源 */
+    LY?: string;
+  };
+
+  type JZGXXJL = {
+    id: string;
+    /** 学习起始日期 */
+    XXQSRQ: string;
+    /** 学习终止日期 */
+    XXZZRQ: string;
+    /** 学习单位 */
+    XXDW?: string;
+    /** 学习内容 */
+    XXNR?: string;
+    /** 所学专业名称 */
+    SXZYMC?: string;
+    /** 所获学位码 */
+    SHXWM?: string;
+    /** 学习证明人 */
+    XXZMR?: string;
+    /** 学习简历备注 */
+    XXJLBZ?: string;
+  };
+
+  type CreateJZGXXJL = {
+    /** 学习起始日期 */
+    XXQSRQ: string;
+    /** 学习终止日期 */
+    XXZZRQ: string;
+    /** 学习单位 */
+    XXDW?: string;
+    /** 学习内容 */
+    XXNR?: string;
+    /** 所学专业名称 */
+    SXZYMC?: string;
+    /** 所获学位码 */
+    SHXWM?: string;
+    /** 学习证明人 */
+    XXZMR?: string;
+    /** 学习简历备注 */
+    XXJLBZ?: string;
+    /** 教师ID */
+    JZGJBSJId?: string;
+  };
+
+  type UpdateJZGXXJL = {
+    /** 学习起始日期 */
+    XXQSRQ?: string;
+    /** 学习终止日期 */
+    XXZZRQ?: string;
+    /** 学习单位 */
+    XXDW?: string;
+    /** 学习内容 */
+    XXNR?: string;
+    /** 所学专业名称 */
+    SXZYMC?: string;
+    /** 所获学位码 */
+    SHXWM?: string;
+    /** 学习证明人 */
+    XXZMR?: string;
+    /** 学习简历备注 */
+    XXJLBZ?: string;
+    /** 教师ID */
+    JZGJBSJId?: string;
   };
 
   type JZGJBSJ = {
@@ -1311,6 +1373,96 @@ declare namespace API {
     }[];
   };
 
+  type KCSJ = {
+    id: string;
+    /** 课程名称 */
+    KCMC: string;
+    /** 课程码 */
+    KCM?: string;
+    /** 课程等级码 */
+    KCDJM?: string;
+    /** 课程别名 */
+    KCBM?: string;
+    /** 课程简介 */
+    KCJJ?: string;
+    /** 课程要求 */
+    KCYQ?: string;
+    /** 总学时 */
+    ZXS?: number;
+    /** 周学时 */
+    ZHXS?: number;
+    /** 自学学时 */
+    ZXXS?: number;
+    /** 授课方式码 */
+    SKFSM?: string;
+    /** 教材编码 */
+    JCBM?: string;
+    /** 参考书目 */
+    CKSM?: string;
+    NJSJ?: { id?: string; NJ?: number; NJMC?: string; XD?: string };
+    XKSJ?: { id?: string; XKMC?: string; XD?: string };
+  };
+
+  type CreateKCSJ = {
+    /** 课程号 */
+    KCH?: string;
+    /** 课程名称 */
+    KCMC: string;
+    /** 课程码 */
+    KCM?: string;
+    /** 课程等级码 */
+    KCDJM?: string;
+    /** 课程别名 */
+    KCBM?: string;
+    /** 课程简介 */
+    KCJJ?: string;
+    /** 课程要求 */
+    KCYQ?: string;
+    /** 总学时 */
+    ZXS?: number;
+    /** 周学时 */
+    ZHXS?: number;
+    /** 自学学时 */
+    ZXXS?: number;
+    /** 授课方式码 */
+    SKFSM?: string;
+    /** 教材编码 */
+    JCBM?: string;
+    /** 参考书目 */
+    CKSM?: string;
+    NJSJId: string;
+    XKSJId?: string;
+  };
+
+  type UpdateKCSJ = {
+    /** 课程号 */
+    KCH?: string;
+    /** 课程名称 */
+    KCMC?: string;
+    /** 课程码 */
+    KCM?: string;
+    /** 课程等级码 */
+    KCDJM?: string;
+    /** 课程别名 */
+    KCBM?: string;
+    /** 课程简介 */
+    KCJJ?: string;
+    /** 课程要求 */
+    KCYQ?: string;
+    /** 总学时 */
+    ZXS?: number;
+    /** 周学时 */
+    ZHXS?: number;
+    /** 自学学时 */
+    ZXXS?: number;
+    /** 授课方式码 */
+    SKFSM?: string;
+    /** 教材编码 */
+    JCBM?: string;
+    /** 参考书目 */
+    CKSM?: string;
+  };
+
   type KHBJSJ = {
     id: string;
     /** 班级名称 */
@@ -1448,210 +1600,6 @@ declare namespace API {
     KHKCSJId?: string;
   };
 
-  type JZGXXJL = {
-    id: string;
-    /** 学习起始日期 */
-    XXQSRQ: string;
-    /** 学习终止日期 */
-    XXZZRQ: string;
-    /** 学习单位 */
-    XXDW?: string;
-    /** 学习内容 */
-    XXNR?: string;
-    /** 所学专业名称 */
-    SXZYMC?: string;
-    /** 所获学位码 */
-    SHXWM?: string;
-    /** 学习证明人 */
-    XXZMR?: string;
-    /** 学习简历备注 */
-    XXJLBZ?: string;
-  };
-
-  type CreateJZGXXJL = {
-    /** 学习起始日期 */
-    XXQSRQ: string;
-    /** 学习终止日期 */
-    XXZZRQ: string;
-    /** 学习单位 */
-    XXDW?: string;
-    /** 学习内容 */
-    XXNR?: string;
-    /** 所学专业名称 */
-    SXZYMC?: string;
-    /** 所获学位码 */
-    SHXWM?: string;
-    /** 学习证明人 */
-    XXZMR?: string;
-    /** 学习简历备注 */
-    XXJLBZ?: string;
-    /** 教师ID */
-    JZGJBSJId?: string;
-  };
-
-  type UpdateJZGXXJL = {
-    /** 学习起始日期 */
-    XXQSRQ?: string;
-    /** 学习终止日期 */
-    XXZZRQ?: string;
-    /** 学习单位 */
-    XXDW?: string;
-    /** 学习内容 */
-    XXNR?: string;
-    /** 所学专业名称 */
-    SXZYMC?: string;
-    /** 所获学位码 */
-    SHXWM?: string;
-    /** 学习证明人 */
-    XXZMR?: string;
-    /** 学习简历备注 */
-    XXJLBZ?: string;
-    /** 教师ID */
-    JZGJBSJId?: string;
-  };
-
-  type KHJSPJ = {
-    id: string;
-    /** 评价日期 */
-    PJRQ?: string | any;
-    /** 评价类型 */
-    PJLX?: '节次评价' | '总评价';
-    /** 评价分数 */
-    PJFS?: string;
-    /** 评语 */
-    PY?: string;
-    /** 教师ID */
-    JSId?: string;
-    /** 学生ID */
-    XSId?: string;
-    /** 班级ID */
-    KHBJSJId?: string;
-  };
-
-  type CreateKHJSPJ = {
-    /** 评价日期 */
-    PJRQ?: string | any;
-    /** 评价类型 */
-    PJLX?: '节次评价' | '总评价';
-    /** 评价分数 */
-    PJFS?: string;
-    /** 评语 */
-    PY?: string;
-    /** 教师ID */
-    JSId?: string;
-    /** 学生ID */
-    XSId?: string;
-    /** 班级ID */
-    KHBJSJId?: string;
-  };
-
-  type UpdateKHJSPJ = {
-    /** 评价日期 */
-    PJRQ?: string | any;
-    /** 评价类型 */
-    PJLX?: '节次评价' | '总评价';
-    /** 评价分数 */
-    PJFS?: string;
-    /** 评语 */
-    PY?: string;
-    /** 教师ID */
-    JSId?: string;
-    /** 学生ID */
-    XSId?: string;
-    /** 班级ID */
-    KHBJSJId?: string;
-  };
-
-  type KCSJ = {
-    id: string;
-    /** 课程名称 */
-    KCMC: string;
-    /** 课程码 */
-    KCM?: string;
-    /** 课程等级码 */
-    KCDJM?: string;
-    /** 课程别名 */
-    KCBM?: string;
-    /** 课程简介 */
-    KCJJ?: string;
-    /** 课程要求 */
-    KCYQ?: string;
-    /** 总学时 */
-    ZXS?: number;
-    /** 周学时 */
-    ZHXS?: number;
-    /** 自学学时 */
-    ZXXS?: number;
-    /** 授课方式码 */
-    SKFSM?: string;
-    /** 教材编码 */
-    JCBM?: string;
-    /** 参考书目 */
-    CKSM?: string;
-    NJSJ?: { id?: string; NJ?: number; NJMC?: string; XD?: string };
-    XKSJ?: { id?: string; XKMC?: string; XD?: string };
-  };
-
-  type CreateKCSJ = {
-    /** 课程号 */
-    KCH?: string;
-    /** 课程名称 */
-    KCMC: string;
-    /** 课程码 */
-    KCM?: string;
-    /** 课程等级码 */
-    KCDJM?: string;
-    /** 课程别名 */
-    KCBM?: string;
-    /** 课程简介 */
-    KCJJ?: string;
-    /** 课程要求 */
-    KCYQ?: string;
-    /** 总学时 */
-    ZXS?: number;
-    /** 周学时 */
-    ZHXS?: number;
-    /** 自学学时 */
-    ZXXS?: number;
-    /** 授课方式码 */
-    SKFSM?: string;
-    /** 教材编码 */
-    JCBM?: string;
-    /** 参考书目 */
-    CKSM?: string;
-    NJSJId: string;
-    XKSJId?: string;
-  };
-
-  type UpdateKCSJ = {
-    /** 课程号 */
-    KCH?: string;
-    /** 课程名称 */
-    KCMC?: string;
-    /** 课程码 */
-    KCM?: string;
-    /** 课程等级码 */
-    KCDJM?: string;
-    /** 课程别名 */
-    KCBM?: string;
-    /** 课程简介 */
-    KCJJ?: string;
-    /** 课程要求 */
-    KCYQ?: string;
-    /** 总学时 */
-    ZXS?: number;
-    /** 周学时 */
-    ZHXS?: number;
-    /** 自学学时 */
-    ZXXS?: number;
-    /** 授课方式码 */
-    SKFSM?: string;
-    /** 教材编码 */
-    JCBM?: string;
-    /** 参考书目 */
-    CKSM?: string;
-  };
-
   type KHJGRZSQ = {
     id: string;
     /** 申请状态 */
@@ -1724,6 +1672,58 @@ declare namespace API {
     JYJGSJId?: string;
     /** 同意入驻时间 */
     RZSJ?: string;
+  };
+
+  type KHJSPJ = {
+    id: string;
+    /** 评价日期 */
+    PJRQ?: string | any;
+    /** 评价类型 */
+    PJLX?: '节次评价' | '总评价';
+    /** 评价分数 */
+    PJFS?: string;
+    /** 评语 */
+    PY?: string;
+    /** 教师ID */
+    JSId?: string;
+    /** 学生ID */
+    XSId?: string;
+    /** 班级ID */
+    KHBJSJId?: string;
+  };
+
+  type CreateKHJSPJ = {
+    /** 评价日期 */
+    PJRQ?: string | any;
+    /** 评价类型 */
+    PJLX?: '节次评价' | '总评价';
+    /** 评价分数 */
+    PJFS?: string;
+    /** 评语 */
+    PY?: string;
+    /** 教师ID */
+    JSId?: string;
+    /** 学生ID */
+    XSId?: string;
+    /** 班级ID */
+    KHBJSJId?: string;
+  };
+
+  type UpdateKHJSPJ = {
+    /** 评价日期 */
+    PJRQ?: string | any;
+    /** 评价类型 */
+    PJLX?: '节次评价' | '总评价';
+    /** 评价分数 */
+    PJFS?: string;
+    /** 评语 */
+    PY?: string;
+    /** 教师ID */
+    JSId?: string;
+    /** 学生ID */
+    XSId?: string;
+    /** 班级ID */
+    KHBJSJId?: string;
   };
 
   type KHJSSJ = {
@@ -1870,6 +1870,8 @@ declare namespace API {
     JGJJ?: string;
     /** 机构入驻状态 */
     ZT?: number;
+    /** 企业微信ID */
+    CorpID?: string;
     KHJGRZSQs?: {
       id?: string;
       ZT?: number;
@@ -1915,6 +1917,8 @@ declare namespace API {
     JGJJ?: string;
     /** 机构入驻状态 */
     ZT?: number;
+    /** 企业微信ID */
+    CorpID?: string;
   };
 
   type UpdateKHJYJG = {
@@ -1946,6 +1950,8 @@ declare namespace API {
     JGJJ?: string;
     /** 机构入驻状态 */
     ZT?: number;
+    /** 企业微信ID */
+    CorpID?: string;
   };
 
   type KHJYTZGG = {
@@ -2500,54 +2506,6 @@ declare namespace API {
     KHBJSJId?: string;
   };
 
-  type NJSJ = {
-    id: string;
-    /** 年级 */
-    NJ: number;
-    /** 年级名称 */
-    NJMC: string;
-    /** 所属学段 */
-    XD?: string;
-    /** 年级简称 */
-    NJJC?: string;
-    /** 是否毕业年级 */
-    SFBY?: number;
-    NJZR?: { id?: string; GH?: string; XM?: string };
-    FNJZR?: { id?: string; GH?: string; XM?: string };
-    BJSJs?: { id?: string; BH?: number; BJ?: string }[];
-  };
-
-  type CreateNJSJ = {
-    /** 年级 */
-    NJ: number;
-    /** 年级名称 */
-    NJMC: string;
-    /** 所属学段 */
-    XD?: string;
-    /** 年级简称 */
-    NJJC?: string;
-    /** 是否毕业年级 */
-    SFBY?: number;
-    NJZRId?: string;
-    FNJZRId?: string;
-    XQSJId?: string;
-  };
-
-  type UpdateNJSJ = {
-    /** 年级 */
-    NJ?: number;
-    /** 年级名称 */
-    NJMC?: string;
-    /** 所属学段 */
-    XD?: string;
-    /** 年级简称 */
-    NJJC?: string;
-    /** 是否毕业年级 */
-    SFBY?: number;
-    BZRId?: string;
-    FBZRId?: string;
-  };
-
   type KHXSQJ = {
     /** 请假开始时间 */
     KSSJ?: string | any;
@@ -2700,11 +2658,59 @@ declare namespace API {
     }[];
   };
 
+  type NJSJ = {
+    id: string;
+    /** 年级 */
+    NJ: number;
+    /** 年级名称 */
+    NJMC: string;
+    /** 所属学段 */
+    XD?: string;
+    /** 年级简称 */
+    NJJC?: string;
+    /** 是否毕业年级 */
+    SFBY?: number;
+    NJZR?: { id?: string; GH?: string; XM?: string };
+    FNJZR?: { id?: string; GH?: string; XM?: string };
+    BJSJs?: { id?: string; BH?: number; BJ?: string }[];
+  };
+
+  type CreateNJSJ = {
+    /** 年级 */
+    NJ: number;
+    /** 年级名称 */
+    NJMC: string;
+    /** 所属学段 */
+    XD?: string;
+    /** 年级简称 */
+    NJJC?: string;
+    /** 是否毕业年级 */
+    SFBY?: number;
+    NJZRId?: string;
+    FNJZRId?: string;
+    XQSJId?: string;
+  };
+
+  type UpdateNJSJ = {
+    /** 年级 */
+    NJ?: number;
+    /** 年级名称 */
+    NJMC?: string;
+    /** 所属学段 */
+    XD?: string;
+    /** 年级简称 */
+    NJJC?: string;
+    /** 是否毕业年级 */
+    SFBY?: number;
+    BZRId?: string;
+    FBZRId?: string;
+  };
+
   type CurrentUser = {
     id?: string;
-    jgId?: string;
-    jyjId?: string;
-    xxId?: string;
+    jgId?: string | any;
+    jyjId?: string | any;
+    xxId?: string | any;
     /** 学校代码 */
     XXDM?: string;
     /** 登录名，学号或工号 */
@@ -2965,38 +2971,6 @@ declare namespace API {
     XQCZDH?: string;
     /** 校区负责人ID */
     JZGJBSJId?: string;
-  };
-
-  type XSCFSJ = {
-    id: string;
-    CFMCM?: string;
-    CFYY?: string;
-    CFRQ?: string | any;
-    CFWH?: string;
-    CFCXRQ?: string | any;
-    CFCXWH?: string;
-  };
-
-  type CreateXSCFSJ = {
-    CFMCM: string;
-    CFYY: string;
-    CFRQ: string | any;
-    CFWH?: string;
-    CFCXRQ?: string | any;
-    CFCXWH?: string;
-    /** 学生ID */
-    XSJBSJId?: string;
-  };
-
-  type UpdateXSCFSJ = {
-    CFMCM?: string;
-    CFYY?: string;
-    CFRQ?: string | any;
-    CFWH?: string;
-    CFCXRQ?: string;
-    CFCXWH?: string;
-    /** 学生ID */
-    XSJBSJId?: string;
   };
 
   type XSJBSJ = {
@@ -3351,6 +3325,38 @@ declare namespace API {
       BJ?: string;
       NJSJ?: { id?: string; NJ?: number; NJMC?: string; XD?: string };
     };
+  };
+
+  type XSCFSJ = {
+    id: string;
+    CFMCM?: string;
+    CFYY?: string;
+    CFRQ?: string | any;
+    CFWH?: string;
+    CFCXRQ?: string | any;
+    CFCXWH?: string;
+  };
+
+  type CreateXSCFSJ = {
+    CFMCM: string;
+    CFYY: string;
+    CFRQ: string | any;
+    CFWH?: string;
+    CFCXRQ?: string | any;
+    CFCXWH?: string;
+    /** 学生ID */
+    XSJBSJId?: string;
+  };
+
+  type UpdateXSCFSJ = {
+    CFMCM?: string;
+    CFYY?: string;
+    CFRQ?: string | any;
+    CFWH?: string;
+    CFCXRQ?: string;
+    CFCXWH?: string;
+    /** 学生ID */
+    XSJBSJId?: string;
   };
 
   type XSJLSJ = {

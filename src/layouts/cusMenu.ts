@@ -2,8 +2,8 @@
  * @description:
  * @author: Sissle Lynn
  * @Date: 2021-08-24 17:21:12
- * @LastEditTime: 2021-09-01 11:54:55
- * @LastEditors: wsl
+ * @LastEditTime: 2021-09-01 19:12:04
+ * @LastEditors: Sissle Lynn
  */
 export default [
   {
@@ -11,28 +11,19 @@ export default [
     name: '首页'
   },
   {
-    path: '/infoMaintenance',
-    name: '基础信息管理'
-  },
-  {
-    path: '/courseManagement',
-    name: '课程管理'
-  },
-  {
-    path: '/courseManagement/mechanismCourse/edit',
-    name: '课程详情',
-    hideInMenu: 'true'
-  },
-  {
-    path: '/teachingStaff',
-    name: '师资管理',
+    path: '/basicalSetting',
+    name: '信息维护',
     routes: [
       {
-        path: '/teachingStaff/teacherManagement',
+        path: '/basicalSetting/infoMaintenance',
+        name: '机构入住申请',
+      },
+      {
+        path: '/basicalSetting/teacherManagement',
         name: '教师管理',
         routes: [
           {
-            path: '/teachingStaff/teacherManagement/detail',
+            path: '/basicalSetting/teacherManagement/detail',
             hideInMenu: 'true',
             name: '详情查看'
           }
@@ -69,6 +60,17 @@ export default [
     ]
   },
   {
+    path: '/courseManagement',
+    name: '课程管理',
+    route:[
+      {
+        path: '/courseManagement/mechanismCourse/edit',
+        name: '课程详情',
+        hideInMenu: 'true'
+      },
+    ]
+  },
+  {
     path: '/announcements',
     name: '通知公告',
     routes: [
@@ -82,7 +84,7 @@ export default [
             name: '编辑文章'
           },
           {
-            path: '/announcements/notice/noticeDetails',
+            path: '/announcements/notice/articleDetails',
             hideInMenu: 'true',
             name: '公告详情'
           }

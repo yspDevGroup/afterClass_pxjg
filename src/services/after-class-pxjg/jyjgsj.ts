@@ -253,3 +253,38 @@ export async function getCourses(
     ...(options || {}),
   });
 }
+
+/** 获取学校的课程列表 POST /jyjgsj/getCoursesBySchool */
+export async function getCoursesBySchool(
+  body: {
+    XXJBSJId?: string;
+    XNXQId?: string;
+  },
+  options?: { [key: string]: any },
+) {
+  return request<any>('/jyjgsj/getCoursesBySchool', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data: body,
+    ...(options || {}),
+  });
+}
+
+/** 获取教育局的首页统计数据 POST /jyjgsj/homePage */
+export async function homePage(
+  body: {
+    JYJGSJId?: string;
+  },
+  options?: { [key: string]: any },
+) {
+  return request<any>('/jyjgsj/homePage', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data: body,
+    ...(options || {}),
+  });
+}
