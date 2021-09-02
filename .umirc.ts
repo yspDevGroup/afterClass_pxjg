@@ -12,13 +12,12 @@ export default defineConfig({
     ENV_title: '课后帮',
     ENV_subTitle: '课后服务平台',
     ENV_copyRight: '2021 版权所有：陕西凯锐信息技术有限公司',
-    ENV_host: 'http://127.0.0.1:8080',
-    ENV_backUrl: 'http://192.168.0.113:3000',
-    ssoHost: 'https://platform.test.xianyunshipei.com',
-    // ssoHost: 'http://192.168.0.17:1000',
+    ENV_host: 'http://afterclass_pxjg.test.xianyunshipei.com',
+    ENV_backUrl: 'http://api.test.xianyunshipei.com',
+    ssoHost: 'http://platform.test.xianyunshipei.com',
     authType: 'password',
-    clientId: '00002',
-    clientSecret: 'nt7IJNuM/5fgcV64HKk9'
+    clientId: 'ww73f350f785b450ab',
+    clientSecret: 'GioaHZFINvGOlb3e6rW2BBgjVEpHi-CUYBxGpC0NI9c'
   },
   links: [{ rel: 'icon', href: './title.png' }],
   dynamicImport: {

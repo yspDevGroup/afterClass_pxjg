@@ -2,8 +2,8 @@
  * @description: 工具类
  * @author: zpl
  * @Date: 2021-08-09 10:36:53
- * @LastEditTime: 2021-08-31 09:19:37
- * @LastEditors: Sissle Lynn
+ * @LastEditTime: 2021-09-02 18:11:50
+ * @LastEditors: zpl
  */
 import { history } from 'umi';
 
@@ -56,27 +56,31 @@ export const envjudge = (): PlatType => {
  */
 export const getLoginPath = (): string => {
   let loginPath: string;
-  switch (envjudge()) {
-    case 'com-wx-pc': // PC端企业微信
-      loginPath = `${ENV_backUrl}/wechat/platAuth?plat=qywx&isMobile=false`;
-      break;
-    case 'com-wx-mobile': // 手机端企业微信
-      loginPath = `${ENV_backUrl}/wechat/platAuth?plat=qywx&isMobile=true`;
-      break;
-    case 'wx-pc': // PC端微信
-      loginPath = `${ENV_backUrl}/wechat/platAuth?plat=wx&isMobile=false`;
-      break;
-    case 'wx-mobile': // 手机端微信
-      loginPath = `${ENV_backUrl}/wechat/platAuth?plat=wx&isMobile=true`;
-      break;
-    case 'mobile': // 手机
-    case 'pc': // PC
-    default:
-      {
+  // switch (envjudge()) {
+  //   case 'com-wx-pc': // PC端企业微信
+  //     loginPath = `${ENV_backUrl}/wechat/platAuth?plat=qywx&isMobile=false`;
+  //     break;
+  //   case 'com-wx-mobile': // 手机端企业微信
+  //     loginPath = `${ENV_backUrl}/wechat/platAuth?plat=qywx&isMobile=true`;
+  //     break;
+  //   case 'wx-pc': // PC端微信
+  //     loginPath = `${ENV_backUrl}/wechat/platAuth?plat=wx&isMobile=false`;
+  //     break;
+  //   case 'wx-mobile': // 手机端微信
+  //     loginPath = `${ENV_backUrl}/wechat/platAuth?plat=wx&isMobile=true`;
+  //     break;
+  //   case 'mobile': // 手机
+  //   case 'pc': // PC
+  //   default:
+  //     {
         const qdCallback = encodeURIComponent(`${ENV_host}/AuthCallback`);
         const hdCallback = encodeURIComponent(`${ENV_backUrl}/sso/auth/callback?redirect=${qdCallback}`);
         switch (authType) {
+          case 'wechat':
+            loginPath = `${ssoHost}/oauth2/Wehcat?client_id=${clientId}&client_secret=${clientSecret}`;
+            break;
           case 'authorization_code':
+            // TODO 待处理
             loginPath = `${ssoHost}/oauth2/code?client_id=${clientId}&response_type=${authType}&redirect_uri=${''}state=${''}scope=${''}`;
             break;
           case 'password':
@@ -84,9 +88,9 @@ export const getLoginPath = (): string => {
             loginPath = `${ssoHost}/oauth2/password?response_type=${authType}&client_id=${clientId}&client_secret=${clientSecret}&redirect_uri=${qdCallback}`;
             break;
         }
-      }
-      break;
-  }
+      // }
+      // break;
+  // }
   return loginPath;
 };
 
