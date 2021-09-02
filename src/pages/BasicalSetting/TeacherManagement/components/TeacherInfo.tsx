@@ -2,8 +2,8 @@
  * @description:
  * @author: Sissle Lynn
  * @Date: 2021-08-26 16:24:39
- * @LastEditTime: 2021-09-02 09:08:44
- * @LastEditors: Sissle Lynn
+ * @LastEditTime: 2021-09-02 11:14:24
+ * @LastEditors: wsl
  */
 import React, { useEffect, useState } from 'react';
 import { useModel } from 'umi';
@@ -17,7 +17,7 @@ import styles from './components.less';
 
 const formItemLayout = {
   labelCol: { flex: '7em' },
-  wrapperCol: { flex: 'auto' },
+  wrapperCol: { flex: 'auto' }
 };
 type PropsType = {
   values: any;
@@ -39,7 +39,7 @@ const SchoolInfo = (props: PropsType) => {
     }
   }, [values]);
   // 文件状态改变的回调
-  const imageChange = (type: string, e?: any,) => {
+  const imageChange = (type: string, e?: any) => {
     if (e.file.status === 'done') {
       const mas = e.file.response.message;
       if (typeof e.file.response === 'object' && e.file.response.status === 'error') {
@@ -63,14 +63,14 @@ const SchoolInfo = (props: PropsType) => {
       label: 'id',
       name: 'id',
       key: 'id',
-      hidden: true,
+      hidden: true
     },
     {
       type: 'input',
       label: 'KHJYJGId',
       name: 'KHJYJGId',
       key: 'KHJYJGId',
-      hidden: true,
+      hidden: true
     },
     {
       type: 'group',
@@ -85,7 +85,7 @@ const SchoolInfo = (props: PropsType) => {
           imgWidth: 100,
           imgHeight: 100,
           imageurl: zpUrl,
-          upurl: '/upload/uploadFile?type=badge',
+          upurl: '/api/upload/uploadFile?type=badge',
           accept: '.jpg, .jpeg, .png',
           imagename: 'image',
           handleImageChange: (value: any) => {
@@ -100,14 +100,14 @@ const SchoolInfo = (props: PropsType) => {
           imgWidth: 100,
           imgHeight: 100,
           imageurl: zgzsUrl,
-          upurl: '/upload/uploadFile?type=badge',
+          upurl: '/api/upload/uploadFile?type=badge',
           accept: '.jpg, .jpeg, .png',
           imagename: 'image',
           handleImageChange: (value: any) => {
             imageChange('ZGZS', value);
           }
-        },
-      ],
+        }
+      ]
     },
     {
       type: 'group',
@@ -120,15 +120,15 @@ const SchoolInfo = (props: PropsType) => {
           name: 'XM',
           key: 'XM',
           rules: [{ required: true, message: '请输入姓名' }],
-          placeholder: readonly ? '-' : '',
+          placeholder: readonly ? '-' : ''
         },
         {
           type: 'input',
           label: '资格证书编号',
           name: 'ZGZSBH',
           key: 'ZGZSBH',
-          placeholder: readonly ? '-' : '',
-        },
+          placeholder: readonly ? '-' : ''
+        }
       ]
     },
     {
@@ -144,22 +144,22 @@ const SchoolInfo = (props: PropsType) => {
           items: [
             {
               text: '男',
-              value: '男',
+              value: '男'
             },
             {
               text: '女',
-              value: '女',
-            },
-          ],
+              value: '女'
+            }
+          ]
         },
         {
           type: 'input',
           label: '学历',
           name: 'XL',
           key: 'XL',
-          placeholder: readonly ? '-' : '',
-        },
-      ],
+          placeholder: readonly ? '-' : ''
+        }
+      ]
     },
     {
       type: 'group',
@@ -171,16 +171,16 @@ const SchoolInfo = (props: PropsType) => {
           label: '民族',
           name: 'MZ',
           key: 'MZ',
-          placeholder: readonly ? '-' : '',
+          placeholder: readonly ? '-' : ''
         },
         {
           type: 'input',
           label: '毕业院校',
           name: 'BYYX',
           key: 'BYYX',
-          placeholder: readonly ? '-' : '',
-        },
-      ],
+          placeholder: readonly ? '-' : ''
+        }
+      ]
     },
     {
       type: 'group',
@@ -193,15 +193,15 @@ const SchoolInfo = (props: PropsType) => {
           label: '出生日期',
           name: 'CSRQ',
           key: 'CSRQ',
-          placeholder: readonly ? '-' : '',
+          placeholder: readonly ? '-' : ''
         },
         {
           type: 'input',
           label: '专业',
           name: 'SXZY',
           key: 'ZY',
-          placeholder: readonly ? '-' : '',
-        },
+          placeholder: readonly ? '-' : ''
+        }
       ]
     },
     {
@@ -215,15 +215,15 @@ const SchoolInfo = (props: PropsType) => {
           name: 'LXDH',
           key: 'LXDH',
           placeholder: readonly ? '-' : '',
-          rules: [{ required: true, message: '请输入联系电话' }],
+          rules: [{ required: true, message: '请输入联系电话' }]
         },
         {
           type: 'inputNumber',
           label: '教龄(月)',
           name: 'JL',
           key: 'JL',
-          placeholder: readonly ? '-' : '',
-        },
+          placeholder: readonly ? '-' : ''
+        }
       ]
     },
     {
@@ -253,16 +253,16 @@ const SchoolInfo = (props: PropsType) => {
             {
               value: '其他',
               text: '其他'
-            },
-          ],
+            }
+          ]
         },
         {
           type: 'inputNumber',
           label: '教授科目',
           name: 'JSKM',
           key: 'JSKM',
-          placeholder: readonly ? '-' : '',
-        },
+          placeholder: readonly ? '-' : ''
+        }
       ]
     },
     {
@@ -275,15 +275,15 @@ const SchoolInfo = (props: PropsType) => {
           key: 'SFZJH',
           name: 'SFZJH',
           label: '证件号码',
-          placeholder: readonly ? '-' : '',
+          placeholder: readonly ? '-' : ''
         },
         {
           type: 'input',
           label: '电子邮箱',
           name: 'DZXX',
           key: 'DZXX',
-          placeholder: readonly ? '-' : '',
-        },
+          placeholder: readonly ? '-' : ''
+        }
       ]
     },
     {
@@ -297,10 +297,10 @@ const SchoolInfo = (props: PropsType) => {
           label: '个人简介',
           name: 'BZ',
           key: 'BZ',
-          placeholder: readonly ? '-' : '',
-        },
+          placeholder: readonly ? '-' : ''
+        }
       ]
-    },
+    }
   ];
   const onFinish = async (values: any) => {
     let res;
@@ -309,9 +309,12 @@ const SchoolInfo = (props: PropsType) => {
     values.ZP = zpUrl ? zpUrl : values.ZP;
 
     if (values.id) {
-      res = await updateKHJSSJ({
-        id: values.id,
-      }, values);
+      res = await updateKHJSSJ(
+        {
+          id: values.id
+        },
+        values
+      );
     } else {
       res = await createKHJSSJ(values);
     }
@@ -332,7 +335,7 @@ const SchoolInfo = (props: PropsType) => {
               const { CSRQ, ...rest } = info;
               return {
                 CSRQ: CSRQ ? moment(CSRQ) : '',
-                ...rest,
+                ...rest
               };
             }
             return {

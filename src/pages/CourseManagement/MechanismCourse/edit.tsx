@@ -51,6 +51,7 @@ const Edit = (props: any) => {
         jsIds: state?.KHKCJs?.map((item: any) => item?.KHJSSJ?.id),
         KCTP: state?.KCTP
       };
+      setImageUrl(state?.KCTP);
       setFormValues(params);
     }
   }, []);
@@ -103,7 +104,7 @@ const Edit = (props: any) => {
   const onFinish = async (values: any) => {
     const params = {
       ...values,
-      KCTP: '',
+      KCTP: imageUrl || '',
       KCZT: 0,
       KHJYJGId: currentUser?.jgId,
       KHKCLXId: KCLXOptions?.find((item: any) => item.text === '标准课程').value
@@ -203,7 +204,7 @@ const Edit = (props: any) => {
       disabled,
       key: 'KCTP',
       imageurl: imageUrl,
-      upurl: '/upload/uploadFile?type=badge',
+      upurl: '/api/upload/uploadFile?type=badge',
       accept: '.jpg, .jpeg, .png',
       imagename: 'image',
       handleImageChange

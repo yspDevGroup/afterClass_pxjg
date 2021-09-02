@@ -16,16 +16,23 @@ const InfoMaintenance = (props: any) => {
   const [XZQHM, setXZQHM] = useState<string>();
   const [KHJYJGId, setKHJYJGId] = useState<string>();
   const [SQDatas, setSQDatas] = useState<any[]>();
+  const [QYTBImageUrl, setQYTBImageUrl] = useState('');
+  const [YYZZImageUrl, setYYZZImageUrl] = useState('');
+  const [BXXKZImageUrl, setBXXKZImageUrl] = useState('');
   const { username, id } = currentUser!;
   const [form] = Form.useForm();
 
   const onKHJYJG = async () => {
     const res = await KHJYJG({ id: currentUser!.jgId! });
     if (res.status === 'ok') {
+      console.log(res);
       form.setFieldsValue(res.data);
       setXZQHM(res.data.XZQHM);
       setKHJYJGId(res.data.id);
       setSQDatas(res.data.KHJGRZSQs);
+      setQYTBImageUrl(res.data.QYTB!);
+      setYYZZImageUrl(res.data.YYZZ!);
+      setBXXKZImageUrl(res.data.BXXKZ!);
     } else {
       form.setFieldsValue({});
     }
@@ -49,8 +56,40 @@ const InfoMaintenance = (props: any) => {
     }
   };
 
+  // 文件状态改变的回调
+  const imageChange = (type: string, e?: any) => {
+    if (e.file.status === 'done') {
+      const mas = e.file.response.message;
+      if (typeof e.file.response === 'object' && e.file.response.status === 'error') {
+        message.error(`上传失败，${mas}`);
+      } else {
+        const res = e.file.response;
+        if (res.status === 'ok') {
+          message.success(`上传成功`);
+          if (type === 'YYZZTP') {
+            setYYZZImageUrl(res.data);
+          } else if (type === 'QYTBTP') {
+            setQYTBImageUrl(res.data);
+          } else {
+            setBXXKZImageUrl(res.data);
+          }
+        }
+      }
+    } else if (e.file.status === 'error') {
+      const mass = e.file.response.message;
+
+      message.error(`上传失败，${mass}`);
+    }
+  };
+
   const submit = async (params: any) => {
-    const { id, ...data } = params;
+    const { id, ...info } = params;
+    const data = {
+      ...info,
+      QYTB: QYTBImageUrl,
+      BXXKZ: BXXKZImageUrl,
+      YYZZ: YYZZImageUrl
+    };
     if (typeof params.id === 'undefined') {
       const resCreateKHJYJG = await createKHJYJG(data);
       if (resCreateKHJYJG.status === 'ok') {
@@ -238,11 +277,17 @@ const InfoMaintenance = (props: any) => {
                 <Input disabled />
               </Form.Item>
               <Form.Item name="QYTB" key="QYTB" label="企业LOGO：">
-                {disabled === true ? (
-                  <Image width={100} src="https://img2.baidu.com/it/u=171918543,1850609786&fm=26&fmt=auto&gp=0.jpg" />
-                ) : (
-                  <UploadImage />
-                )}
+                <UploadImage
+                  key="QYTBTP"
+                  disabled={disabled}
+                  imageurl={QYTBImageUrl}
+                  upurl="/api/upload/uploadFile?type=badge"
+                  accept=".jpg, .jpeg, .png"
+                  imagename="image"
+                  handleImageChange={(value: any) => {
+                    imageChange('QYTBTP', value);
+                  }}
+                />
               </Form.Item>
               <Form.Item
                 name="QYMC"
@@ -351,19 +396,31 @@ const InfoMaintenance = (props: any) => {
               <Form.Item name="JGJJ" key="JGJJ" label="机构简介：">
                 <Input.TextArea placeholder={disabled === false ? '请输入' : '——'} rows={4} disabled={disabled} />
               </Form.Item>
-              <Form.Item name="JGFWYYZZFW" key="YYZZ" label="营业执照：">
-                {disabled === true ? (
-                  <Image width={100} src="https://img2.baidu.com/it/u=171918543,1850609786&fm=26&fmt=auto&gp=0.jpg" />
-                ) : (
-                  <UploadImage />
-                )}
+              <Form.Item name="YYZZ" key="YYZZ" label="营业执照：">
+                <UploadImage
+                  key="YYZZTP"
+                  disabled={disabled}
+                  imageurl={YYZZImageUrl}
+                  upurl="/api/upload/uploadFile?type=badge"
+                  accept=".jpg, .jpeg, .png"
+                  imagename="image"
+                  handleImageChange={(value: any) => {
+                    imageChange('YYZZTP', value);
+                  }}
+                />
               </Form.Item>
               <Form.Item name="BXXKZ" key="BXXKZ" label="办学许可证：">
-                {disabled === true ? (
-                  <Image width={100} src="https://img2.baidu.com/it/u=171918543,1850609786&fm=26&fmt=auto&gp=0.jpg" />
-                ) : (
-                  <UploadImage />
-                )}
+                <UploadImage
+                  key="BXXKZTP"
+                  disabled={disabled}
+                  imageurl={BXXKZImageUrl}
+                  upurl="/api/upload/uploadFile?type=badge"
+                  accept=".jpg, .jpeg, .png"
+                  imagename="image"
+                  handleImageChange={(value: any) => {
+                    imageChange('BXXKZTP', value);
+                  }}
+                />
               </Form.Item>
             </Col>
           </Row>
