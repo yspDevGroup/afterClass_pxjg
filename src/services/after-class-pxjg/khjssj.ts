@@ -28,6 +28,7 @@ export async function KHJSSJ(
       BZ?: string;
       ZP?: string;
       ZGZS?: string;
+      ZGZSBH?: string;
       JL?: number;
       XL?: string;
       BYYX?: string;
@@ -77,6 +78,7 @@ export async function createKHJSSJ(body: API.CreateKHJSSJ, options?: { [key: str
       BZ?: string;
       ZP?: string;
       ZGZS?: string;
+      ZGZSBH?: string;
       JL?: number;
       XL?: string;
       BYYX?: string;

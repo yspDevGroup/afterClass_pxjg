@@ -2,7 +2,7 @@
  * @description:
  * @author: Sissle Lynn
  * @Date: 2021-08-26 16:24:39
- * @LastEditTime: 2021-08-30 18:53:39
+ * @LastEditTime: 2021-09-02 09:08:44
  * @LastEditors: Sissle Lynn
  */
 import React, { useEffect, useState } from 'react';
@@ -75,7 +75,7 @@ const SchoolInfo = (props: PropsType) => {
     {
       type: 'group',
       key: 'group1',
-      gutter:[88,88],
+      gutter: [88, 88],
       groupItems: [
         {
           type: 'uploadImage',
@@ -112,7 +112,7 @@ const SchoolInfo = (props: PropsType) => {
     {
       type: 'group',
       key: 'group2',
-      gutter:[88,88],
+      gutter: [88, 88],
       groupItems: [
         {
           type: 'input',
@@ -124,9 +124,9 @@ const SchoolInfo = (props: PropsType) => {
         },
         {
           type: 'input',
-          label: '毕业院校',
-          name: 'BYYX',
-          key: 'BYYX',
+          label: '资格证书编号',
+          name: 'ZGZSBH',
+          key: 'ZGZSBH',
           placeholder: readonly ? '-' : '',
         },
       ]
@@ -134,7 +134,7 @@ const SchoolInfo = (props: PropsType) => {
     {
       type: 'group',
       key: 'group3',
-      gutter:[88,88],
+      gutter: [88, 88],
       groupItems: [
         {
           type: 'radio',
@@ -154,9 +154,9 @@ const SchoolInfo = (props: PropsType) => {
         },
         {
           type: 'input',
-          label: '专业',
-          name: 'SXZY',
-          key: 'ZY',
+          label: '学历',
+          name: 'XL',
+          key: 'XL',
           placeholder: readonly ? '-' : '',
         },
       ],
@@ -164,7 +164,7 @@ const SchoolInfo = (props: PropsType) => {
     {
       type: 'group',
       key: 'group4',
-      gutter:[88,88],
+      gutter: [88, 88],
       groupItems: [
         {
           type: 'input',
@@ -175,9 +175,9 @@ const SchoolInfo = (props: PropsType) => {
         },
         {
           type: 'input',
-          label: '学历',
-          name: 'XL',
-          key: 'XL',
+          label: '毕业院校',
+          name: 'BYYX',
+          key: 'BYYX',
           placeholder: readonly ? '-' : '',
         },
       ],
@@ -185,7 +185,7 @@ const SchoolInfo = (props: PropsType) => {
     {
       type: 'group',
       key: 'group6',
-      gutter:[88,88],
+      gutter: [88, 88],
       groupItems: [
         {
           type: 'time',
@@ -194,6 +194,28 @@ const SchoolInfo = (props: PropsType) => {
           name: 'CSRQ',
           key: 'CSRQ',
           placeholder: readonly ? '-' : '',
+        },
+        {
+          type: 'input',
+          label: '专业',
+          name: 'SXZY',
+          key: 'ZY',
+          placeholder: readonly ? '-' : '',
+        },
+      ]
+    },
+    {
+      type: 'group',
+      key: 'group7',
+      gutter: [88, 88],
+      groupItems: [
+        {
+          type: 'input',
+          label: '联系电话',
+          name: 'LXDH',
+          key: 'LXDH',
+          placeholder: readonly ? '-' : '',
+          rules: [{ required: true, message: '请输入联系电话' }],
         },
         {
           type: 'inputNumber',
@@ -206,30 +228,8 @@ const SchoolInfo = (props: PropsType) => {
     },
     {
       type: 'group',
-      key: 'group7',
-      gutter:[88,88],
-      groupItems: [
-        {
-          type: 'input',
-          label: '联系电话',
-          name: 'LXDH',
-          key: 'LXDH',
-          placeholder: readonly ? '-' : '',
-          rules: [{ required: true, message: '请输入联系电话' }],
-        },
-        {
-          type: 'inputNumber',
-          label: '教授科目',
-          name: 'JSKM',
-          key: 'JSKM',
-          placeholder: readonly ? '-' : '',
-        },
-      ]
-    },
-    {
-      type: 'group',
       key: 'group8',
-      gutter:[88,88],
+      gutter: [88, 88],
       groupItems: [
         {
           type: 'select',
@@ -257,6 +257,27 @@ const SchoolInfo = (props: PropsType) => {
           ],
         },
         {
+          type: 'inputNumber',
+          label: '教授科目',
+          name: 'JSKM',
+          key: 'JSKM',
+          placeholder: readonly ? '-' : '',
+        },
+      ]
+    },
+    {
+      type: 'group',
+      key: 'group9',
+      gutter: [88, 88],
+      groupItems: [
+        {
+          type: 'input',
+          key: 'SFZJH',
+          name: 'SFZJH',
+          label: '证件号码',
+          placeholder: readonly ? '-' : '',
+        },
+        {
           type: 'input',
           label: '电子邮箱',
           name: 'DZXX',
@@ -267,16 +288,10 @@ const SchoolInfo = (props: PropsType) => {
     },
     {
       type: 'group',
-      key: 'group9',
-      gutter:[88,88],
+      key: 'group10',
+      gutter: [88, 88],
       groupItems: [
-        {
-          type: 'input',
-          key: 'SFZJH',
-          name: 'SFZJH',
-          label: '证件号码',
-          placeholder: readonly ? '-' : '',
-        },
+        {},
         {
           type: 'textArea',
           label: '个人简介',
