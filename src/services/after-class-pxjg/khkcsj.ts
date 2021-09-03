@@ -9,6 +9,8 @@ export async function getKHKCSJ(
     kcId?: string;
     /** 学校ID */
     XXJBSJId?: string;
+    /** 学年学期ID */
+    XNXQId?: string;
   },
   options?: { [key: string]: any },
 ) {

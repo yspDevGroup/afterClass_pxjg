@@ -2,7 +2,7 @@
  * @description:
  * @author: Sissle Lynn
  * @Date: 2021-08-26 19:54:41
- * @LastEditTime: 2021-09-03 14:22:36
+ * @LastEditTime: 2021-09-03 18:09:57
  * @LastEditors: Sissle Lynn
  */
 import React, { useEffect, useState } from 'react';
@@ -16,12 +16,13 @@ import noCourse from '@/assets/noCourse.png';
 import noClass from '@/assets/noClass.png';
 import { getAllCourses, getAllSemester } from '@/services/after-class-pxjg/khjyjg';
 import { getCurrentXQ } from '@/utils';
+import { getKHKCSJ } from '@/services/after-class-pxjg/khkcsj';
 
 const { Search } = Input;
 const { Option } = Select;
 const CourseItemDom = (props: { course: any, type: string, ind: number }) => {
   const { course, type, ind } = props;
-  const ZT = course?.KHKCSQs?.[0]?.ZT;
+  const ZT = course?.KHKCSQs?.[0].ZT;
   const [curIndex, setCurIndex] = useState<number | undefined>(0);
   let bgColor = '#58D14E';
   if (ZT === 1) {
@@ -89,13 +90,13 @@ const CourseItemDom = (props: { course: any, type: string, ind: number }) => {
   </div>;
 }
 const CourseInfo = (props: { values: any }) => {
-  const { type, xxid, jgid } = props.values;
+  const { type, xxid, jgid, kcid, xxmc } = props.values;
   const [courseList, setCourseList] = useState<any>();
   const [term, setTerm] = useState<string>();
   const [termList, setTermList] = useState<any>();
-  const getCourseList = async (xxdm: string, jgdm: string, xnxq?: string) => {
-    const res = await getAllCourses({
-      KHJYJGId: jgdm,
+  const getCourseList = async (xxdm: string, kcdm: string, xnxq?: string) => {
+    const res = await getKHKCSJ({
+      kcId: kcdm,
       XXJBSJId: xxdm,
       XNXQId: xnxq || ''
     });
@@ -125,7 +126,7 @@ const CourseInfo = (props: { values: any }) => {
       });
       setTermList(term);
       setTerm(currentXQ?.id || data[0].id);
-      getCourseList(xxid, jgid, currentXQ?.id || data[0].id);
+      getCourseList(xxid, kcid, currentXQ?.id || data[0].id);
     } else {
       message.error(res.message);
     }
@@ -154,27 +155,28 @@ const CourseInfo = (props: { values: any }) => {
         返回上一页
       </Button>
       <div className={styles.courseWrapper}>
-        {type === 'list' && courseList ? <div className={styles.searchWrapper}>
-          <Search placeholder="课程名称" allowClear onSearch={onSearch} style={{ width: 200 }} />
-          <span style={{ marginLeft: '24px' }}>
+        <div className={styles.searchWrapper}>
+          {/* <Search placeholder="课程名称" allowClear onSearch={onSearch} style={{ width: 200 }} /> */}
+          <span style={{ fontSize: '16px', fontWeight: 'bold' }}>{xxmc}</span>
+          <span style={{ marginLeft: '48px' }}>
             所属学年学期：
             <Select
-              defaultValue={term}
+              value={term}
               style={{ width: 200 }}
-              onChange={(value: string) => getCourseList(xxid, jgid, value)}
+              onChange={(value: string) => {
+                setTerm(value);
+                getCourseList(xxid, kcid, value);
+              }}
             >
               {termList?.map((item: any) => {
                 return <Option key={item.value} value={item.value}>{item.text}</Option>;
               })}
             </Select>
           </span>
-        </div> : ''
-        }
+        </div>
         {
-          courseList?.length ? <div className={styles.courseIntro}>
-            {courseList.map((val: any, index: number) => {
-              return <CourseItemDom course={val} type={type} ind={index} key={val.id} />
-            })}
+          courseList ? <div className={styles.courseIntro}>
+            <CourseItemDom course={courseList} type={type} ind={0} key={courseList.id} />
           </div > : <Empty
             image={noCourse}
             imageStyle={{

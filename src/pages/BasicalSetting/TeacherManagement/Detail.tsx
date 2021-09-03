@@ -2,7 +2,7 @@
  * @description:
  * @author: Sissle Lynn
  * @Date: 2021-08-28 11:13:07
- * @LastEditTime: 2021-09-03 11:32:24
+ * @LastEditTime: 2021-09-03 18:29:32
  * @LastEditors: Sissle Lynn
  */
 import React, { useState } from 'react';
@@ -20,7 +20,7 @@ const Detail = (props: any) => {
     form?.submit();
   };
   return (
-    <div className={styles.contentWrapper}>
+    <>
       {state.type === 'detail' ? <Button
         type="primary"
         onClick={() => {
@@ -33,20 +33,23 @@ const Detail = (props: any) => {
         <LeftOutlined />
         返回上一页
       </Button> : ''}
-      <TeacherInfo
-        values={state.data}
-        setForm={setForm}
-        readonly={state.type === 'detail'}
-      />
-      {state.type !== 'detail' ? <div className={styles.btnWrapper}>
-        <Button type="primary" htmlType="submit" onClick={handleSubmit}>
-          保存
-        </Button>
-        <Button htmlType="button" onClick={() => history.go(-1)}>
-          取消
-        </Button>
-      </div> : ''}
-    </div>
+      <div className={styles.contentWrapper}>
+
+        <TeacherInfo
+          values={state.data}
+          setForm={setForm}
+          readonly={state.type === 'detail'}
+        />
+        {state.type !== 'detail' ? <div className={styles.btnWrapper}>
+          <Button type="primary" htmlType="submit" onClick={handleSubmit}>
+            保存
+          </Button>
+          <Button htmlType="button" onClick={() => history.go(-1)}>
+            取消
+          </Button>
+        </div> : ''}
+      </div>
+    </>
   );
 };
 

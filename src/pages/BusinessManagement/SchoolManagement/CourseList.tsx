@@ -2,7 +2,7 @@
  * @description:
  * @author: Sissle Lynn
  * @Date: 2021-08-26 16:26:59
- * @LastEditTime: 2021-09-03 17:00:31
+ * @LastEditTime: 2021-09-03 17:53:46
  * @LastEditors: Sissle Lynn
  */
 import React, { useEffect, useState } from 'react';
@@ -16,7 +16,7 @@ import EllipsisHint from '@/components/EllipsisHint';
 
 const CourseList = (props: any) => {
   const { state } = props.history.location;
-  const { xxmc,xxid, jgid, } = state.data;
+  const { xxmc, xxid, jgid, } = state.data;
   const [courseList, setCourseList] = useState<any>();
   const [oriList, setOriList] = useState<any>();
   const getCourseList = async (xxdm: string, jgdm: string, xnxq?: string) => {
@@ -97,7 +97,11 @@ const CourseList = (props: any) => {
         <>
           <Link to={{
             pathname: '/courseManagement/mechanismCourse/edit',
-            state: { ...record, type: 'info' }
+            state: {
+              ...record,
+              type: 'info',
+              xxmc: xxmc,
+            }
           }}>课程详情</Link>
           <Divider type='vertical' />
           <Link to={{
@@ -107,7 +111,9 @@ const CourseList = (props: any) => {
               data: {
                 type: 'detail',
                 xxid: xxid,
-                jgid: jgid
+                jgid: jgid,
+                kcid: record.id,
+                xxmc: xxmc,
               }
             }
           }}>班级详情</Link>
@@ -120,6 +126,7 @@ const CourseList = (props: any) => {
       columns={columns}
       className={styles.schoolTable}
       search={false}
+      headerTitle={xxmc}
       dataSource={courseList}
       options={{
         setting: false,

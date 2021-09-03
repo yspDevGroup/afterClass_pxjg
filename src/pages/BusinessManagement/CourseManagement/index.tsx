@@ -2,7 +2,7 @@
  * @description:
  * @author: Sissle Lynn
  * @Date: 2021-08-24 14:37:02
- * @LastEditTime: 2021-09-03 14:29:14
+ * @LastEditTime: 2021-09-03 18:27:48
  * @LastEditors: Sissle Lynn
  */
 import React, { useRef, useState } from 'react';
@@ -201,7 +201,9 @@ const CourseManagement = () => {
                   data: {
                     type: 'detail',
                     xxid: record.XXJBSJId,
-                    jgid: currentUser?.jgId
+                    jgid: currentUser?.jgId,
+                    kcid: record.KHKCSJ?.id,
+                    xxmc: record.XXJBSJ?.XXMC,
                   }
                 }
               }}>班级详情</Link>

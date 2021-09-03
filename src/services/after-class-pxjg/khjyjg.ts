@@ -196,6 +196,7 @@ export async function getCourses(
   body: {
     JGId?: string;
     KCMC?: string;
+    XNXQId?: string;
     /** 课程状态 */
     KCZT?: number[];
     /** 课程引入状态 */
