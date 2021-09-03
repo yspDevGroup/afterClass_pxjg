@@ -2,7 +2,7 @@
  * @description:
  * @author: Sissle Lynn
  * @Date: 2021-08-24 14:37:02
- * @LastEditTime: 2021-09-02 18:16:07
+ * @LastEditTime: 2021-09-03 14:29:14
  * @LastEditors: Sissle Lynn
  */
 import React, { useRef, useState } from 'react';
@@ -172,7 +172,7 @@ const CourseManagement = () => {
     {
       title: '操作',
       valueType: 'option',
-      width: 180,
+      width: 220,
       align: 'center',
       render: (_, record) => {
         return <>
@@ -185,17 +185,27 @@ const CourseManagement = () => {
               }
             }}>学校详情</Link>
             <Divider type='vertical' />
-            {activeKey !== 'audit' ? <Link to={{
-              pathname: '/businessManagement/courseManagement/detail',
-              state: {
-                type: 'course',
-                data: {
-                  type: 'detail',
-                  xxid: record.XXJBSJId,
-                  jgid: currentUser?.jgId
+            {activeKey !== 'audit' ? <>
+              <Link to={{
+                pathname: '/courseManagement/mechanismCourse/edit',
+                state: {
+                  ...record.KHKCSJ,
+                  type: 'info'
                 }
-              }
-            }}>课程详情</Link> : <a onClick={() => {
+              }}>课程详情</Link>
+              <Divider type='vertical' />
+              <Link to={{
+                pathname: '/businessManagement/courseManagement/detail',
+                state: {
+                  type: 'course',
+                  data: {
+                    type: 'detail',
+                    xxid: record.XXJBSJId,
+                    jgid: currentUser?.jgId
+                  }
+                }
+              }}>班级详情</Link>
+            </> : <a onClick={() => {
               setRecordId(record.id!);
               setModalVisible(true);
             }}>确认合作</a>}

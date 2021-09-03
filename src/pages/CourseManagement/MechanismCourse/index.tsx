@@ -183,6 +183,7 @@ const MechanismCourse = () => {
             };
           }
         }}
+        // eslint-disable-next-line react/no-unstable-nested-components
         toolBarRender={() => [
           <Button
             type="primary"

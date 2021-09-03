@@ -4,6 +4,15 @@
     // 调整左侧菜单
     .ant-pro-sider.ant-layout-sider {
       background-color: @second-color;
+      width: 208px !important;
+      max-width: 208px !important;
+      flex: 0 0 208px !important;
+
+      .ant-layout-sider-children {
+        height: 100vh;
+        width: 208px !important;
+        position: fixed;
+      }
 
       .ant-pro-sider-logo {
         justify-content: center;
@@ -69,9 +78,24 @@
         color: @normal-color;
       }
     }
+
+    // 调整底部菜单
+    .ant-layout-footer {
+      border-top: 1px solid #ddd;
+
+      .ant-pro-global-footer {
+        margin: 24px 0;
+
+        .ant-pro-global-footer-links {
+          display: none;
+        }
+      }
+
+    }
   }
 
   .customPageHeader {
+
     :global {
       .ant-page-header.has-breadcrumb {
         padding-top: @padding-md;

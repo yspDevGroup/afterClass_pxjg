@@ -280,7 +280,7 @@ const InfoMaintenance = (props: any) => {
                   key="QYTBTP"
                   disabled={disabled}
                   imageurl={QYTBImageUrl}
-                  upurl="/api/upload/uploadFile?type=badge"
+                  upurl="/api/upload/uploadFile?type=badge&plat=agency"
                   accept=".jpg, .jpeg, .png"
                   imagename="image"
                   handleImageChange={(value: any) => {
@@ -400,7 +400,7 @@ const InfoMaintenance = (props: any) => {
                   key="YYZZTP"
                   disabled={disabled}
                   imageurl={YYZZImageUrl}
-                  upurl="/api/upload/uploadFile?type=badge"
+                  upurl="/api/upload/uploadFile?type=badge&plat=agency"
                   accept=".jpg, .jpeg, .png"
                   imagename="image"
                   handleImageChange={(value: any) => {
@@ -413,7 +413,7 @@ const InfoMaintenance = (props: any) => {
                   key="BXXKZTP"
                   disabled={disabled}
                   imageurl={BXXKZImageUrl}
-                  upurl="/api/upload/uploadFile?type=badge"
+                  upurl="/api/upload/uploadFile?type=badge&plat=agency"
                   accept=".jpg, .jpeg, .png"
                   imagename="image"
                   handleImageChange={(value: any) => {

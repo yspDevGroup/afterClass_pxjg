@@ -206,7 +206,7 @@ const Edit = (props: any) => {
       disabled,
       key: 'KCTP',
       imageurl: imageUrl,
-      upurl: '/api/upload/uploadFile?type=badge',
+      upurl: '/api/upload/uploadFile?type=badge&plat=agency',
       accept: '.jpg, .jpeg, .png',
       imagename: 'image',
       handleImageChange

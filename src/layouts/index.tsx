@@ -3,7 +3,7 @@
  * @description: 通用布局
  * @author: zpl
  * @Date: 2021-08-16 17:31:56
- * @LastEditTime: 2021-09-02 18:41:50
+ * @LastEditTime: 2021-09-03 15:52:18
  * @LastEditors: Sissle Lynn
  */
 import React, { FC, useEffect, useState } from 'react';
@@ -86,6 +86,7 @@ const CommonLayout: FC<IRouteComponentProps> = ({ children, location, route, his
           }
           onMenuHeaderClick={(e) => console.log(e)}
           footerRender={() => <Footer />}
+          collapsed={false}
         >
           <PageContainer
             style={{ minWidth: '990px' }}

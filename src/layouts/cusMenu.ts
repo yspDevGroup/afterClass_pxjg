@@ -2,7 +2,7 @@
  * @description:
  * @author: Sissle Lynn
  * @Date: 2021-08-24 17:21:12
- * @LastEditTime: 2021-09-02 18:14:46
+ * @LastEditTime: 2021-09-03 14:32:22
  * @LastEditors: Sissle Lynn
  */
 export default [
@@ -62,13 +62,11 @@ export default [
   {
     path: '/courseManagement',
     name: '课程管理',
-    route:[
-      {
-        path: '/courseManagement/mechanismCourse/edit',
-        name: '课程详情',
-        hideInMenu: 'true'
-      },
-    ]
+  },
+  {
+    path: '/courseManagement/mechanismCourse/edit',
+    name: '课程详情',
+    hideInMenu: 'true'
   },
   {
     path: '/announcements',

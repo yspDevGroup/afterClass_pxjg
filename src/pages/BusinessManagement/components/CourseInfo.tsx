@@ -2,7 +2,7 @@
  * @description:
  * @author: Sissle Lynn
  * @Date: 2021-08-26 19:54:41
- * @LastEditTime: 2021-09-03 11:28:50
+ * @LastEditTime: 2021-09-03 14:22:36
  * @LastEditors: Sissle Lynn
  */
 import React, { useEffect, useState } from 'react';
@@ -140,7 +140,7 @@ const CourseInfo = (props: { values: any }) => {
     setCourseList(rest);
   };
   return (
-    <div className={styles.courseWrapper}>
+    <>
       <Button
         type="primary"
         onClick={() => {
@@ -153,35 +153,38 @@ const CourseInfo = (props: { values: any }) => {
         <LeftOutlined />
         返回上一页
       </Button>
-      {type === 'list' && courseList ? <div className={styles.searchWrapper}>
-        <Search placeholder="课程名称" allowClear onSearch={onSearch} style={{ width: 200 }} />
-        <span style={{ marginLeft: '24px' }}>
-          所属学年学期：
-          <Select
-            defaultValue={term}
-            style={{ width: 200 }}
-            onChange={(value: string) => getCourseList(xxid, jgid, value)}
-          >
-            {termList?.map((item: any) => {
-              return <Option key={item.value} value={item.value}>{item.text}</Option>;
+      <div className={styles.courseWrapper}>
+        {type === 'list' && courseList ? <div className={styles.searchWrapper}>
+          <Search placeholder="课程名称" allowClear onSearch={onSearch} style={{ width: 200 }} />
+          <span style={{ marginLeft: '24px' }}>
+            所属学年学期：
+            <Select
+              defaultValue={term}
+              style={{ width: 200 }}
+              onChange={(value: string) => getCourseList(xxid, jgid, value)}
+            >
+              {termList?.map((item: any) => {
+                return <Option key={item.value} value={item.value}>{item.text}</Option>;
+              })}
+            </Select>
+          </span>
+        </div> : ''
+        }
+        {
+          courseList?.length ? <div className={styles.courseIntro}>
+            {courseList.map((val: any, index: number) => {
+              return <CourseItemDom course={val} type={type} ind={index} key={val.id} />
             })}
-          </Select>
-        </span>
-      </div> : ''
-      }
-      {
-        courseList?.length ? <div className={styles.courseIntro}>
-          {courseList.map((val: any, index: number) => {
-            return <CourseItemDom course={val} type={type} ind={index} key={val.id} />
-          })}
-        </div > : <Empty
-          image={noCourse}
-          imageStyle={{
-            height: 80,
-          }}
-          description='暂无课程信息' />
-      }
-    </div >
+          </div > : <Empty
+            image={noCourse}
+            imageStyle={{
+              height: 80,
+            }}
+            description='暂无课程信息' />
+        }
+      </div >
+
+    </>
   );
 };
 

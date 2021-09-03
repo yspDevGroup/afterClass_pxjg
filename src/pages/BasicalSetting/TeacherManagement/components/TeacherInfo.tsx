@@ -2,7 +2,7 @@
  * @description:
  * @author: Sissle Lynn
  * @Date: 2021-08-26 16:24:39
- * @LastEditTime: 2021-09-03 10:47:08
+ * @LastEditTime: 2021-09-03 15:58:35
  * @LastEditors: Sissle Lynn
  */
 import React, { useEffect, useState } from 'react';
@@ -85,7 +85,7 @@ const SchoolInfo = (props: PropsType) => {
           imgWidth: 100,
           imgHeight: 100,
           imageurl: zpUrl,
-          upurl: '/api/upload/uploadFile?type=badge',
+          upurl: '/api/upload/uploadFile?type=badge&plat=agency',
           accept: '.jpg, .jpeg, .png',
           imagename: 'image',
           handleImageChange: (value: any) => {
@@ -100,7 +100,7 @@ const SchoolInfo = (props: PropsType) => {
           imgWidth: 100,
           imgHeight: 100,
           imageurl: zgzsUrl,
-          upurl: '/api/upload/uploadFile?type=badge',
+          upurl: '/api/upload/uploadFile?type=badge&plat=agency',
           accept: '.jpg, .jpeg, .png',
           imagename: 'image',
           handleImageChange: (value: any) => {

@@ -2,7 +2,7 @@
  * @description:
  * @author: Sissle Lynn
  * @Date: 2021-08-24 14:37:02
- * @LastEditTime: 2021-09-02 19:39:25
+ * @LastEditTime: 2021-09-03 16:40:28
  * @LastEditors: Sissle Lynn
  */
 import React, { useRef, useState } from 'react';
@@ -112,6 +112,7 @@ const SchoolManagement = () => {
               type: 'course',
               data: {
                 type: 'list',
+                xxmc: record.XXMC,
                 xxid: record.id,
                 jgid: currentUser?.jgId
               }

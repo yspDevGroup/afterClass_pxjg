@@ -2,7 +2,7 @@
  * @description:
  * @author: Sissle Lynn
  * @Date: 2021-08-26 16:26:59
- * @LastEditTime: 2021-09-03 11:07:29
+ * @LastEditTime: 2021-09-03 17:00:31
  * @LastEditors: Sissle Lynn
  */
 import React, { useEffect, useState } from 'react';
@@ -16,8 +16,9 @@ import EllipsisHint from '@/components/EllipsisHint';
 
 const CourseList = (props: any) => {
   const { state } = props.history.location;
-  const { xxid, jgid } = state.data;
+  const { xxmc,xxid, jgid, } = state.data;
   const [courseList, setCourseList] = useState<any>();
+  const [oriList, setOriList] = useState<any>();
   const getCourseList = async (xxdm: string, jgdm: string, xnxq?: string) => {
     const res = await getAllCourses({
       KHJYJGId: jgdm,
@@ -25,6 +26,7 @@ const CourseList = (props: any) => {
       XNXQId: xnxq || ''
     });
     if (res?.status === 'ok') {
+      setOriList(res.data);
       setCourseList(res.data);
     } else {
       message.error(res.message);
@@ -126,7 +128,18 @@ const CourseList = (props: any) => {
         reload: false,
         search: {
           placeholder: '课程名称',
-          allowClear: true
+          allowClear: true,
+          onSearch: (value: string) => {
+            if (value && value !== '') {
+              const newList = courseList.filter((item: any) => item.KCMC.indexOf(value) > -1);
+              setCourseList(newList);
+            } else {
+              console.log('iii');
+              console.log(oriList);
+              setCourseList(oriList);
+            }
+            return true;
+          }
         }
       }}
       rowKey="id"

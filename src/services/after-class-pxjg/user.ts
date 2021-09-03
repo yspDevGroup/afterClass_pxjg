@@ -30,7 +30,14 @@ export async function getAllUser(options?: { [key: string]: any }) {
 }
 
 /** 获取当前用户 GET /user/currentUser */
-export async function currentUser(options?: { [key: string]: any }) {
+export async function currentUser(
+  params: {
+    // query
+    /** 登录平台类型 */
+    plat?: string;
+  },
+  options?: { [key: string]: any },
+) {
   return request<{
     status?: 'ok' | 'error';
     data?: {
@@ -89,6 +96,9 @@ export async function currentUser(options?: { [key: string]: any }) {
     message?: string;
   }>('/user/currentUser', {
     method: 'GET',
+    params: {
+      ...params,
+    },
     ...(options || {}),
   });
 }
