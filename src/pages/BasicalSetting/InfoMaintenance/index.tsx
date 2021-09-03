@@ -25,7 +25,6 @@ const InfoMaintenance = (props: any) => {
   const onKHJYJG = async () => {
     const res = await KHJYJG({ id: currentUser!.jgId! });
     if (res.status === 'ok') {
-      console.log(res);
       form.setFieldsValue(res.data);
       setXZQHM(res.data.XZQHM);
       setKHJYJGId(res.data.id);

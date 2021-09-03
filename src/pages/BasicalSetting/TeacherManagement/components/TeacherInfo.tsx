@@ -2,8 +2,8 @@
  * @description:
  * @author: Sissle Lynn
  * @Date: 2021-08-26 16:24:39
- * @LastEditTime: 2021-09-02 11:14:24
- * @LastEditors: wsl
+ * @LastEditTime: 2021-09-03 10:47:08
+ * @LastEditors: Sissle Lynn
  */
 import React, { useEffect, useState } from 'react';
 import { useModel } from 'umi';
@@ -13,11 +13,12 @@ import CustomForm from '@/components/CustomForm';
 import { FormItemType } from '@/components/CustomForm/interfice';
 import { createKHJSSJ, updateKHJSSJ } from '@/services/after-class-pxjg/khjssj';
 
+import 'antd/es/modal/style';
 import styles from './components.less';
 
 const formItemLayout = {
   labelCol: { flex: '7em' },
-  wrapperCol: { flex: 'auto' }
+  wrapperCol: { flex: 'auto' },
 };
 type PropsType = {
   values: any;
@@ -53,7 +54,6 @@ const SchoolInfo = (props: PropsType) => {
       }
     } else if (e.file.status === 'error') {
       const mass = e.file.response.message;
-
       message.error(`上传失败，${mass}`);
     }
   };

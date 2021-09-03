@@ -167,10 +167,8 @@ export async function countKHXSCQ(
   body: {
     /** 学生ID */
     XSId?: string;
-    /** 学年 */
-    xn?: string;
-    /** 学期 */
-    xq?: string;
+    /** 学年学期ID */
+    XNXQId?: string;
   },
   options?: { [key: string]: any },
 ) {

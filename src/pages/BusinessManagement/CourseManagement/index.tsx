@@ -2,7 +2,7 @@
  * @description:
  * @author: Sissle Lynn
  * @Date: 2021-08-24 14:37:02
- * @LastEditTime: 2021-08-31 12:24:37
+ * @LastEditTime: 2021-09-02 18:16:07
  * @LastEditors: Sissle Lynn
  */
 import React, { useRef, useState } from 'react';
@@ -198,7 +198,7 @@ const CourseManagement = () => {
             }}>课程详情</Link> : <a onClick={() => {
               setRecordId(record.id!);
               setModalVisible(true);
-            }}>审核</a>}
+            }}>确认合作</a>}
           </div>
         </>
       }

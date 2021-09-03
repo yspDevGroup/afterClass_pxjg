@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Spin } from 'antd';
 import { useAccess, useModel } from 'umi';
 import styles from './index.less';
+import { KHJYJG } from '@/services/after-class-pxjg/khjyjg';
 
 export type GlobalHeaderRightProps = {
   menu?: boolean;
@@ -11,6 +12,20 @@ const AvatarDropdown: React.FC<GlobalHeaderRightProps> = () => {
   const { isAdmin } = useAccess();
   const { initialState } = useModel('@@initialState');
   const { currentUser } = initialState || {};
+  const [jgData, setJgData] = useState<any>();
+  useEffect(() => {
+    async function fetchData(jgId: string) {
+      const res = await KHJYJG({
+        id: jgId
+      })
+      if (res.status === 'ok') {
+        setJgData(res.data);
+      }
+    }
+    if (currentUser?.jgId) {
+      fetchData(currentUser?.jgId);
+    }
+  }, [currentUser]);
   const loading = (
     <span className={`${styles.action} ${styles.account}`}>
       <Spin
@@ -28,6 +43,9 @@ const AvatarDropdown: React.FC<GlobalHeaderRightProps> = () => {
   return (
     <>
       <span className={`${styles.action}`}>
+      {jgData ? <span style={{paddingRight:'40px'}}>
+      {jgData?.QYTB && jgData?.QYTB.indexOf('http') ? <img style={{width:'40px',height:'40px'}} src={'https://img2.baidu.com/it/u=171918543,1850609786&fm=26&fmt=auto&gp=0.jpg'||jgData?.QYTB} />:''} {jgData?.QYMC}
+        </span> : ''}
         <span className={`${styles.name} anticon`}>
           {currentUser?.username}
           {isAdmin ? '' : '老师'}

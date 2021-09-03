@@ -1,8 +1,8 @@
 /* eslint-disable max-nested-callbacks */
 import React, { useEffect, useState } from 'react';
-import { Button, FormInstance, message, Table } from 'antd';
 import { history, useModel } from 'umi';
-import classes from '../index.less';
+import { Button, FormInstance, message, Table } from 'antd';
+import { LeftOutlined, } from '@ant-design/icons';
 
 import CustomForm from '@/components/CustomForm';
 import { FormItemType } from '@/components/CustomForm/interfice';
@@ -10,6 +10,9 @@ import { getAllKHKCLX } from '@/services/after-class-pxjg/khkclx';
 import { getKHJSSJ } from '@/services/after-class-pxjg/khjssj';
 import { getAllGrades } from '@/services/after-class-pxjg/khjyjg';
 import { createKHKCSJ, getKHKCSJ, updateKHKCSJ } from '@/services/after-class-pxjg/khkcsj';
+
+import classes from '../index.less';
+
 /**
  * 机构端-课程列表-编辑页
  * @returns
@@ -32,7 +35,6 @@ const Edit = (props: any) => {
   const [formValues, setFormValues] = useState({});
   const [teacherData, setTeacherData] = useState<any>([]);
   useEffect(() => {
-    console.log('state', state);
     if (state?.type === 'info') {
       setDisabled(true);
       // 老师表格数据
@@ -240,55 +242,70 @@ const Edit = (props: any) => {
     }
   ];
   return (
-    <div className={classes.content} style={{ padding: 16 }}>
-      <div
-        style={{ width: '85%', minWidth: '850px', margin: '0 auto' }}
-        className={state?.type === 'info' ? classes.formType : ''}
+    <>
+      {state?.type === 'info' ? <Button
+        type="primary"
+        onClick={() => {
+          history.go(-1);
+        }}
+        style={{
+          marginBottom: '24px'
+        }}
       >
-        <CustomForm
-          values={formValues || {}}
-          formItems={basicForm}
-          formLayout={formItemLayout}
-          hideBtn={true}
-          onFinish={onFinish}
-          setForm={(formValue: FormInstance<any>) => {
-            setForm(formValue);
-          }}
-        />
-        <Table
-          style={{ display: state?.type === 'info' ? 'initial' : 'none' }}
-          title={() => '代课老师列表'}
-          columns={columns}
-          dataSource={teacherData}
-          pagination={false}
-          size="small"
-        />
+        <LeftOutlined />
+        返回上一页
+      </Button> : ''}
+      <div className={classes.content} style={{ padding: 16 }}>
         <div
-          style={{
-            display: state?.type === 'info' ? 'none' : 'flex',
-            justifyContent: 'center',
-            marginTop: 24
-          }}
+          style={{ width: '85%', minWidth: '850px', margin: '0 auto' }}
+          className={state?.type === 'info' ? classes.formType : ''}
         >
-          <Button
-            style={{ marginRight: 16 }}
-            onClick={() => {
-              history.goBack();
+          <CustomForm
+            values={formValues || {}}
+            formItems={basicForm}
+            formLayout={formItemLayout}
+            hideBtn={true}
+            onFinish={onFinish}
+            setForm={(formValue: FormInstance<any>) => {
+              setForm(formValue);
+            }}
+          />
+          <Table
+            style={{ display: state?.type === 'info' ? 'initial' : 'none' }}
+            title={() => '代课老师列表'}
+            columns={columns}
+            dataSource={teacherData}
+            pagination={false}
+            size="small"
+          />
+          <div
+            style={{
+              display: state?.type === 'info' ? 'none' : 'flex',
+              justifyContent: 'center',
+              marginTop: 24
             }}
           >
-            取消
-          </Button>
-          <Button
-            type="primary"
-            onClick={() => {
-              forms?.submit();
-            }}
-          >
-            保存
-          </Button>
+            <Button
+              style={{ marginRight: 16 }}
+              onClick={() => {
+                history.goBack();
+              }}
+            >
+              取消
+            </Button>
+            <Button
+              type="primary"
+              onClick={() => {
+                forms?.submit();
+              }}
+            >
+              保存
+            </Button>
+          </div>
         </div>
       </div>
-    </div>
+
+    </>
   );
 };
 

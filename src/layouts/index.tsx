@@ -3,8 +3,8 @@
  * @description: 通用布局
  * @author: zpl
  * @Date: 2021-08-16 17:31:56
- * @LastEditTime: 2021-08-30 09:13:11
- * @LastEditors: zpl
+ * @LastEditTime: 2021-09-02 18:41:50
+ * @LastEditors: Sissle Lynn
  */
 import React, { FC, useEffect, useState } from 'react';
 import { IRouteComponentProps, Link, useAccess, history } from 'umi';
@@ -68,9 +68,12 @@ const CommonLayout: FC<IRouteComponentProps> = ({ children, location, route, his
           }}
           menuHeaderRender={() => {
             return (
-              <Link to="/">
-                <img src={headerTop} />
-              </Link>
+              <div className={styles.headerLogo}>
+                <Link to="/">
+                  <img src={headerTop} />
+                </Link>
+                <h1>— 机构端 —</h1>
+              </div>
             );
           }}
           menu={{

@@ -2,13 +2,13 @@
  * @description:
  * @author: Sissle Lynn
  * @Date: 2021-08-26 19:54:41
- * @LastEditTime: 2021-09-01 19:11:15
+ * @LastEditTime: 2021-09-03 11:28:50
  * @LastEditors: Sissle Lynn
  */
 import React, { useEffect, useState } from 'react';
 import { Link } from 'umi';
-import { Input, Empty, Row, Col, message, Tag, Select } from 'antd';
-import { UpOutlined, RightOutlined, DownOutlined } from '@ant-design/icons';
+import { Input, Empty, Row, Col, message, Tag, Select, Button } from 'antd';
+import { UpOutlined, LeftOutlined, RightOutlined, DownOutlined } from '@ant-design/icons';
 import { copCourseStatus, colorTagDisk } from '@/constant';
 
 import styles from './components.less';
@@ -141,6 +141,18 @@ const CourseInfo = (props: { values: any }) => {
   };
   return (
     <div className={styles.courseWrapper}>
+      <Button
+        type="primary"
+        onClick={() => {
+          history.go(-1);
+        }}
+        style={{
+          marginBottom: '24px'
+        }}
+      >
+        <LeftOutlined />
+        返回上一页
+      </Button>
       {type === 'list' && courseList ? <div className={styles.searchWrapper}>
         <Search placeholder="课程名称" allowClear onSearch={onSearch} style={{ width: 200 }} />
         <span style={{ marginLeft: '24px' }}>

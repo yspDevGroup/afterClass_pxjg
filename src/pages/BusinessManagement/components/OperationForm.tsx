@@ -2,7 +2,7 @@
  * @description:
  * @author: Sissle Lynn
  * @Date: 2021-08-25 18:29:59
- * @LastEditTime: 2021-08-27 20:05:28
+ * @LastEditTime: 2021-09-02 18:17:43
  * @LastEditors: Sissle Lynn
  */
 /* eslint-disable @typescript-eslint/no-unused-vars */
@@ -36,13 +36,10 @@ const OperationForm = (props: PropsType) => {
     },
     {
       type: 'radio',
-      label: '审核意见',
+      label: '确认合作',
       name: 'ZT',
       key: 'ZT',
-      items: [{
-        text: '申请中',
-        value: '0'
-      },
+      items: [
       {
         text: '同意',
         value: '1'
@@ -51,10 +48,6 @@ const OperationForm = (props: PropsType) => {
         text: '不同意',
         value: '2'
       },
-      {
-        text: '结束',
-        value: '3'
-      }
       ],
       onChange: (e: any) => {
         setRequired(e.target.value === '2');
@@ -65,13 +58,14 @@ const OperationForm = (props: PropsType) => {
       label: '备注',
       name: 'BZ',
       key: 'BZ',
-      rules: [{ required: required, message: '如选择不同意，请填写拒绝原因' }],
     }
   ];
   return (
     <>
       <CustomForm
-        values={current}
+        values={{
+          ZT: '1'
+        }}
         setForm={setForm}
         formItems={formItems}
         formLayout={formLayout}

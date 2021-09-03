@@ -2,7 +2,7 @@
  * @description:
  * @author: Sissle Lynn
  * @Date: 2021-08-24 17:21:12
- * @LastEditTime: 2021-09-01 19:12:04
+ * @LastEditTime: 2021-09-02 18:14:46
  * @LastEditors: Sissle Lynn
  */
 export default [
@@ -16,7 +16,7 @@ export default [
     routes: [
       {
         path: '/basicalSetting/infoMaintenance',
-        name: '机构入住申请',
+        name: '机构入驻申请',
       },
       {
         path: '/basicalSetting/teacherManagement',

@@ -2,7 +2,7 @@
  * @description:
  * @author: Sissle Lynn
  * @Date: 2021-08-24 14:37:02
- * @LastEditTime: 2021-09-01 09:31:27
+ * @LastEditTime: 2021-09-02 19:39:25
  * @LastEditors: Sissle Lynn
  */
 import React, { useRef, useState } from 'react';
@@ -107,7 +107,7 @@ const SchoolManagement = () => {
           }}>学校详情</Link>
           <Divider type='vertical' />
           <Link to={{
-            pathname: '/businessManagement/schoolManagement/detail',
+            pathname: '/businessManagement/schoolManagement/courseList',
             state: {
               type: 'course',
               data: {
@@ -116,7 +116,7 @@ const SchoolManagement = () => {
                 jgid: currentUser?.jgId
               }
             }
-          }}>课程详情</Link>
+          }}>课程列表</Link>
         </>
       )
     }

@@ -2,7 +2,7 @@
  * @description:
  * @author: Sissle Lynn
  * @Date: 2021-08-24 19:59:45
- * @LastEditTime: 2021-09-01 18:50:27
+ * @LastEditTime: 2021-09-02 17:01:11
  * @LastEditors: Sissle Lynn
  */
 export const bgColor = [
@@ -61,13 +61,6 @@ export const chartConfig: any = {
   data: [],
   xField: 'type',
   yField: 'number',
-  label: {
-    position: 'middle',
-    style: {
-      fill: '#FFFFFF',
-      opacity: 1
-    }
-  },
   xAxis: {
     label: {
       autoHide: true,
@@ -79,6 +72,6 @@ export const chartConfig: any = {
   maxColumnWidth: 30,
   meta: {
     type: { alias: '课程名称' },
-    number: { alias: '人数' }
+    number: { alias: '总数' }
   }
 };

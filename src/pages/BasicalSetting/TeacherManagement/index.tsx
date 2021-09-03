@@ -2,7 +2,7 @@
  * @description:
  * @author: Sissle Lynn
  * @Date: 2021-08-28 09:22:33
- * @LastEditTime: 2021-09-01 19:10:15
+ * @LastEditTime: 2021-09-03 11:47:04
  * @LastEditors: Sissle Lynn
  */
 /*
@@ -19,8 +19,8 @@ import { Link, useModel, history } from 'umi';
 
 import styles from './index.less';
 import { TableListParams } from '@/constant';
-import { getKHJSSJ } from '@/services/after-class-pxjg/khjssj';
-import { Button, Divider } from 'antd';
+import { deleteKHJSSJ, getKHJSSJ } from '@/services/after-class-pxjg/khjssj';
+import { Button, Divider, message, Popconfirm } from 'antd';
 
 
 const TeacherManagement = () => {
@@ -29,6 +29,15 @@ const TeacherManagement = () => {
   // 列表对象引用，可主动执行刷新等操作
   const actionRef = useRef<ActionType>();
 
+  const handleConfirm = async (id: any) => {
+    const res = await deleteKHJSSJ({ id });
+    if (res.status === 'ok') {
+      message.success('删除成功');
+      actionRef.current?.reload();
+    } else {
+      message.error(res.message);
+    }
+  };
   const columns: ProColumns<any>[] = [
     {
       title: '序号',
@@ -99,7 +108,9 @@ const TeacherManagement = () => {
             }
           }}>编辑</Link>
           <Divider type='vertical' />
-          <a>删除</a>
+          <Popconfirm title={`确定要删除 “${record?.XM}” 数据吗?`} onConfirm={() => handleConfirm(record?.id)}>
+            <a>删除</a>
+          </Popconfirm>
         </>
       )
     }
@@ -127,7 +138,7 @@ const TeacherManagement = () => {
             sorter: sort && Object.keys(sort).length ? sort : undefined,
             filter,
           };
-          const res = await getKHJSSJ({ JGId: currentUser?.jgId, page: 0, pageSize: 0 }, opts);
+          const res = await getKHJSSJ({ JGId: currentUser?.jgId, keyWord: opts.keyword, page: 0, pageSize: 0 }, opts);
           if (res.status === 'ok') {
             return {
               data: res.data?.rows,
@@ -143,9 +154,11 @@ const TeacherManagement = () => {
         density: false,
         reload: false,
         search: {
-          placeholder: '教师名称'
+          placeholder: '教师名称/联系电话',
+          allowClear: true
         }
       }}
+      // eslint-disable-next-line react/no-unstable-nested-components
       toolBarRender={() => [
         <Button key="button" type="primary" onClick={() => history.push('/basicalSetting/teacherManagement/detail', { type: 'newAdd' })}>
           新建
