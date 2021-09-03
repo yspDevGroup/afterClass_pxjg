@@ -34,6 +34,16 @@ const MechanismCourse = () => {
       search: false
     },
     {
+      title: '课程类型',
+      dataIndex: 'KHKCLX',
+      key: 'KHKCLX',
+      align: 'center',
+      search: false,
+      render: (text: any) => {
+        return text?.KCTAG || '-';
+      }
+    },
+    {
       title: '适用年级',
       key: 'NJSJs',
       dataIndex: 'NJSJs',
@@ -95,7 +105,7 @@ const MechanismCourse = () => {
               });
             }}
           >
-            查看
+            详情
           </a>
           {record.KCZT === 0 ? (
             <a

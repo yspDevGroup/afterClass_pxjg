@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { history, useModel } from 'umi';
 import { Button, FormInstance, message, Table } from 'antd';
-import { LeftOutlined, } from '@ant-design/icons';
+import { LeftOutlined } from '@ant-design/icons';
 
 import CustomForm from '@/components/CustomForm';
 import { FormItemType } from '@/components/CustomForm/interfice';
@@ -35,6 +35,8 @@ const Edit = (props: any) => {
   const [formValues, setFormValues] = useState({});
   const [teacherData, setTeacherData] = useState<any>([]);
   useEffect(() => {
+    console.log('statestate', state);
+
     if (state?.type === 'info') {
       setDisabled(true);
       // 老师表格数据
@@ -47,11 +49,12 @@ const Edit = (props: any) => {
     if (state?.id) {
       // form详情
       const params = {
-        KCMC: state?.KCMC,
-        KCMS: state?.KCMS,
-        njIds: state?.NJSJs?.map((item: any) => item?.id),
-        jsIds: state?.KHKCJs?.map((item: any) => item?.KHJSSJ?.id),
-        KCTP: state?.KCTP
+        KCMC: state?.KCMC || '',
+        KCMS: state?.KCMS || '',
+        njIds: state?.NJSJs?.map((item: any) => item?.id) || '',
+        jsIds: state?.KHKCJs?.map((item: any) => item?.KHJSSJ?.id) || '',
+        KCTP: state?.KCTP || '',
+        KHKCLXId: state?.KHKCLXId || ''
       };
       setImageUrl(state?.KCTP);
       setFormValues(params);
@@ -65,7 +68,7 @@ const Edit = (props: any) => {
         const data = res.data?.map((item: any) => {
           return {
             value: item.id,
-            text: item.KCLX
+            text: item.KCTAG
           };
         });
         setKCLXOptions(data);
@@ -108,8 +111,8 @@ const Edit = (props: any) => {
       ...values,
       KCTP: imageUrl || '',
       KCZT: 0,
-      KHJYJGId: currentUser?.jgId,
-      KHKCLXId: KCLXOptions?.find((item: any) => item.text === '标准课程').value
+      KHJYJGId: currentUser?.jgId
+      // KHKCLXId: KCLXOptions?.find((item: any) => item.text === '标准课程').value
     };
     if (state) {
       const res = await updateKHKCSJ({ id: state?.id }, { ...params });
@@ -167,6 +170,23 @@ const Edit = (props: any) => {
     },
     {
       type: 'group',
+      key: 'group2',
+      groupItems: [
+        {
+          type: 'select',
+          label: '课程类型',
+          placeholder: '请输入',
+          name: 'KHKCLXId',
+          key: 'KHKCLXId',
+          disabled,
+          items: KCLXOptions,
+          rules: [{ required: true, message: '请选择课程类型' }]
+        },
+        {}
+      ]
+    },
+    {
+      type: 'group',
       key: 'group3',
       groupItems: [
         {
@@ -177,7 +197,8 @@ const Edit = (props: any) => {
           disabled,
           mode: 'multiple',
           key: 'njIds',
-          items: NJDataOption
+          items: NJDataOption,
+          rules: [{ required: true, message: '请选择适用年级' }]
         },
         {}
       ]
@@ -194,7 +215,8 @@ const Edit = (props: any) => {
           name: 'jsIds',
           disabled,
           mode: 'multiple',
-          items: JSSJOptions
+          items: JSSJOptions,
+          rules: [{ required: true, message: '请选择代课老师' }]
         },
         {}
       ]
@@ -239,22 +261,49 @@ const Edit = (props: any) => {
       dataIndex: 'DZXX',
       key: 'DZXX',
       align: 'center'
+    },
+    {
+      title: '操作',
+      dataIndex: 'opthion',
+      key: 'opthion',
+      align: 'center',
+      render: (text: any, record: any) => {
+        return (
+          <a
+            onClick={() => {
+              history.push({
+                pathname: `/basicalSetting/teacherManagement/detail`,
+                state: {
+                  type: 'detail',
+                  data: record
+                }
+              });
+            }}
+          >
+            详情
+          </a>
+        );
+      }
     }
   ];
   return (
     <>
-      {state?.type === 'info' ? <Button
-        type="primary"
-        onClick={() => {
-          history.go(-1);
-        }}
-        style={{
-          marginBottom: '24px'
-        }}
-      >
-        <LeftOutlined />
-        返回上一页
-      </Button> : ''}
+      {state?.type === 'info' ? (
+        <Button
+          type="primary"
+          onClick={() => {
+            history.go(-1);
+          }}
+          style={{
+            marginBottom: '24px'
+          }}
+        >
+          <LeftOutlined />
+          返回上一页
+        </Button>
+      ) : (
+        ''
+      )}
       <div className={classes.content} style={{ padding: 16 }}>
         <div
           style={{ width: '85%', minWidth: '850px', margin: '0 auto' }}
@@ -304,7 +353,6 @@ const Edit = (props: any) => {
           </div>
         </div>
       </div>
-
     </>
   );
 };
