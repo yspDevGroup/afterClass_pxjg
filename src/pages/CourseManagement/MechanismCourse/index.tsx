@@ -2,6 +2,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Space, Button, Tag, message, Popconfirm } from 'antd';
 import { history, useModel } from 'umi';
+import { PlusOutlined } from '@ant-design/icons';
 import ProTable, { ActionType } from '@ant-design/pro-table';
 import classes from '../index.less';
 import { deleteKHJYJG, getCourses } from '@/services/after-class-pxjg/khjyjg';
@@ -202,7 +203,7 @@ const MechanismCourse = () => {
               history.push('/courseManagement/mechanismCourse/edit');
             }}
           >
-            新增课程
+           <PlusOutlined /> 新增课程
           </Button>
         ]}
         options={{

@@ -2,7 +2,7 @@
  * @description:
  * @author: Sissle Lynn
  * @Date: 2021-08-28 09:22:33
- * @LastEditTime: 2021-09-03 11:47:04
+ * @LastEditTime: 2021-09-03 19:02:09
  * @LastEditors: Sissle Lynn
  */
 /*
@@ -15,6 +15,7 @@
 import React, { useRef } from 'react';
 import ProTable, { RequestData } from '@ant-design/pro-table';
 import type { ActionType, ProColumns } from '@ant-design/pro-table';
+import { PlusOutlined } from '@ant-design/icons';
 import { Link, useModel, history } from 'umi';
 
 import styles from './index.less';
@@ -161,7 +162,7 @@ const TeacherManagement = () => {
       // eslint-disable-next-line react/no-unstable-nested-components
       toolBarRender={() => [
         <Button key="button" type="primary" onClick={() => history.push('/basicalSetting/teacherManagement/detail', { type: 'newAdd' })}>
-          新建
+         <PlusOutlined /> 新建
         </Button>
       ]}
       rowKey="id"

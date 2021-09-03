@@ -425,13 +425,13 @@ const InfoMaintenance = (props: any) => {
           </Row>
           <Form.Item>
             {disabled === true ? (
-              <button onClick={onEditor} className={styles.btn}>
-                点击编辑
-              </button>
+              <Button type='primary' onClick={onEditor} className={styles.btn}>
+                更改备案信息
+              </Button>
             ) : (
               <>
                 <Button type="primary" htmlType="submit">
-                  保存
+                  提交
                 </Button>
                 <Button htmlType="button" onClick={onReset}>
                   取消
