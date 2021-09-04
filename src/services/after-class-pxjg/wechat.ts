@@ -3,16 +3,9 @@
 import { request } from 'umi';
 
 /** 创建wechatToken POST /wechat/createToken */
-export async function createWechatToken(
-  body: {
-    suiteID: string;
-    code: string;
-    state: string;
-  },
-  options?: { [key: string]: any }
-) {
-  return request<any>('/wechat/createToken', {
-    method: 'POST',
+export async function createWechatToken(body: {}, options?: { [key: string]: any }) {
+  return request<any>(`/wechat/createToken${location.search}`, {
+    method: 'GET',
     headers: {
       'Content-Type': 'application/json'
     },

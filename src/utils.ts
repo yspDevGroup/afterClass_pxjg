@@ -2,7 +2,7 @@
  * @description: 工具类
  * @author: zpl
  * @Date: 2021-08-09 10:36:53
- * @LastEditTime: 2021-09-04 09:26:47
+ * @LastEditTime: 2021-09-04 11:49:17
  * @LastEditors: zpl
  */
 import { history } from 'umi';
@@ -76,7 +76,7 @@ export const getLoginPath = (): string => {
   switch (authType) {
     case 'wechat':
       // 前提是本应该已经注册为微信认证，且正确配置认证回调地址为 ${ENV_host}/AuthCallback/wechat
-      loginPath = `${ssoHost}/oauth2/Wehcat?client_id=${clientId}&client_secret=${clientSecret}`;
+      loginPath = `${ssoHost}/oauth2/Wechat?client_id=${clientId}&client_secret=${clientSecret}`;
       break;
     case 'authorization_code':
       // TODO 待处理

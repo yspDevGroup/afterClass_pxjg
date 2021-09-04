@@ -2,8 +2,8 @@
  * @description: 运行时配置
  * @author: zpl
  * @Date: 2021-08-09 10:44:42
- * @LastEditTime: 2021-09-03 16:12:09
- * @LastEditors: Sissle Lynn
+ * @LastEditTime: 2021-09-04 10:59:59
+ * @LastEditors: zpl
  */
 import { notification, message } from 'antd';
 import type { RequestConfig } from 'umi';
@@ -25,9 +25,7 @@ export const initialStateConfig = {
  */
 export async function getInitialState(): Promise<InitialState> {
   const fetchUserInfo = async (): Promise<UserInfo | null> => {
-    const res = await getCurrentUser({
-      plat:'agency'
-    });
+    const res = await getCurrentUser();
     const { status, data } = res;
     if (status === 'ok' && data?.info) {
       return data.info;
