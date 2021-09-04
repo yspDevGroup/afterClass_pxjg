@@ -1,8 +1,8 @@
 /*
- * @description: OAuth认证回调页面，本页面会先写入本地token缓存并触发身份信息获取，然后跳转向权限对应的页面
+ * @description: OAuth认证回调页面，password模式，本页面会先写入本地token缓存并触发身份信息获取，然后跳转向权限对应的页面
  * @author: zpl
  * @Date: 2021-07-14 16:54:06
- * @LastEditTime: 2021-08-30 11:28:58
+ * @LastEditTime: 2021-09-04 09:00:26
  * @LastEditors: zpl
  */
 import React, { FC, useEffect } from 'react';

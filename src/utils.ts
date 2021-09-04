@@ -2,7 +2,7 @@
  * @description: 工具类
  * @author: zpl
  * @Date: 2021-08-09 10:36:53
- * @LastEditTime: 2021-09-02 18:11:50
+ * @LastEditTime: 2021-09-04 09:26:47
  * @LastEditors: zpl
  */
 import { history } from 'umi';
@@ -73,23 +73,26 @@ export const getLoginPath = (): string => {
   //   case 'pc': // PC
   //   default:
   //     {
-        const qdCallback = encodeURIComponent(`${ENV_host}/AuthCallback`);
-        const hdCallback = encodeURIComponent(`${ENV_backUrl}/sso/auth/callback?redirect=${qdCallback}`);
-        switch (authType) {
-          case 'wechat':
-            loginPath = `${ssoHost}/oauth2/Wehcat?client_id=${clientId}&client_secret=${clientSecret}`;
-            break;
-          case 'authorization_code':
-            // TODO 待处理
-            loginPath = `${ssoHost}/oauth2/code?client_id=${clientId}&response_type=${authType}&redirect_uri=${''}state=${''}scope=${''}`;
-            break;
-          case 'password':
-          default:
-            loginPath = `${ssoHost}/oauth2/password?response_type=${authType}&client_id=${clientId}&client_secret=${clientSecret}&redirect_uri=${qdCallback}`;
-            break;
-        }
-      // }
-      // break;
+  switch (authType) {
+    case 'wechat':
+      // 前提是本应该已经注册为微信认证，且正确配置认证回调地址为 ${ENV_host}/AuthCallback/wechat
+      loginPath = `${ssoHost}/oauth2/Wehcat?client_id=${clientId}&client_secret=${clientSecret}`;
+      break;
+    case 'authorization_code':
+      // TODO 待处理
+      loginPath = `${ssoHost}/oauth2/code?client_id=${clientId}&response_type=${authType}&redirect_uri=${''}state=${''}scope=${''}`;
+      break;
+    case 'password':
+    default:
+      {
+        // 为方便本地调试登录，认证回调地址通过参数传递给后台
+        const callback = encodeURIComponent(`${ENV_host}/AuthCallback/password`);
+        loginPath = `${ssoHost}/oauth2/password?response_type=${authType}&client_id=${clientId}&client_secret=${clientSecret}&redirect_uri=${callback}`;
+      }
+      break;
+  }
+  // }
+  // break;
   // }
   return loginPath;
 };
@@ -224,7 +227,7 @@ export const getWidHei = () => {
  * @param {API.XNXQ[]} list
  * @return {*}  {(API.XNXQ | null)}
  */
- export const getCurrentXQ = (list: API.XNXQ[]): API.XNXQ | null => {
+export const getCurrentXQ = (list: API.XNXQ[]): API.XNXQ | null => {
   if (!list.length) {
     return null;
   }

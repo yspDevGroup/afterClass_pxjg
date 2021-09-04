@@ -2,11 +2,30 @@
 /* eslint-disable */
 import { request } from 'umi';
 
+/** 创建wechatToken POST /wechat/createToken */
+export async function createWechatToken(
+  body: {
+    suiteID: string;
+    code: string;
+    state: string;
+  },
+  options?: { [key: string]: any }
+) {
+  return request<any>('/wechat/createToken', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    data: body,
+    ...(options || {})
+  });
+}
+
 /** 微信扫码认证 GET /wechat/auth */
 export async function wechatOauth(options?: { [key: string]: any }) {
   return request<any>('/wechat/auth', {
     method: 'GET',
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
@@ -14,7 +33,7 @@ export async function wechatOauth(options?: { [key: string]: any }) {
 export async function wechatPlatOauth(options?: { [key: string]: any }) {
   return request<any>('/wechat/platAuth', {
     method: 'GET',
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
@@ -22,7 +41,7 @@ export async function wechatPlatOauth(options?: { [key: string]: any }) {
 export async function wechatAuthCallback(options?: { [key: string]: any }) {
   return request<any>('/wechat/auth/callback', {
     method: 'GET',
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
@@ -30,7 +49,7 @@ export async function wechatAuthCallback(options?: { [key: string]: any }) {
 export async function wechatDataCallback(options?: { [key: string]: any }) {
   return request<any>('/wechat/dataCallback', {
     method: 'GET',
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
@@ -38,7 +57,7 @@ export async function wechatDataCallback(options?: { [key: string]: any }) {
 export async function wechatDataCallback_2(options?: { [key: string]: any }) {
   return request<any>('/wechat/dataCallback', {
     method: 'POST',
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
@@ -46,7 +65,7 @@ export async function wechatDataCallback_2(options?: { [key: string]: any }) {
 export async function wechatDataCallback_3(options?: { [key: string]: any }) {
   return request<any>('/wechat/cmdCallback', {
     method: 'GET',
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
@@ -54,7 +73,7 @@ export async function wechatDataCallback_3(options?: { [key: string]: any }) {
 export async function wechatDataCallback_4(options?: { [key: string]: any }) {
   return request<any>('/wechat/cmdCallback', {
     method: 'POST',
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
@@ -64,7 +83,7 @@ export async function getQYJsSignature(
     /** 签名用的url必须是调用JS接口页面的完整URL */
     url?: string;
   },
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
   return request<{
     status?: 'ok' | 'error';
@@ -73,10 +92,10 @@ export async function getQYJsSignature(
   }>('/wechat/getQYJsSignature', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     data: body,
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
@@ -86,7 +105,7 @@ export async function getYYJsSignature(
     /** 签名用的url必须是调用JS接口页面的完整URL */
     url?: string;
   },
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
   return request<{
     status?: 'ok' | 'error';
@@ -101,10 +120,10 @@ export async function getYYJsSignature(
   }>('/wechat/getYYJsSignature', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     data: body,
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
@@ -112,7 +131,7 @@ export async function getYYJsSignature(
 export async function settingOnWechat(options?: { [key: string]: any }) {
   return request<any>('/wechat/settings', {
     method: 'GET',
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
@@ -123,14 +142,14 @@ export async function getDepList(
     /** 部门id。获取指定部门及其下的子部门。 如果不填，默认获取全量组织架构 */
     id?: string;
   },
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
   return request<any>('/wechat/getDepList', {
     method: 'GET',
     params: {
-      ...params,
+      ...params
     },
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
@@ -143,14 +162,14 @@ export async function getDepUsers(
     /** 1/0：是否递归获取子部门下面的成员 */
     fetch_child: 0 | 1;
   },
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
   return request<any>('/wechat/getDepUsers', {
     method: 'GET',
     params: {
-      ...params,
+      ...params
     },
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
@@ -163,14 +182,14 @@ export async function getDepUserList(
     /** 1/0：是否递归获取子部门下面的成员 */
     fetch_child: 0 | 1;
   },
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
   return request<any>('/wechat/getDepUserList', {
     method: 'GET',
     params: {
-      ...params,
+      ...params
     },
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
@@ -181,14 +200,14 @@ export async function getSchDepList(
     /** 部门id */
     id?: string;
   },
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
   return request<any>('/wechat/getSchDepList', {
     method: 'GET',
     params: {
-      ...params,
+      ...params
     },
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
@@ -196,7 +215,7 @@ export async function getSchDepList(
 export async function wechatTradeCallback(options?: { [key: string]: any }) {
   return request<any>('/wechat/trade/callback', {
     method: 'POST',
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
@@ -216,14 +235,14 @@ export async function sendMsg(
     /** 消息内容 */
     content?: string;
   },
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
   return request<{ status?: 'ok' | 'error'; data?: string; message?: string }>('/wechat/sendMsg', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     data: body,
-    ...(options || {}),
+    ...(options || {})
   });
 }
