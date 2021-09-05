@@ -2,7 +2,7 @@
  * @description: 工具类
  * @author: zpl
  * @Date: 2021-08-09 10:36:53
- * @LastEditTime: 2021-09-04 11:49:17
+ * @LastEditTime: 2021-09-05 22:43:28
  * @LastEditors: zpl
  */
 import { history } from 'umi';
@@ -155,11 +155,16 @@ export const getOauthToken = () => {
  *
  * @param {TokenInfo} token
  */
-export const saveOAuthToken = (token: TokenInfo) => {
-  localStorage.setItem('ysp_access_token', token.access_token);
-  localStorage.setItem('ysp_expires_in', token.expires_in || '0');
-  localStorage.setItem('ysp_refresh_token', token.refresh_token || '');
-  localStorage.setItem('ysp_token_type', token.token_type || 'Bearer');
+export const saveOAuthToken = async (token: TokenInfo) => {
+  return new Promise((resolve, reject) => {
+    localStorage.setItem('ysp_access_token', token.access_token);
+    localStorage.setItem('ysp_expires_in', token.expires_in || '0');
+    localStorage.setItem('ysp_refresh_token', token.refresh_token || '');
+    localStorage.setItem('ysp_token_type', token.token_type || 'Bearer');
+    setTimeout(() => {
+      resolve('');
+    }, 200);
+  });
 };
 
 /**
