@@ -34,7 +34,8 @@ export default defineConfig({
   openAPI: [
     {
       requestLibPath: "import { request } from 'umi'",
-      schemaPath: 'http://192.168.0.113:3000/documentation/json',
+      schemaPath: 'http://api.test.xianyunshipei.com/documentation/json',
+      // schemaPath: 'http://192.168.0.113:3000/documentation/json',
       mock: false
     }
   ]

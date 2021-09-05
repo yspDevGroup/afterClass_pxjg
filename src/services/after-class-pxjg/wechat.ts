@@ -2,14 +2,18 @@
 /* eslint-disable */
 import { request } from 'umi';
 
-/** 创建wechatToken POST /wechat/createToken */
-export async function createWechatToken(body: {}, options?: { [key: string]: any }) {
-  return request<any>(`/wechat/createToken${location.search}`, {
+/** 创建WechatToken GET /wechat/createToken */
+export async function createWechatToken(options?: { [key: string]: any }) {
+  return request<any>('/wechat/createToken', {
     method: 'GET',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    data: body,
+    ...(options || {})
+  });
+}
+
+/** 获取当前微信用户 GET /wechat/currentUser */
+export async function currentWechatUser(options?: { [key: string]: any }) {
+  return request<any>('/wechat/currentUser', {
+    method: 'GET',
     ...(options || {})
   });
 }

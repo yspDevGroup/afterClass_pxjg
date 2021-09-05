@@ -9,8 +9,8 @@ import * as bjsj from './bjsj';
 import * as jzgjbsj from './jzgjbsj';
 import * as fjlx from './fjlx';
 import * as fjsj from './fjsj';
-import * as jcxx from './jcxx';
 import * as jcsj from './jcsj';
+import * as jcxx from './jcxx';
 import * as jxjhsj from './jxjhsj';
 import * as jyjgsj from './jyjgsj';
 import * as jyjgtzgg from './jyjgtzgg';
@@ -47,8 +47,8 @@ import * as xksj from './xksj';
 import * as xl from './xl';
 import * as xnjgsj from './xnjgsj';
 import * as xnxq from './xnxq';
-import * as xscfsj from './xscfsj';
 import * as xqsj from './xqsj';
+import * as xscfsj from './xscfsj';
 import * as xsjbsj from './xsjbsj';
 import * as xsjlsj from './xsjlsj';
 import * as xsjtcy from './xsjtcy';
@@ -69,8 +69,8 @@ export default {
   jzgjbsj,
   fjlx,
   fjsj,
-  jcxx,
   jcsj,
+  jcxx,
   jxjhsj,
   jyjgsj,
   jyjgtzgg,
@@ -107,8 +107,8 @@ export default {
   xl,
   xnjgsj,
   xnxq,
-  xscfsj,
   xqsj,
+  xscfsj,
   xsjbsj,
   xsjlsj,
   xsjtcy,
@@ -120,5 +120,5 @@ export default {
   xxsjpz,
   xxtzgg,
   zxfa,
-  zxsj,
+  zxsj
 };
