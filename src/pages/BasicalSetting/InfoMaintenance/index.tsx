@@ -425,9 +425,9 @@ const InfoMaintenance = (props: any) => {
           </Row>
           <Form.Item>
             {disabled === true ? (
-              <Button type='primary' onClick={onEditor} className={styles.btn}>
+              <button onClick={onEditor} className={styles.btn}>
                 更改备案信息
-              </Button>
+              </button>
             ) : (
               <>
                 <Button type="primary" htmlType="submit">
