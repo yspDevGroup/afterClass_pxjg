@@ -2,8 +2,8 @@
  * @description: 运行时配置
  * @author: zpl
  * @Date: 2021-08-09 10:44:42
- * @LastEditTime: 2021-09-05 14:27:04
- * @LastEditors: zpl
+ * @LastEditTime: 2021-09-06 18:29:53
+ * @LastEditors: wsl
  */
 import { notification, message } from 'antd';
 import type { RequestConfig } from 'umi';
@@ -26,7 +26,7 @@ export const initialStateConfig = {
  */
 export async function getInitialState(): Promise<InitialState> {
   const fetchUserInfo = async (): Promise<UserInfo | null> => {
-    const res = authType === 'wechat' ? await currentWechatUser() : await getCurrentUser();
+    const res = authType === 'wechat' ? await currentWechatUser() : await getCurrentUser({ plat: 'agency' });
     const { status, data } = res;
     if (status === 'ok' && data?.info) {
       return data.info;
