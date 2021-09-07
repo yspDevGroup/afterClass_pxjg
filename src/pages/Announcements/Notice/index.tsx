@@ -2,8 +2,8 @@
  * @description:
  * @author: wsl
  * @Date: 2021-08-09 17:41:43
- * @LastEditTime: 2021-09-03 19:03:01
- * @LastEditors: Sissle Lynn
+ * @LastEditTime: 2021-09-07 17:47:57
+ * @LastEditors: wsl
  */
 import React, { useState, useRef, useEffect } from 'react';
 import { PlusOutlined } from '@ant-design/icons';
@@ -30,7 +30,7 @@ const Notice = () => {
       align: 'center'
     },
     {
-      title: '发布时间',
+      title: '创建时间',
       dataIndex: 'RQ',
       key: 'RQ',
       valueType: 'dateTime',

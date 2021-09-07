@@ -254,7 +254,7 @@ const EditArticle = () => {
                   <Button
                     htmlType="button"
                     onClick={() => {
-                      history.push('/announcements/list');
+                      history.push('/announcements/notice');
                     }}
                   >
                     取消
