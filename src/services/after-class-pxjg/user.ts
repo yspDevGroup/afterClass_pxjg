@@ -6,7 +6,7 @@ import { request } from 'umi';
 export async function githubCallback(options?: { [key: string]: any }) {
   return request<any>('/auth/github/callback', {
     method: 'GET',
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
@@ -14,19 +14,16 @@ export async function githubCallback(options?: { [key: string]: any }) {
 export async function getUserRefresh(options?: { [key: string]: any }) {
   return request<{ csrfToken?: string }>('/user/refresh', {
     method: 'GET',
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
 /** 查询所有用户 GET /user/ */
 export async function getAllUser(options?: { [key: string]: any }) {
-  return request<{ status?: 'ok' | 'error'; data?: API.CurrentUser[]; message?: string }>(
-    '/user/',
-    {
-      method: 'GET',
-      ...(options || {}),
-    },
-  );
+  return request<{ status?: 'ok' | 'error'; data?: API.CurrentUser[]; message?: string }>('/user/', {
+    method: 'GET',
+    ...(options || {})
+  });
 }
 
 /** 获取当前用户 GET /user/currentUser */
@@ -36,7 +33,7 @@ export async function currentUser(
     /** 登录平台类型 */
     plat?: string;
   },
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
   return request<{
     status?: 'ok' | 'error';
@@ -48,6 +45,7 @@ export async function currentUser(
         xxId?: string | any;
         XXDM?: string;
         XD?: string;
+        XZQHM?: string;
         loginName?: string;
         username?: string;
         avatar?: string;
@@ -98,9 +96,9 @@ export async function currentUser(
   }>('/user/currentUser', {
     method: 'GET',
     params: {
-      ...params,
+      ...params
     },
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
@@ -109,10 +107,10 @@ export async function updateUser(body: API.CreateUser, options?: { [key: string]
   return request<{ status?: 'ok' | 'error'; message?: string }>('/user/currentUser', {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     data: body,
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
@@ -127,6 +125,7 @@ export async function createUser(body: API.CreateUser, options?: { [key: string]
       xxId?: string | any;
       XXDM?: string;
       XD?: string;
+      XZQHM?: string;
       loginName?: string;
       username?: string;
       avatar?: string;
@@ -176,10 +175,10 @@ export async function createUser(body: API.CreateUser, options?: { [key: string]
   }>('/user/create', {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     data: body,
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
@@ -190,13 +189,13 @@ export async function deleteUser(
     /** 用户ID */
     id: string;
   },
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{ status?: 'ok' | 'error'; message?: string }>(`/user/${param0}`, {
     method: 'DELETE',
     params: { ...queryParams },
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
@@ -214,7 +213,7 @@ export async function homePageInfo(
     /** 教师ID */
     JSId?: string;
   },
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
   return request<{
     status?: 'ok' | 'error';
@@ -347,20 +346,17 @@ export async function homePageInfo(
   }>('/user/homepage', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     data: body,
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
 /** 刷新Token GET /user/refreshToken */
 export async function refreshToken(options?: { [key: string]: any }) {
-  return request<{ status?: 'ok' | 'error'; data?: string; message?: string }>(
-    '/user/refreshToken',
-    {
-      method: 'GET',
-      ...(options || {}),
-    },
-  );
+  return request<{ status?: 'ok' | 'error'; data?: string; message?: string }>('/user/refreshToken', {
+    method: 'GET',
+    ...(options || {})
+  });
 }

@@ -1,12 +1,30 @@
 /* eslint-disable complexity */
 import React, { useEffect, useState } from 'react';
-import { Button, Form, Input, Image, Divider, Row, Col, Alert, message, Popconfirm, Tooltip } from 'antd';
+import {
+  Button,
+  Form,
+  Input,
+  Image,
+  Divider,
+  Row,
+  Col,
+  Alert,
+  message,
+  Popconfirm,
+  Tooltip,
+  Cascader,
+  Select
+} from 'antd';
 import styles from './index.less';
 import { useModel } from 'umi';
 import { createKHJYJG, KHJYJG, updateKHJYJG } from '@/services/after-class-pxjg/khjyjg';
 import { createKHJGRZSQ } from '@/services/after-class-pxjg/khjgrzsq';
 import { QuestionCircleOutlined } from '@ant-design/icons';
 import UploadImage from '@/components/CustomForm/components/UploadImage';
+import { getProvince } from '@/services/local-services/region';
+import $ from 'jquery';
+
+const { Option } = Select;
 
 const InfoMaintenance = (props: any) => {
   const { state } = props.history.location;
@@ -21,6 +39,14 @@ const InfoMaintenance = (props: any) => {
   const [BXXKZImageUrl, setBXXKZImageUrl] = useState('');
   const { username, id } = currentUser!;
   const [form] = Form.useForm();
+  const [cities, setCities] = useState<any>();
+  const [cityAdcode, setCityAdcode] = useState<string>();
+  const [secondCity, setSecondCity] = useState<any>();
+  const [county, setCounty] = useState<any>();
+  const [cityName, setCityName] = useState<string>();
+  const [provinceName, setProvinceName] = useState<string>();
+  const [countyName, setCountyName] = useState<string>();
+  const [Datas, setDatas] = useState<any>();
 
   const onKHJYJG = async () => {
     const res = await KHJYJG({ id: currentUser!.jgId! });
@@ -32,12 +58,25 @@ const InfoMaintenance = (props: any) => {
       setQYTBImageUrl(res.data.QYTB!);
       setYYZZImageUrl(res.data.YYZZ!);
       setBXXKZImageUrl(res.data.BXXKZ!);
+      setDatas(res.data);
     } else {
       form.setFieldsValue({});
     }
   };
   useEffect(() => {
     onKHJYJG();
+  }, []);
+  const requestData = () => {
+    $.ajax({
+      url: 'http://datavmap-public.oss-cn-hangzhou.aliyuncs.com/areas/csv/100000_province.json',
+      data: {},
+      success: function (data) {
+        setCities(data.rows);
+      }
+    });
+  };
+  useEffect(() => {
+    requestData();
   }, []);
 
   const confirm = async () => {
@@ -80,14 +119,15 @@ const InfoMaintenance = (props: any) => {
       message.error(`上传失败，${mass}`);
     }
   };
-
   const submit = async (params: any) => {
     const { id, ...info } = params;
     const data = {
       ...info,
       QYTB: QYTBImageUrl,
       BXXKZ: BXXKZImageUrl,
-      YYZZ: YYZZImageUrl
+      YYZZ: YYZZImageUrl,
+      XZQHM: cityAdcode,
+      XZQ: `${cityName}/${provinceName}/${countyName}`
     };
     if (typeof params.id === 'undefined') {
       const resCreateKHJYJG = await createKHJYJG(data);
@@ -96,6 +136,7 @@ const InfoMaintenance = (props: any) => {
         form.scrollToField(Data);
         message.success('保存成功');
         setDisabled(true);
+        onKHJYJG();
       } else {
         message.error(resCreateKHJYJG.message);
       }
@@ -104,6 +145,7 @@ const InfoMaintenance = (props: any) => {
       if (resUpdateKHJYJG.status === 'ok') {
         message.success('修改成功');
         setDisabled(true);
+        onKHJYJG();
       } else {
         message.error(resUpdateKHJYJG.message);
       }
@@ -115,6 +157,36 @@ const InfoMaintenance = (props: any) => {
   };
   const onEditor = () => {
     setDisabled(false);
+  };
+  const handleChange = (type: string, value: any) => {
+    if (type === 'cities') {
+      $.ajax({
+        url: `http://datavmap-public.oss-cn-hangzhou.aliyuncs.com/areas/csv/${value.value}_city.json`,
+        data: {},
+        success: function (data) {
+          setSecondCity(data.rows);
+          setCityName(value.label);
+        }
+      });
+    } else if (type === 'secondCity') {
+      $.ajax({
+        url: `http://datavmap-public.oss-cn-hangzhou.aliyuncs.com/areas/csv/${value.value}_district.json`,
+        data: {},
+        success: function (data) {
+          let newArr: any[] = [];
+          data.rows.forEach((item: any) => {
+            if (item.adcode.substring(0, 4) === value.value.substring(0, 4)) {
+              newArr.push(item);
+            }
+          });
+          setCounty(newArr);
+          setProvinceName(value.label);
+        }
+      });
+    } else if (type === 'county') {
+      setCityAdcode(value.value);
+      setCountyName(value.label);
+    }
   };
   return (
     <div className={styles.InfoMaintenance}>
@@ -129,7 +201,7 @@ const InfoMaintenance = (props: any) => {
               cancelText="取消"
             >
               <Button type="primary" className={styles.RZbtn}>
-                申请入驻
+                申请备案
               </Button>
             </Popconfirm>
           ) : (
@@ -165,7 +237,7 @@ const InfoMaintenance = (props: any) => {
                       cancelText="取消"
                     >
                       <Button type="primary" className={styles.RZbtn} disabled={currentUser?.jgId ? false : true}>
-                        申请入驻
+                        申请备案
                       </Button>
                     </Popconfirm>
                   </>
@@ -191,7 +263,7 @@ const InfoMaintenance = (props: any) => {
                       cancelText="取消"
                     >
                       <Button type="primary" className={styles.RZbtn} disabled={currentUser?.jgId ? false : true}>
-                        申请入驻
+                        申请备案
                       </Button>
                     </Popconfirm>
                   </>
@@ -217,7 +289,7 @@ const InfoMaintenance = (props: any) => {
                       cancelText="取消"
                     >
                       <Button type="primary" className={styles.RZbtn} disabled={currentUser?.jgId ? false : true}>
-                        申请入驻
+                        申请备案
                       </Button>
                     </Popconfirm>
                   </>
@@ -259,7 +331,7 @@ const InfoMaintenance = (props: any) => {
                     cancelText="取消"
                   >
                     <Button type="primary" className={styles.RZbtn} disabled={currentUser?.jgId ? false : true}>
-                      申请入驻
+                      申请备案
                     </Button>
                   </Popconfirm>
                 </>
@@ -317,11 +389,11 @@ const InfoMaintenance = (props: any) => {
               <Form.Item
                 name="FRDBXM"
                 key="FRDBXM"
-                label="法人代表姓名："
+                label="法人姓名："
                 rules={[
                   {
                     required: true,
-                    message: '法人代表姓名'
+                    message: '法人姓名'
                   }
                 ]}
               >
@@ -330,7 +402,7 @@ const InfoMaintenance = (props: any) => {
               <Form.Item
                 name="FRDBSFZH"
                 key="FRDBSFZH"
-                label="法人代表身份证号："
+                label="法人身份证号："
                 rules={[
                   {
                     pattern: new RegExp(/(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/),
@@ -340,17 +412,17 @@ const InfoMaintenance = (props: any) => {
               >
                 <Input placeholder={disabled === false ? '请输入' : '——'} disabled={disabled} />
               </Form.Item>
-              <Form.Item name="QYJGDZ" key="QYJGDZ" label="企业机构地址：">
+              <Form.Item name="QYJGDZ" key="QYJGDZ" label="办公地址：">
                 <Input placeholder={disabled === false ? '请输入' : '——'} disabled={disabled} />
               </Form.Item>
               <Form.Item
                 name="LXRXM"
                 key="LXRXM"
-                label="联系人姓名："
+                label="联系人："
                 rules={[
                   {
                     required: true,
-                    message: '联系人姓名'
+                    message: '联系人'
                   }
                 ]}
               >
@@ -376,19 +448,87 @@ const InfoMaintenance = (props: any) => {
             </Col>
             <Col span={2} />
             <Col span={11}>
-              <Form.Item
-                name="XZQHM"
-                key="XZQHM"
-                label="行政区编号："
-                rules={[
-                  {
-                    required: true,
-                    message: '请输入行政区号码'
-                  }
-                ]}
-              >
-                <Input placeholder={disabled === false ? '请输入' : '——'} disabled={disabled} />
-              </Form.Item>
+              {disabled === false ? (
+                <Form.Item
+                  name="XZQHM"
+                  key="XZQHM"
+                  label="行政区域："
+                  rules={[
+                    {
+                      required: true,
+                      message: '请选择行政区域'
+                    }
+                  ]}
+                >
+                  <Select
+                    style={{ width: 100, marginRight: 10 }}
+                    onChange={(value: any) => {
+                      handleChange('cities', value);
+                    }}
+                    labelInValue
+                    defaultValue={{
+                      value: `${XZQHM!.substring(0, 2)}0000`,
+                      label: Datas?.XZQ.split('/')[0],
+                      key: `${XZQHM!.substring(0, 2)}0000`
+                    }}
+                    disabled={disabled}
+                    placeholder={disabled === false ? '请选择' : '——'}
+                  >
+                    {cities?.map((item: any) => {
+                      return (
+                        <Option value={item.adcode} key={item.name}>
+                          {item.name}
+                        </Option>
+                      );
+                    })}
+                  </Select>
+                  <Select
+                    style={{ width: 100, marginRight: 10 }}
+                    onChange={(value: any) => {
+                      handleChange('secondCity', value);
+                    }}
+                    labelInValue
+                    defaultValue={{
+                      value: `${XZQHM!.substring(0, 4)}00`,
+                      label: Datas?.XZQ.split('/')[1],
+                      key: `${XZQHM!.substring(0, 4)}00`
+                    }}
+                    disabled={disabled}
+                    placeholder={disabled === false ? '请选择' : '——'}
+                  >
+                    {secondCity?.map((item: any) => {
+                      return (
+                        <Option value={item.adcode} key={item.name}>
+                          {item.name}
+                        </Option>
+                      );
+                    })}
+                  </Select>
+                  <Select
+                    style={{ width: 100 }}
+                    onChange={(value: any) => {
+                      handleChange('county', value);
+                    }}
+                    labelInValue
+                    defaultValue={{ value: XZQHM!, label: Datas?.XZQ.split('/')[2], key: XZQHM! }}
+                    disabled={disabled}
+                    placeholder={disabled === false ? '请选择' : '——'}
+                  >
+                    {county?.map((item: any) => {
+                      return (
+                        <Option value={item.adcode} key={item.adcode}>
+                          {item.name}
+                        </Option>
+                      );
+                    })}
+                  </Select>
+                </Form.Item>
+              ) : (
+                <Form.Item name="XZQ" key="XZQ" label="行政区域：">
+                  <Input disabled={disabled} />
+                </Form.Item>
+              )}
+
               <Form.Item name="JGFWFW" key="JGFWFW" label="机构服务范围：">
                 <Input placeholder={disabled === false ? '请输入' : '——'} disabled={disabled} />
               </Form.Item>
