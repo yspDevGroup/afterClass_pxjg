@@ -2,7 +2,7 @@
  * @description:
  * @author: Sissle Lynn
  * @Date: 2021-08-24 14:37:02
- * @LastEditTime: 2021-09-03 16:40:28
+ * @LastEditTime: 2021-09-07 16:52:25
  * @LastEditors: Sissle Lynn
  */
 import React, { useRef, useState } from 'react';
@@ -39,14 +39,14 @@ const SchoolManagement = () => {
       width: 300,
       ellipsis: true,
     },
-    {
-      title: '所属区域',
-      dataIndex: 'SSQY',
-      key: 'SSQY',
-      align: 'center',
-      width: 90,
-      ellipsis: true,
-    },
+    // {
+    //   title: '所属区域',
+    //   dataIndex: 'SSQY',
+    //   key: 'SSQY',
+    //   align: 'center',
+    //   width: 90,
+    //   ellipsis: true,
+    // },
     {
       title: '学段',
       key: 'XD',

@@ -13,6 +13,7 @@ import Footer from '@/components/Footer';
 
 import customMenu from './cusMenu';
 import headerTop from '@/assets/headerTop.png';
+import headerTopSmall from '@/assets/headerTopSmall.png'
 import styles from './index.less';
 import { BreadcrumbProps, PageHeaderProps } from 'antd';
 import RightContent from '@/components/RightContent';
@@ -62,12 +63,21 @@ const CommonLayout: FC<IRouteComponentProps> = ({ children, location, route, his
           rightContentRender={false}
           disableContentMargin={false}
           pageTitleRender={() => {
-            return `${ENV_subTitle}`;
+            return `${ENV_title}`;
           }}
+          fixSiderbar
           location={{
             pathname: path
           }}
-          menuHeaderRender={() => {
+          menuHeaderRender={(logo, title, props) => {
+            if(props?.collapsed){
+              return <div className={styles.headerLogoSmall}>
+              <Link to="/">
+                <img src={headerTopSmall} />
+              </Link>
+              <span>机构<br/>端</span>
+            </div>
+            }
             return (
               <div className={styles.headerLogo}>
                 <Link to="/">
@@ -80,9 +90,7 @@ const CommonLayout: FC<IRouteComponentProps> = ({ children, location, route, his
           menuItemRender={(item: MenuDataItem & { isUrl: boolean; onClick: () => void }, dom: React.ReactNode) =>
             menuRender(item, dom)
           }
-          onMenuHeaderClick={(e) => console.log(e)}
           footerRender={() => <Footer />}
-        // collapsed={false}
         >
           <PageContainer
             style={{ minWidth: '990px' }}

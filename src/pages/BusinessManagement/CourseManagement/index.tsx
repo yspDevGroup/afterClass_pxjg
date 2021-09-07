@@ -2,7 +2,7 @@
  * @description:
  * @author: Sissle Lynn
  * @Date: 2021-08-24 14:37:02
- * @LastEditTime: 2021-09-03 18:27:48
+ * @LastEditTime: 2021-09-07 16:56:10
  * @LastEditors: Sissle Lynn
  */
 import React, { useRef, useState } from 'react';
@@ -16,6 +16,7 @@ import { applyStatus, TableListParams } from '@/constant';
 import styles from './index.less';
 import { KHKCSQSJ } from '../data';
 import { getKHKCSQ, updateKHKCSQ } from '@/services/after-class-pxjg/khkcsq';
+import EllipsisHint from '@/components/EllipsisHint';
 
 const { Search } = Input;
 const CourseManagement = () => {
@@ -100,19 +101,18 @@ const CourseManagement = () => {
       key: 'RKJS',
       dataIndex: 'RKJS',
       align: 'center',
-      width: 110,
+      width: 150,
       hideInTable: activeKey !== 'duration',
       render: (_, record) => {
         const teacher = record.KHKCSJ?.KHKCJs;
-        return <div>
-          {teacher?.map((item, index) => {
-            return <span key={item.id}>
-              {index > 2 ? '' : index === 2 ?
-                <Tag key='more' >...</Tag> :
-                <Tag>{item.KHJSSJ?.XM}</Tag>}
-            </span>
-          })}
-        </div>
+        return (
+          <EllipsisHint
+            width="100%"
+            text={teacher?.map((item: any) => {
+              return <Tag key={item.id}>{item.KHJSSJ.XM}</Tag>;
+            })}
+          />
+        );
       },
     },
     {
@@ -145,15 +145,16 @@ const CourseManagement = () => {
       title: '操作人',
       key: 'SPR',
       dataIndex: 'SPR',
-      hideInTable: activeKey === 'audit',
+      hideInTable: activeKey !== 'history',
       align: 'center',
+      width: 100
     },
     {
       title: '最新操作时间',
       key: 'updatedAt',
       dataIndex: 'updatedAt',
       align: 'center',
-      hideInTable: activeKey === 'audit',
+      hideInTable: activeKey !== 'history',
       width: 200
     },
     {
@@ -174,6 +175,7 @@ const CourseManagement = () => {
       valueType: 'option',
       width: 220,
       align: 'center',
+      fixed:'right',
       render: (_, record) => {
         return <>
           <div>

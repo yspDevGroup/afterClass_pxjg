@@ -1,6 +1,18 @@
 .bodyLayout {
-  :global {
+  .headerLogoSmall {
+    img {
+      width: 48px;
+    }
 
+    span {
+      color: #f0f5f9;
+      display: block;
+      text-align: center;
+      font-size: 12px;
+    }
+  }
+
+  :global {
     // 调整左侧菜单
     .ant-pro-sider.ant-layout-sider {
       background-color: @second-color;
@@ -31,10 +43,6 @@
 
       .ant-menu {
         background: transparent;
-
-        .ant-menu-item::after {
-          // border-right: 3px solid rgba(62, 136, 248, 1);
-        }
 
         .ant-menu-item,
         .ant-menu-submenu {
@@ -85,7 +93,6 @@
   }
 
   .customPageHeader {
-
     :global {
       .ant-page-header.has-breadcrumb {
         padding-top: @padding-md;
@@ -155,5 +162,11 @@
         text-indent: 24px;
       }
     }
+  }
+}
+:global{
+  .ant-menu-sub {
+    color: rgba(255, 255, 255, 0.65);
+    background-color: @second-color !important;
   }
 }
