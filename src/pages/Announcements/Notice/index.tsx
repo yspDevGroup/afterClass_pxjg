@@ -2,7 +2,7 @@
  * @description:
  * @author: wsl
  * @Date: 2021-08-09 17:41:43
- * @LastEditTime: 2021-09-07 17:47:57
+ * @LastEditTime: 2021-09-07 19:47:37
  * @LastEditors: wsl
  */
 import React, { useState, useRef, useEffect } from 'react';
@@ -23,6 +23,13 @@ const Notice = () => {
 
   const columns: ProColumns<TableListItem>[] = [
     {
+      title: '序号',
+      dataIndex: 'index',
+      valueType: 'index',
+      width: 58,
+      align: 'center'
+    },
+    {
       title: '标题',
       dataIndex: 'BT',
       key: 'BT',
@@ -30,9 +37,9 @@ const Notice = () => {
       align: 'center'
     },
     {
-      title: '创建时间',
-      dataIndex: 'RQ',
-      key: 'RQ',
+      title: '发布时间',
+      dataIndex: 'updatedAt',
+      key: 'updatedAt',
       valueType: 'dateTime',
       hideInForm: true,
       align: 'center',

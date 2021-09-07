@@ -2,7 +2,7 @@
  * @description:
  * @author: wsl
  * @Date: 2021-08-31 10:08:34
- * @LastEditTime: 2021-09-01 11:11:19
+ * @LastEditTime: 2021-09-07 18:56:25
  * @LastEditors: wsl
  */
 import React, { useState, useRef } from 'react';
@@ -22,6 +22,13 @@ const TableList = () => {
   const { jgId } = currentUser!;
 
   const columns: ProColumns<TableListItem>[] = [
+    {
+      title: '序号',
+      dataIndex: 'index',
+      valueType: 'index',
+      width: 58,
+      align: 'center'
+    },
     {
       title: '标题',
       dataIndex: 'BT',
