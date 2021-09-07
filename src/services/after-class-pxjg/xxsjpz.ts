@@ -61,10 +61,10 @@ export async function deleteXXSJPZ(
 /** 查询所有学校时间配置数据 POST /xxsjpz/all */
 export async function getAllXXSJPZ(
   body: {
-    /** 学年 */
-    xn?: string;
-    /** 学期 */
-    xq?: string;
+    /** 学年学期ID */
+    XNXQId?: string;
+    /** 学校ID */
+    XXJBSJId?: string;
     /** 类型，0:时段维护，1:报名开始/结束时间，2:开课/结课日期 */
     type?: string[];
   },

@@ -25,7 +25,7 @@ export async function getKHXSCQ(
         id?: string;
         BJMC?: string;
         BJMS?: string;
-        BJZT?: '待发布' | '已发布' | '已下架' | '已结课';
+        BJZT?: '待开班' | '已开班' | '已结课';
         ZJS?: string;
         FJS?: string;
         BJRS?: number;
@@ -110,7 +110,7 @@ export async function createKHXSCQ(body: API.CreateKHXSCQ[], options?: { [key: s
         id?: string;
         BJMC?: string;
         BJMS?: string;
-        BJZT?: '待发布' | '已发布' | '已下架' | '已结课';
+        BJZT?: '待开班' | '已开班' | '已结课';
         ZJS?: string;
         FJS?: string;
         BJRS?: number;

@@ -65,6 +65,8 @@ export async function deleteFJSJ(
 /** 查询所有房间数据 POST /fjsj/ */
 export async function getAllFJSJ(
   body: {
+    /** 学校ID */
+    XXJBSJId?: string;
     /** 场地类型ID */
     lxId?: string;
     /** 页数 */
@@ -153,6 +155,8 @@ export async function updateFJSJ(
 /** 查询房间占用情况 POST /fjsj/plan */
 export async function getFJPlan(
   body: {
+    /** 学校ID */
+    XXJBSJId?: string;
     /** 场地类型ID */
     lxId?: string;
     /** 场地ID */
@@ -164,63 +168,11 @@ export async function getFJPlan(
     /** 是否有排课 */
     isPk?: boolean;
     /** 学年 */
-    xn?: string;
-    /** 学期 */
-    xq?: string;
+    XNXQId?: string;
   },
   options?: { [key: string]: any },
 ) {
-  return request<{
-    status?: 'ok' | 'error';
-    data?: {
-      id?: string;
-      FJBH?: string;
-      FJMC?: string;
-      FJLC?: string;
-      JXL?: string;
-      BZXX?: string;
-      FJLX?: { id?: string; FJLX?: string };
-      KHPKSJs?: {
-        id?: string;
-        WEEKDAY?: '0' | '1' | '2' | '3' | '4' | '5' | '6';
-        XNXQId?: string;
-        XXSJPZ?: {
-          id?: string;
-          KSSJ?: string;
-          JSSJ?: string;
-          KJS?: string;
-          TITLE?: string;
-          BZXX?: string;
-          TYPE?: '0' | '1' | '2';
-        };
-        KHBJSJ?: {
-          id?: string;
-          BJMC?: string;
-          BJMS?: string;
-          BJZT?: '待发布' | '已发布' | '已下架' | '已结课';
-          ZJS?: string;
-          FJS?: string;
-          BJRS?: number;
-          KSS?: number;
-          FY?: number;
-          KKRQ?: string | any;
-          JKRQ?: string | any;
-          NJS?: string;
-          XQ?: string;
-          NJSName?: string;
-          XQName?: string;
-          ZJSName?: string;
-          FJSName?: string;
-          KHKCSJ?: {
-            id?: string;
-            KCMC?: string;
-            KHKCLX?: { id?: string; KCLX?: string; KBYS?: string };
-          };
-        };
-      }[];
-    }[];
-    message?: string;
-  }>('/fjsj/plan', {
+  return request<any>('/fjsj/plan', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

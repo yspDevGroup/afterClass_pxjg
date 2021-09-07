@@ -7,14 +7,14 @@ import * as auth from './auth';
 import * as user from './user';
 import * as bjsj from './bjsj';
 import * as jzgjbsj from './jzgjbsj';
-import * as fjlx from './fjlx';
 import * as fjsj from './fjsj';
 import * as jcsj from './jcsj';
-import * as jcxx from './jcxx';
 import * as jxjhsj from './jxjhsj';
+import * as jcxx from './jcxx';
+import * as fjlx from './fjlx';
 import * as jyjgsj from './jyjgsj';
-import * as jyjgtzgg from './jyjgtzgg';
 import * as jzgcfsj from './jzgcfsj';
+import * as jyjgtzgg from './jyjgtzgg';
 import * as jzggzjl from './jzggzjl';
 import * as jzgjtcy from './jzgjtcy';
 import * as jzgktyj from './jzgktyj';
@@ -43,8 +43,8 @@ import * as redis from './redis';
 import * as sso from './sso';
 import * as upload from './upload';
 import * as wechat from './wechat';
-import * as xksj from './xksj';
 import * as xl from './xl';
+import * as xksj from './xksj';
 import * as xnjgsj from './xnjgsj';
 import * as xnxq from './xnxq';
 import * as xqsj from './xqsj';
@@ -67,14 +67,14 @@ export default {
   user,
   bjsj,
   jzgjbsj,
-  fjlx,
   fjsj,
   jcsj,
-  jcxx,
   jxjhsj,
+  jcxx,
+  fjlx,
   jyjgsj,
-  jyjgtzgg,
   jzgcfsj,
+  jyjgtzgg,
   jzggzjl,
   jzgjtcy,
   jzgktyj,
@@ -103,8 +103,8 @@ export default {
   sso,
   upload,
   wechat,
-  xksj,
   xl,
+  xksj,
   xnjgsj,
   xnxq,
   xqsj,
@@ -120,5 +120,5 @@ export default {
   xxsjpz,
   xxtzgg,
   zxfa,
-  zxsj
+  zxsj,
 };

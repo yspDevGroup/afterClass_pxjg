@@ -22,16 +22,6 @@ export async function getXQSJ(
       XQYZBM?: string;
       XQLXDH?: string;
       XQCZDH?: string;
-      XXJBSJ?: {
-        id?: string;
-        XXDM?: string;
-        XXMC?: string;
-        XXYWMC?: string;
-        XXDZ?: string;
-        XXYZBM?: string;
-        XZQHM?: string;
-      };
-      JZGJBSJ?: { id?: string; GH?: string; XM?: string; YWXM?: string; XMPY?: string };
     };
     message?: string;
   }>(`/xqsj/${param0}`, {
@@ -58,10 +48,19 @@ export async function deleteXQSJ(
   });
 }
 
-/** 查询所有校区数据 GET /xqsj/all */
-export async function getAllXQSJ(options?: { [key: string]: any }) {
+/** 查询所有校区数据 POST /xqsj/all */
+export async function getAllXQSJ(
+  body: {
+    XXJBSJId?: string;
+  },
+  options?: { [key: string]: any },
+) {
   return request<{ status?: 'ok' | 'error'; data?: API.XQSJ[]; message?: string }>('/xqsj/all', {
-    method: 'GET',
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data: body,
     ...(options || {}),
   });
 }
@@ -78,16 +77,6 @@ export async function createXQSJ(body: API.CreateXQSJ, options?: { [key: string]
       XQYZBM?: string;
       XQLXDH?: string;
       XQCZDH?: string;
-      XXJBSJ?: {
-        id?: string;
-        XXDM?: string;
-        XXMC?: string;
-        XXYWMC?: string;
-        XXDZ?: string;
-        XXYZBM?: string;
-        XZQHM?: string;
-      };
-      JZGJBSJ?: { id?: string; GH?: string; XM?: string; YWXM?: string; XMPY?: string };
     };
     message?: string;
   }>('/xqsj/create', {

@@ -6,7 +6,7 @@ import { request } from 'umi';
 export async function githubCallback(options?: { [key: string]: any }) {
   return request<any>('/auth/github/callback', {
     method: 'GET',
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -14,29 +14,40 @@ export async function githubCallback(options?: { [key: string]: any }) {
 export async function getUserRefresh(options?: { [key: string]: any }) {
   return request<{ csrfToken?: string }>('/user/refresh', {
     method: 'GET',
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
 /** 查询所有用户 GET /user/ */
 export async function getAllUser(options?: { [key: string]: any }) {
-  return request<{ status?: 'ok' | 'error'; data?: API.CurrentUser[]; message?: string }>('/user/', {
-    method: 'GET',
-    ...(options || {})
-  });
+  return request<{ status?: 'ok' | 'error'; data?: API.CurrentUser[]; message?: string }>(
+    '/user/',
+    {
+      method: 'GET',
+      ...(options || {}),
+    },
+  );
 }
 
 /** 获取当前用户 GET /user/currentUser */
-export async function currentUser(options?: { [key: string]: any }) {
+export async function currentUser(
+  params: {
+    // query
+    /** 登录平台类型 */
+    plat?: string;
+  },
+  options?: { [key: string]: any },
+) {
   return request<{
     status?: 'ok' | 'error';
     data?: {
-      info: {
+      info?: {
         id?: string;
         jgId?: string | any;
         jyjId?: string | any;
         xxId?: string | any;
         XXDM?: string;
+        XD?: string;
         loginName?: string;
         username?: string;
         avatar?: string;
@@ -86,7 +97,10 @@ export async function currentUser(options?: { [key: string]: any }) {
     message?: string;
   }>('/user/currentUser', {
     method: 'GET',
-    ...(options || {})
+    params: {
+      ...params,
+    },
+    ...(options || {}),
   });
 }
 
@@ -95,10 +109,10 @@ export async function updateUser(body: API.CreateUser, options?: { [key: string]
   return request<{ status?: 'ok' | 'error'; message?: string }>('/user/currentUser', {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -106,12 +120,13 @@ export async function updateUser(body: API.CreateUser, options?: { [key: string]
 export async function createUser(body: API.CreateUser, options?: { [key: string]: any }) {
   return request<{
     status?: 'ok' | 'error';
-    data: {
+    data?: {
       id?: string;
       jgId?: string | any;
       jyjId?: string | any;
       xxId?: string | any;
       XXDM?: string;
+      XD?: string;
       loginName?: string;
       username?: string;
       avatar?: string;
@@ -161,10 +176,10 @@ export async function createUser(body: API.CreateUser, options?: { [key: string]
   }>('/user/create', {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -175,13 +190,13 @@ export async function deleteUser(
     /** 用户ID */
     id: string;
   },
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{ status?: 'ok' | 'error'; message?: string }>(`/user/${param0}`, {
     method: 'DELETE',
     params: { ...queryParams },
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -190,14 +205,16 @@ export async function homePageInfo(
   body: {
     /** 年级ID */
     njId?: string;
-    /** 学年 */
-    xn?: string;
-    /** 学期 */
-    xq?: string;
+    /** 学年学期ID */
+    XNXQId?: string;
+    /** 学校ID */
+    XXJBSJId?: string;
     /** 学生ID */
     XSId?: string;
+    /** 教师ID */
+    JSId?: string;
   },
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   return request<{
     status?: 'ok' | 'error';
@@ -213,7 +230,7 @@ export async function homePageInfo(
           id?: string;
           BJMC?: string;
           BJMS?: string;
-          BJZT?: '待发布' | '已发布' | '已下架' | '已结课';
+          BJZT?: '待开班' | '已开班' | '已结课';
           ZJS?: string;
           FJS?: string;
           BJRS?: number;
@@ -233,7 +250,7 @@ export async function homePageInfo(
             id?: string;
             KCMC?: string;
             KCTP?: string;
-            KCZT?: '待发布' | '已发布' | '已下架' | '已结课';
+            KCZT?: number;
             KCMS?: string;
             KKRQ?: string | any;
             JKRQ?: string | any;
@@ -263,12 +280,12 @@ export async function homePageInfo(
       kskc?: {
         id?: string;
         KCLX?: string;
-        KBYS?: string;
+        KCTAG?: string;
         KHKCSJs?: {
           id?: string;
           KCMC?: string;
           KCTP?: string;
-          KCZT?: '待发布' | '已发布' | '已下架' | '已结课';
+          KCZT?: number;
           KCMS?: string;
           KKRQ?: string | any;
           JKRQ?: string | any;
@@ -280,7 +297,7 @@ export async function homePageInfo(
         id?: string;
         BJMC?: string;
         BJMS?: string;
-        BJZT?: '待发布' | '已发布' | '已下架' | '已结课';
+        BJZT?: '待开班' | '已开班' | '已结课';
         ZJS?: string;
         FJS?: string;
         BJRS?: number;
@@ -303,7 +320,7 @@ export async function homePageInfo(
           KCMC?: string;
           KCLX?: string;
           KCTP?: string;
-          KCZT?: '待发布' | '已发布' | '已下架' | '已结课';
+          KCZT?: number;
           KCMS?: string;
           KKRQ?: string | any;
           JKRQ?: string | any;
@@ -330,17 +347,20 @@ export async function homePageInfo(
   }>('/user/homepage', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
 /** 刷新Token GET /user/refreshToken */
 export async function refreshToken(options?: { [key: string]: any }) {
-  return request<{ status?: 'ok' | 'error'; data?: string; message?: string }>('/user/refreshToken', {
-    method: 'GET',
-    ...(options || {})
-  });
+  return request<{ status?: 'ok' | 'error'; data?: string; message?: string }>(
+    '/user/refreshToken',
+    {
+      method: 'GET',
+      ...(options || {}),
+    },
+  );
 }

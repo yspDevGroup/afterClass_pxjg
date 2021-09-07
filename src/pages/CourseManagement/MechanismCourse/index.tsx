@@ -32,13 +32,15 @@ const MechanismCourse = () => {
       dataIndex: 'KCMC',
       key: 'KCMC',
       align: 'center',
-      search: false
+      search: false,
+      width: 200
     },
     {
       title: '课程类型',
       dataIndex: 'KHKCLX',
       key: 'KHKCLX',
       align: 'center',
+      width: 200,
       search: false,
       render: (text: any) => {
         return text?.KCTAG || '-';
@@ -54,7 +56,7 @@ const MechanismCourse = () => {
           <EllipsisHint
             width="100%"
             text={text?.map((item: any) => {
-              return <Tag key={item.id}>{item.XD === '初中' ? `${item.NJMC}` : `${item.XD}${item.NJMC}`}</Tag>;
+              return <Tag key={item.id} style={{margin: '4px'}}>{item.XD === '初中' ? `${item.NJMC}` : `${item.XD}${item.NJMC}`}</Tag>;
             })}
           />
         );
@@ -65,6 +67,7 @@ const MechanismCourse = () => {
       key: 'KHKCJs',
       dataIndex: 'KHKCJs',
       align: 'center',
+      width: 200,
       render: (text: any) => {
         return (
           <EllipsisHint
@@ -84,11 +87,11 @@ const MechanismCourse = () => {
       render: (text: any) => {
         switch (text) {
           case 1:
-            return '已发布';
+            return '已申报';
           case 2:
             return '已备案';
           default:
-            return '待发布';
+            return '待申报';
         }
       }
     },
@@ -120,11 +123,12 @@ const MechanismCourse = () => {
                 }
               }}
             >
-              发布
+              申报
             </a>
           ) : record.KCZT === 1 ? (
-            <a
-              onClick={async () => {
+            <Popconfirm
+              title={`确定要撤销 “${record?.KCMC}” 吗?`}
+              onConfirm={() => confirm(async () => {
                 const res = await updateKHKCSJ({ id: record?.id }, { KCZT: 0 });
                 if (res.status === 'ok') {
                   message.success('操作成功');
@@ -132,10 +136,10 @@ const MechanismCourse = () => {
                 } else {
                   message.error('操作失败');
                 }
-              }}
+              })}
             >
-              撤销
-            </a>
+              <a>撤销</a>
+            </Popconfirm>
           ) : (
             ''
           )}

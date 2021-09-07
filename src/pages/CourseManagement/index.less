@@ -32,11 +32,16 @@
         resize: none;
         text-overflow: ellipsis;
       }
-      .ant-select-disabled.ant-select-multiple .ant-select-selection-item {
-        color: #000;
-        border-color: #fff;
-        background: #FFF;
-        cursor: auto;
+      .ant-select-disabled {
+        .ant-select-selector{
+          color: #000;
+          border-color: #fff;
+          background: #FFF;
+          cursor: auto;
+        }
+        .ant-select-arrow{
+          display: none;
+        }
       }
     }
   }

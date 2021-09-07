@@ -34,3 +34,14 @@ export async function importStudents(options?: { [key: string]: any }) {
     },
   );
 }
+
+/** 企业微信教师导入 POST /upload/importWechatTeachers */
+export async function importWechatTeachers(options?: { [key: string]: any }) {
+  return request<{ status?: 'ok' | 'error'; data?: string; message?: string }>(
+    '/upload/importWechatTeachers',
+    {
+      method: 'POST',
+      ...(options || {}),
+    },
+  );
+}

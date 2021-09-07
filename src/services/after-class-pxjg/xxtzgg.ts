@@ -93,6 +93,10 @@ export async function getXXTZGG(
   body: {
     /** 标题 */
     BT?: string;
+    /** 公告类型 */
+    LX?: string;
+    /** 学校ID */
+    XXJBSJId?: string;
     /** 状态 */
     ZT?: string[];
     /** 页数 */

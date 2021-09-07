@@ -10,8 +10,8 @@ import { getAllKHKCLX } from '@/services/after-class-pxjg/khkclx';
 import { getKHJSSJ } from '@/services/after-class-pxjg/khjssj';
 import { getAllGrades } from '@/services/after-class-pxjg/khjyjg';
 import { createKHKCSJ, getKHKCSJ, updateKHKCSJ } from '@/services/after-class-pxjg/khkcsj';
-
 import classes from '../index.less';
+import { courseColorType } from '@/theme-default';
 
 /**
  * 机构端-课程列表-编辑页
@@ -35,8 +35,6 @@ const Edit = (props: any) => {
   const [formValues, setFormValues] = useState({});
   const [teacherData, setTeacherData] = useState<any>([]);
   useEffect(() => {
-    console.log('statestate', state);
-
     if (state?.type === 'info') {
       setDisabled(true);
       // 老师表格数据
@@ -49,12 +47,13 @@ const Edit = (props: any) => {
     if (state?.id) {
       // form详情
       const params = {
-        KCMC: state?.KCMC || '',
-        KCMS: state?.KCMS || '',
-        njIds: state?.NJSJs?.map((item: any) => item?.id) || '',
-        jsIds: state?.KHKCJs?.map((item: any) => item?.KHJSSJ?.id) || '',
-        KCTP: state?.KCTP || '',
-        KHKCLXId: state?.KHKCLXId || ''
+        KCMC: state?.KCMC || '-',
+        KCMS: state?.KCMS || '-',
+        njIds: state?.NJSJs?.map((item: any) => item?.id) || '-',
+        jsIds: state?.KHKCJs?.map((item: any) => item?.KHJSSJ?.id) || '-',
+        KCTP: state?.KCTP || '-',
+        KHKCLXId: state?.KHKCLXId || '-',
+        KBYS: state?.KBYS || '-'
       };
       setImageUrl(state?.KCTP);
       setFormValues(params);
@@ -85,7 +84,7 @@ const Edit = (props: any) => {
         setJSSJOptions(datas);
       }
       // 适用年级
-      const resNJ = await getAllGrades({ page: 0, pageSize: 0 });
+      const resNJ = await getAllGrades({});
       if (resNJ.status === 'ok') {
         const nj = ['幼儿园', '小学', '初中', '高中'];
         const dataNJ: any[] = [];
@@ -217,6 +216,29 @@ const Edit = (props: any) => {
           mode: 'multiple',
           items: JSSJOptions,
           rules: [{ required: true, message: '请选择代课老师' }]
+        },
+        {}
+      ]
+    },
+    {
+      type: 'group',
+      key: 'group5',
+      groupItems: [
+        {
+          type: 'select',
+          label: '课程颜色',
+          name: 'KBYS',
+          key: 'KBYS',
+          disabled,
+          items: [
+            { text: '绯红', value: courseColorType.crimson },
+            { text: '橙色', value: courseColorType.orange },
+            { text: '黄色', value: courseColorType.yellow },
+            { text: '蓝色', value: courseColorType.blue },
+            { text: '天空蓝', value: courseColorType.skyBlue },
+            { text: '紫色', value: courseColorType.violet },
+            { text: '紫红色', value: courseColorType.purplishRed },
+          ],
         },
         {}
       ]
