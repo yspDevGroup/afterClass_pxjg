@@ -2,12 +2,12 @@
  * @description:
  * @author: Sissle Lynn
  * @Date: 2021-08-26 19:54:41
- * @LastEditTime: 2021-09-07 10:05:14
+ * @LastEditTime: 2021-09-07 18:19:46
  * @LastEditors: Sissle Lynn
  */
 import React, { useEffect, useState } from 'react';
 import { Link } from 'umi';
-import { Input, Empty, Row, Col, message, Tag, Select, Button } from 'antd';
+import { Input, Empty, Row, Col, message, Tag, Select, Button, Divider } from 'antd';
 import { UpOutlined, LeftOutlined, RightOutlined, DownOutlined } from '@ant-design/icons';
 import { copCourseStatus, colorTagDisk } from '@/constant';
 
@@ -17,6 +17,7 @@ import noClass from '@/assets/noClass.png';
 import { getAllCourses, getAllSemester } from '@/services/after-class-pxjg/khjyjg';
 import { getCurrentXQ } from '@/utils';
 import { getKHKCSJ } from '@/services/after-class-pxjg/khkcsj';
+import moment from 'moment';
 
 const { Search } = Input;
 const { Option } = Select;
@@ -66,7 +67,7 @@ const CourseItemDom = (props: { school: string, course: any, type: string, ind: 
               {item.BJMC}
               <span>{item.XNXQ.XN} &nbsp; {item.XNXQ.XQ}</span>
             </p>
-            <p>任课老师：{item.KHBJJs?.map((val: any) => {
+            <p>任课教师：{item.KHBJJs?.map((val: any) => {
               return <Link key={val.id} to={{
                 pathname: '/basicalSetting/teacherManagement/detail',
                 state: {
@@ -75,8 +76,30 @@ const CourseItemDom = (props: { school: string, course: any, type: string, ind: 
                 }
               }}>{item.KHJSSJ?.XM}</Link>
             })}</p>
-            <p>上课时间：{item.KKRQ}—{item.JKRQ}</p>
-            <p>上课地点：{item.XQSJ?.XQMC}</p>
+            <p>上课时段：{moment(item?.KKRQ).format('YYYY.MM.DD')}~
+              {moment(item?.JKRQ).format('YYYY.MM.DD')}</p>
+            <p>上课时间：{item.KHPKSJs.map((val: { XXSJPZ: any; WEEKDAY: number }) => {
+              const weeks = `每周${'日一二三四五六'.charAt(val.WEEKDAY)}`;
+              return (
+                <span>
+                  {weeks}
+                  {val.XXSJPZ.KSSJ.substring(0, 5)}-
+                  {val.XXSJPZ.JSSJ.substring(0, 5)}
+                </span>
+              );
+            })}
+            </p>
+            <p>上课地点：{item.XQSJ?.XQMC}<Divider type='vertical' />{item.KHPKSJs.map((val: { FJSJ: any; }) => {
+              return (
+                <span>
+                  {val.FJSJ.FJMC}
+                </span>
+              );
+            })}
+            </p>
+            <p>总课时：{item?.KSS}节<span style={{ marginLeft: '16px' }} >费用：{item?.FY}元</span></p>
+            <p>报名时段：{moment(item?.BMKSSJ).format('YYYY.MM.DD')}~
+              {moment(item?.BMJSSJ).format('YYYY.MM.DD')}</p>
             <p>学生总数：{item.KHXSBJs?.length || 0}人 <Link style={{ marginLeft: '16px' }} to={{
               pathname: '/businessManagement/schoolManagement/studentList',
               state: {

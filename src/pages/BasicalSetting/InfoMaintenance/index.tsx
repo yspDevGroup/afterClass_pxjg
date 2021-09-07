@@ -143,7 +143,6 @@ const InfoMaintenance = (props: any) => {
   };
   const submit = async (params: any) => {
     const { id, ...info } = params;
-
     const data = {
       ...info,
       QYTB: QYTBImageUrl,

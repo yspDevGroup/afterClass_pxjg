@@ -2,7 +2,7 @@
  * @description:
  * @author: Sissle Lynn
  * @Date: 2021-08-24 14:37:02
- * @LastEditTime: 2021-09-07 16:56:10
+ * @LastEditTime: 2021-09-07 18:22:06
  * @LastEditors: Sissle Lynn
  */
 import React, { useRef, useState } from 'react';
@@ -68,6 +68,17 @@ const CourseManagement = () => {
       width: 200,
       ellipsis: true,
       render: (_, record) => record.KHKCSJ?.KCMC,
+    },
+    {
+      title: '课程类型',
+      dataIndex: 'KHKCLX',
+      key: 'KHKCLX',
+      align: 'center',
+      width: 200,
+      search: false,
+      render: (_, record) => {
+        return record.KHKCSJ?.KHKCLX?.KCTAG || '-';
+      }
     },
     {
       title: '学校名称',
@@ -284,8 +295,8 @@ const CourseManagement = () => {
           reload: false,
           search: (
             <div>
-              <Search name='KCMC' style={{ width: 200, marginRight: '16px' }} allowClear placeholder="课程名称" onSearch={(value) => changeList('kc', value)} />
-              <Search name='XXMC' style={{ width: 200 }} allowClear placeholder="学校名称" onSearch={(value) => changeList('xx', value)} />
+              <Search name='KCMC' style={{ width: 200, marginRight: '16px' }} allowClear placeholder="课程名称" onSearch={(value: string) => changeList('kc', value)} />
+              <Search name='XXMC' style={{ width: 200 }} allowClear placeholder="学校名称" onSearch={(value: string) => changeList('xx', value)} />
             </div>
           )
         }}

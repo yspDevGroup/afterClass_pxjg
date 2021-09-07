@@ -2,7 +2,7 @@
  * @description:
  * @author: Sissle Lynn
  * @Date: 2021-08-26 11:43:08
- * @LastEditTime: 2021-09-03 18:27:44
+ * @LastEditTime: 2021-09-07 18:22:03
  * @LastEditors: Sissle Lynn
  */
 type NJSJProps = {
@@ -48,6 +48,7 @@ type KHKCSJProps = {
   KCMS?: string;
   KCTP?: string;
   KCZT?: number;
+  KHKCLX?:any;
   KHJYJGId?: string;
   KHKCJs?: KHKCJsProps[];
   KHKCLXId?: string;

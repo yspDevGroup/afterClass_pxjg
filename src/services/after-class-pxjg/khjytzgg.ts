@@ -30,6 +30,8 @@ export async function KHJYTZGG(
       SFTT?: number;
       SFTJ?: number;
       NR?: string;
+      createdAt?: string;
+      updatedAt?: string;
     };
     message?: string;
   }>(`/khjytzgg/${param0}`, {
@@ -76,6 +78,8 @@ export async function createKHJYTZGG(body: API.CreateKHJYTZGG, options?: { [key:
       SFTT?: number;
       SFTJ?: number;
       NR?: string;
+      createdAt?: string;
+      updatedAt?: string;
     };
     message?: string;
   }>('/khjytzgg/create', {

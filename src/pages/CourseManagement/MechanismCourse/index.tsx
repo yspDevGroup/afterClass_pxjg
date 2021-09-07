@@ -28,6 +28,13 @@ const MechanismCourse = () => {
   };
   const columns: any[] = [
     {
+      title: '序号',
+      dataIndex: 'index',
+      valueType: 'index',
+      width: 58,
+      align: 'center',
+    },
+    {
       title: '课程名称',
       dataIndex: 'KCMC',
       key: 'KCMC',
@@ -63,7 +70,7 @@ const MechanismCourse = () => {
       }
     },
     {
-      title: '代课老师',
+      title: '任课教师',
       key: 'KHKCJs',
       dataIndex: 'KHKCJs',
       align: 'center',
