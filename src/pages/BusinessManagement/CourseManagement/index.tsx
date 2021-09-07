@@ -2,7 +2,7 @@
  * @description:
  * @author: Sissle Lynn
  * @Date: 2021-08-24 14:37:02
- * @LastEditTime: 2021-09-07 18:22:06
+ * @LastEditTime: 2021-09-07 19:53:44
  * @LastEditors: Sissle Lynn
  */
 import React, { useRef, useState } from 'react';
@@ -94,17 +94,15 @@ const CourseManagement = () => {
       dataIndex: 'SYNJ',
       align: 'center',
       ellipsis: true,
+      width: 220,
       render: (_, record) => {
         const grade = record.KHKCSJ?.NJSJs;
-        return <div>
-          {grade?.map((item, index) => {
-            return <span key={item.id}>
-              {index > 2 ? '' : index === 2 ?
-                <Tag key='more' color="#EFEFEF" style={{ color: '#333' }}>...</Tag> :
-                <Tag color="#EFEFEF" style={{ color: '#333' }}>{item.NJMC}</Tag>}
-            </span>
-          })}
-        </div>
+        return <EllipsisHint
+        width="100%"
+        text={grade?.map((item: any) => {
+          return <Tag color="#EFEFEF" style={{ color: '#333' }}>{item.NJMC}</Tag>;
+        })}
+      />
       },
     },
     {
@@ -158,7 +156,7 @@ const CourseManagement = () => {
       dataIndex: 'SPR',
       hideInTable: activeKey !== 'history',
       align: 'center',
-      width: 100
+      width: 120
     },
     {
       title: '最新操作时间',
@@ -174,7 +172,7 @@ const CourseManagement = () => {
       dataIndex: 'ZT',
       hideInTable: activeKey !== 'history',
       align: 'center',
-      width: 90,
+      width: 100,
       render: (_, record) => {
         return <span>
           {record.ZT ? applyStatus[record.ZT] : '-'}
@@ -184,9 +182,9 @@ const CourseManagement = () => {
     {
       title: '操作',
       valueType: 'option',
-      width: 220,
+      width: 230,
       align: 'center',
-      fixed:'right',
+      fixed: 'right',
       render: (_, record) => {
         return <>
           <div>

@@ -72,7 +72,7 @@ const Edit = (props: any) => {
         });
         setKCLXOptions(data);
       }
-      // 代课老师
+      // 任课教师
       const resTH = await getKHJSSJ({ JGId: currentUser?.jgId, page: 0, pageSize: 0 });
       if (resTH.status === 'ok') {
         const datas = resTH.data?.rows?.map((item: any) => {
@@ -208,14 +208,15 @@ const Edit = (props: any) => {
       groupItems: [
         {
           type: 'select',
-          label: '代课老师',
+          label: '任课教师',
           placeholder: '请选择',
           key: 'jsIds',
           name: 'jsIds',
           disabled,
+          hidden: disabled,
           mode: 'multiple',
           items: JSSJOptions,
-          rules: [{ required: true, message: '请选择代课老师' }]
+          rules: [{ required: true, message: '请选择任课教师' }]
         },
         {}
       ]
@@ -343,7 +344,7 @@ const Edit = (props: any) => {
           />
           <Table
             style={{ display: state?.type === 'info' ? 'initial' : 'none' }}
-            title={() => '代课老师列表'}
+            title={() => '任课教师列表'}
             columns={columns}
             dataSource={teacherData}
             pagination={false}

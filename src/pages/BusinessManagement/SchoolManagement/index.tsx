@@ -2,7 +2,7 @@
  * @description:
  * @author: Sissle Lynn
  * @Date: 2021-08-24 14:37:02
- * @LastEditTime: 2021-09-07 16:52:25
+ * @LastEditTime: 2021-09-07 19:52:51
  * @LastEditors: Sissle Lynn
  */
 import React, { useRef, useState } from 'react';
@@ -15,6 +15,7 @@ import { Divider, Tag } from 'antd';
 import { TableListParams } from '@/constant';
 import { cooperateSchool } from '@/services/after-class-pxjg/khjyjg';
 import { KHHZXYSJ } from '../data';
+import EllipsisHint from '@/components/EllipsisHint';
 
 const SchoolManagement = () => {
   const { initialState } = useModel('@@initialState');
@@ -55,15 +56,12 @@ const SchoolManagement = () => {
       width: 150,
       render: (_, record) => {
         const type = record.XD?.split(/,/g);
-        return <div>
-          {type?.map((item, index) => {
-            return <span key={item}>
-              {index > 2 ? '' : index === 2 ?
-                <Tag key='more' color="#EFEFEF" style={{ color: '#333' }}>...</Tag> :
-                <Tag color="#EFEFEF" style={{ color: '#333' }}>{item}</Tag>}
-            </span>
-          })}
-        </div>
+         return <EllipsisHint
+            width="100%"
+            text={type?.map((item: any) => {
+              return <Tag color="#EFEFEF" style={{ color: '#333' }}>{item}</Tag>;
+            })}
+          />
       },
     },
     {
@@ -93,7 +91,6 @@ const SchoolManagement = () => {
     {
       title: '操作',
       valueType: 'option',
-      fixed: 'right',
       width: 200,
       align: 'center',
       render: (_, record) => (

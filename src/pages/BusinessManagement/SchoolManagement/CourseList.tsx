@@ -2,12 +2,13 @@
  * @description:
  * @author: Sissle Lynn
  * @Date: 2021-08-26 16:26:59
- * @LastEditTime: 2021-09-07 08:33:04
+ * @LastEditTime: 2021-09-07 19:09:58
  * @LastEditors: Sissle Lynn
  */
 import React, { useEffect, useState } from 'react';
 import { Link } from 'umi';
-import { Divider, message, Tag } from 'antd';
+import { Divider, message, Tag,Button } from 'antd';
+import { LeftOutlined} from '@ant-design/icons';
 import ProTable, { ProColumns } from '@ant-design/pro-table';
 import { getAllCourses } from '@/services/after-class-pxjg/khjyjg';
 
@@ -122,34 +123,48 @@ const CourseList = (props: any) => {
     }
   ];
   return (
-    <ProTable<any>
-      columns={columns}
-      className={styles.schoolTable}
-      search={false}
-      headerTitle={xxmc}
-      dataSource={courseList}
-      options={{
-        setting: false,
-        fullScreen: false,
-        density: false,
-        reload: false,
-        search: {
-          placeholder: '课程名称',
-          allowClear: true,
-          onSearch: (value: string) => {
-            if (value && value !== '') {
-              const newList = courseList.filter((item: any) => item.KCMC.indexOf(value) > -1);
-              setCourseList(newList);
-            } else {
-              setCourseList(oriList);
+    <>
+      <Button
+        type="primary"
+        onClick={() => {
+          history.go(-1);
+        }}
+        style={{
+          marginBottom: '24px'
+        }}
+      >
+        <LeftOutlined />
+        返回上一页
+      </Button>
+      <ProTable<any>
+        columns={columns}
+        className={styles.schoolTable}
+        search={false}
+        headerTitle={xxmc}
+        dataSource={courseList}
+        options={{
+          setting: false,
+          fullScreen: false,
+          density: false,
+          reload: false,
+          search: {
+            placeholder: '课程名称',
+            allowClear: true,
+            onSearch: (value: string) => {
+              if (value && value !== '') {
+                const newList = courseList.filter((item: any) => item.KCMC.indexOf(value) > -1);
+                setCourseList(newList);
+              } else {
+                setCourseList(oriList);
+              }
+              return true;
             }
-            return true;
           }
-        }
-      }}
-      rowKey="id"
-      dateFormatter="string"
-    />
+        }}
+        rowKey="id"
+        dateFormatter="string"
+      />
+    </>
   );
 };
 
