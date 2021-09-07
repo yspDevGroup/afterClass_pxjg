@@ -14,7 +14,7 @@ const Index = () => {
     <Register />
   );
 };
-Index.title = '主页';
+Index.title = ENV_title;
 Index.access = '管理员';
 Index.wrappers = ['@/wrappers/auth'];
 

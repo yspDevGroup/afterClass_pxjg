@@ -44,7 +44,7 @@ const AvatarDropdown: React.FC<GlobalHeaderRightProps> = () => {
     <>
       <span className={`${styles.action}`}>
       {jgData ? <span style={{paddingRight:'40px'}}>
-      {jgData?.QYTB && jgData?.QYTB.indexOf('http') ? <img style={{width:'40px',height:'40px'}} src={'https://img2.baidu.com/it/u=171918543,1850609786&fm=26&fmt=auto&gp=0.jpg'||jgData?.QYTB} />:''} {jgData?.QYMC}
+      {jgData?.QYTB && jgData?.QYTB.indexOf('http')>-1 ? <img style={{width:'40px',height:'40px'}} src={jgData?.QYTB} />:''} {jgData?.QYMC}
         </span> : ''}
         <span className={`${styles.name} anticon`}>
           {currentUser?.username}

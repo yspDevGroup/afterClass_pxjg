@@ -3,7 +3,7 @@
  * @description: 通用布局
  * @author: zpl
  * @Date: 2021-08-16 17:31:56
- * @LastEditTime: 2021-09-03 15:52:18
+ * @LastEditTime: 2021-09-07 11:41:00
  * @LastEditors: Sissle Lynn
  */
 import React, { FC, useEffect, useState } from 'react';
@@ -55,6 +55,7 @@ const CommonLayout: FC<IRouteComponentProps> = ({ children, location, route, his
         <div>{children}</div>
       ) : (
         <ProLayout
+          {...customMenu}
           layout="side"
           headerRender={false}
           collapsedButtonRender={false}
@@ -76,17 +77,12 @@ const CommonLayout: FC<IRouteComponentProps> = ({ children, location, route, his
               </div>
             );
           }}
-          menu={{
-            request: async () => {
-              return customMenu;
-            }
-          }}
           menuItemRender={(item: MenuDataItem & { isUrl: boolean; onClick: () => void }, dom: React.ReactNode) =>
             menuRender(item, dom)
           }
           onMenuHeaderClick={(e) => console.log(e)}
           footerRender={() => <Footer />}
-          collapsed={false}
+        // collapsed={false}
         >
           <PageContainer
             style={{ minWidth: '990px' }}

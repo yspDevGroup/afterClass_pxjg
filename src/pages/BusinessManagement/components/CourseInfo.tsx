@@ -2,7 +2,7 @@
  * @description:
  * @author: Sissle Lynn
  * @Date: 2021-08-26 19:54:41
- * @LastEditTime: 2021-09-03 18:09:57
+ * @LastEditTime: 2021-09-07 10:05:14
  * @LastEditors: Sissle Lynn
  */
 import React, { useEffect, useState } from 'react';
@@ -20,8 +20,8 @@ import { getKHKCSJ } from '@/services/after-class-pxjg/khkcsj';
 
 const { Search } = Input;
 const { Option } = Select;
-const CourseItemDom = (props: { course: any, type: string, ind: number }) => {
-  const { course, type, ind } = props;
+const CourseItemDom = (props: { school: string, course: any, type: string, ind: number }) => {
+  const { school, course, type, ind } = props;
   const ZT = course?.KHKCSQs?.[0].ZT;
   const [curIndex, setCurIndex] = useState<number | undefined>(0);
   let bgColor = '#58D14E';
@@ -77,7 +77,15 @@ const CourseItemDom = (props: { course: any, type: string, ind: number }) => {
             })}</p>
             <p>上课时间：{item.KKRQ}—{item.JKRQ}</p>
             <p>上课地点：{item.XQSJ?.XQMC}</p>
-            <p>学生总数：{item.KHXSBJs?.length}人 <Link style={{ marginLeft: '16px' }} to='/studentlist'>学生列表<RightOutlined /></Link></p>
+            <p>学生总数：{item.KHXSBJs?.length || 0}人 <Link style={{ marginLeft: '16px' }} to={{
+              pathname: '/businessManagement/schoolManagement/studentList',
+              state: {
+                xxmc: school,
+                kcmc: course.KCMC,
+                bjmc: item.BJMC,
+                xssj: item.KHXSBJs
+              }
+            }}>学生列表<RightOutlined /></Link></p>
           </div>
         </Col>
       })}
@@ -176,7 +184,7 @@ const CourseInfo = (props: { values: any }) => {
         </div>
         {
           courseList ? <div className={styles.courseIntro}>
-            <CourseItemDom course={courseList} type={type} ind={0} key={courseList.id} />
+            <CourseItemDom school={xxmc} course={courseList} type={type} ind={0} key={courseList.id} />
           </div > : <Empty
             image={noCourse}
             imageStyle={{

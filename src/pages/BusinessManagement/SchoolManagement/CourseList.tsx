@@ -2,7 +2,7 @@
  * @description:
  * @author: Sissle Lynn
  * @Date: 2021-08-26 16:26:59
- * @LastEditTime: 2021-09-03 17:53:46
+ * @LastEditTime: 2021-09-07 08:33:04
  * @LastEditors: Sissle Lynn
  */
 import React, { useEffect, useState } from 'react';
@@ -141,8 +141,6 @@ const CourseList = (props: any) => {
               const newList = courseList.filter((item: any) => item.KCMC.indexOf(value) > -1);
               setCourseList(newList);
             } else {
-              console.log('iii');
-              console.log(oriList);
               setCourseList(oriList);
             }
             return true;
