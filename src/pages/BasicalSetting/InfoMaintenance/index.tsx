@@ -77,7 +77,29 @@ const InfoMaintenance = (props: any) => {
   };
   useEffect(() => {
     requestData();
-  }, []);
+    if (typeof XZQHM !== 'undefined') {
+      $.ajax({
+        url: `http://datavmap-public.oss-cn-hangzhou.aliyuncs.com/areas/csv/${XZQHM?.substring(0, 2)}0000_city.json`,
+        data: {},
+        success: function (data) {
+          setSecondCity(data.rows);
+        }
+      });
+      $.ajax({
+        url: `http://datavmap-public.oss-cn-hangzhou.aliyuncs.com/areas/csv/${XZQHM?.substring(0, 4)}00_district.json`,
+        data: {},
+        success: function (data) {
+          let newArr: any[] = [];
+          data.rows.forEach((item: any) => {
+            if (item.adcode.substring(0, 4) === XZQHM?.substring(0, 4)) {
+              newArr.push(item);
+            }
+          });
+          setCounty(newArr);
+        }
+      });
+    }
+  }, [XZQHM]);
 
   const confirm = async () => {
     const rescreateKHJGRZSQ = await createKHJGRZSQ({
@@ -121,6 +143,7 @@ const InfoMaintenance = (props: any) => {
   };
   const submit = async (params: any) => {
     const { id, ...info } = params;
+
     const data = {
       ...info,
       QYTB: QYTBImageUrl,
@@ -157,6 +180,9 @@ const InfoMaintenance = (props: any) => {
   };
   const onEditor = () => {
     setDisabled(false);
+    setCityName(Datas?.XZQ.split('/')[0]);
+    setProvinceName(Datas?.XZQ.split('/')[1]);
+    setCountyName(Datas?.XZQ.split('/')[2]);
   };
   const handleChange = (type: string, value: any) => {
     if (type === 'cities') {
