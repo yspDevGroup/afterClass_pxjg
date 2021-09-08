@@ -2,7 +2,7 @@
  * @description:
  * @author: Sissle Lynn
  * @Date: 2021-08-25 18:29:59
- * @LastEditTime: 2021-09-02 18:17:43
+ * @LastEditTime: 2021-09-08 18:11:35
  * @LastEditors: Sissle Lynn
  */
 /* eslint-disable @typescript-eslint/no-unused-vars */
@@ -63,9 +63,7 @@ const OperationForm = (props: PropsType) => {
   return (
     <>
       <CustomForm
-        values={{
-          ZT: '1'
-        }}
+        values={current}
         setForm={setForm}
         formItems={formItems}
         formLayout={formLayout}

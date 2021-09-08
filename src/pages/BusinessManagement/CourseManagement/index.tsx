@@ -2,7 +2,7 @@
  * @description:
  * @author: Sissle Lynn
  * @Date: 2021-08-24 14:37:02
- * @LastEditTime: 2021-09-08 11:17:52
+ * @LastEditTime: 2021-09-08 18:11:20
  * @LastEditors: Sissle Lynn
  */
 import React, { useRef, useState } from 'react';
@@ -322,7 +322,7 @@ const CourseManagement = () => {
         <OperationForm
           current={{
             id: recordId,
-            ZT: '已通过'
+            ZT: "1"
           }}
           setForm={setForm}
         />
