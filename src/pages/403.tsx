@@ -2,8 +2,8 @@
  * @description: 鉴权失败界面
  * @author: zpl
  * @Date: 2021-07-14 17:11:16
- * @LastEditTime: 2021-07-15 10:47:25
- * @LastEditors: wsl
+ * @LastEditTime: 2021-09-08 12:28:46
+ * @LastEditors: zpl
  */
 import React from 'react';
 import { history } from 'umi';
@@ -19,7 +19,7 @@ const NotFind = () => {
         <Button
           type="primary"
           onClick={() => {
-            window.top.location.href = '/';
+            (window.top || window).location.href = '/';
           }}
         >
           返回首页
