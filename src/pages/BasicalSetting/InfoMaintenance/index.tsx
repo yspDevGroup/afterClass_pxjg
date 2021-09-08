@@ -12,16 +12,17 @@ import {
   message,
   Popconfirm,
   Tooltip,
-  Cascader,
   Select
 } from 'antd';
-import styles from './index.less';
 import { useModel } from 'umi';
 import { createKHJYJG, KHJYJG, updateKHJYJG } from '@/services/after-class-pxjg/khjyjg';
 import { createKHJGRZSQ } from '@/services/after-class-pxjg/khjgrzsq';
 import { QuestionCircleOutlined } from '@ant-design/icons';
 import UploadImage from '@/components/CustomForm/components/UploadImage';
 import $ from 'jquery';
+
+import 'antd/es/modal/style';
+import styles from './index.less';
 
 const { Option } = Select;
 
@@ -42,9 +43,9 @@ const InfoMaintenance = (props: any) => {
   const [cityAdcode, setCityAdcode] = useState<string>();
   const [secondCity, setSecondCity] = useState<any>();
   const [county, setCounty] = useState<any>();
-  const [cityName, setCityName] = useState<string>();
-  const [provinceName, setProvinceName] = useState<string>();
-  const [countyName, setCountyName] = useState<string>();
+  const [provinceVal, setProvinceVal] = useState<any>();
+  const [cityVal, setCityVal] = useState<any>();
+  const [countyVal, setCountyVal] = useState<any>();
   const [Datas, setDatas] = useState<any>();
   const onKHJYJG = async () => {
     const res = await KHJYJG({ id: currentUser!.jgId! });
@@ -67,7 +68,6 @@ const InfoMaintenance = (props: any) => {
       form.setFieldsValue({});
     }
   };
-  console.log(SQDatas, '====');
   useEffect(() => {
     onKHJYJG();
   }, []);
@@ -75,7 +75,7 @@ const InfoMaintenance = (props: any) => {
     $.ajax({
       url: 'http://datavmap-public.oss-cn-hangzhou.aliyuncs.com/areas/csv/100000_province.json',
       data: {},
-      success: function (data) {
+      success: function (data: { rows: any; }) {
         setCities(data.rows);
       }
     });
@@ -86,14 +86,14 @@ const InfoMaintenance = (props: any) => {
       $.ajax({
         url: `http://datavmap-public.oss-cn-hangzhou.aliyuncs.com/areas/csv/${XZQHM?.substring(0, 2)}0000_city.json`,
         data: {},
-        success: function (data) {
+        success: function (data: { rows: any; }) {
           setSecondCity(data.rows);
         }
       });
       $.ajax({
         url: `http://datavmap-public.oss-cn-hangzhou.aliyuncs.com/areas/csv/${XZQHM?.substring(0, 4)}00_district.json`,
         data: {},
-        success: function (data) {
+        success: function (data: { rows: any[]; }) {
           let newArr: any[] = [];
           data.rows.forEach((item: any) => {
             if (item.adcode.substring(0, 4) === XZQHM?.substring(0, 4)) {
@@ -147,7 +147,6 @@ const InfoMaintenance = (props: any) => {
     }
   };
   const submit = async (params: any) => {
-    console.log(params);
     const { id, XD, ...info } = params;
     const data = {
       ...info,
@@ -155,7 +154,7 @@ const InfoMaintenance = (props: any) => {
       BXXKZ: BXXKZImageUrl,
       YYZZ: YYZZImageUrl,
       XZQHM: cityAdcode || Datas?.XZQHM,
-      XZQ: `${cityName}/${provinceName}/${countyName}`,
+      XZQ: `${provinceVal?.label}/${cityVal?.label}/${countyVal?.label}`,
       XD: XD.toString()
     };
     if (typeof params.id === 'undefined') {
@@ -164,7 +163,7 @@ const InfoMaintenance = (props: any) => {
       } else {
         const resCreateKHJYJG = await createKHJYJG(data);
         if (resCreateKHJYJG.status === 'ok') {
-          const Data = resCreateKHJYJG.data;
+          const Data: any = resCreateKHJYJG.data;
           form.scrollToField(Data);
           message.success('保存成功');
           setDisabled(true);
@@ -190,29 +189,43 @@ const InfoMaintenance = (props: any) => {
   };
   const onEditor = () => {
     setDisabled(false);
-    setCityName(Datas?.XZQ.split('/')[0]);
-    setProvinceName(Datas?.XZQ.split('/')[1]);
-    setCountyName(Datas?.XZQ.split('/')[2]);
+    setProvinceVal({
+      value: `${XZQHM?.substring(0, 2)}0000`,
+      label: Datas?.XZQ?.split('/')[0],
+      key: `${XZQHM?.substring(0, 2)}0000`
+    });
+    setCityVal({
+      value: `${XZQHM?.substring(0, 4)}00`,
+      label: Datas?.XZQ?.split('/')[1],
+      key: `${XZQHM?.substring(0, 4)}00`
+    });
+    setCountyVal({
+      value: XZQHM,
+      label: Datas?.XZQ?.split('/')[2],
+      key: XZQHM
+    });
   };
   const handleChange = (type: string, value: any) => {
     if (type === 'cities') {
-      const ajax = new XMLHttpRequest();
-      ajax.open('get', `http://datavmap-public.oss-cn-hangzhou.aliyuncs.com/areas/csv/${value.value}_city.json`);
-      ajax.send();
-      ajax.onreadystatechange = function () {
-        if (ajax.readyState === 4 && ajax.status === 200) {
-          const data = JSON.parse(ajax.responseText);
+      $.ajax({
+        url: `http://datavmap-public.oss-cn-hangzhou.aliyuncs.com/areas/csv/${value.value}_city.json`,
+        data: {},
+        success: function (data: { rows: any; }) {
           setSecondCity(data.rows);
-          setCityName(value.label);
+          setProvinceVal({
+            value: value.value,
+            label: value.label,
+            key: value.value
+          });
+          setCityVal({});
+          setCountyVal({});
         }
-      };
+      });
     } else if (type === 'secondCity') {
-      const ajax = new XMLHttpRequest();
-      ajax.open('get', `http://datavmap-public.oss-cn-hangzhou.aliyuncs.com/areas/csv/${value.value}_district.json`);
-      ajax.send();
-      ajax.onreadystatechange = function () {
-        if (ajax.readyState === 4 && ajax.status === 200) {
-          const data = JSON.parse(ajax.responseText);
+      $.ajax({
+        url: `http://datavmap-public.oss-cn-hangzhou.aliyuncs.com/areas/csv/${value.value}_district.json`,
+        data: {},
+        success: function (data: { rows: any[]; }) {
           let newArr: any[] = [];
           data.rows.forEach((item: any) => {
             if (item.adcode.substring(0, 4) === value.value.substring(0, 4)) {
@@ -220,12 +233,21 @@ const InfoMaintenance = (props: any) => {
             }
           });
           setCounty(newArr);
-          setProvinceName(value.label);
+          setCityVal({
+            value: value.value,
+            label: value.label,
+            key: value.value
+          });
+          setCountyVal({});
         }
-      };
+      });
     } else if (type === 'county') {
       setCityAdcode(value.value);
-      setCountyName(value.label);
+      setCountyVal({
+        value: value.value,
+        label: value.label,
+        key: value.value
+      });
     }
   };
   return (
@@ -380,7 +402,6 @@ const InfoMaintenance = (props: any) => {
             </>
           )}
         </div>
-
         <Divider />
         <Form form={form} onFinish={submit} className={styles.Forms}>
           <Row>
@@ -497,11 +518,7 @@ const InfoMaintenance = (props: any) => {
                       handleChange('cities', value);
                     }}
                     labelInValue
-                    defaultValue={{
-                      value: `${XZQHM?.substring(0, 2)}0000`,
-                      label: Datas?.XZQ.split('/')[0],
-                      key: `${XZQHM?.substring(0, 2)}0000`
-                    }}
+                    value={provinceVal}
                     disabled={disabled}
                     placeholder={disabled === false ? '请选择' : '——'}
                   >
@@ -519,11 +536,7 @@ const InfoMaintenance = (props: any) => {
                       handleChange('secondCity', value);
                     }}
                     labelInValue
-                    defaultValue={{
-                      value: `${XZQHM?.substring(0, 4)}00`,
-                      label: Datas?.XZQ.split('/')[1],
-                      key: `${XZQHM?.substring(0, 4)}00`
-                    }}
+                    value={cityVal}
                     disabled={disabled}
                     placeholder={disabled === false ? '请选择' : '——'}
                   >
@@ -541,7 +554,7 @@ const InfoMaintenance = (props: any) => {
                       handleChange('county', value);
                     }}
                     labelInValue
-                    defaultValue={{ value: XZQHM!, label: Datas?.XZQ.split('/')[2], key: XZQHM! }}
+                    value={countyVal}
                     disabled={disabled}
                     placeholder={disabled === false ? '请选择' : '——'}
                   >
