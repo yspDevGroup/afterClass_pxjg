@@ -3,16 +3,13 @@ import Register from '@/components/IndexComp/register';
 import IndexComp from '@/components/IndexComp';
 import { useModel } from 'umi';
 
-
 const Index = () => {
   const { initialState } = useModel('@@initialState');
   const { currentUser } = initialState || {};
-  if (currentUser?.jgId) {
-    return <IndexComp />
+  if (currentUser?.XZQHM) {
+    return <IndexComp />;
   }
-  return (
-    <Register />
-  );
+  return <Register />;
 };
 Index.title = ENV_title;
 Index.access = '管理员';

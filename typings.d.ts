@@ -34,6 +34,8 @@ type UserInfo = {
   id?: string;
   /** 学校代码 */
   XXDM?: string;
+  /** 行政区号码 */
+  XZQHM?: string;
   /** 登录名，学号或工号 */
   loginName?: string;
   /** 姓名 */
