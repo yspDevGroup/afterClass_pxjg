@@ -34,10 +34,10 @@ const InfoMaintenance = (props: any) => {
   const [cityVal, setCityVal] = useState<any>();
   const [countyVal, setCountyVal] = useState<any>();
   const [Datas, setDatas] = useState<any>();
+
   const onKHJYJG = async () => {
     const res = await KHJYJG({ id: currentUser!.jgId! });
     if (res.status === 'ok') {
-      console.log(res.data);
       const { XD, ...info } = res.data;
       const newData = {
         ...info,
@@ -141,7 +141,9 @@ const InfoMaintenance = (props: any) => {
       BXXKZ: BXXKZImageUrl,
       YYZZ: YYZZImageUrl,
       XZQHM: cityAdcode || Datas?.XZQHM,
-      XZQ: `${provinceVal?.label}/${cityVal?.label}/${countyVal?.label}`,
+      XZQ: `${provinceVal?.label}${cityVal?.label ? `/${cityVal?.label}` : ''}${
+        countyVal?.label ? `/${countyVal?.label}` : ''
+      }`,
       XD: XD.toString()
     };
     if (typeof params.id === 'undefined') {
@@ -161,7 +163,9 @@ const InfoMaintenance = (props: any) => {
       }
     } else {
       const resUpdateKHJYJG = await updateKHJYJG({ id: currentUser!.jgId! }, data);
-      if (resUpdateKHJYJG.status === 'ok') {
+      if (typeof cityAdcode === 'undefined') {
+        message.info('请选择行政区域');
+      } else if (resUpdateKHJYJG.status === 'ok') {
         message.success('修改成功');
         setDisabled(true);
         onKHJYJG();
@@ -173,6 +177,7 @@ const InfoMaintenance = (props: any) => {
 
   const onReset = () => {
     setDisabled(true);
+    onKHJYJG();
   };
   const onEditor = () => {
     setDisabled(false);
@@ -198,6 +203,11 @@ const InfoMaintenance = (props: any) => {
         url: `http://datavmap-public.oss-cn-hangzhou.aliyuncs.com/areas/csv/${value.value}_city.json`,
         data: {},
         success: function (data: { rows: any }) {
+          if (value.value === '810000' || value.value === '820000' || value.value === '710000') {
+            setCityAdcode(value.value);
+          } else {
+            setCityAdcode(undefined);
+          }
           setSecondCity(data.rows);
           setProvinceVal({
             value: value.value,
@@ -206,6 +216,7 @@ const InfoMaintenance = (props: any) => {
           });
           setCityVal({});
           setCountyVal({});
+          setCounty([]);
         }
       });
     } else if (type === 'secondCity') {
@@ -226,6 +237,7 @@ const InfoMaintenance = (props: any) => {
             key: value.value
           });
           setCountyVal({});
+          setCityAdcode(undefined);
         }
       });
     } else if (type === 'county') {

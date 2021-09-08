@@ -4,6 +4,7 @@ import { ReactText } from 'react';
 
 // 渲染表单行
 export interface TableListItem {
+  JYJGSJ: any;
   ZT: any;
   key: number;
   id: string;
