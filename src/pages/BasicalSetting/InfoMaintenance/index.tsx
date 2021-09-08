@@ -21,7 +21,6 @@ import { createKHJYJG, KHJYJG, updateKHJYJG } from '@/services/after-class-pxjg/
 import { createKHJGRZSQ } from '@/services/after-class-pxjg/khjgrzsq';
 import { QuestionCircleOutlined } from '@ant-design/icons';
 import UploadImage from '@/components/CustomForm/components/UploadImage';
-import { getProvince } from '@/services/local-services/region';
 import $ from 'jquery';
 
 const { Option } = Select;
@@ -50,7 +49,13 @@ const InfoMaintenance = (props: any) => {
   const onKHJYJG = async () => {
     const res = await KHJYJG({ id: currentUser!.jgId! });
     if (res.status === 'ok') {
-      form.setFieldsValue(res.data);
+      console.log(res.data);
+      const { XD, ...info } = res.data;
+      const newData = {
+        ...info,
+        XD: XD?.split(',')
+      };
+      form.setFieldsValue(newData);
       setXZQHM(res.data.XZQHM);
       setKHJYJGId(res.data.id);
       setSQDatas(res.data.KHJGRZSQs);
@@ -62,6 +67,7 @@ const InfoMaintenance = (props: any) => {
       form.setFieldsValue({});
     }
   };
+  console.log(SQDatas, '====');
   useEffect(() => {
     onKHJYJG();
   }, []);
@@ -141,19 +147,21 @@ const InfoMaintenance = (props: any) => {
     }
   };
   const submit = async (params: any) => {
-    const { id, ...info } = params;
+    console.log(params);
+    const { id, XD, ...info } = params;
     const data = {
       ...info,
       QYTB: QYTBImageUrl,
       BXXKZ: BXXKZImageUrl,
       YYZZ: YYZZImageUrl,
-      XZQHM: cityAdcode,
-      XZQ: `${cityName}/${provinceName}/${countyName}`
+      XZQHM: cityAdcode || Datas?.XZQHM,
+      XZQ: `${cityName}/${provinceName}/${countyName}`,
+      XD: XD.toString()
     };
-    if (typeof cityAdcode === 'undefined') {
-      message.info('请选择行政区域');
-    } else {
-      if (typeof params.id === 'undefined') {
+    if (typeof params.id === 'undefined') {
+      if (typeof cityAdcode === 'undefined') {
+        message.info('请选择行政区域');
+      } else {
         const resCreateKHJYJG = await createKHJYJG(data);
         if (resCreateKHJYJG.status === 'ok') {
           const Data = resCreateKHJYJG.data;
@@ -164,15 +172,15 @@ const InfoMaintenance = (props: any) => {
         } else {
           message.error(resCreateKHJYJG.message);
         }
+      }
+    } else {
+      const resUpdateKHJYJG = await updateKHJYJG({ id: currentUser!.jgId! }, data);
+      if (resUpdateKHJYJG.status === 'ok') {
+        message.success('修改成功');
+        setDisabled(true);
+        onKHJYJG();
       } else {
-        const resUpdateKHJYJG = await updateKHJYJG({ id: currentUser!.jgId! }, data);
-        if (resUpdateKHJYJG.status === 'ok') {
-          message.success('修改成功');
-          setDisabled(true);
-          onKHJYJG();
-        } else {
-          message.error(resUpdateKHJYJG.message);
-        }
+        message.error(resUpdateKHJYJG.message);
       }
     }
   };
@@ -188,19 +196,23 @@ const InfoMaintenance = (props: any) => {
   };
   const handleChange = (type: string, value: any) => {
     if (type === 'cities') {
-      $.ajax({
-        url: `http://datavmap-public.oss-cn-hangzhou.aliyuncs.com/areas/csv/${value.value}_city.json`,
-        data: {},
-        success: function (data) {
+      const ajax = new XMLHttpRequest();
+      ajax.open('get', `http://datavmap-public.oss-cn-hangzhou.aliyuncs.com/areas/csv/${value.value}_city.json`);
+      ajax.send();
+      ajax.onreadystatechange = function () {
+        if (ajax.readyState === 4 && ajax.status === 200) {
+          const data = JSON.parse(ajax.responseText);
           setSecondCity(data.rows);
           setCityName(value.label);
         }
-      });
+      };
     } else if (type === 'secondCity') {
-      $.ajax({
-        url: `http://datavmap-public.oss-cn-hangzhou.aliyuncs.com/areas/csv/${value.value}_district.json`,
-        data: {},
-        success: function (data) {
+      const ajax = new XMLHttpRequest();
+      ajax.open('get', `http://datavmap-public.oss-cn-hangzhou.aliyuncs.com/areas/csv/${value.value}_district.json`);
+      ajax.send();
+      ajax.onreadystatechange = function () {
+        if (ajax.readyState === 4 && ajax.status === 200) {
+          const data = JSON.parse(ajax.responseText);
           let newArr: any[] = [];
           data.rows.forEach((item: any) => {
             if (item.adcode.substring(0, 4) === value.value.substring(0, 4)) {
@@ -210,7 +222,7 @@ const InfoMaintenance = (props: any) => {
           setCounty(newArr);
           setProvinceName(value.label);
         }
-      });
+      };
     } else if (type === 'county') {
       setCityAdcode(value.value);
       setCountyName(value.label);
@@ -220,15 +232,16 @@ const InfoMaintenance = (props: any) => {
     <div className={styles.InfoMaintenance}>
       <div>
         <div className={styles.header}>
-          {SQDatas?.length === 0 ? (
+          {SQDatas?.length === 0 || typeof SQDatas === 'undefined' ? (
             <Popconfirm
               placement="topRight"
               title="确定本机构信息填写完整且无误后，点击“确定”申请备案资格"
               onConfirm={confirm}
               okText="确定"
               cancelText="取消"
+              disabled={typeof SQDatas === 'undefined' ? true : false}
             >
-              <Button type="primary" className={styles.RZbtn}>
+              <Button type="primary" className={styles.RZbtn} disabled={typeof SQDatas === 'undefined' ? true : false}>
                 申请备案
               </Button>
             </Popconfirm>
@@ -528,7 +541,7 @@ const InfoMaintenance = (props: any) => {
                       handleChange('county', value);
                     }}
                     labelInValue
-                    defaultValue={{ value: XZQHM, label: Datas?.XZQ.split('/')[2], key: XZQHM }}
+                    defaultValue={{ value: XZQHM!, label: Datas?.XZQ.split('/')[2], key: XZQHM! }}
                     disabled={disabled}
                     placeholder={disabled === false ? '请选择' : '——'}
                   >
@@ -550,6 +563,31 @@ const InfoMaintenance = (props: any) => {
               <Form.Item name="JGFWFW" key="JGFWFW" label="机构服务范围：">
                 <Input placeholder={disabled === false ? '请输入' : '——'} disabled={disabled} />
               </Form.Item>
+              {disabled === true ? (
+                <Form.Item name="XD" key="XD" label="学段">
+                  <Input disabled={disabled} placeholder="——" />
+                </Form.Item>
+              ) : (
+                <Form.Item
+                  name="XD"
+                  key="XD"
+                  label="学段"
+                  rules={[
+                    {
+                      required: true,
+                      message: '请选择学段'
+                    }
+                  ]}
+                >
+                  <Select mode="multiple" allowClear style={{ width: '100%' }} placeholder="请选择">
+                    <Option value="幼儿园">幼儿园</Option>
+                    <Option value="小学">小学</Option>
+                    <Option value="初中">初中</Option>
+                    <Option value="高中">高中</Option>
+                  </Select>
+                </Form.Item>
+              )}
+
               <Form.Item name="JGJJ" key="JGJJ" label="机构简介：">
                 <Input.TextArea placeholder={disabled === false ? '请输入' : '——'} rows={4} disabled={disabled} />
               </Form.Item>
