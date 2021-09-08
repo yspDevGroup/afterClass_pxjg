@@ -110,7 +110,8 @@ const Edit = (props: any) => {
       ...values,
       KCTP: imageUrl || '',
       KCZT: 0,
-      KHJYJGId: currentUser?.jgId
+      KHJYJGId: currentUser?.jgId,
+      SSJGLX: '机构课程'
       // KHKCLXId: KCLXOptions?.find((item: any) => item.text === '标准课程').value
     };
     if (state) {
