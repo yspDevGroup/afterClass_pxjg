@@ -68,7 +68,7 @@ export const FormInput = (props: FormInputProps) => {
  * @returns
  */
 export const FormInputNumber = (props: FormInputNumberProps) => {
-  const { disabled, percent, ...formProps } = props;
+  const { disabled, percent,formatter, ...formProps } = props;
   return (
     <Form.Item {...formProps}>
       {percent ? (
@@ -78,7 +78,9 @@ export const FormInputNumber = (props: FormInputNumberProps) => {
           parser={(value) => value!.replace('%', '')}
         />
       ) : (
-        <InputNumber disabled={disabled} />
+        <InputNumber
+          formatter={formatter}
+          disabled={disabled} />
       )}
     </Form.Item>
   );

@@ -2,7 +2,7 @@
  * @description:
  * @author: Sissle Lynn
  * @Date: 2021-08-26 16:24:39
- * @LastEditTime: 2021-09-08 11:33:29
+ * @LastEditTime: 2021-09-08 12:24:44
  * @LastEditors: Sissle Lynn
  */
 import React, { useEffect, useState } from 'react';
@@ -222,7 +222,9 @@ const SchoolInfo = (props: PropsType) => {
           label: '教龄（年）',
           name: 'JL',
           key: 'JL',
-          placeholder: readonly ? '-' : ''
+          placeholder: readonly ? '-' : '',
+          formatter:(value) => `${Math.round(value)}`,
+          tooltip:'注意：教龄四舍五入，只能填写整数'
         }
       ]
     },
@@ -307,7 +309,6 @@ const SchoolInfo = (props: PropsType) => {
     values.CSRQ = values.CSRQ ? moment(values.CSRQ).format('YYYY-MM-DD') : undefined;
     values.ZGZS = zgzsUrl ? zgzsUrl : values.ZGZS;
     values.ZP = zpUrl ? zpUrl : values.ZP;
-
     if (values.id) {
       res = await updateKHJSSJ(
         {
