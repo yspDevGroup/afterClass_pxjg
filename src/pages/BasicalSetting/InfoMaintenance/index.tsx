@@ -1,19 +1,6 @@
 /* eslint-disable complexity */
 import React, { useEffect, useState } from 'react';
-import {
-  Button,
-  Form,
-  Input,
-  Image,
-  Divider,
-  Row,
-  Col,
-  Alert,
-  message,
-  Popconfirm,
-  Tooltip,
-  Select
-} from 'antd';
+import { Button, Form, Input, Image, Divider, Row, Col, Alert, message, Popconfirm, Tooltip, Select } from 'antd';
 import { useModel } from 'umi';
 import { createKHJYJG, KHJYJG, updateKHJYJG } from '@/services/after-class-pxjg/khjyjg';
 import { createKHJGRZSQ } from '@/services/after-class-pxjg/khjgrzsq';
@@ -75,7 +62,7 @@ const InfoMaintenance = (props: any) => {
     $.ajax({
       url: 'http://datavmap-public.oss-cn-hangzhou.aliyuncs.com/areas/csv/100000_province.json',
       data: {},
-      success: function (data: { rows: any; }) {
+      success: function (data: { rows: any }) {
         setCities(data.rows);
       }
     });
@@ -86,14 +73,14 @@ const InfoMaintenance = (props: any) => {
       $.ajax({
         url: `http://datavmap-public.oss-cn-hangzhou.aliyuncs.com/areas/csv/${XZQHM?.substring(0, 2)}0000_city.json`,
         data: {},
-        success: function (data: { rows: any; }) {
+        success: function (data: { rows: any }) {
           setSecondCity(data.rows);
         }
       });
       $.ajax({
         url: `http://datavmap-public.oss-cn-hangzhou.aliyuncs.com/areas/csv/${XZQHM?.substring(0, 4)}00_district.json`,
         data: {},
-        success: function (data: { rows: any[]; }) {
+        success: function (data: { rows: any[] }) {
           let newArr: any[] = [];
           data.rows.forEach((item: any) => {
             if (item.adcode.substring(0, 4) === XZQHM?.substring(0, 4)) {
@@ -210,7 +197,7 @@ const InfoMaintenance = (props: any) => {
       $.ajax({
         url: `http://datavmap-public.oss-cn-hangzhou.aliyuncs.com/areas/csv/${value.value}_city.json`,
         data: {},
-        success: function (data: { rows: any; }) {
+        success: function (data: { rows: any }) {
           setSecondCity(data.rows);
           setProvinceVal({
             value: value.value,
@@ -225,7 +212,7 @@ const InfoMaintenance = (props: any) => {
       $.ajax({
         url: `http://datavmap-public.oss-cn-hangzhou.aliyuncs.com/areas/csv/${value.value}_district.json`,
         data: {},
-        success: function (data: { rows: any[]; }) {
+        success: function (data: { rows: any[] }) {
           let newArr: any[] = [];
           data.rows.forEach((item: any) => {
             if (item.adcode.substring(0, 4) === value.value.substring(0, 4)) {
@@ -307,16 +294,7 @@ const InfoMaintenance = (props: any) => {
                 ) : SQDatas?.[0].ZT === 3 ? (
                   <>
                     <Tooltip title={SQDatas?.[0].BZ}>
-                      <Alert
-                        message={
-                          <>
-                            合作已结束
-                            <QuestionCircleOutlined />
-                          </>
-                        }
-                        type="info"
-                        style={{ height: 33 }}
-                      />
+                      <Alert message={<>合作已结束</>} type="info" style={{ height: 33 }} />
                     </Tooltip>
                     <Popconfirm
                       placement="topRight"
