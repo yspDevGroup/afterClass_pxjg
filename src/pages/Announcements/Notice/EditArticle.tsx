@@ -165,7 +165,7 @@ const EditArticle = () => {
                 ]}
               >
                 <Select disabled={disabled}>
-                  <Option value={0}>公告</Option>
+                  <Option value={0}>内部通知</Option>
                 </Select>
               </Form.Item>
             </Col>

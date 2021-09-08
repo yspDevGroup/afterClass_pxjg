@@ -2,7 +2,7 @@
  * @description:
  * @author: wsl
  * @Date: 2021-08-09 17:41:43
- * @LastEditTime: 2021-09-07 19:47:37
+ * @LastEditTime: 2021-09-08 17:10:01
  * @LastEditors: wsl
  */
 import React, { useState, useRef, useEffect } from 'react';
@@ -156,7 +156,7 @@ const Notice = () => {
   return (
     <>
       <ProTable<any>
-        headerTitle="公告列表"
+        headerTitle="通知列表"
         actionRef={actionRef}
         className={styles.proTableStyles}
         rowKey="id"
