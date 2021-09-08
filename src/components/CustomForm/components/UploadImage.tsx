@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Button, message, Upload, Image } from 'antd';
 import ImgCrop from 'antd-img-crop';
-
+import 'antd/es/modal/style';
 import styles from './UploadImage.less';
 
 type UploadImageProps = {

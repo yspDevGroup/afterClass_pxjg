@@ -84,7 +84,7 @@ const Edit = (props: any) => {
         setJSSJOptions(datas);
       }
       // 适用年级
-      const resNJ = await getAllGrades({});
+      const resNJ = await getAllGrades({ XD: currentUser?.XD?.split(',') });
       if (resNJ.status === 'ok') {
         const nj = ['幼儿园', '小学', '初中', '高中'];
         const dataNJ: any[] = [];
@@ -238,8 +238,8 @@ const Edit = (props: any) => {
             { text: '蓝色', value: courseColorType.blue },
             { text: '天空蓝', value: courseColorType.skyBlue },
             { text: '紫色', value: courseColorType.violet },
-            { text: '紫红色', value: courseColorType.purplishRed },
-          ],
+            { text: '紫红色', value: courseColorType.purplishRed }
+          ]
         },
         {}
       ]

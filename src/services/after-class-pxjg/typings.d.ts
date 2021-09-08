@@ -1597,9 +1597,9 @@ declare namespace API {
     KHKCSJId?: string;
     /** 学年学期ID */
     XNXQId?: string;
-    KHKCJMs?: { FYJM?: string; JMDX?: string; JFBL?: number; ZJFY?: number }[];
-    KHKCJCs?: { JCMC?: string; JCFY?: string }[];
-    KHBJJSs?: { JSLX?: string; JSXM?: string; KHJSSJId?: string }[];
+    KHKCJMs?: { FYJM?: string; JMDX?: string; JFBL?: number; ZJFY?: number; KHBJSJId?: string }[];
+    KHKCJCs?: { JCMC?: string; JCFY?: string; KHBJSJId?: string }[];
+    KHBJJSs?: { JSLX?: string; JSXM?: string; KHJSSJId?: string; KHBJSJId?: string }[];
   };
 
   type KHJGRZSQ = {
@@ -1882,6 +1882,8 @@ declare namespace API {
     ZT?: number;
     /** 企业微信ID */
     CorpID?: string;
+    /** 包含学段 */
+    XD?: string;
     KHJGRZSQs?: {
       id?: string;
       ZT?: number;
@@ -1931,8 +1933,8 @@ declare namespace API {
     ZT?: number;
     /** 企业微信ID */
     CorpID?: string;
-    /** 课后教育机构ID */
-    KHJYJGId: string;
+    /** 包含学段 */
+    XD?: string;
   };
 
   type UpdateKHJYJG = {
@@ -1968,6 +1970,8 @@ declare namespace API {
     ZT?: number;
     /** 企业微信ID */
     CorpID?: string;
+    /** 包含学段 */
+    XD?: string;
   };
 
   type KHJYTZGG = {
