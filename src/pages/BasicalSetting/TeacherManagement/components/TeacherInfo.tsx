@@ -2,7 +2,7 @@
  * @description:
  * @author: Sissle Lynn
  * @Date: 2021-08-26 16:24:39
- * @LastEditTime: 2021-09-08 12:24:44
+ * @LastEditTime: 2021-09-08 17:45:48
  * @LastEditors: Sissle Lynn
  */
 import React, { useEffect, useState } from 'react';
@@ -17,7 +17,7 @@ import 'antd/es/modal/style';
 import styles from './components.less';
 
 const formItemLayout = {
-  labelCol: { flex: '7em' },
+  labelCol: { flex: '8em' },
   wrapperCol: { flex: 'auto' },
 };
 type PropsType = {
@@ -75,7 +75,6 @@ const SchoolInfo = (props: PropsType) => {
     {
       type: 'group',
       key: 'group1',
-      gutter: [88, 88],
       groupItems: [
         {
           type: 'uploadImage',
@@ -112,7 +111,6 @@ const SchoolInfo = (props: PropsType) => {
     {
       type: 'group',
       key: 'group2',
-      gutter: [88, 88],
       groupItems: [
         {
           type: 'input',
@@ -134,7 +132,6 @@ const SchoolInfo = (props: PropsType) => {
     {
       type: 'group',
       key: 'group3',
-      gutter: [88, 88],
       groupItems: [
         {
           type: 'radio',
@@ -164,7 +161,6 @@ const SchoolInfo = (props: PropsType) => {
     {
       type: 'group',
       key: 'group4',
-      gutter: [88, 88],
       groupItems: [
         {
           type: 'input',
@@ -185,7 +181,6 @@ const SchoolInfo = (props: PropsType) => {
     {
       type: 'group',
       key: 'group6',
-      gutter: [88, 88],
       groupItems: [
         {
           type: 'time',
@@ -207,7 +202,6 @@ const SchoolInfo = (props: PropsType) => {
     {
       type: 'group',
       key: 'group7',
-      gutter: [88, 88],
       groupItems: [
         {
           type: 'input',
@@ -231,7 +225,6 @@ const SchoolInfo = (props: PropsType) => {
     {
       type: 'group',
       key: 'group8',
-      gutter: [88, 88],
       groupItems: [
         {
           type: 'select',
@@ -270,7 +263,6 @@ const SchoolInfo = (props: PropsType) => {
     {
       type: 'group',
       key: 'group9',
-      gutter: [88, 88],
       groupItems: [
         {
           type: 'input',
@@ -291,7 +283,6 @@ const SchoolInfo = (props: PropsType) => {
     {
       type: 'group',
       key: 'group10',
-      gutter: [88, 88],
       groupItems: [
         {},
         {

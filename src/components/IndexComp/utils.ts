@@ -2,7 +2,7 @@
  * @description:
  * @author: Sissle Lynn
  * @Date: 2021-08-24 19:59:45
- * @LastEditTime: 2021-09-02 17:01:11
+ * @LastEditTime: 2021-09-08 17:33:47
  * @LastEditors: Sissle Lynn
  */
 export const bgColor = [
@@ -37,7 +37,7 @@ export const topNum = [
     type: 'xxNum'
   },
   {
-    title: '开设课程数',
+    title: '备案课程数',
     type: 'kcNum',
   },
   {

@@ -2,8 +2,8 @@
  * @description:
  * @author: wsl
  * @Date: 2021-08-31 10:08:34
- * @LastEditTime: 2021-09-07 18:56:25
- * @LastEditors: wsl
+ * @LastEditTime: 2021-09-08 17:43:34
+ * @LastEditors: Sissle Lynn
  */
 import React, { useState, useRef } from 'react';
 import type { ProColumns, ActionType } from '@ant-design/pro-table';
@@ -111,13 +111,11 @@ const TableList = () => {
         className={styles.proTableStyles}
         rowKey="id"
         request={async (params, sorter, filter) => {
-          const resgetKHJYJG = await KHJYJG({ id: jgId! });
-          if (resgetKHJYJG.status === 'ok') {
             if (params.ZT || params.BT) {
               const resgetXXTZGG = await getJYJGTZGG({
                 BT: params.BT,
                 LX: 1,
-                XZQHM: resgetKHJYJG.data.XZQHM,
+                XZQHM: currentUser?.XZQHM,
                 ZT: params.ZT ? [params.ZT] : ['已发布'],
                 page: 0,
                 pageSize: 0
@@ -130,7 +128,7 @@ const TableList = () => {
                 BT: '',
                 LX: 1,
                 ZT: ['已发布'],
-                XZQHM: resgetKHJYJG.data.XZQHM,
+                XZQHM: currentUser?.XZQHM,
                 page: 0,
                 pageSize: 0
               });
@@ -138,7 +136,6 @@ const TableList = () => {
                 setDataSource(resgetXXTZGG.data?.rows);
               }
             }
-          }
 
           return '';
         }}

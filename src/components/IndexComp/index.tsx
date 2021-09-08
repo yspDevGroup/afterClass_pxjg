@@ -2,7 +2,7 @@
  * @description:
  * @author: Sissle Lynn
  * @Date: 2021-09-01 08:49:11
- * @LastEditTime: 2021-09-01 18:54:00
+ * @LastEditTime: 2021-09-08 17:42:20
  * @LastEditors: Sissle Lynn
  */
 import React, { useEffect, useState } from 'react';
@@ -73,21 +73,16 @@ const Index = () => {
         setAnnoceData(result.data?.rows);
       }
       // 配置政策公告数据
-      if (currentUser?.jgId) {
-        const resgetKHJYJG = await KHJYJG({ id: currentUser?.jgId });
-        if (resgetKHJYJG.status === 'ok') {
-          const resgetXXTZGG = await getJYJGTZGG({
-            BT: '',
-            LX: 1,
-            ZT: ['已发布'],
-            XZQHM: resgetKHJYJG.data.XZQHM,
-            page: 1,
-            pageSize: 3
-          });
-          if (resgetXXTZGG.status === 'ok') {
-            setApplyData(resgetXXTZGG.data?.rows);
-          }
-        }
+      const resgetXXTZGG = await getJYJGTZGG({
+        BT: '',
+        LX: 1,
+        ZT: ['已发布'],
+        XZQHM: currentUser?.XZQHM,
+        page: 1,
+        pageSize: 3
+      });
+      if (resgetXXTZGG.status === 'ok') {
+        setApplyData(resgetXXTZGG.data?.rows);
       }
       // 配置待确认课程申请数据
       // const response = await getKHKCSQ({
