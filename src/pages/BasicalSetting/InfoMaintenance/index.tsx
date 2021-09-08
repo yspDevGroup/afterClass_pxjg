@@ -354,16 +354,18 @@ const InfoMaintenance = (props: any) => {
                 </>
               ) : (
                 <>
-                  <Alert
-                    message={
-                      <>
-                        您已恢复备案资格
-                        <QuestionCircleOutlined />
-                      </>
-                    }
-                    type="info"
-                    style={{ height: 33 }}
-                  />
+                  <Tooltip title={SQDatas?.[0].BZ}>
+                    <Alert
+                      message={
+                        <>
+                          您已恢复备案资格
+                          <QuestionCircleOutlined />
+                        </>
+                      }
+                      type="info"
+                      style={{ height: 33 }}
+                    />{' '}
+                  </Tooltip>
                   <Popconfirm
                     placement="topRight"
                     title="确定本机构信息填写完整且无误后，点击“确定”申请备案资格"

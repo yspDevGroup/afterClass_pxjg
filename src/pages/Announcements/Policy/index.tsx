@@ -2,8 +2,8 @@
  * @description:
  * @author: wsl
  * @Date: 2021-08-31 10:08:34
- * @LastEditTime: 2021-09-08 17:43:34
- * @LastEditors: Sissle Lynn
+ * @LastEditTime: 2021-09-08 19:01:46
+ * @LastEditors: wsl
  */
 import React, { useState, useRef } from 'react';
 import type { ProColumns, ActionType } from '@ant-design/pro-table';
@@ -59,7 +59,10 @@ const TableList = () => {
       key: 'LY',
       width: '9em',
       align: 'center',
-      search: false
+      search: false,
+      render: (text, record) => {
+        return <>{record.JYJGSJ.BMMC}</>;
+      }
     },
     {
       title: '关键词',
@@ -111,31 +114,31 @@ const TableList = () => {
         className={styles.proTableStyles}
         rowKey="id"
         request={async (params, sorter, filter) => {
-            if (params.ZT || params.BT) {
-              const resgetXXTZGG = await getJYJGTZGG({
-                BT: params.BT,
-                LX: 1,
-                XZQHM: currentUser?.XZQHM,
-                ZT: params.ZT ? [params.ZT] : ['已发布'],
-                page: 0,
-                pageSize: 0
-              });
-              if (resgetXXTZGG.status === 'ok') {
-                setDataSource(resgetXXTZGG.data?.rows);
-              }
-            } else {
-              const resgetXXTZGG = await getJYJGTZGG({
-                BT: '',
-                LX: 1,
-                ZT: ['已发布'],
-                XZQHM: currentUser?.XZQHM,
-                page: 0,
-                pageSize: 0
-              });
-              if (resgetXXTZGG.status === 'ok') {
-                setDataSource(resgetXXTZGG.data?.rows);
-              }
+          if (params.ZT || params.BT) {
+            const resgetXXTZGG = await getJYJGTZGG({
+              BT: params.BT,
+              LX: 1,
+              XZQHM: currentUser?.XZQHM,
+              ZT: params.ZT ? [params.ZT] : ['已发布'],
+              page: 0,
+              pageSize: 0
+            });
+            if (resgetXXTZGG.status === 'ok') {
+              setDataSource(resgetXXTZGG.data?.rows);
             }
+          } else {
+            const resgetXXTZGG = await getJYJGTZGG({
+              BT: '',
+              LX: 1,
+              ZT: ['已发布'],
+              XZQHM: currentUser?.XZQHM,
+              page: 0,
+              pageSize: 0
+            });
+            if (resgetXXTZGG.status === 'ok') {
+              setDataSource(resgetXXTZGG.data?.rows);
+            }
+          }
 
           return '';
         }}
