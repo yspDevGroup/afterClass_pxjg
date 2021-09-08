@@ -47,7 +47,6 @@ const InfoMaintenance = (props: any) => {
   const [provinceName, setProvinceName] = useState<string>();
   const [countyName, setCountyName] = useState<string>();
   const [Datas, setDatas] = useState<any>();
-
   const onKHJYJG = async () => {
     const res = await KHJYJG({ id: currentUser!.jgId! });
     if (res.status === 'ok') {
@@ -151,25 +150,29 @@ const InfoMaintenance = (props: any) => {
       XZQHM: cityAdcode,
       XZQ: `${cityName}/${provinceName}/${countyName}`
     };
-    if (typeof params.id === 'undefined') {
-      const resCreateKHJYJG = await createKHJYJG(data);
-      if (resCreateKHJYJG.status === 'ok') {
-        const Data = resCreateKHJYJG.data;
-        form.scrollToField(Data);
-        message.success('保存成功');
-        setDisabled(true);
-        onKHJYJG();
-      } else {
-        message.error(resCreateKHJYJG.message);
-      }
+    if (typeof cityAdcode === 'undefined') {
+      message.info('请选择行政区域');
     } else {
-      const resUpdateKHJYJG = await updateKHJYJG({ id: currentUser!.jgId! }, data);
-      if (resUpdateKHJYJG.status === 'ok') {
-        message.success('修改成功');
-        setDisabled(true);
-        onKHJYJG();
+      if (typeof params.id === 'undefined') {
+        const resCreateKHJYJG = await createKHJYJG(data);
+        if (resCreateKHJYJG.status === 'ok') {
+          const Data = resCreateKHJYJG.data;
+          form.scrollToField(Data);
+          message.success('保存成功');
+          setDisabled(true);
+          window.location.reload();
+        } else {
+          message.error(resCreateKHJYJG.message);
+        }
       } else {
-        message.error(resUpdateKHJYJG.message);
+        const resUpdateKHJYJG = await updateKHJYJG({ id: currentUser!.jgId! }, data);
+        if (resUpdateKHJYJG.status === 'ok') {
+          message.success('修改成功');
+          setDisabled(true);
+          onKHJYJG();
+        } else {
+          message.error(resUpdateKHJYJG.message);
+        }
       }
     }
   };
@@ -474,17 +477,7 @@ const InfoMaintenance = (props: any) => {
             <Col span={2} />
             <Col span={11}>
               {disabled === false ? (
-                <Form.Item
-                  name="XZQHM"
-                  key="XZQHM"
-                  label="行政区域："
-                  rules={[
-                    {
-                      required: true,
-                      message: '请选择行政区域'
-                    }
-                  ]}
-                >
+                <Form.Item name="XZQHM" key="XZQHM" label="行政区域：">
                   <Select
                     style={{ width: 100, marginRight: 10 }}
                     onChange={(value: any) => {
@@ -492,9 +485,9 @@ const InfoMaintenance = (props: any) => {
                     }}
                     labelInValue
                     defaultValue={{
-                      value: `${XZQHM!.substring(0, 2)}0000`,
+                      value: `${XZQHM?.substring(0, 2)}0000`,
                       label: Datas?.XZQ.split('/')[0],
-                      key: `${XZQHM!.substring(0, 2)}0000`
+                      key: `${XZQHM?.substring(0, 2)}0000`
                     }}
                     disabled={disabled}
                     placeholder={disabled === false ? '请选择' : '——'}
@@ -514,9 +507,9 @@ const InfoMaintenance = (props: any) => {
                     }}
                     labelInValue
                     defaultValue={{
-                      value: `${XZQHM!.substring(0, 4)}00`,
+                      value: `${XZQHM?.substring(0, 4)}00`,
                       label: Datas?.XZQ.split('/')[1],
-                      key: `${XZQHM!.substring(0, 4)}00`
+                      key: `${XZQHM?.substring(0, 4)}00`
                     }}
                     disabled={disabled}
                     placeholder={disabled === false ? '请选择' : '——'}
@@ -535,7 +528,7 @@ const InfoMaintenance = (props: any) => {
                       handleChange('county', value);
                     }}
                     labelInValue
-                    defaultValue={{ value: XZQHM!, label: Datas?.XZQ.split('/')[2], key: XZQHM! }}
+                    defaultValue={{ value: XZQHM, label: Datas?.XZQ.split('/')[2], key: XZQHM }}
                     disabled={disabled}
                     placeholder={disabled === false ? '请选择' : '——'}
                   >
@@ -550,7 +543,7 @@ const InfoMaintenance = (props: any) => {
                 </Form.Item>
               ) : (
                 <Form.Item name="XZQ" key="XZQ" label="行政区域：">
-                  <Input disabled={disabled} />
+                  <Input disabled={disabled} placeholder="——" />
                 </Form.Item>
               )}
 
