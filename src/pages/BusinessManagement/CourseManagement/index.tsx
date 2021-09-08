@@ -2,7 +2,7 @@
  * @description:
  * @author: Sissle Lynn
  * @Date: 2021-08-24 14:37:02
- * @LastEditTime: 2021-09-07 19:53:44
+ * @LastEditTime: 2021-09-08 11:17:52
  * @LastEditors: Sissle Lynn
  */
 import React, { useRef, useState } from 'react';
@@ -74,8 +74,9 @@ const CourseManagement = () => {
       dataIndex: 'KHKCLX',
       key: 'KHKCLX',
       align: 'center',
-      width: 200,
+      width: 120,
       search: false,
+      ellipsis: true,
       render: (_, record) => {
         return record.KHKCSJ?.KHKCLX?.KCTAG || '-';
       }
@@ -85,7 +86,8 @@ const CourseManagement = () => {
       key: 'XXJBSJ',
       dataIndex: 'XXJBSJ',
       align: 'center',
-      width: 220,
+      width: 180,
+      ellipsis:true,
       render: (_, record) => record.XXJBSJ?.XXMC,
     },
     {
@@ -93,7 +95,6 @@ const CourseManagement = () => {
       key: 'SYNJ',
       dataIndex: 'SYNJ',
       align: 'center',
-      ellipsis: true,
       width: 220,
       render: (_, record) => {
         const grade = record.KHKCSJ?.NJSJs;
@@ -103,25 +104,6 @@ const CourseManagement = () => {
           return <Tag color="#EFEFEF" style={{ color: '#333' }}>{item.NJMC}</Tag>;
         })}
       />
-      },
-    },
-    {
-      title: '任课教师',
-      key: 'RKJS',
-      dataIndex: 'RKJS',
-      align: 'center',
-      width: 150,
-      hideInTable: activeKey !== 'duration',
-      render: (_, record) => {
-        const teacher = record.KHKCSJ?.KHKCJs;
-        return (
-          <EllipsisHint
-            width="100%"
-            text={teacher?.map((item: any) => {
-              return <Tag key={item.id}>{item.KHJSSJ.XM}</Tag>;
-            })}
-          />
-        );
       },
     },
     {
@@ -151,20 +133,31 @@ const CourseManagement = () => {
       width: 200
     },
     {
+      title: '任课教师',
+      key: 'RKJS',
+      dataIndex: 'RKJS',
+      align: 'center',
+      width: 150,
+      hideInTable: activeKey !== 'duration',
+      render: (_, record) => {
+        const teacher = record.KHKCSJ?.KHKCJs;
+        return (
+          <EllipsisHint
+            width="100%"
+            text={teacher?.map((item: any) => {
+              return <Tag key={item.id}>{item.KHJSSJ.XM}</Tag>;
+            })}
+          />
+        );
+      },
+    },
+    {
       title: '操作人',
       key: 'SPR',
       dataIndex: 'SPR',
-      hideInTable: activeKey !== 'history',
+      hideInTable: true,
       align: 'center',
       width: 120
-    },
-    {
-      title: '最新操作时间',
-      key: 'updatedAt',
-      dataIndex: 'updatedAt',
-      align: 'center',
-      hideInTable: activeKey !== 'history',
-      width: 200
     },
     {
       title: '状态',
@@ -180,11 +173,18 @@ const CourseManagement = () => {
       }
     },
     {
+      title: '操作时间',
+      key: 'updatedAt',
+      dataIndex: 'updatedAt',
+      align: 'center',
+      hideInTable: activeKey !== 'history',
+      width: 200
+    },
+    {
       title: '操作',
       valueType: 'option',
       width: 230,
       align: 'center',
-      fixed: 'right',
       render: (_, record) => {
         return <>
           <div>

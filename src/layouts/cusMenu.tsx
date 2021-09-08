@@ -2,7 +2,7 @@
  * @description:
  * @author: Sissle Lynn
  * @Date: 2021-08-24 17:21:12
- * @LastEditTime: 2021-09-07 12:07:33
+ * @LastEditTime: 2021-09-08 11:28:09
  * @LastEditors: Sissle Lynn
  */
 import React from 'react';
@@ -51,6 +51,11 @@ export default {
                 path: '/businessManagement/schoolManagement/detail',
                 hideInMenu: 'true',
                 name: '详情查看'
+              },
+              {
+                path: '/businessManagement/schoolManagement/studentList',
+                hideInMenu: 'true',
+                name: '学生列表'
               }
             ]
           },

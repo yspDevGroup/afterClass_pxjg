@@ -2,7 +2,7 @@
  * @description:
  * @author: Sissle Lynn
  * @Date: 2021-08-26 16:26:59
- * @LastEditTime: 2021-09-07 19:09:58
+ * @LastEditTime: 2021-09-08 11:20:58
  * @LastEditors: Sissle Lynn
  */
 import React, { useEffect, useState } from 'react';
@@ -91,7 +91,6 @@ const CourseList = (props: any) => {
     {
       title: '操作',
       valueType: 'option',
-      fixed: 'right',
       width: 200,
       align: 'center',
       render: (_: any, record: { id: any; }) => (

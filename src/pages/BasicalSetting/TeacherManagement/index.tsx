@@ -2,7 +2,7 @@
  * @description:
  * @author: Sissle Lynn
  * @Date: 2021-08-28 09:22:33
- * @LastEditTime: 2021-09-03 19:02:09
+ * @LastEditTime: 2021-09-08 11:33:17
  * @LastEditors: Sissle Lynn
  */
 /*
@@ -78,7 +78,7 @@ const TeacherManagement = () => {
       ellipsis: true,
     },
     {
-      title: '教龄（月）',
+      title: '教龄（年）',
       key: 'JL',
       dataIndex: 'JL',
       align: 'center',
@@ -88,7 +88,6 @@ const TeacherManagement = () => {
     {
       title: '操作',
       valueType: 'option',
-      fixed: 'right',
       width: 200,
       align: 'center',
       render: (_, record) => (

@@ -2,7 +2,7 @@
  * @description:
  * @author: Sissle Lynn
  * @Date: 2021-08-26 16:24:39
- * @LastEditTime: 2021-09-03 15:58:35
+ * @LastEditTime: 2021-09-08 11:33:29
  * @LastEditors: Sissle Lynn
  */
 import React, { useEffect, useState } from 'react';
@@ -219,7 +219,7 @@ const SchoolInfo = (props: PropsType) => {
         },
         {
           type: 'inputNumber',
-          label: '教龄(月)',
+          label: '教龄（年）',
           name: 'JL',
           key: 'JL',
           placeholder: readonly ? '-' : ''
@@ -257,7 +257,7 @@ const SchoolInfo = (props: PropsType) => {
           ]
         },
         {
-          type: 'inputNumber',
+          type: 'input',
           label: '教授科目',
           name: 'JSKM',
           key: 'JSKM',
