@@ -2,7 +2,7 @@
  * @description:
  * @author: Sissle Lynn
  * @Date: 2021-08-17 19:55:27
- * @LastEditTime: 2021-09-01 15:56:48
+ * @LastEditTime: 2021-09-09 11:25:11
  * @LastEditors: Sissle Lynn
  */
 import { Column } from '@ant-design/charts';
@@ -22,7 +22,7 @@ const ColumnChart = (props: { data?: any, color?: string, noDataImg?: any, noDat
   };
 
   return (
-    <div className={styles.chartWrapper}>
+    <div className={styles.chartContainer}>
       {data?.length ? <Column {...chartConfig} /> : <Empty
         image={noDataImg}
         imageStyle={{

@@ -2,7 +2,7 @@
  * @description:
  * @author: Sissle Lynn
  * @Date: 2021-08-24 19:59:45
- * @LastEditTime: 2021-09-09 11:16:57
+ * @LastEditTime: 2021-09-09 11:24:40
  * @LastEditors: Sissle Lynn
  */
 export const bgColor = [
@@ -71,10 +71,6 @@ export const chartConfig: any = {
   yAxis: {
     minInterval: 1,
     splitNumber: 1
-  },
-  grid:{
-    containLabel: true,
-    bottom: 40
   },
   columnStyle: {
   },
