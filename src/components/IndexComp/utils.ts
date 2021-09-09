@@ -2,7 +2,7 @@
  * @description:
  * @author: Sissle Lynn
  * @Date: 2021-08-24 19:59:45
- * @LastEditTime: 2021-09-09 10:00:20
+ * @LastEditTime: 2021-09-09 11:16:57
  * @LastEditors: Sissle Lynn
  */
 export const bgColor = [
@@ -58,6 +58,7 @@ export const topNum = [
   }
 ];
 export const chartConfig: any = {
+  appendPadding: 20,
   data: [],
   xField: 'type',
   yField: 'number',
@@ -75,7 +76,8 @@ export const chartConfig: any = {
     containLabel: true,
     bottom: 40
   },
-  columnStyle: {},
+  columnStyle: {
+  },
   maxColumnWidth: 30,
   meta: {
     type: { alias: '课程名称' },

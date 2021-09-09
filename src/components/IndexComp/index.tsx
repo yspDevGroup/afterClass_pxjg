@@ -2,7 +2,7 @@
  * @description:
  * @author: Sissle Lynn
  * @Date: 2021-09-01 08:49:11
- * @LastEditTime: 2021-09-09 10:03:30
+ * @LastEditTime: 2021-09-09 11:08:23
  * @LastEditors: Sissle Lynn
  */
 import React, { useEffect, useState } from 'react';
@@ -42,20 +42,26 @@ const Index = () => {
         setHomeData({ ...rest });
         // 配置底部课程开设班级数量数据
         if (kcbm?.length) {
-          const newKcbm = [].map.call(kcbm, (item: any) => {
-            return {
-              type: item.KCMC,
-              number: item.count
+          const newKcbm: { type: any; number: any; }[] = [];
+          kcbm.forEach((item: any) => {
+            if(item.id){
+              newKcbm.push({
+                type: item.KCMC,
+                number: item.count
+              })
             }
           });
           setKcbmData(newKcbm);
         }
         // 配置底部各校合作课程数量数据
         if (xxbm?.length) {
-          const newXxbm = [].map.call(xxbm, (item: any) => {
-            return {
-              type: item.XXMC,
-              number: item.count
+          const newXxbm: { type: any; number: any; }[] = [];
+          xxbm.forEach((item: any) => {
+            if(item.id){
+              newXxbm.push({
+                type: item.XXMC,
+                number: item.count
+              })
             }
           });
           setXxbmData(newXxbm);
