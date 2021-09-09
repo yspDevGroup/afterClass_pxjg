@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="keywords" content="课后服务平台, 课后服务, 课后服务管理" />
+  <meta name="description" content="课后服务平台" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+  <title>课后服务平台</title>
+  <link rel="icon" href="<%= context.config.publicPath +'logo.png'%>" type="image/x-icon" />
+</head>
+<style>
+  #root {
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+  }
+
+  .box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    position: 'fixed';
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+
+</style>
+
+<body>
+  <noscript>Out-of-the-box mid-stage front/design solution!</noscript>
+  <div id="root">
+    <div class="box">
+      <img src="<%= context.config.publicPath +'loading.gif'%>" alt="loading"
+        style="position: 'absolute';top: '50%';left: '50%';transform: 'translate(-50%, -50%)';width: '200px';background: '#fff';border-radius: '200px';padding: '14px';" />
+    </div>
+  </div>
+  <script src="https://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+  <script src="https://open.work.weixin.qq.com/wwopen/js/jwxwork-1.0.0.js"></script>
+</body>
+
+</html>
