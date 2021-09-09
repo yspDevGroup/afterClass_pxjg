@@ -2,7 +2,7 @@
  * @description: 统一定义loading
  * @author: zpl
  * @Date: 2021-07-20 16:59:30
- * @LastEditTime: 2021-09-09 11:29:27
+ * @LastEditTime: 2021-09-09 11:39:29
  * @LastEditors: Sissle Lynn
  */
 import React from 'react';
@@ -29,7 +29,7 @@ const Loading = () => {
           width: '200px',
           backgroundColor: '#fff',
           borderRadius: '200px',
-          padding: '24px'
+          padding: '14px'
         }}
       />
     </div>
