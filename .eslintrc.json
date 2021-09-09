@@ -35,7 +35,8 @@
     "clientId": true,
     "clientSecret": true,
     "UserInfo": true,
-    "InitialState": true
+    "InitialState": true,
+    "WWOpenData": true
   },
   "rules": {
     // 自定义您的规则
