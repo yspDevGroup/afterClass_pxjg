@@ -34,6 +34,7 @@ const InfoMaintenance = (props: any) => {
   const [cityVal, setCityVal] = useState<any>();
   const [countyVal, setCountyVal] = useState<any>();
   const [Datas, setDatas] = useState<any>();
+  const [ShowBtn, setShowBtn] = useState(false);
 
   const onKHJYJG = async () => {
     const res = await KHJYJG({ id: currentUser!.jgId! });
@@ -51,6 +52,17 @@ const InfoMaintenance = (props: any) => {
       setYYZZImageUrl(res.data.YYZZ!);
       setBXXKZImageUrl(res.data.BXXKZ!);
       setDatas(res.data);
+      if (res.data.KHJGRZSQs?.length === 0) {
+        setShowBtn(true);
+      } else {
+        if (res.data.KHJGRZSQs?.[0].LX === 0 && res.data.KHJGRZSQs?.[0].ZT === 0) {
+          setShowBtn(true);
+        } else if (res.data.KHJGRZSQs?.[0].LX === 1 && res.data.KHJGRZSQs?.[0].ZT === 1) {
+          setShowBtn(true);
+        } else if (res.data.KHJGRZSQs?.[0].LX === 0 && res.data.KHJGRZSQs?.[0].ZT === 1) {
+          setShowBtn(true);
+        }
+      }
     } else {
       form.setFieldsValue({});
     }
@@ -69,6 +81,9 @@ const InfoMaintenance = (props: any) => {
   };
   useEffect(() => {
     requestData();
+    if (XZQHM) {
+      setCityAdcode(XZQHM);
+    }
     if (typeof XZQHM !== 'undefined') {
       $.ajax({
         url: `http://datavmap-public.oss-cn-hangzhou.aliyuncs.com/areas/csv/${XZQHM?.substring(0, 2)}0000_city.json`,
@@ -146,6 +161,7 @@ const InfoMaintenance = (props: any) => {
       }`,
       XD: XD.toString()
     };
+    console.log(data);
     if (typeof params.id === 'undefined') {
       if (typeof cityAdcode === 'undefined') {
         message.info('请选择行政区域');
@@ -162,6 +178,7 @@ const InfoMaintenance = (props: any) => {
         }
       }
     } else {
+      console.log(cityAdcode, '======');
       const resUpdateKHJYJG = await updateKHJYJG({ id: currentUser!.jgId! }, data);
       if (typeof cityAdcode === 'undefined') {
         message.info('请选择行政区域');
@@ -530,7 +547,7 @@ const InfoMaintenance = (props: any) => {
                     labelInValue
                     value={cityVal}
                     disabled={disabled}
-                    placeholder={disabled === false ? '请选择' : '——'}
+                    placeholder="请选择"
                   >
                     {secondCity?.map((item: any) => {
                       return (
@@ -625,19 +642,26 @@ const InfoMaintenance = (props: any) => {
             </Col>
           </Row>
           <Form.Item>
-            {disabled === true ? (
-              <button onClick={onEditor} className={styles.btn}>
-                更改备案信息
-              </button>
-            ) : (
+            {ShowBtn === false ? (
               <>
-                <Button type="primary" htmlType="submit">
-                  提交
-                </Button>
-                <Button htmlType="button" onClick={onReset}>
-                  取消
-                </Button>
+                {' '}
+                {disabled === true ? (
+                  <button onClick={onEditor} className={styles.btn}>
+                    更改备案信息
+                  </button>
+                ) : (
+                  <>
+                    <Button type="primary" htmlType="submit">
+                      提交
+                    </Button>
+                    <Button htmlType="button" onClick={onReset}>
+                      取消
+                    </Button>
+                  </>
+                )}
               </>
+            ) : (
+              <></>
             )}
           </Form.Item>
         </Form>
