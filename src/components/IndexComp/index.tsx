@@ -2,7 +2,7 @@
  * @description:
  * @author: Sissle Lynn
  * @Date: 2021-09-01 08:49:11
- * @LastEditTime: 2021-09-08 17:42:20
+ * @LastEditTime: 2021-09-09 10:03:30
  * @LastEditors: Sissle Lynn
  */
 import React, { useEffect, useState } from 'react';
@@ -101,7 +101,7 @@ const Index = () => {
   return (
     <div className={styles.pageWrapper}>
       <Topbar data={homeData} />
-      <Row gutter={[24, 24]} className={styles.listWrapper}>
+      <Row className={`${styles.listWrapper} ${styles.rowWrapper}`}>
         <Col span={12}>
           <Card title="内部通知" bordered={false} extra={<a href="/announcements/notice">更多<RightOutlined style={{ fontSize: '12px' }} /></a>}>
             <List type='notice' data={annoceData} noDataImg={noAnnoce} noDataText="暂无通知" />
@@ -113,7 +113,7 @@ const Index = () => {
           </Card>
         </Col>
       </Row>
-      <Row gutter={[24, 24]} className={styles.chartWrapper}>
+      <Row className={`${styles.chartWrapper} ${styles.rowWrapper}`}>
         <Col span={12}>
           <Card title="各课程开设班级情况" bordered={false}>
             <ColumnChart data={kcbmData} color='#18DCAB' />

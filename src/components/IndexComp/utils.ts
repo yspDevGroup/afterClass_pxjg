@@ -2,7 +2,7 @@
  * @description:
  * @author: Sissle Lynn
  * @Date: 2021-08-24 19:59:45
- * @LastEditTime: 2021-09-08 17:33:47
+ * @LastEditTime: 2021-09-09 10:00:20
  * @LastEditors: Sissle Lynn
  */
 export const bgColor = [
@@ -63,11 +63,18 @@ export const chartConfig: any = {
   yField: 'number',
   xAxis: {
     label: {
-      autoHide: true,
+      autoHide: false,
       autoRotate: false
     }
   },
-  yAxis: { minInterval: 1 },
+  yAxis: {
+    minInterval: 1,
+    splitNumber: 1
+  },
+  grid:{
+    containLabel: true,
+    bottom: 40
+  },
   columnStyle: {},
   maxColumnWidth: 30,
   meta: {

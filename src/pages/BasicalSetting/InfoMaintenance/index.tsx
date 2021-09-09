@@ -161,7 +161,6 @@ const InfoMaintenance = (props: any) => {
       }`,
       XD: XD.toString()
     };
-    console.log(data);
     if (typeof params.id === 'undefined') {
       if (typeof cityAdcode === 'undefined') {
         message.info('请选择行政区域');
@@ -178,7 +177,6 @@ const InfoMaintenance = (props: any) => {
         }
       }
     } else {
-      console.log(cityAdcode, '======');
       const resUpdateKHJYJG = await updateKHJYJG({ id: currentUser!.jgId! }, data);
       if (typeof cityAdcode === 'undefined') {
         message.info('请选择行政区域');
@@ -529,7 +527,6 @@ const InfoMaintenance = (props: any) => {
                     labelInValue
                     value={provinceVal}
                     disabled={disabled}
-                    placeholder={disabled === false ? '请选择' : '——'}
                   >
                     {cities?.map((item: any) => {
                       return (
@@ -547,7 +544,6 @@ const InfoMaintenance = (props: any) => {
                     labelInValue
                     value={cityVal}
                     disabled={disabled}
-                    placeholder="请选择"
                   >
                     {secondCity?.map((item: any) => {
                       return (
@@ -565,7 +561,6 @@ const InfoMaintenance = (props: any) => {
                     labelInValue
                     value={countyVal}
                     disabled={disabled}
-                    placeholder={disabled === false ? '请选择' : '——'}
                   >
                     {county?.map((item: any) => {
                       return (
