@@ -2,7 +2,7 @@
  * @description:
  * @author: Sissle Lynn
  * @Date: 2021-08-26 19:54:41
- * @LastEditTime: 2021-09-07 18:19:46
+ * @LastEditTime: 2021-09-10 12:01:27
  * @LastEditors: Sissle Lynn
  */
 import React, { useEffect, useState } from 'react';
@@ -67,14 +67,14 @@ const CourseItemDom = (props: { school: string, course: any, type: string, ind: 
               {item.BJMC}
               <span>{item.XNXQ.XN} &nbsp; {item.XNXQ.XQ}</span>
             </p>
-            <p>任课教师：{item.KHBJJs?.map((val: any) => {
+            <p>任课教师：{item.KHBJJs?.map((val: any,index: number) => {
               return <Link key={val.id} to={{
                 pathname: '/basicalSetting/teacherManagement/detail',
                 state: {
                   type: 'detail',
-                  data: course
+                  data: val.KHJSSJ
                 }
-              }}>{item.KHJSSJ?.XM}</Link>
+              }}>{val.KHJSSJ.XM}{index<item.KHBJJs.length-1?<Divider type='vertical' />:''}</Link>
             })}</p>
             <p>上课时段：{moment(item?.KKRQ).format('YYYY.MM.DD')}~
               {moment(item?.JKRQ).format('YYYY.MM.DD')}</p>

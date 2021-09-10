@@ -2,7 +2,7 @@
  * @description:
  * @author: Sissle Lynn
  * @Date: 2021-08-24 14:37:02
- * @LastEditTime: 2021-09-08 18:11:20
+ * @LastEditTime: 2021-09-10 09:14:49
  * @LastEditors: Sissle Lynn
  */
 import React, { useRef, useState } from 'react';
@@ -70,6 +70,15 @@ const CourseManagement = () => {
       render: (_, record) => record.KHKCSJ?.KCMC,
     },
     {
+      title: '学校名称',
+      key: 'XXJBSJ',
+      dataIndex: 'XXJBSJ',
+      align: 'center',
+      width: 180,
+      ellipsis:true,
+      render: (_, record) => record.XXJBSJ?.XXMC,
+    },
+    {
       title: '课程类型',
       dataIndex: 'KHKCLX',
       key: 'KHKCLX',
@@ -82,20 +91,12 @@ const CourseManagement = () => {
       }
     },
     {
-      title: '学校名称',
-      key: 'XXJBSJ',
-      dataIndex: 'XXJBSJ',
-      align: 'center',
-      width: 180,
-      ellipsis:true,
-      render: (_, record) => record.XXJBSJ?.XXMC,
-    },
-    {
       title: '适用年级',
       key: 'SYNJ',
       dataIndex: 'SYNJ',
       align: 'center',
       width: 220,
+      hideInTable: activeKey === 'audit',
       render: (_, record) => {
         const grade = record.KHKCSJ?.NJSJs;
         return <EllipsisHint
@@ -130,7 +131,7 @@ const CourseManagement = () => {
       dataIndex: 'createdAt',
       align: 'center',
       hideInTable: activeKey !== 'audit',
-      width: 200
+      width: 180
     },
     {
       title: '任课教师',
@@ -178,7 +179,7 @@ const CourseManagement = () => {
       dataIndex: 'updatedAt',
       align: 'center',
       hideInTable: activeKey !== 'history',
-      width: 200
+      width: 180
     },
     {
       title: '操作',
