@@ -2,7 +2,7 @@
  * @description:
  * @author: Sissle Lynn
  * @Date: 2021-08-28 09:22:33
- * @LastEditTime: 2021-09-08 11:33:17
+ * @LastEditTime: 2021-09-10 08:59:34
  * @LastEditors: Sissle Lynn
  */
 /*
@@ -70,9 +70,9 @@ const TeacherManagement = () => {
       width: 180,
     },
     {
-      title: '电子信箱',
-      key: 'DZXX',
-      dataIndex: 'DZXX',
+      title: '教授科目',
+      key: 'JSKM',
+      dataIndex: 'JSKM',
       align: 'center',
       width: 110,
       ellipsis: true,

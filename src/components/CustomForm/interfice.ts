@@ -2,7 +2,7 @@
  * @description:
  * @author: zpl
  * @Date: 2020-07-30 10:21:18
- * @LastEditTime: 2021-09-08 12:22:48
+ * @LastEditTime: 2021-09-10 09:05:56
  * @LastEditors: Sissle Lynn
  */
 import type { UploadListType } from 'antd/es/upload/interface';
@@ -32,8 +32,10 @@ export type FormInputProps = {
 export type FormInputNumberProps = {
   disabled?: boolean;
   percent?: boolean;
+  min?: number;
+  max?: number;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  formatter?: (value: any | undefined) => string;
+  formatter?: (value: any | undefined) => any;
 } & FormItemProps;
 
 export type FormPasswordProps = {

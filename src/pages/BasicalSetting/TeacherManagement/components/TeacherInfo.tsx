@@ -2,7 +2,7 @@
  * @description:
  * @author: Sissle Lynn
  * @Date: 2021-08-26 16:24:39
- * @LastEditTime: 2021-09-08 17:45:48
+ * @LastEditTime: 2021-09-10 09:07:33
  * @LastEditors: Sissle Lynn
  */
 import React, { useEffect, useState } from 'react';
@@ -216,6 +216,8 @@ const SchoolInfo = (props: PropsType) => {
           label: '教龄（年）',
           name: 'JL',
           key: 'JL',
+          max:100,
+          min:1,
           placeholder: readonly ? '-' : '',
           formatter:(value) => `${Math.round(value)}`,
           tooltip:'注意：教龄四舍五入，只能填写整数'
