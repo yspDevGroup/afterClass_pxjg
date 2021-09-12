@@ -53,7 +53,7 @@ const InfoMaintenance = (props: any) => {
       setBXXKZImageUrl(res.data.BXXKZ!);
       setDatas(res.data);
       if (res.data.KHJGRZSQs?.length === 0) {
-        setShowBtn(true);
+        setShowBtn(false);
       } else {
         if (res.data.KHJGRZSQs?.[0].LX === 0 && res.data.KHJGRZSQs?.[0].ZT === 0) {
           setShowBtn(true);
@@ -268,16 +268,16 @@ const InfoMaintenance = (props: any) => {
     <div className={styles.InfoMaintenance}>
       <div>
         <div className={styles.header}>
-          {SQDatas?.length === 0 || typeof SQDatas === 'undefined' ? (
+          {SQDatas?.length === 0 ? (
             <Popconfirm
               placement="topRight"
               title="确定本机构信息填写完整且无误后，点击“确定”申请备案资格"
               onConfirm={confirm}
               okText="确定"
               cancelText="取消"
-              disabled={typeof SQDatas === 'undefined' ? true : false}
+              disabled={SQDatas?.length === 0 ? true : false}
             >
-              <Button type="primary" className={styles.RZbtn} disabled={typeof SQDatas === 'undefined' ? true : false}>
+              <Button type="primary" className={styles.RZbtn} disabled={SQDatas?.length === 0 ? true : false}>
                 申请备案
               </Button>
             </Popconfirm>
