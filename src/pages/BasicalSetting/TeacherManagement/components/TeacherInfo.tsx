@@ -2,7 +2,7 @@
  * @description:
  * @author: Sissle Lynn
  * @Date: 2021-08-26 16:24:39
- * @LastEditTime: 2021-09-10 09:07:33
+ * @LastEditTime: 2021-09-10 17:19:19
  * @LastEditors: Sissle Lynn
  */
 import React, { useEffect, useState } from 'react';
@@ -138,6 +138,8 @@ const SchoolInfo = (props: PropsType) => {
           name: 'XB',
           key: 'XB',
           label: '性别',
+          hidden: readonly,
+          span:12,
           items: [
             {
               text: '男',
@@ -151,7 +153,16 @@ const SchoolInfo = (props: PropsType) => {
         },
         {
           type: 'input',
+          label: '性别',
+          span:12,
+          name: 'XB',
+          key: 'XB',
+          placeholder: readonly ? '-' : ''
+        },
+        {
+          type: 'input',
           label: '学历',
+          span:12,
           name: 'XL',
           key: 'XL',
           placeholder: readonly ? '-' : ''
@@ -216,11 +227,11 @@ const SchoolInfo = (props: PropsType) => {
           label: '教龄（年）',
           name: 'JL',
           key: 'JL',
-          max:100,
-          min:1,
+          max: 100,
+          min: 1,
           placeholder: readonly ? '-' : '',
-          formatter:(value) => `${Math.round(value)}`,
-          tooltip:'注意：教龄四舍五入，只能填写整数'
+          formatter: (value) => `${Math.round(value)}`,
+          tooltip: '注意：教龄四舍五入，只能填写整数'
         }
       ]
     },
