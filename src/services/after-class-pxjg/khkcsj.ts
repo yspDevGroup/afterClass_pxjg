@@ -47,6 +47,8 @@ export async function getAllKHKCSJ(
     pageSize?: number;
     /** 课程名称 */
     KCMC?: string;
+    /** 课程状态 */
+    KCZT?: number[];
     /** 课后教育机构名称 */
     KHJYJG?: string;
   },
@@ -200,6 +202,26 @@ export async function allKCsByNJ(
     }[];
     message?: string;
   }>('/khkcsj/khkcs', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data: body,
+    ...(options || {}),
+  });
+}
+
+/** 根据课程ID获取合作中学校列表 POST /khkcsj/getSchools */
+export async function getSchools(
+  body: {
+    /** 课程ID */
+    KHKCSJId?: string;
+    /** 学校名称 */
+    XXMC?: string;
+  },
+  options?: { [key: string]: any },
+) {
+  return request<any>('/khkcsj/getSchools', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

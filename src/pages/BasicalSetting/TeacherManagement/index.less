@@ -1,11 +1,27 @@
-.btnWrapper{
+.btnWrapper {
   width: 100%;
   text-align: center;
-  button+button{
+
+  button+button {
     margin-left: @padding-lg*2;
   }
 }
-.contentWrapper{
+
+.contentWrapper {
   background-color: #fff;
   padding-bottom: @padding-lg;
+}
+
+.uploadBtn {
+  display: flex;
+  align-items: center;
+
+  .uploadText {
+    margin-left: 10px;
+  }
+
+  .uploadDescription {
+    margin-left: 15px;
+    font-size: @font-size-sm;
+  }
 }

@@ -2,7 +2,7 @@
  * @description:
  * @author: Sissle Lynn
  * @Date: 2021-08-28 09:22:33
- * @LastEditTime: 2021-09-10 08:59:34
+ * @LastEditTime: 2021-09-13 16:26:28
  * @LastEditors: Sissle Lynn
  */
 /*
@@ -12,16 +12,17 @@
  * @LastEditTime: 2021-08-27 09:44:07
  * @LastEditors: Sissle Lynn
  */
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import ProTable, { RequestData } from '@ant-design/pro-table';
 import type { ActionType, ProColumns } from '@ant-design/pro-table';
-import { PlusOutlined } from '@ant-design/icons';
-import { Link, useModel, history } from 'umi';
+import { UploadOutlined, VerticalAlignBottomOutlined } from '@ant-design/icons';
+import { Link, useModel } from 'umi';
 
 import styles from './index.less';
 import { TableListParams } from '@/constant';
 import { deleteKHJSSJ, getKHJSSJ } from '@/services/after-class-pxjg/khjssj';
-import { Button, Divider, message, Popconfirm } from 'antd';
+import { Button, Divider, message, Modal, Popconfirm, Upload } from 'antd';
+import { getAuthorization } from '@/utils';
 
 
 const TeacherManagement = () => {
@@ -29,6 +30,8 @@ const TeacherManagement = () => {
   const { currentUser } = initialState || {};
   // 列表对象引用，可主动执行刷新等操作
   const actionRef = useRef<ActionType>();
+  // 设置模态框显示状态
+  const [modalVisible, setModalVisible] = useState<boolean>(false);
 
   const handleConfirm = async (id: any) => {
     const res = await deleteKHJSSJ({ id });
@@ -38,6 +41,38 @@ const TeacherManagement = () => {
     } else {
       message.error(res.message);
     }
+  };
+  const onClose = () => {
+    setModalVisible(false);
+  };
+  // 上传配置
+  const UploadProps: any = {
+    name: 'xlsx',
+    action: '/api/upload/importWechatTeachers?plat=agency',
+    headers: {
+      authorization: getAuthorization(),
+    },
+    beforeUpload(file: any) {
+      const isLt2M = file.size / 1024 < 200;
+      if (!isLt2M) {
+        message.error('文件大小不能超过200KB');
+      }
+      return isLt2M;
+    },
+    onChange(info: { file: { status: string; name: any; response: any }; fileList: any }) {
+      if (info.file.status === 'done') {
+        const code = info.file.response;
+        if (code.status === 'ok') {
+          message.success(`上传成功`);
+          setModalVisible(false);
+        } else {
+          message.error(`${code.message}`);
+        }
+      } else if (info.file.status === 'error') {
+        const code = info.file.response;
+        message.error(`${code.message}`);
+      }
+    },
   };
   const columns: ProColumns<any>[] = [
     {
@@ -117,56 +152,87 @@ const TeacherManagement = () => {
   ];
 
   return (
-    <ProTable<any>
-      columns={columns}
-      className={styles.schoolTable}
-      actionRef={actionRef}
-      search={false}
-      request={
-        async (
-          params: any & {
-            pageSize?: number;
-            current?: number;
-            keyword?: string;
-          },
-          sort,
-          filter,
-        ): Promise<Partial<RequestData<any>>> => {
-          // 表单搜索项会从 params 传入，传递给后端接口。
-          const opts: TableListParams = {
-            ...params,
-            sorter: sort && Object.keys(sort).length ? sort : undefined,
+    <>
+      <ProTable<any>
+        columns={columns}
+        className={styles.schoolTable}
+        actionRef={actionRef}
+        search={false}
+        request={
+          async (
+            params: any & {
+              pageSize?: number;
+              current?: number;
+              keyword?: string;
+            },
+            sort,
             filter,
-          };
-          const res = await getKHJSSJ({ JGId: currentUser?.jgId, keyWord: opts.keyword, page: 0, pageSize: 0 }, opts);
-          if (res.status === 'ok') {
-            return {
-              data: res.data?.rows,
-              total: res.data?.count,
-              success: true,
+          ): Promise<Partial<RequestData<any>>> => {
+            // 表单搜索项会从 params 传入，传递给后端接口。
+            const opts: TableListParams = {
+              ...params,
+              sorter: sort && Object.keys(sort).length ? sort : undefined,
+              filter,
             };
+            const res = await getKHJSSJ({ JGId: currentUser?.jgId, keyWord: opts.keyword, page: 0, pageSize: 0 }, opts);
+            if (res.status === 'ok') {
+              return {
+                data: res.data?.rows,
+                total: res.data?.count,
+                success: true,
+              };
+            }
+            return {}
+          }}
+        options={{
+          setting: false,
+          fullScreen: false,
+          density: false,
+          reload: false,
+          search: {
+            placeholder: '教师名称/联系电话',
+            allowClear: true
           }
-          return {}
         }}
-      options={{
-        setting: false,
-        fullScreen: false,
-        density: false,
-        reload: false,
-        search: {
-          placeholder: '教师名称/联系电话',
-          allowClear: true
-        }
-      }}
-      // eslint-disable-next-line react/no-unstable-nested-components
-      toolBarRender={() => [
-        <Button key="button" type="primary" onClick={() => history.push('/basicalSetting/teacherManagement/detail', { type: 'newAdd' })}>
-         <PlusOutlined /> 新建
-        </Button>
-      ]}
-      rowKey="id"
-      dateFormatter="string"
-    />
+        // eslint-disable-next-line react/no-unstable-nested-components
+        toolBarRender={() => [
+          <Button key="button" type="primary" onClick={() => setModalVisible(true)}>
+            <VerticalAlignBottomOutlined /> 导入
+          </Button>
+        ]}
+        rowKey="id"
+        dateFormatter="string"
+      />
+      <Modal
+        title="批量导入"
+        destroyOnClose
+        width="35vw"
+        visible={modalVisible}
+        onCancel={() => setModalVisible(false)}
+        footer={[
+          <Button key="back" onClick={() => setModalVisible(false)}>
+            取消
+          </Button>,
+          <Button key="submit" type="primary" onClick={onClose}>
+            确定
+          </Button>,
+        ]}
+        centered
+        maskClosable={false}
+        bodyStyle={{
+          maxHeight: '65vh',
+          overflowY: 'auto',
+        }}
+      >
+        <p className={styles.uploadBtn}>
+          <Upload {...UploadProps}>
+            <Button icon={<UploadOutlined />}>上传文件</Button>
+          </Upload>
+          <span className={styles.uploadText}>进行批量导入用户</span>
+        </p>
+        <p className={styles.uploadDescription}>上传文件从企业微信管理后台通讯录中直接导出即可</p>
+      </Modal>
+    </>
   );
 };
 

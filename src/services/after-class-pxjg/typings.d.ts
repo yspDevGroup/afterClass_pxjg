@@ -501,6 +501,7 @@ declare namespace API {
     SFTJ?: number;
     /** 内容 */
     NR?: string;
+    JYJGSJ?: { id?: string; BMMC?: string };
   };
 
   type CreateJYJGTZGG = {
@@ -2800,6 +2801,7 @@ declare namespace API {
     /** 状态，0无效1有效，其他可由业务自行定义 */
     status?: number;
     userType?: string;
+    type?: string;
     auth?: '老师' | '家长' | '管理员' | { authType?: string; appName?: string }[];
     adminAuth?: string[];
     /** 微信用户ID，智慧校园 学生或老师ID */
@@ -3689,7 +3691,9 @@ declare namespace API {
     /** 学校邮政编码 */
     XXYZBM?: string;
     /** 行政区划码 */
-    XZQHM: string;
+    XZQHM?: string;
+    /** 行政区 */
+    XZQ?: string;
     /** 建校年月 */
     JXNY?: string | any;
     /** 校庆日 */
@@ -3769,6 +3773,8 @@ declare namespace API {
     XXYZBM?: string;
     /** 行政区划码 */
     XZQHM: string;
+    /** 行政区 */
+    XZQ?: string;
     /** 建校年月 */
     JXNY?: string | any;
     /** 校庆日 */
@@ -3846,6 +3852,8 @@ declare namespace API {
     XXYZBM?: string;
     /** 行政区划码 */
     XZQHM?: string;
+    /** 行政区 */
+    XZQ?: string;
     /** 建校年月 */
     JXNY?: string;
     /** 校庆日 */

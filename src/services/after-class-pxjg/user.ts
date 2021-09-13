@@ -56,6 +56,7 @@ export async function currentUser(
         departmentId?: string;
         status?: number;
         userType?: string;
+        type?: string;
         auth?: '老师' | '家长' | '管理员' | { authType?: string; appName?: string }[];
         adminAuth?: string[];
         userId?: string;
@@ -136,6 +137,7 @@ export async function createUser(body: API.CreateUser, options?: { [key: string]
       departmentId?: string;
       status?: number;
       userType?: string;
+      type?: string;
       auth?: '老师' | '家长' | '管理员' | { authType?: string; appName?: string }[];
       adminAuth?: string[];
       userId?: string;

@@ -30,6 +30,7 @@ export async function JYJGTZGG(
       SFTT?: number;
       SFTJ?: number;
       NR?: string;
+      JYJGSJ?: { id?: string; BMMC?: string };
     };
     message?: string;
   }>(`/jyjgtzgg/${param0}`, {
@@ -76,6 +77,7 @@ export async function createJYJGTZGG(body: API.CreateJYJGTZGG, options?: { [key:
       SFTT?: number;
       SFTJ?: number;
       NR?: string;
+      JYJGSJ?: { id?: string; BMMC?: string };
     };
     message?: string;
   }>('/jyjgtzgg/create', {
