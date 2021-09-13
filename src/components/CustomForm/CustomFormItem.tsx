@@ -127,7 +127,7 @@ export const FormSelect = (props: FormSelectProps) => {
         optionFilterProp="children"
         onChange={onChange}
         filterOption={(inputValue: string, option: any) =>
-          option.children.toLowerCase().indexOf(inputValue.toLowerCase()) >= 0
+          option?.children.toLowerCase().indexOf(inputValue.toLowerCase()) >= 0
         }
       >
         {items.map((item) => (
@@ -214,10 +214,10 @@ export const FormTime = (props: FormTimeProps) => {
           onChange={onChange}
           style={{ width: '100%' }}
         />
+      ) : subtype === 'date' ? (
+        <DatePicker disabled={disabled} onChange={onChange} format="YYYY-MM-DD" />
       ) : (
-        subtype === 'date' ?
-          <DatePicker disabled={disabled} onChange={onChange} format="YYYY-MM-DD" /> :
-          <DatePicker disabled={disabled} showTime onChange={onChange} format="YYYY-MM-DD HH:mm" />
+        <DatePicker disabled={disabled} showTime onChange={onChange} format="YYYY-MM-DD HH:mm" />
       )}
     </Form.Item>
   );
@@ -332,20 +332,22 @@ export const FormCheckbox = (props: FormCheckboxProps) => {
   const { disabled, items, desc, colNum = 6, defaultValue, ...formProps } = props;
   return (
     <Form.Item {...formProps}>
-
       {desc ? <Checkbox disabled={disabled}>{desc}</Checkbox> : ''}
 
-
-      {items ? <Checkbox.Group disabled={disabled} defaultValue={defaultValue}>
-        <Row>
-          {items?.map((item) => (
-            <Col span={colNum} key={item.value}>
-              <Checkbox key={item.value} value={item.value} />
-              {item.text}
-            </Col>
-          ))}
-        </Row>
-      </Checkbox.Group> : ''}
+      {items ? (
+        <Checkbox.Group disabled={disabled} defaultValue={defaultValue}>
+          <Row>
+            {items?.map((item) => (
+              <Col span={colNum} key={item.value}>
+                <Checkbox key={item.value} value={item.value} />
+                {item.text}
+              </Col>
+            ))}
+          </Row>
+        </Checkbox.Group>
+      ) : (
+        ''
+      )}
     </Form.Item>
   );
 };
@@ -366,7 +368,6 @@ export const FormUpload = (props: FormUploadProps) => {
     </Form.Item>
   );
 };
-
 
 export const FormButton = (props: FormButtonProps) => {
   const { disabled, text, onClick, ghost, block, ...formProps } = props;

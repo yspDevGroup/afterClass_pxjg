@@ -47,7 +47,7 @@ const MechanismCourse = () => {
       dataIndex: 'KHKCLX',
       key: 'KHKCLX',
       align: 'center',
-      width: 200,
+      width: 120,
       search: false,
       render: (text: any) => {
         return text?.KCTAG || '-';
@@ -58,6 +58,7 @@ const MechanismCourse = () => {
       key: 'NJSJs',
       dataIndex: 'NJSJs',
       align: 'center',
+      width: 160,
       render: (text: any) => {
         return (
           <EllipsisHint
@@ -74,7 +75,7 @@ const MechanismCourse = () => {
       key: 'KHKCJs',
       dataIndex: 'KHKCJs',
       align: 'center',
-      width: 200,
+      width: 130,
       render: (text: any) => {
         return (
           <EllipsisHint
@@ -91,6 +92,7 @@ const MechanismCourse = () => {
       key: 'KCZT',
       dataIndex: 'KCZT',
       align: 'center',
+      width: 120,
       render: (text: any) => {
         switch (text) {
           case 1:
@@ -106,6 +108,7 @@ const MechanismCourse = () => {
       title: '操作',
       key: 'action',
       align: 'center',
+      width: 230,
       render: (text: any, record: any, index: any, action: any) => (
         <Space size="middle">
           <a

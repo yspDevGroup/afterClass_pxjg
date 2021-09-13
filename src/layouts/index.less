@@ -1,3 +1,6 @@
+*::-webkit-scrollbar {
+  display: none;
+}
 .bodyLayout {
   .headerLogoSmall {
     img {
@@ -13,6 +16,7 @@
   }
 
   :global {
+
     // 调整左侧菜单
     .ant-pro-sider.ant-layout-sider {
       background-color: @second-color;
@@ -134,24 +138,6 @@
             gap: 0 !important;
           }
 
-          .ant-table-wrapper {
-            width: 100%;
-            overflow: auto;
-
-            .ant-table {
-              min-width: 100%;
-              .ant-table-cell-fix-right{
-                box-shadow: -1px 0px 3px rgba(46, 46, 46, 0.3),0 0 0 rgba(0,0,0,0);
-              }
-              .ui-table-col-elp {
-                display: inline-block;
-                width: 100%;
-                overflow: hidden;
-                white-space: nowrap;
-                text-overflow: ellipsis;
-              }
-            }
-          }
         }
       }
 
@@ -166,9 +152,10 @@
     }
   }
 }
-:global{
+
+:global {
   .ant-menu-sub {
     color: rgba(255, 255, 255, 0.65);
-    background-color: @second-color !important;
+    background-color: @second-color  !important;
   }
 }

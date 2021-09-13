@@ -3,6 +3,7 @@ import { Button, message, Upload, Image } from 'antd';
 import ImgCrop from 'antd-img-crop';
 import 'antd/es/modal/style';
 import styles from './UploadImage.less';
+import { getAuthorization } from '@/utils';
 
 type UploadImageProps = {
   imageurl?: string; // 回显地址
@@ -13,7 +14,7 @@ type UploadImageProps = {
   disabled?: boolean; // 值为true时，上传按钮不可点击
   accept?: string; // 类型
   imagename?: string; // 发到后台的文件参数名
-  handleImageChange?: (value: any) => void;
+  handleImageChange?: (value?: any) => void;
   data?: object | ((file: any) => object) | Promise<object>; // 上传所需额外参数或返回上传额外参数的方法
 };
 
@@ -57,7 +58,10 @@ const UploadImage = (props: UploadImageProps) => {
           <Image width={imgWidth} height={imgHeight} src={imageUrl} />
         </div>
       ) : (
-        <div className={styles.defImgStyles} style={{ width: `${imgWidth}px`, height: `${imgHeight}px` }}>
+        <div
+          className={styles.defImgStyles}
+          style={{ width: `${imgWidth}px`, height: `${imgHeight}px` }}
+        >
           <div className={styles.icon} />
         </div>
       )}
@@ -76,7 +80,7 @@ const UploadImage = (props: UploadImageProps) => {
               accept={accept}
               data={data}
               headers={{
-                Authorization: `Bearer ${localStorage.ysp_access_token}`
+                Authorization: getAuthorization(),
               }}
             >
               {disabled ? (

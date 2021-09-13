@@ -2,7 +2,7 @@
  * @description:
  * @author: Sissle Lynn
  * @Date: 2021-08-28 09:22:33
- * @LastEditTime: 2021-09-13 16:26:28
+ * @LastEditTime: 2021-09-13 18:15:58
  * @LastEditors: Sissle Lynn
  */
 /*
@@ -96,6 +96,7 @@ const TeacherManagement = () => {
       key: 'XB',
       align: 'center',
       width: 90,
+      render: (_, record) => record?.XB?.substring(0, 1),
     },
     {
       title: '联系电话',
