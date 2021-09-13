@@ -34,7 +34,6 @@ const InfoMaintenance = (props: any) => {
   const [cityVal, setCityVal] = useState<any>();
   const [countyVal, setCountyVal] = useState<any>();
   const [Datas, setDatas] = useState<any>();
-  const [ShowBtn, setShowBtn] = useState(false);
 
   const onKHJYJG = async () => {
     const res = await KHJYJG({ id: currentUser!.jgId! });
@@ -42,7 +41,7 @@ const InfoMaintenance = (props: any) => {
       const { XD, ...info } = res.data;
       const newData = {
         ...info,
-        XD: XD?.split(',')
+        XD: XD === '' ? [] : XD?.split(',')
       };
       form.setFieldsValue(newData);
       setXZQHM(res.data.XZQHM);
@@ -52,17 +51,6 @@ const InfoMaintenance = (props: any) => {
       setYYZZImageUrl(res.data.YYZZ!);
       setBXXKZImageUrl(res.data.BXXKZ!);
       setDatas(res.data);
-      if (res.data.KHJGRZSQs?.length === 0) {
-        setShowBtn(false);
-      } else {
-        if (res.data.KHJGRZSQs?.[0].LX === 0 && res.data.KHJGRZSQs?.[0].ZT === 0) {
-          setShowBtn(true);
-        } else if (res.data.KHJGRZSQs?.[0].LX === 1 && res.data.KHJGRZSQs?.[0].ZT === 1) {
-          setShowBtn(true);
-        } else if (res.data.KHJGRZSQs?.[0].LX === 0 && res.data.KHJGRZSQs?.[0].ZT === 1) {
-          setShowBtn(true);
-        }
-      }
     } else {
       form.setFieldsValue({});
     }
@@ -159,7 +147,7 @@ const InfoMaintenance = (props: any) => {
       XZQ: `${provinceVal?.label}${cityVal?.label ? `/${cityVal?.label}` : ''}${
         countyVal?.label ? `/${countyVal?.label}` : ''
       }`,
-      XD: XD.toString()
+      XD: XD?.toString()
     };
     if (typeof params.id === 'undefined') {
       if (typeof cityAdcode === 'undefined') {
@@ -171,6 +159,7 @@ const InfoMaintenance = (props: any) => {
           form.scrollToField(Data);
           message.success('保存成功');
           setDisabled(true);
+          onKHJYJG();
           window.location.reload();
         } else {
           message.error(resCreateKHJYJG.message);
@@ -275,9 +264,9 @@ const InfoMaintenance = (props: any) => {
               onConfirm={confirm}
               okText="确定"
               cancelText="取消"
-              disabled={SQDatas?.length === 0 ? true : false}
+              disabled={XZQHM ? false : true}
             >
-              <Button type="primary" className={styles.RZbtn} disabled={SQDatas?.length === 0 ? true : false}>
+              <Button type="primary" className={styles.RZbtn} disabled={XZQHM ? false : true}>
                 申请备案
               </Button>
             </Popconfirm>
@@ -474,6 +463,10 @@ const InfoMaintenance = (props: any) => {
                 label="法人身份证号："
                 rules={[
                   {
+                    required: true,
+                    message: '请输入法人身份证号'
+                  },
+                  {
                     pattern: new RegExp(/(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/),
                     message: '请输入正确的身份证号'
                   }
@@ -637,26 +630,19 @@ const InfoMaintenance = (props: any) => {
             </Col>
           </Row>
           <Form.Item>
-            {ShowBtn === false ? (
-              <>
-                {' '}
-                {disabled === true ? (
-                  <button onClick={onEditor} className={styles.btn}>
-                    更改备案信息
-                  </button>
-                ) : (
-                  <>
-                    <Button type="primary" htmlType="submit">
-                      提交
-                    </Button>
-                    <Button htmlType="button" onClick={onReset}>
-                      取消
-                    </Button>
-                  </>
-                )}
-              </>
+            {disabled === true ? (
+              <button onClick={onEditor} className={styles.btn}>
+                更改备案信息
+              </button>
             ) : (
-              <></>
+              <>
+                <Button type="primary" htmlType="submit">
+                  提交
+                </Button>
+                <Button htmlType="button" onClick={onReset}>
+                  取消
+                </Button>
+              </>
             )}
           </Form.Item>
         </Form>
