@@ -37,6 +37,23 @@
       width: 85%;
       min-width: 850px;
       margin: 0 auto;
+      > div:nth-child(1) {
+        > div:nth-child(3) {
+          > div:nth-child(1) {
+            > div {
+              label::before {
+                display: inline-block;
+                margin-right: 4px;
+                color: #ff4d4f;
+                font-size: 14px;
+                font-family: SimSun, sans-serif;
+                line-height: 1;
+                content: '*';
+              }
+            }
+          }
+        }
+      }
       > div:nth-child(2) {
         :global {
           .ant-form-item-control-input-content {
@@ -47,6 +64,17 @@
               margin-right: 50px;
             }
           }
+        }
+      }
+      .Required {
+        label::before {
+          display: inline-block;
+          margin-right: 4px;
+          color: #ff4d4f;
+          font-size: 14px;
+          font-family: SimSun, sans-serif;
+          line-height: 1;
+          content: '*';
         }
       }
       .btn {
