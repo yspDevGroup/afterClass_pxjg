@@ -43,7 +43,8 @@ const Notice = () => {
       key: 'ZZ',
       ellipsis: true,
       align: 'center',
-      width: '8rem'
+      width: '8rem',
+      search: false
     },
     {
       title: '发布时间',
