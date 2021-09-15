@@ -32,8 +32,8 @@
 .pageWrapper {
   .topHeader {
     .headerItem {
-      text-align: center;
       padding: @padding-lg;
+      text-align: center;
 
       h3,
       p {
@@ -55,11 +55,11 @@
   }
 
   .rowWrapper {
-    div[class*='ant-col']:nth-child(1){
+    div[class*='ant-col']:nth-child(1) {
       padding-right: 12px;
     }
-    div[class*='ant-col']+div[class*='ant-col']{
-      padding-left:12px;
+    div[class*='ant-col'] + div[class*='ant-col'] {
+      padding-left: 12px;
     }
   }
 
@@ -71,9 +71,9 @@
       overflow: hidden;
 
       ul {
-        list-style: none;
-        padding: 0;
         margin: 0;
+        padding: 0;
+        list-style: none;
 
         li {
           padding: 0 0 @padding-lg 0;
@@ -82,26 +82,41 @@
             display: block;
             display: flex;
             line-height: 22px;
-
-            span:nth-child(1) {
+            .Headlines {
+              display: inline-block;
+              width: 36px;
+              height: 22px;
+              margin-right: 6px;
+              color: #fff;
+              font-size: 12px;
+              line-height: 22px;
+              text-align: center;
+              background: #ff4646;
+              border-radius: 11px;
+            }
+            span:nth-of-type(1) {
               flex: 1 1 140px;
               overflow: hidden;
-              text-overflow: ellipsis;
-              white-space: nowrap;
               color: @text-color;
+              white-space: nowrap;
+              text-overflow: ellipsis;
 
-              &+span {
-                color: @normal-color;
-                width: 140px;
-                text-align: right;
-              }
+              // &+span {
+              //   color: @normal-color;
+              //   width: 140px;
+              //   text-align: right;
+              // }
+            }
+            span:nth-of-type(2) {
+              width: 140px;
+              color: @normal-color;
+              text-align: right;
             }
 
             &:nth-last-child(1) {
               padding: 0;
             }
           }
-
         }
       }
 
@@ -117,7 +132,7 @@
     margin-top: @padding-lg;
 
     .chartContainer {
-      >div {
+      > div {
         height: 270px !important;
       }
     }

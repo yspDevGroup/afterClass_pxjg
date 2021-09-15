@@ -13,31 +13,39 @@ import styles from './index.less';
 import moment from 'moment';
 import { Link } from 'umi';
 
-const List = (props: { type: string, data?: any, noDataImg?: any, noDataText?: string }) => {
+const List = (props: { type: string; data?: any; noDataImg?: any; noDataText?: string }) => {
   const { type, data, noDataImg = noData, noDataText = '暂无信息' } = props;
   return (
     <div className={styles.annceList}>
-      {data?.length ? <ul>
-        {data.map((item: { BT?: string, updatedAt?: string ,RQ?: string}) => {
-          return <li key={item.BT}>
-            <Link
-              key="ck"
-              to={{
-                pathname: `/announcements/${type}/articleDetails`,
-                state: item
-              }}
-            >
-              <span>{item.BT}</span>
-              <span>{item.updatedAt||item.RQ}</span>
-            </Link>
-          </li>
-        })}
-      </ul> : <Empty
-        image={noDataImg}
-        imageStyle={{
-          height: 80,
-        }}
-        description={noDataText} />}
+      {data?.length ? (
+        <ul>
+          {data.map((item: { BT?: string; updatedAt?: string; RQ?: string; SFTT?: number }) => {
+            return (
+              <li key={item.BT}>
+                <Link
+                  key="ck"
+                  to={{
+                    pathname: `/announcements/${type}/articleDetails`,
+                    state: item
+                  }}
+                >
+                  {item.SFTT === 1 ? <div className={styles.Headlines}>头条</div> : <></>}
+                  <span>{item.BT}</span>
+                  <span>{item.updatedAt || item.RQ}</span>
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
+      ) : (
+        <Empty
+          image={noDataImg}
+          imageStyle={{
+            height: 80
+          }}
+          description={noDataText}
+        />
+      )}
     </div>
   );
 };

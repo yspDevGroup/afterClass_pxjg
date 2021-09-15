@@ -34,7 +34,16 @@ const Notice = () => {
       dataIndex: 'BT',
       key: 'BT',
       ellipsis: true,
-      align: 'center'
+      align: 'center',
+      width: '18rem'
+    },
+    {
+      title: '作者',
+      dataIndex: 'ZZ',
+      key: 'ZZ',
+      ellipsis: true,
+      align: 'center',
+      width: '8rem'
     },
     {
       title: '发布时间',
@@ -43,7 +52,8 @@ const Notice = () => {
       valueType: 'dateTime',
       hideInForm: true,
       align: 'center',
-      search: false
+      search: false,
+      width: '10rem'
     },
     {
       title: '发布状态',
@@ -63,7 +73,7 @@ const Notice = () => {
       defaultSortOrder: 'descend',
       search: false,
       align: 'center',
-      width: '6em',
+      width: '8em',
       render: (text, record) => {
         return (
           <Switch
@@ -76,42 +86,6 @@ const Notice = () => {
                 ...record,
                 RQ: moment(record.RQ).format(),
                 SFTT: checked === true ? 1 : 0
-              };
-              try {
-                const resUpdateJYJGTZGG = await updateKHJYTZGG({ id: record.id }, data);
-                if (resUpdateJYJGTZGG.status === 'ok') {
-                  message.success('设置成功');
-                  actionRef?.current?.reload();
-                } else {
-                  message.error('设置失败，请联系管理员或稍后再试。');
-                }
-              } catch (err) {
-                message.error('设置失败，请联系管理员或稍后再试。');
-              }
-            }}
-          />
-        );
-      }
-    },
-    {
-      title: '推荐',
-      dataIndex: 'SFTJ',
-      key: 'SFTJ',
-      search: false,
-      align: 'center',
-      width: '6em',
-      render: (text, record) => {
-        return (
-          <Switch
-            key="SFTJ"
-            defaultChecked={!!text}
-            size="small"
-            disabled={record.ZT === '已发布' ? true : false}
-            onChange={async (checked: boolean) => {
-              const data = {
-                ...record,
-                RQ: moment(record.RQ).format(),
-                SFTJ: checked === true ? 1 : 0
               };
               try {
                 const resUpdateJYJGTZGG = await updateKHJYTZGG({ id: record.id }, data);
