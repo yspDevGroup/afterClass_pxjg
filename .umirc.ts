@@ -12,12 +12,12 @@ export default defineConfig({
     ENV_title: '课后帮',
     ENV_subTitle: '课后服务平台',
     ENV_copyRight: '2021 版权所有：陕西五育汇智信息技术有限公司',
-    ENV_host: 'http://afterclassPxjg.test.xianyunshipei.com',
-    ENV_backUrl: 'http://api.test.xianyunshipei.com',
-    ssoHost: 'http://platform.test.xianyunshipei.com',
+    ENV_host: 'http://afterclassPxjg.prod.xianyunshipei.com',
+    ENV_backUrl: 'http://api.prod.xianyunshipei.com',
+    ssoHost: 'http://platform.prod.xianyunshipei.com',
     authType: 'wechat',
-    clientId: 'ww73f350f785b450ab',
-    clientSecret: 'GioaHZFINvGOlb3e6rW2BBgjVEpHi-CUYBxGpC0NI9c'
+    clientId: 'wwa3e7ccaca504ab3d',
+    clientSecret: 'z-DxOlOgLADZ_4MtEHIoYX0WrUFHwoXVDbOyzPiVtF4'
   },
   links: [{ rel: 'icon', href: './title.png' }],
   dynamicImport: {
@@ -34,7 +34,7 @@ export default defineConfig({
   openAPI: [
     {
       requestLibPath: "import { request } from 'umi'",
-      schemaPath: 'http://api.test.xianyunshipei.com/documentation/json',
+      schemaPath: 'http://api.prod.xianyunshipei.com/documentation/json',
       // schemaPath: 'http://192.168.0.113:3000/documentation/json',
       mock: false
     }
