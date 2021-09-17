@@ -1,6 +1,3 @@
-// *::-webkit-scrollbar{
-//   display: none;
-// }
 .bodyLayout {
   .headerLogoSmall {
     img {
@@ -20,7 +17,8 @@
     // 调整左侧菜单
     .ant-pro-sider.ant-layout-sider {
       background-color: @second-color;
-      &+.ant-layout{
+
+      &+.ant-layout {
         min-width: 990px;
       }
 
@@ -100,6 +98,10 @@
   }
 
   .customPageHeader {
+    >div[class*='ant-pro-grid-content'] {
+      height: calc(~'100vh - 198px');
+    }
+
     :global {
       .ant-page-header.has-breadcrumb {
         padding-top: @padding-md;
@@ -133,9 +135,7 @@
 
       .ant-pro-grid-content {
         overflow: auto;
-        &::-webkit-scrollbar{
-          display: block;
-        }
+
         .ant-pro-table {
           .ant-pro-table-list-toolbar-title {
             font-weight: bold;
@@ -144,7 +144,8 @@
           .ant-pro-table-list-toolbar-left {
             gap: 0 !important;
           }
-          .ant-table table{
+
+          .ant-table table {
             table-layout: inherit !important;
           }
         }

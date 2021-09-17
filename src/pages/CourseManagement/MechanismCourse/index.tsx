@@ -5,9 +5,9 @@ import { history, useModel } from 'umi';
 import { PlusOutlined } from '@ant-design/icons';
 import ProTable, { ActionType } from '@ant-design/pro-table';
 import classes from '../index.less';
-import { deleteKHJYJG, getCourses } from '@/services/after-class-pxjg/khjyjg';
+import { getCourses } from '@/services/after-class-pxjg/khjyjg';
 import EllipsisHint from '@/components/EllipsisHint';
-import { updateKHKCSJ } from '@/services/after-class-pxjg/khkcsj';
+import { deleteKHKCSJ, updateKHKCSJ } from '@/services/after-class-pxjg/khkcsj';
 
 /**
  * 机构端-课程列表
@@ -18,7 +18,7 @@ const MechanismCourse = () => {
   const { currentUser } = initialState || {};
   const actionRef = useRef<ActionType>();
   const confirm = async (id: any) => {
-    const res = await deleteKHJYJG({ id });
+    const res = await deleteKHKCSJ({ id });
     if (res.status === 'ok') {
       message.success('删除成功');
       actionRef.current?.reload();
@@ -64,7 +64,7 @@ const MechanismCourse = () => {
           <EllipsisHint
             width="100%"
             text={text?.map((item: any) => {
-              return <Tag key={item.id} style={{margin: '4px'}}>{item.XD === '初中' ? `${item.NJMC}` : `${item.XD}${item.NJMC}`}</Tag>;
+              return <Tag key={item.id} style={{ margin: '4px' }}>{item.XD === '初中' ? `${item.NJMC}` : `${item.XD}${item.NJMC}`}</Tag>;
             })}
           />
         );
@@ -138,7 +138,7 @@ const MechanismCourse = () => {
           ) : record.KCZT === 1 ? (
             <Popconfirm
               title={`确定要撤销 “${record?.KCMC}” 吗?`}
-              onConfirm={() => confirm(async () => {
+              onConfirm={async () => {
                 const res = await updateKHKCSJ({ id: record?.id }, { KCZT: 0 });
                 if (res.status === 'ok') {
                   message.success('操作成功');
@@ -146,7 +146,7 @@ const MechanismCourse = () => {
                 } else {
                   message.error('操作失败');
                 }
-              })}
+              }}
             >
               <a>撤销</a>
             </Popconfirm>
@@ -217,7 +217,7 @@ const MechanismCourse = () => {
               history.push('/courseManagement/mechanismCourse/edit');
             }}
           >
-           <PlusOutlined /> 新增课程
+            <PlusOutlined /> 新增课程
           </Button>
         ]}
         options={{
