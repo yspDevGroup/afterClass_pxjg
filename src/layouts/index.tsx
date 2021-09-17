@@ -3,8 +3,8 @@
  * @description: 通用布局
  * @author: zpl
  * @Date: 2021-08-16 17:31:56
- * @LastEditTime: 2021-09-07 11:41:00
- * @LastEditors: Sissle Lynn
+ * @LastEditTime: 2021-09-17 11:49:36
+ * @LastEditors: zpl
  */
 import React, { FC, useEffect, useState } from 'react';
 import { IRouteComponentProps, Link, useAccess, history } from 'umi';
@@ -17,6 +17,7 @@ import headerTopSmall from '@/assets/headerTopSmall.png'
 import styles from './index.less';
 import { BreadcrumbProps, PageHeaderProps } from 'antd';
 import RightContent from '@/components/RightContent';
+import { Route } from '@ant-design/pro-layout/lib/typings';
 
 const menuRender = (
   item: MenuDataItem & {
@@ -56,7 +57,7 @@ const CommonLayout: FC<IRouteComponentProps> = ({ children, location, route, his
         <div>{children}</div>
       ) : (
         <ProLayout
-          {...customMenu}
+          {...(customMenu as unknown as Route[])}
           layout="side"
           headerRender={false}
           collapsedButtonRender={false}
