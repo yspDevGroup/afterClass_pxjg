@@ -7,10 +7,10 @@ export async function createKHTKSJ(body: API.CreateKHTKSJ[], options?: { [key: s
   return request<{ status?: 'ok' | 'error'; message?: string }>('/khtksj/create', {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     data: body,
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
@@ -18,7 +18,7 @@ export async function createKHTKSJ(body: API.CreateKHTKSJ[], options?: { [key: s
 export async function getKHTKSJ(
   body: {
     /** 退课状态 */
-    ZT?: number;
+    ZT?: number[];
     /** 学生ID */
     XSId?: string;
     /** 学年学期ID */
@@ -32,7 +32,7 @@ export async function getKHTKSJ(
     /** 每页记录数 */
     pageSize?: number;
   },
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
   return request<{
     status?: 'ok' | 'error';
@@ -41,10 +41,10 @@ export async function getKHTKSJ(
   }>('/khtksj/getAll', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     data: body,
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
@@ -55,13 +55,13 @@ export async function deleteKHTKSJ(
     /** 课后服务退课记录ID */
     id: string;
   },
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{ status?: 'ok' | 'error'; message?: string }>(`/khtksj/${param0}`, {
     method: 'DELETE',
     params: { ...queryParams },
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
@@ -73,16 +73,16 @@ export async function updateKHTKSJ(
     id: string;
   },
   body: API.UpdateKHTKSJ,
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{ status?: 'ok' | 'error'; message?: string }>(`/khtksj/update/${param0}`, {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     params: { ...queryParams },
     data: body,
-    ...(options || {}),
+    ...(options || {})
   });
 }

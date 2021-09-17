@@ -9,26 +9,38 @@ export async function getKHXSPJ(
     /** 学生评价记录ID */
     id: string;
   },
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{
     status?: 'ok' | 'error';
     data: {
       id?: string;
-      PJRQ?: string | any;
-      PJLX?: '节次评价' | '总评价';
-      PJFS?: string;
+      PJFS?: number;
       PY?: string;
-      JSId?: string;
       XSId?: string;
+      XSXM?: string;
       KHBJSJId?: string;
+      KHBJSJ?: {
+        id?: string;
+        BJMC?: string;
+        BJMS?: string;
+        BJZT?: '待开班' | '已开班' | '已结课';
+        BJRS?: number;
+        KSS?: number;
+        FY?: number;
+        KKRQ?: string | any;
+        JKRQ?: string | any;
+        BMKSSJ?: string;
+        BMJSSJ?: string;
+        KCTP?: string;
+      };
     };
     message?: string;
   }>(`/khxspj/${param0}`, {
     method: 'GET',
     params: { ...queryParams },
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
@@ -39,37 +51,45 @@ export async function deleteKHXSPJ(
     /** 类型ID */
     id: string;
   },
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{ status?: 'ok' | 'error'; message?: string }>(`/khxspj/${param0}`, {
     method: 'DELETE',
     params: { ...queryParams },
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
 /** 查询所有学生评价记录 POST /khxspj/ */
 export async function getAllKHXSPJ(
   body: {
-    /** 教师ID */
-    jsId?: string;
+    /** 学生ID */
+    XSId?: string;
     /** 班级ID */
-    bjId?: string;
-    /** 评价类型 */
-    PJLX?: string;
-    /** 评价日期 */
-    PJRQ?: string;
+    KHBJSJId?: string;
+    /** 教师ID */
+    JSId?: string;
+    /** 学年学期ID */
+    XNXQId?: string;
+    /** 页数 */
+    page?: number;
+    /** 每页记录数 */
+    pageSize?: number;
   },
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
-  return request<{ status?: 'ok' | 'error'; data?: API.KHXSPJ[]; message?: string }>('/khxspj/', {
+  return request<{
+    status?: 'ok' | 'error';
+    data?: { count?: number; rows?: API.KHXSPJ[] };
+    message?: string;
+  }>('/khxspj/', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     data: body,
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
@@ -79,22 +99,34 @@ export async function createKHXSPJ(body: API.CreateKHXSPJ, options?: { [key: str
     status?: 'ok' | 'error';
     data: {
       id?: string;
-      PJRQ?: string | any;
-      PJLX?: '节次评价' | '总评价';
-      PJFS?: string;
+      PJFS?: number;
       PY?: string;
-      JSId?: string;
       XSId?: string;
+      XSXM?: string;
       KHBJSJId?: string;
+      KHBJSJ?: {
+        id?: string;
+        BJMC?: string;
+        BJMS?: string;
+        BJZT?: '待开班' | '已开班' | '已结课';
+        BJRS?: number;
+        KSS?: number;
+        FY?: number;
+        KKRQ?: string | any;
+        JKRQ?: string | any;
+        BMKSSJ?: string;
+        BMJSSJ?: string;
+        KCTP?: string;
+      };
     };
     message?: string;
   }>('/khxspj/create', {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     data: body,
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
@@ -106,16 +138,16 @@ export async function updateKHXSPJ(
     id: string;
   },
   body: API.UpdateKHXSPJ,
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{ status?: 'ok' | 'error'; message?: string }>(`/khxspj/update/${param0}`, {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     params: { ...queryParams },
     data: body,
-    ...(options || {}),
+    ...(options || {})
   });
 }

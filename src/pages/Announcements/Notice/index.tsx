@@ -10,7 +10,7 @@ import { PlusOutlined } from '@ant-design/icons';
 import { Button, Switch, message } from 'antd';
 import type { ProColumns, ActionType } from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
-import { history } from 'umi';
+import { history, useModel } from 'umi';
 import Option from '../components/Option';
 import type { TableListItem } from '../data';
 import styles from '../index.module.less';
@@ -20,6 +20,8 @@ import { getKHJYTZGG, updateKHJYTZGG } from '@/services/after-class-pxjg/khjytzg
 const Notice = () => {
   const [dataSource, setDataSource] = useState<API.JYJGTZGG[]>();
   const actionRef = useRef<ActionType>();
+  const { initialState } = useModel('@@initialState');
+  const { currentUser } = initialState || {};
 
   const columns: ProColumns<TableListItem>[] = [
     {
@@ -150,6 +152,7 @@ const Notice = () => {
         request={async (params, sorter, filter) => {
           if (params.ZT || params.BT) {
             const resgetXXTZGG = await getKHJYTZGG({
+              KHJYJGId: currentUser?.jgId,
               BT: params.BT,
               ZT: params.ZT ? [params.ZT] : ['已发布', '草稿'],
               LX: 0,
@@ -161,6 +164,7 @@ const Notice = () => {
             }
           } else {
             const resgetXXTZGG = await getKHJYTZGG({
+              KHJYJGId: currentUser?.jgId,
               BT: '',
               ZT: ['已发布', '草稿'],
               LX: 0,
