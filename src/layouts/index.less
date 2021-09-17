@@ -1,6 +1,6 @@
-*::-webkit-scrollbar {
-  display: none;
-}
+// *::-webkit-scrollbar{
+//   display: none;
+// }
 .bodyLayout {
   .headerLogoSmall {
     img {
@@ -20,6 +20,9 @@
     // 调整左侧菜单
     .ant-pro-sider.ant-layout-sider {
       background-color: @second-color;
+      &+.ant-layout{
+        min-width: 990px;
+      }
 
       .ant-pro-sider-logo {
         justify-content: center;
@@ -129,6 +132,10 @@
       }
 
       .ant-pro-grid-content {
+        overflow: auto;
+        &::-webkit-scrollbar{
+          display: block;
+        }
         .ant-pro-table {
           .ant-pro-table-list-toolbar-title {
             font-weight: bold;
@@ -137,7 +144,9 @@
           .ant-pro-table-list-toolbar-left {
             gap: 0 !important;
           }
-
+          .ant-table table{
+            table-layout: inherit !important;
+          }
         }
       }
 
