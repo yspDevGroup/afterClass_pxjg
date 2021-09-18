@@ -129,7 +129,7 @@ const MechanismCourse = () => {
                   message.success('操作成功');
                   action?.reload();
                 } else {
-                  message.error('操作失败');
+                  message.error(res.message || '操作失败');
                 }
               }}
             >
@@ -144,7 +144,7 @@ const MechanismCourse = () => {
                   message.success('操作成功');
                   action?.reload();
                 } else {
-                  message.error('操作失败');
+                  message.error(res.message || '操作失败');
                 }
               }}
             >
