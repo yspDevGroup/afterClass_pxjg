@@ -7,8 +7,8 @@
  */
 import React, { useEffect, useState } from 'react';
 import { Link } from 'umi';
-import { Divider, message, Tag,Button } from 'antd';
-import { LeftOutlined} from '@ant-design/icons';
+import { Divider, message, Tag, Button } from 'antd';
+import { LeftOutlined } from '@ant-design/icons';
 import ProTable, { ProColumns } from '@ant-design/pro-table';
 import { getAllCourses } from '@/services/after-class-pxjg/khjyjg';
 
@@ -17,7 +17,7 @@ import EllipsisHint from '@/components/EllipsisHint';
 
 const CourseList = (props: any) => {
   const { state } = props.history.location;
-  const { xxmc, xxid, jgid, } = state.data;
+  const { xxmc, xxid, jgid } = state.data;
   const [courseList, setCourseList] = useState<any>();
   const [oriList, setOriList] = useState<any>();
   const getCourseList = async (xxdm: string, jgdm: string, xnxq?: string) => {
@@ -44,7 +44,8 @@ const CourseList = (props: any) => {
       dataIndex: 'KCMC',
       key: 'KCMC',
       align: 'center',
-      search: false
+      search: false,
+      width: '10rem'
     },
     {
       title: '课程类型',
@@ -52,8 +53,9 @@ const CourseList = (props: any) => {
       key: 'KHKCLX',
       align: 'center',
       search: false,
+      width: '10rem',
       render: (text: any) => {
-        return text?.KCTAG || "-"
+        return text?.KCTAG || '-';
       }
     },
     {
@@ -61,12 +63,17 @@ const CourseList = (props: any) => {
       key: 'NJSJs',
       dataIndex: 'NJSJs',
       align: 'center',
+      width: '20rem',
       render: (text: any) => {
         return (
           <EllipsisHint
             width="100%"
             text={text?.map((item: any) => {
-              return <Tag key={item.id} color="#EFEFEF" style={{ color: '#333' }}>{item.XD === '初中' ? `${item.NJMC}` : `${item.XD}${item.NJMC}`}</Tag>;
+              return (
+                <Tag key={item.id} color="#EFEFEF" style={{ color: '#333' }}>
+                  {item.XD === '初中' ? `${item.NJMC}` : `${item.XD}${item.NJMC}`}
+                </Tag>
+              );
             })}
           />
         );
@@ -77,6 +84,7 @@ const CourseList = (props: any) => {
       key: 'KHKCJs',
       dataIndex: 'KHKCJs',
       align: 'center',
+      width: '20rem',
       render: (text: any) => {
         return (
           <EllipsisHint
@@ -93,30 +101,38 @@ const CourseList = (props: any) => {
       valueType: 'option',
       width: 200,
       align: 'center',
-      render: (_: any, record: { id: any; }) => (
+      render: (_: any, record: { id: any }) => (
         <>
-          <Link to={{
-            pathname: '/courseManagement/mechanismCourse/edit',
-            state: {
-              ...record,
-              type: 'info',
-              xxmc: xxmc,
-            }
-          }}>课程详情</Link>
-          <Divider type='vertical' />
-          <Link to={{
-            pathname: '/businessManagement/schoolManagement/detail',
-            state: {
-              type: 'course',
-              data: {
-                type: 'detail',
-                xxid: xxid,
-                jgid: jgid,
-                kcid: record.id,
-                xxmc: xxmc,
+          <Link
+            to={{
+              pathname: '/courseManagement/mechanismCourse/edit',
+              state: {
+                ...record,
+                type: 'info',
+                xxmc: xxmc
               }
-            }
-          }}>班级详情</Link>
+            }}
+          >
+            课程详情
+          </Link>
+          <Divider type="vertical" />
+          <Link
+            to={{
+              pathname: '/businessManagement/schoolManagement/detail',
+              state: {
+                type: 'course',
+                data: {
+                  type: 'detail',
+                  xxid: xxid,
+                  jgid: jgid,
+                  kcid: record.id,
+                  xxmc: xxmc
+                }
+              }
+            }}
+          >
+            班级详情
+          </Link>
         </>
       )
     }
