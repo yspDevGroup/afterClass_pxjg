@@ -21,7 +21,6 @@ import styles from './index.less';
 import { getKHKCSQ } from '@/services/after-class-pxjg/khkcsq';
 import { getJYJGTZGG } from '@/services/after-class-pxjg/jyjgtzgg';
 
-
 const Index = () => {
   const { initialState } = useModel('@@initialState');
   const { currentUser } = initialState || {};
@@ -42,36 +41,37 @@ const Index = () => {
         setHomeData({ ...rest });
         // 配置底部课程开设班级数量数据
         if (kcbm?.length) {
-          const newKcbm: { type: any; number: any; }[] = [];
+          const newKcbm: { type: any; number: any }[] = [];
           kcbm.forEach((item: any) => {
-            if(item.id){
+            if (item.id) {
               newKcbm.push({
                 type: item.KCMC,
                 number: item.count
-              })
+              });
             }
           });
           setKcbmData(newKcbm);
         }
         // 配置底部各校合作课程数量数据
         if (xxbm?.length) {
-          const newXxbm: { type: any; number: any; }[] = [];
+          const newXxbm: { type: any; number: any }[] = [];
           xxbm.forEach((item: any) => {
-            if(item.id){
+            if (item.id) {
               newXxbm.push({
                 type: item.XXMC,
                 number: item.count
-              })
+              });
             }
           });
           setXxbmData(newXxbm);
         }
-      };
+      }
       // 配置通知公告数据
       const result = await getKHJYTZGG({
         BT: '',
         ZT: ['已发布'],
         LX: 0,
+        KHJYJGId: currentUser?.jgId,
         page: 1,
         pageSize: 3
       });
@@ -100,7 +100,7 @@ const Index = () => {
       // if (response.status === 'ok') {
       //   setApplyData(response.data?.rows);
       // }
-    };
+    }
     fetchData();
   }, []);
 
@@ -109,25 +109,43 @@ const Index = () => {
       <Topbar data={homeData} />
       <Row className={`${styles.listWrapper} ${styles.rowWrapper}`}>
         <Col span={12}>
-          <Card title="内部通知" bordered={false} extra={<a href="/announcements/notice">更多<RightOutlined style={{ fontSize: '12px' }} /></a>}>
-            <List type='notice' data={annoceData} noDataImg={noAnnoce} noDataText="暂无通知" />
+          <Card
+            title="内部通知"
+            bordered={false}
+            extra={
+              <a href="/announcements/notice">
+                更多
+                <RightOutlined style={{ fontSize: '12px' }} />
+              </a>
+            }
+          >
+            <List type="notice" data={annoceData} noDataImg={noAnnoce} noDataText="暂无通知" />
           </Card>
         </Col>
         <Col span={12}>
-          <Card title="政策公告" bordered={false} extra={<a href="/announcements/policy">更多<RightOutlined style={{ fontSize: '12px' }} /></a>}>
-            <List type='policy' data={applyData} noDataImg={noCourse} noDataText="暂无信息" />
+          <Card
+            title="政策公告"
+            bordered={false}
+            extra={
+              <a href="/announcements/policy">
+                更多
+                <RightOutlined style={{ fontSize: '12px' }} />
+              </a>
+            }
+          >
+            <List type="policy" data={applyData} noDataImg={noCourse} noDataText="暂无信息" />
           </Card>
         </Col>
       </Row>
       <Row className={`${styles.chartWrapper} ${styles.rowWrapper}`}>
         <Col span={12}>
           <Card title="各课程开设班级情况" bordered={false}>
-            <ColumnChart data={kcbmData} color='#18DCAB' />
+            <ColumnChart data={kcbmData} color="#18DCAB" />
           </Card>
         </Col>
         <Col span={12}>
           <Card title="各校合作课程情况" bordered={false}>
-            <ColumnChart data={xxbmData} color='#6186EE' />
+            <ColumnChart data={xxbmData} color="#6186EE" />
           </Card>
         </Col>
       </Row>
