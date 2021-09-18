@@ -60,7 +60,7 @@ const InfoMaintenance = (props: any) => {
   }, []);
   const requestData = () => {
     $.ajax({
-      url: 'http://datavmap-public.oss-cn-hangzhou.aliyuncs.com/areas/csv/100000_province.json',
+      url: '//datavmap-public.oss-cn-hangzhou.aliyuncs.com/areas/csv/100000_province.json',
       data: {},
       success: function (data: { rows: any }) {
         setCities(data.rows);
@@ -74,14 +74,14 @@ const InfoMaintenance = (props: any) => {
     }
     if (typeof XZQHM !== 'undefined') {
       $.ajax({
-        url: `http://datavmap-public.oss-cn-hangzhou.aliyuncs.com/areas/csv/${XZQHM?.substring(0, 2)}0000_city.json`,
+        url: `//datavmap-public.oss-cn-hangzhou.aliyuncs.com/areas/csv/${XZQHM?.substring(0, 2)}0000_city.json`,
         data: {},
         success: function (data: { rows: any }) {
           setSecondCity(data.rows);
         }
       });
       $.ajax({
-        url: `http://datavmap-public.oss-cn-hangzhou.aliyuncs.com/areas/csv/${XZQHM?.substring(0, 4)}00_district.json`,
+        url: `//datavmap-public.oss-cn-hangzhou.aliyuncs.com/areas/csv/${XZQHM?.substring(0, 4)}00_district.json`,
         data: {},
         success: function (data: { rows: any[] }) {
           let newArr: any[] = [];
@@ -204,7 +204,7 @@ const InfoMaintenance = (props: any) => {
   const handleChange = (type: string, value: any) => {
     if (type === 'cities') {
       $.ajax({
-        url: `http://datavmap-public.oss-cn-hangzhou.aliyuncs.com/areas/csv/${value.value}_city.json`,
+        url: `//datavmap-public.oss-cn-hangzhou.aliyuncs.com/areas/csv/${value.value}_city.json`,
         data: {},
         success: function (data: { rows: any }) {
           if (value.value === '810000' || value.value === '820000' || value.value === '710000') {
@@ -225,7 +225,7 @@ const InfoMaintenance = (props: any) => {
       });
     } else if (type === 'secondCity') {
       $.ajax({
-        url: `http://datavmap-public.oss-cn-hangzhou.aliyuncs.com/areas/csv/${value.value}_district.json`,
+        url: `//datavmap-public.oss-cn-hangzhou.aliyuncs.com/areas/csv/${value.value}_district.json`,
         data: {},
         success: function (data: { rows: any[] }) {
           let newArr: any[] = [];
