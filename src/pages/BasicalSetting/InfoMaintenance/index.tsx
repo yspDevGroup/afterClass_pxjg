@@ -105,7 +105,7 @@ const InfoMaintenance = (props: any) => {
     });
     if (rescreateKHJGRZSQ.status === 'ok') {
       onKHJYJG();
-      message.success('申请成功');
+      message.success('备案申请提交成功');
     } else {
       message.error('申请失败');
     }
@@ -484,7 +484,7 @@ const InfoMaintenance = (props: any) => {
                 rules={[
                   {
                     required: true,
-                    message: '联系人'
+                    message: '请输入联系人'
                   }
                 ]}
               >
@@ -574,7 +574,17 @@ const InfoMaintenance = (props: any) => {
                 <Input placeholder={disabled === false ? '请输入' : '——'} disabled={disabled} />
               </Form.Item>
               {disabled === true ? (
-                <Form.Item name="XD" key="XD" label="学段">
+                <Form.Item
+                  name="XD"
+                  key="XD"
+                  label="学段"
+                  rules={[
+                    {
+                      required: true,
+                      message: '请选择学段'
+                    }
+                  ]}
+                >
                   <Input disabled={disabled} placeholder="——" />
                 </Form.Item>
               ) : (
@@ -601,7 +611,17 @@ const InfoMaintenance = (props: any) => {
               <Form.Item name="JGJJ" key="JGJJ" label="机构简介：">
                 <Input.TextArea placeholder={disabled === false ? '请输入' : '——'} rows={4} disabled={disabled} />
               </Form.Item>
-              <Form.Item name="YYZZ" key="YYZZ" label="营业执照：">
+              <Form.Item
+                name="YYZZ"
+                key="YYZZ"
+                label="营业执照："
+                rules={[
+                  {
+                    required: true,
+                    message: '请上传营业执照'
+                  }
+                ]}
+              >
                 <UploadImage
                   key="YYZZTP"
                   disabled={disabled}
@@ -614,7 +634,17 @@ const InfoMaintenance = (props: any) => {
                   }}
                 />
               </Form.Item>
-              <Form.Item name="BXXKZ" key="BXXKZ" label="办学许可证：">
+              <Form.Item
+                name="BXXKZ"
+                key="BXXKZ"
+                label="办学许可证："
+                rules={[
+                  {
+                    required: true,
+                    message: '请上传办学许可证'
+                  }
+                ]}
+              >
                 <UploadImage
                   key="BXXKZTP"
                   disabled={disabled}

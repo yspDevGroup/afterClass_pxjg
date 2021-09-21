@@ -6,7 +6,13 @@
  * @LastEditors: Sissle Lynn
  */
 import React from 'react';
-import { HomeOutlined, FileTextOutlined, BlockOutlined, AppstoreAddOutlined, NotificationOutlined } from '@ant-design/icons';
+import {
+  HomeOutlined,
+  FileTextOutlined,
+  BlockOutlined,
+  AppstoreAddOutlined,
+  NotificationOutlined
+} from '@ant-design/icons';
 export default {
   route: {
     path: '/',
@@ -23,7 +29,7 @@ export default {
         routes: [
           {
             path: '/basicalSetting/infoMaintenance',
-            name: '入驻申请',
+            name: '备案申请'
           },
           {
             path: '/basicalSetting/teacherManagement',
@@ -75,7 +81,7 @@ export default {
       {
         path: '/courseManagement',
         name: '课程管理',
-        icon: <AppstoreAddOutlined />,
+        icon: <AppstoreAddOutlined />
       },
       {
         path: '/courseManagement/mechanismCourse/edit',
