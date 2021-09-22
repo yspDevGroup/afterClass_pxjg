@@ -24,7 +24,6 @@ import { deleteKHJSSJ, getKHJSSJ } from '@/services/after-class-pxjg/khjssj';
 import { Button, Divider, message, Modal, Popconfirm, Upload } from 'antd';
 import { getAuthorization } from '@/utils';
 
-
 const TeacherManagement = () => {
   const { initialState } = useModel('@@initialState');
   const { currentUser } = initialState || {};
@@ -51,7 +50,7 @@ const TeacherManagement = () => {
     name: 'xlsx',
     action: '/api/upload/importWechatTeachers?plat=agency',
     headers: {
-      authorization: getAuthorization(),
+      authorization: getAuthorization()
     },
     beforeUpload(file: any) {
       const isLt2M = file.size / 1024 < 200;
@@ -65,7 +64,6 @@ const TeacherManagement = () => {
         const code = info.file.response;
         if (code.status === 'ok') {
           message.success(`上传成功`);
-          setModalVisible(false);
         } else {
           message.error(`${code.message}`);
         }
@@ -73,7 +71,7 @@ const TeacherManagement = () => {
         const code = info.file.response;
         message.error(`${code.message}`);
       }
-    },
+    }
   };
   const columns: ProColumns<any>[] = [
     {
@@ -81,7 +79,7 @@ const TeacherManagement = () => {
       dataIndex: 'index',
       valueType: 'index',
       width: 58,
-      align: 'center',
+      align: 'center'
     },
     {
       title: '姓名',
@@ -89,7 +87,7 @@ const TeacherManagement = () => {
       key: 'XM',
       align: 'center',
       width: 120,
-      ellipsis: true,
+      ellipsis: true
     },
     {
       title: '性别',
@@ -97,14 +95,14 @@ const TeacherManagement = () => {
       key: 'XB',
       align: 'center',
       width: 90,
-      render: (_, record) => record?.XB?.substring(0, 1),
+      render: (_, record) => record?.XB?.substring(0, 1)
     },
     {
       title: '联系电话',
       key: 'LXDH',
       dataIndex: 'LXDH',
       align: 'center',
-      width: 180,
+      width: 180
     },
     {
       title: '教授科目',
@@ -112,7 +110,7 @@ const TeacherManagement = () => {
       dataIndex: 'JSKM',
       align: 'center',
       width: 110,
-      ellipsis: true,
+      ellipsis: true
     },
     {
       title: '教龄（年）',
@@ -120,7 +118,7 @@ const TeacherManagement = () => {
       dataIndex: 'JL',
       align: 'center',
       width: 110,
-      ellipsis: true,
+      ellipsis: true
     },
     {
       title: '操作',
@@ -129,22 +127,30 @@ const TeacherManagement = () => {
       align: 'center',
       render: (_, record) => (
         <>
-          <Link to={{
-            pathname: '/basicalSetting/teacherManagement/detail',
-            state: {
-              type: 'detail',
-              data: record
-            }
-          }}>详情</Link>
-          <Divider type='vertical' />
-          <Link to={{
-            pathname: '/basicalSetting/teacherManagement/detail',
-            state: {
-              type: 'edit',
-              data: record
-            }
-          }}>编辑</Link>
-          <Divider type='vertical' />
+          <Link
+            to={{
+              pathname: '/basicalSetting/teacherManagement/detail',
+              state: {
+                type: 'detail',
+                data: record
+              }
+            }}
+          >
+            详情
+          </Link>
+          <Divider type="vertical" />
+          <Link
+            to={{
+              pathname: '/basicalSetting/teacherManagement/detail',
+              state: {
+                type: 'edit',
+                data: record
+              }
+            }}
+          >
+            编辑
+          </Link>
+          <Divider type="vertical" />
           <Popconfirm title={`确定要删除 “${record?.XM}” 数据吗?`} onConfirm={() => handleConfirm(record?.id)}>
             <a>删除</a>
           </Popconfirm>
@@ -160,32 +166,31 @@ const TeacherManagement = () => {
         className={styles.schoolTable}
         actionRef={actionRef}
         search={false}
-        request={
-          async (
-            params: any & {
-              pageSize?: number;
-              current?: number;
-              keyword?: string;
-            },
-            sort,
-            filter,
-          ): Promise<Partial<RequestData<any>>> => {
-            // 表单搜索项会从 params 传入，传递给后端接口。
-            const opts: TableListParams = {
-              ...params,
-              sorter: sort && Object.keys(sort).length ? sort : undefined,
-              filter,
+        request={async (
+          params: any & {
+            pageSize?: number;
+            current?: number;
+            keyword?: string;
+          },
+          sort,
+          filter
+        ): Promise<Partial<RequestData<any>>> => {
+          // 表单搜索项会从 params 传入，传递给后端接口。
+          const opts: TableListParams = {
+            ...params,
+            sorter: sort && Object.keys(sort).length ? sort : undefined,
+            filter
+          };
+          const res = await getKHJSSJ({ JGId: currentUser?.jgId, keyWord: opts.keyword, page: 0, pageSize: 0 }, opts);
+          if (res.status === 'ok') {
+            return {
+              data: res.data?.rows,
+              total: res.data?.count,
+              success: true
             };
-            const res = await getKHJSSJ({ JGId: currentUser?.jgId, keyWord: opts.keyword, page: 0, pageSize: 0 }, opts);
-            if (res.status === 'ok') {
-              return {
-                data: res.data?.rows,
-                total: res.data?.count,
-                success: true,
-              };
-            }
-            return {}
-          }}
+          }
+          return {};
+        }}
         options={{
           setting: false,
           fullScreen: false,
@@ -217,13 +222,13 @@ const TeacherManagement = () => {
           </Button>,
           <Button key="submit" type="primary" onClick={onClose}>
             确定
-          </Button>,
+          </Button>
         ]}
         centered
         maskClosable={false}
         bodyStyle={{
           maxHeight: '65vh',
-          overflowY: 'auto',
+          overflowY: 'auto'
         }}
       >
         <p className={styles.uploadBtn}>
