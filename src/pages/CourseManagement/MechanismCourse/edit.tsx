@@ -358,21 +358,23 @@ const Edit = (props: any) => {
               marginTop: 24
             }}
           >
+           
             <Button
-              style={{ marginRight: 16 }}
-              onClick={() => {
-                history.goBack();
-              }}
-            >
-              取消
-            </Button>
-            <Button
+            style={{ marginRight: 16 }}
               type="primary"
               onClick={() => {
                 forms?.submit();
               }}
             >
               保存
+            </Button>
+            <Button
+              
+              onClick={() => {
+                history.goBack();
+              }}
+            >
+              取消
             </Button>
           </div>
         </div>
