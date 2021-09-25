@@ -10,6 +10,7 @@ import { history, useModel } from 'umi';
 import styles from '../index.module.less';
 import { createKHJYTZGG, KHJYTZGG, updateKHJYTZGG } from '@/services/after-class-pxjg/khjytzgg';
 import { LeftOutlined } from '@ant-design/icons';
+import moment from 'moment';
 
 const { Option } = Select;
 
@@ -36,7 +37,7 @@ const EditArticle = () => {
   const initialValues = {
     LX: 0,
     BH: 10,
-    RQ: dayjs(),
+    RQ: moment(new Date()),
     LY: '本站原创',
     SFTT: false,
     SFTJ: false
@@ -99,7 +100,7 @@ const EditArticle = () => {
             const { data } = result;
             const initData = {
               ...data,
-              RQ: dayjs(data.RQ),
+              RQ: moment(data.RQ),
               NR: BraftEditor.createEditorState(data.NR)
             };
             form.setFieldsValue(initData);
