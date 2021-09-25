@@ -2,11 +2,11 @@
  * @description: 统一定义loading
  * @author: zpl
  * @Date: 2021-07-20 16:59:30
- * @LastEditTime: 2021-09-09 11:39:29
- * @LastEditors: Sissle Lynn
+ * @LastEditTime: 2021-09-25 09:05:27
+ * @LastEditors: zpl
  */
 import React from 'react';
-import loadingImg from '@/assets/load.gif';
+import loadingImg from '@/assets/loading.gif';
 
 const Loading = () => {
   return (
