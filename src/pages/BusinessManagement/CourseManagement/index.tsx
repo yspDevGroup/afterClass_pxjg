@@ -2,15 +2,15 @@
  * @description:
  * @author: Sissle Lynn
  * @Date: 2021-08-24 14:37:02
- * @LastEditTime: 2021-09-10 09:14:49
- * @LastEditors: Sissle Lynn
+ * @LastEditTime: 2021-09-26 10:25:36
+ * @LastEditors: zpl
  */
 import React, { useRef, useState } from 'react';
 import { Link, useModel } from 'umi';
 import { Button, Divider, Input, FormInstance, message, Modal, Tag } from 'antd';
 import ProTable, { RequestData } from '@ant-design/pro-table';
 import type { ActionType, ProColumns } from '@ant-design/pro-table';
-import OperationForm from '../components/operationForm';
+import OperationForm from '../components/OperationForm';
 import { applyStatus, TableListParams } from '@/constant';
 
 import styles from './index.less';
@@ -101,8 +101,8 @@ const CourseManagement = () => {
         const grade = record.KHKCSJ?.NJSJs;
         return <EllipsisHint
         width="100%"
-        text={grade?.map((item: any) => {
-          return <Tag color="#EFEFEF" style={{ color: '#333' }}>{item.NJMC}</Tag>;
+        text={grade?.map((item) => {
+          return <Tag key={item.id} color="#EFEFEF" style={{ color: '#333' }}>{item.NJMC}</Tag>;
         })}
       />
       },

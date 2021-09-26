@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import Register from '@/components/IndexComp/register';
+import React from 'react';
+import Register from '@/components/IndexComp/Register';
 import IndexComp from '@/components/IndexComp';
 import { useModel } from 'umi';
 
