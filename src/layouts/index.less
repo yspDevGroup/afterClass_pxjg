@@ -13,18 +13,17 @@
   }
 
   :global {
-    .ant-pagination{
+    .ant-pagination {
       display: flex;
       justify-content: center;
       margin-top: 46px !important;
     }
 
-
     // 调整左侧菜单
     .ant-pro-sider.ant-layout-sider {
       background-color: @second-color;
 
-      &+.ant-layout {
+      & + .ant-layout {
         min-width: 990px;
       }
 
@@ -47,9 +46,9 @@
           height: auto !important;
         }
 
-        &+div {
-          margin-top: @padding-lg;
-        }
+        // & + div {
+        //   margin-top: @padding-lg;
+        // }
       }
 
       .ant-menu {
@@ -57,7 +56,6 @@
 
         .ant-menu-item,
         .ant-menu-submenu {
-
           .ant-pro-menu-item-title,
           .anticon,
           .ant-menu-submenu-arrow {
@@ -91,7 +89,6 @@
 
     // 调整底部菜单
     .ant-layout-footer {
-
       .ant-pro-global-footer {
         margin: 24px 0;
 
@@ -99,27 +96,29 @@
           display: none;
         }
       }
-
     }
   }
 
   .customPageHeader {
-    >div[class*='ant-pro-grid-content'] {
+    > div[class*='ant-pro-grid-content'] {
       height: calc(~'100vh - 198px');
     }
 
     :global {
       .ant-page-header.has-breadcrumb {
-        padding-top: @padding-md;
+        padding-top: @padding-sm;
       }
 
       .ant-page-header {
         display: flex;
-        height: 80px;
+        height: 6vh;
         box-shadow: 0 1px 0 #e3e6f2;
 
         .ant-page-header-heading {
           flex: auto;
+          .ant-page-header-heading-extra {
+            margin: 0;
+          }
         }
 
         .ant-breadcrumb {
@@ -129,11 +128,11 @@
           min-width: 200px;
           text-align: justify;
 
-          >span {
+          > span {
             display: flex;
           }
 
-          &+.ant-page-header-heading {
+          & + .ant-page-header-heading {
             width: 200px;
           }
         }
@@ -172,6 +171,6 @@
 :global {
   .ant-menu-sub {
     color: rgba(255, 255, 255, 0.65);
-    background-color: @second-color  !important;
+    background-color: @second-color !important;
   }
 }
