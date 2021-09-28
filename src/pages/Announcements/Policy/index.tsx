@@ -37,15 +37,6 @@ const TableList = () => {
       align: 'center'
     },
     {
-      title: '副标题',
-      dataIndex: 'FBT',
-      key: 'FBT',
-      ellipsis: true,
-      align: 'center',
-      search: false
-    },
-
-    {
       title: '作者',
       dataIndex: 'ZZ',
       key: 'ZZ',

@@ -105,7 +105,7 @@ export default {
               {
                 path: '/announcements/notice/articleDetails',
                 hideInMenu: 'true',
-                name: '公告详情'
+                name: '通知详情'
               }
             ]
           },
