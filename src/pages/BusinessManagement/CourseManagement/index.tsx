@@ -58,32 +58,32 @@ const CourseManagement = () => {
       dataIndex: 'index',
       valueType: 'index',
       width: 58,
-      align: 'center',
+      align: 'center'
     },
     {
       title: '课程名称',
       dataIndex: 'KHKCSJ',
       key: 'KHKCSJ',
       align: 'center',
-      width: 200,
+      width: 150,
       ellipsis: true,
-      render: (_, record) => record.KHKCSJ?.KCMC,
+      render: (_, record) => record.KHKCSJ?.KCMC
     },
     {
       title: '学校名称',
       key: 'XXJBSJ',
       dataIndex: 'XXJBSJ',
       align: 'center',
-      width: 180,
-      ellipsis:true,
-      render: (_, record) => record.XXJBSJ?.XXMC,
+      width: 150,
+      ellipsis: true,
+      render: (_, record) => record.XXJBSJ?.XXMC
     },
     {
       title: '课程类型',
       dataIndex: 'KHKCLX',
       key: 'KHKCLX',
       align: 'center',
-      width: 120,
+      width: 100,
       search: false,
       ellipsis: true,
       render: (_, record) => {
@@ -95,35 +95,41 @@ const CourseManagement = () => {
       key: 'SYNJ',
       dataIndex: 'SYNJ',
       align: 'center',
-      width: 220,
+      width: 200,
       hideInTable: activeKey === 'audit',
       render: (_, record) => {
         const grade = record.KHKCSJ?.NJSJs;
-        return <EllipsisHint
-        width="100%"
-        text={grade?.map((item) => {
-          return <Tag key={item.id} color="#EFEFEF" style={{ color: '#333' }}>{item.NJMC}</Tag>;
-        })}
-      />
-      },
+        return (
+          <EllipsisHint
+            width="100%"
+            text={grade?.map((item) => {
+              return (
+                <Tag key={item.id} color="#EFEFEF" style={{ color: '#333' }}>
+                  {item.NJMC}
+                </Tag>
+              );
+            })}
+          />
+        );
+      }
     },
     {
       title: '联系人',
       key: 'LXR',
       dataIndex: 'LXR',
       align: 'center',
-      width: 110,
+      width: 80,
       hideInTable: activeKey !== 'audit',
-      render: (_, record) => record.XXJBSJ?.LXR,
+      render: (_, record) => record.XXJBSJ?.LXR
     },
     {
       title: '联系电话',
       key: 'LXDH',
       dataIndex: 'LXDH',
       align: 'center',
-      width: 180,
+      width: 120,
       hideInTable: activeKey !== 'audit',
-      render: (_, record) => record.XXJBSJ?.LXDH,
+      render: (_, record) => record.XXJBSJ?.LXDH
     },
     {
       title: '申请时间',
@@ -150,7 +156,7 @@ const CourseManagement = () => {
             })}
           />
         );
-      },
+      }
     },
     {
       title: '操作人',
@@ -158,7 +164,7 @@ const CourseManagement = () => {
       dataIndex: 'SPR',
       hideInTable: true,
       align: 'center',
-      width: 120
+      width: 80
     },
     {
       title: '状态',
@@ -168,9 +174,7 @@ const CourseManagement = () => {
       align: 'center',
       width: 100,
       render: (_, record) => {
-        return <span>
-          {record.ZT ? applyStatus[record.ZT] : '-'}
-        </span>
+        return <span>{record.ZT ? applyStatus[record.ZT] : '-'}</span>;
       }
     },
     {
@@ -187,44 +191,66 @@ const CourseManagement = () => {
       width: 230,
       align: 'center',
       render: (_, record) => {
-        return <>
-          <div>
-            <Link to={{
-              pathname: '/businessManagement/courseManagement/detail',
-              state: {
-                type: 'school',
-                data: record.XXJBSJ
-              }
-            }}>学校详情</Link>
-            <Divider type='vertical' />
-            {activeKey !== 'audit' ? <>
-              <Link to={{
-                pathname: '/courseManagement/mechanismCourse/edit',
-                state: {
-                  ...record.KHKCSJ,
-                  type: 'info'
-                }
-              }}>课程详情</Link>
-              <Divider type='vertical' />
-              <Link to={{
-                pathname: '/businessManagement/courseManagement/detail',
-                state: {
-                  type: 'course',
-                  data: {
-                    type: 'detail',
-                    xxid: record.XXJBSJId,
-                    jgid: currentUser?.jgId,
-                    kcid: record.KHKCSJ?.id,
-                    xxmc: record.XXJBSJ?.XXMC,
+        return (
+          <>
+            <div>
+              <Link
+                to={{
+                  pathname: '/businessManagement/courseManagement/detail',
+                  state: {
+                    type: 'school',
+                    data: record.XXJBSJ
                   }
-                }
-              }}>班级详情</Link>
-            </> : <a onClick={() => {
-              setRecordId(record.id!);
-              setModalVisible(true);
-            }}>确认合作</a>}
-          </div>
-        </>
+                }}
+              >
+                学校详情
+              </Link>
+              <Divider type="vertical" />
+              {activeKey !== 'audit' ? (
+                <>
+                  <Link
+                    to={{
+                      pathname: '/courseManagement/mechanismCourse/edit',
+                      state: {
+                        ...record.KHKCSJ,
+                        type: 'info'
+                      }
+                    }}
+                  >
+                    课程详情
+                  </Link>
+                  <Divider type="vertical" />
+                  <Link
+                    to={{
+                      pathname: '/businessManagement/courseManagement/detail',
+                      state: {
+                        type: 'course',
+                        data: {
+                          type: 'detail',
+                          xxid: record.XXJBSJId,
+                          jgid: currentUser?.jgId,
+                          kcid: record.KHKCSJ?.id,
+                          xxmc: record.XXJBSJ?.XXMC
+                        }
+                      }
+                    }}
+                  >
+                    班级详情
+                  </Link>
+                </>
+              ) : (
+                <a
+                  onClick={() => {
+                    setRecordId(record.id!);
+                    setModalVisible(true);
+                  }}
+                >
+                  确认合作
+                </a>
+              )}
+            </div>
+          </>
+        );
       }
     }
   ];
@@ -236,33 +262,35 @@ const CourseManagement = () => {
         className={styles.courseTable}
         actionRef={actionRef}
         search={false}
-        request={
-          async (
-            params: KHKCSQSJ & {
-              pageSize?: number;
-              current?: number;
-              keyword?: string;
-            },
-            sort,
-            filter,
-          ): Promise<Partial<RequestData<KHKCSQSJ>>> => {
-            // 表单搜索项会从 params 传入，传递给后端接口。
-            const opts: TableListParams = {
-              ...params,
-              sorter: sort && Object.keys(sort).length ? sort : undefined,
-              filter,
+        request={async (
+          params: KHKCSQSJ & {
+            pageSize?: number;
+            current?: number;
+            keyword?: string;
+          },
+          sort,
+          filter
+        ): Promise<Partial<RequestData<KHKCSQSJ>>> => {
+          // 表单搜索项会从 params 传入，传递给后端接口。
+          const opts: TableListParams = {
+            ...params,
+            sorter: sort && Object.keys(sort).length ? sort : undefined,
+            filter
+          };
+          let status = activeKey === 'audit' ? [0] : activeKey === 'duration' ? [1] : [2, 3];
+          const res = await getKHKCSQ(
+            { JGId: currentUser?.jgId, ZT: status, KCMC: courseName, XXMC: schoolName, page: 0, pageSize: 0 },
+            opts
+          );
+          if (res.status === 'ok') {
+            return {
+              data: res.data?.rows,
+              total: res.data.count,
+              success: true
             };
-            let status = activeKey === 'audit' ? [0] : activeKey === 'duration' ? [1] : [2, 3];
-            const res = await getKHKCSQ({ JGId: currentUser?.jgId, ZT: status, KCMC: courseName, XXMC: schoolName, page: 0, pageSize: 0 }, opts);
-            if (res.status === 'ok') {
-              return {
-                data: res.data?.rows,
-                total: res.data.count,
-                success: true,
-              };
-            }
-            return {}
-          }}
+          }
+          return {};
+        }}
         toolbar={{
           menu: {
             type: 'tab',
@@ -270,22 +298,22 @@ const CourseManagement = () => {
             items: [
               {
                 key: 'audit',
-                label: <span>待处理申请</span>,
+                label: <span>待处理申请</span>
               },
               {
                 key: 'duration',
-                label: <span>合作中课程</span>,
+                label: <span>合作中课程</span>
               },
               {
                 key: 'history',
-                label: <span>历史课程</span>,
-              },
+                label: <span>历史课程</span>
+              }
             ],
             onChange: (key) => {
               setActiveKey(key as string);
               actionRef.current?.reload();
-            },
-          },
+            }
+          }
         }}
         options={{
           setting: false,
@@ -294,8 +322,20 @@ const CourseManagement = () => {
           reload: false,
           search: (
             <div>
-              <Search name='KCMC' style={{ width: 200, marginRight: '16px' }} allowClear placeholder="课程名称" onSearch={(value: string) => changeList('kc', value)} />
-              <Search name='XXMC' style={{ width: 200 }} allowClear placeholder="学校名称" onSearch={(value: string) => changeList('xx', value)} />
+              <Search
+                name="KCMC"
+                style={{ width: 200, marginRight: '16px' }}
+                allowClear
+                placeholder="课程名称"
+                onSearch={(value: string) => changeList('kc', value)}
+              />
+              <Search
+                name="XXMC"
+                style={{ width: 200 }}
+                allowClear
+                placeholder="学校名称"
+                onSearch={(value: string) => changeList('xx', value)}
+              />
             </div>
           )
         }}
@@ -303,7 +343,7 @@ const CourseManagement = () => {
         dateFormatter="string"
       />
       <Modal
-        title='待处理申请'
+        title="待处理申请"
         destroyOnClose
         width="35vw"
         visible={modalVisible}
@@ -312,7 +352,7 @@ const CourseManagement = () => {
           <Button key="back" onClick={() => setModalVisible(false)}>
             取消
           </Button>,
-          <Button key="submit" type="primary" onClick={handleSubmit} >
+          <Button key="submit" type="primary" onClick={handleSubmit}>
             确定
           </Button>
         ]}
@@ -323,7 +363,7 @@ const CourseManagement = () => {
         <OperationForm
           current={{
             id: recordId,
-            ZT: "1"
+            ZT: '1'
           }}
           setForm={setForm}
         />
