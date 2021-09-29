@@ -5,10 +5,10 @@
     }
 
     span {
-      color: #f0f5f9;
       display: block;
-      text-align: center;
+      color: #f0f5f9;
       font-size: 12px;
+      text-align: center;
     }
   }
 
@@ -23,30 +23,26 @@
     .ant-pro-sider.ant-layout-sider {
       background-color: @second-color;
 
-      & + .ant-layout {
-        min-width: 990px;
-      }
-
       .ant-pro-sider-logo {
         justify-content: center;
         height: 100px;
         background-color: rgba(33, 48, 69, 1);
 
         h1 {
+          display: block;
           margin: 0;
           color: #fff;
-          text-align: center;
-          line-height: 50px;
-          display: block;
           font-weight: normal;
           font-size: @font-size-lg;
+          line-height: 50px;
+          text-align: center;
         }
 
         img {
           height: auto !important;
         }
 
-        // & + div {
+        // &+div {
         //   margin-top: @padding-lg;
         // }
       }
@@ -100,18 +96,12 @@
   }
 
   .customPageHeader {
-    > div[class*='ant-pro-grid-content'] {
-      height: calc(~'100vh - 198px');
-    }
-
     :global {
-      .ant-page-header.has-breadcrumb {
-        padding-top: @padding-sm;
-      }
-
       .ant-page-header {
         display: flex;
         height: 6vh;
+        padding: 0 24px;
+        line-height: 6vh;
         box-shadow: 0 1px 0 #e3e6f2;
 
         .ant-page-header-heading {
@@ -134,13 +124,12 @@
 
           & + .ant-page-header-heading {
             width: 200px;
+            margin: 0;
           }
         }
       }
 
       .ant-pro-grid-content {
-        overflow: auto;
-
         .ant-pro-table {
           .ant-pro-table-list-toolbar-title {
             font-weight: bold;
@@ -150,24 +139,27 @@
             gap: 0 !important;
           }
 
-          .ant-table table {
-            table-layout: inherit !important;
+          .ant-table-wrapper {
+            width: 100%;
+            overflow: auto;
+
+            .ant-table {
+              min-width: 700px;
+
+              .ui-table-col-elp {
+                display: inline-block;
+                width: 100%;
+                overflow: hidden;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+              }
+            }
           }
         }
-      }
-
-      .cusTitleBar {
-        border-bottom: 1px solid #dadada;
-        font-weight: bold;
-        font-size: 16px;
-        margin: 0;
-        line-height: 60px;
-        text-indent: 24px;
       }
     }
   }
 }
-
 :global {
   .ant-menu-sub {
     color: rgba(255, 255, 255, 0.65);

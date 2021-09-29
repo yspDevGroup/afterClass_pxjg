@@ -667,7 +667,7 @@ const InfoMaintenance = (props: any) => {
             ) : (
               <>
                 <Button type="primary" htmlType="submit">
-                  提交
+                  保存
                 </Button>
                 <Button htmlType="button" onClick={onReset}>
                   取消
