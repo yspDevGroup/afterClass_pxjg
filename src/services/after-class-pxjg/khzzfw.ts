@@ -2,21 +2,20 @@
 /* eslint-disable */
 import { request } from 'umi';
 
-/** 创建课后服务-课程评价数据 PUT /khbjpj/create */
-export async function createKHBJPJ(body: API.CreateKHBJPJ, options?: { [key: string]: any }) {
+/** 创建课后增值服务 PUT /khzzfw/create */
+export async function createKHZZFW(body: API.CreateKHZZFW, options?: { [key: string]: any }) {
   return request<{
     status?: 'ok' | 'error';
     data: {
       id?: string;
-      PJFS?: number;
-      PY?: string;
-      XSId?: string;
-      XSXM?: string;
-      PJR?: string;
-      KHBJSJId?: string;
+      FWMC?: string;
+      FWNR?: string;
+      FWJGMC?: string;
+      FWZT?: number;
+      NJSJs?: { id?: string; NJ?: number; NJMC?: string; XD?: string }[];
     };
     message?: string;
-  }>('/khbjpj/create', {
+  }>('/khzzfw/create', {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
@@ -26,17 +25,15 @@ export async function createKHBJPJ(body: API.CreateKHBJPJ, options?: { [key: str
   });
 }
 
-/** 获取课后服务-课程评价数据 POST /khbjpj/getAll */
-export async function getKHBJPJ(
+/** 获取课后增值服务 POST /khzzfw/getAll */
+export async function getKHZZFW(
   body: {
-    /** 班级ID */
-    KHBJSJId?: string;
-    /** 学生ID */
-    XSId?: string;
     /** 学校ID */
     XXJBSJId?: string;
-    /** 学年学期ID */
-    XNXQId?: string;
+    /** 状态 */
+    FWZT?: number;
+    /** 服务名称 */
+    FWMC?: string;
     /** 页数 */
     page?: number;
     /** 每页记录数 */
@@ -44,7 +41,11 @@ export async function getKHBJPJ(
   },
   options?: { [key: string]: any },
 ) {
-  return request<any>('/khbjpj/getAll', {
+  return request<{
+    status?: 'ok' | 'error';
+    data?: { count?: number; rows?: API.KHZZFW[] };
+    message?: string;
+  }>('/khzzfw/getAll', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -54,35 +55,35 @@ export async function getKHBJPJ(
   });
 }
 
-/** 删除课后服务-课程评价数据 DELETE /khbjpj/${param0} */
-export async function deleteKHBJPJ(
+/** 删除课后增值服务 DELETE /khzzfw/${param0} */
+export async function deleteKHZZFW(
   params: {
     // path
-    /** 课后服务-课程评价数据ID */
+    /** 课后增值服务ID */
     id: string;
   },
   options?: { [key: string]: any },
 ) {
   const { id: param0, ...queryParams } = params;
-  return request<{ status?: 'ok' | 'error'; message?: string }>(`/khbjpj/${param0}`, {
+  return request<{ status?: 'ok' | 'error'; message?: string }>(`/khzzfw/${param0}`, {
     method: 'DELETE',
     params: { ...queryParams },
     ...(options || {}),
   });
 }
 
-/** 更新课后服务-课程评价数据 PUT /khbjpj/update/${param0} */
-export async function updateKHBJPJ(
+/** 更新课后增值服务 PUT /khzzfw/update/${param0} */
+export async function updateKHZZFW(
   params: {
     // path
-    /** 课后服务-课程评价数据ID */
+    /** 课后增值服务数据ID */
     id: string;
   },
-  body: API.UpdateKHBJPJ,
+  body: API.UpdateKHZZFW,
   options?: { [key: string]: any },
 ) {
   const { id: param0, ...queryParams } = params;
-  return request<{ status?: 'ok' | 'error'; message?: string }>(`/khbjpj/update/${param0}`, {
+  return request<{ status?: 'ok' | 'error'; message?: string }>(`/khzzfw/update/${param0}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',

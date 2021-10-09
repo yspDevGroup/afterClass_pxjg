@@ -165,6 +165,8 @@ export async function getToIntroduceBySchool(
     XZQHM?: string;
     /** 课程名称 */
     KCMC?: string;
+    /** 课程所属学段 */
+    XD?: string[];
     /** 课后教育机构名称 */
     KHJYJG?: string;
     /** 课程类型ID */

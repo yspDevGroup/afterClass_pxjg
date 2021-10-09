@@ -291,3 +291,118 @@ export async function homePage(
     ...(options || {}),
   });
 }
+
+/** 教育局获取订单信息 POST /jyjgsj/getOrders */
+export async function getOrders(
+  body: {
+    XZQHM?: string;
+    XXJBSJId?: string;
+    DDLX?: number;
+    /** 学年学期ID */
+    XNXQId?: string;
+    KCMC?: string;
+    /** 班级名称 */
+    bjmc?: string;
+    /** 课程名称 */
+    kcmc?: string;
+    /** 课后服务订单状态 */
+    DDZT?: string;
+  },
+  options?: { [key: string]: any },
+) {
+  return request<any>('/jyjgsj/getOrders', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data: body,
+    ...(options || {}),
+  });
+}
+
+/** 获取市教育局大屏数据 POST /jyjgsj/getScreenInfo */
+export async function getScreenInfo(
+  body: {
+    XZQHM?: string;
+    XN?: string;
+    XQ?: string;
+  },
+  options?: { [key: string]: any },
+) {
+  return request<any>('/jyjgsj/getScreenInfo', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data: body,
+    ...(options || {}),
+  });
+}
+
+/** 区县教育局获取课程评价信息 POST /jyjgsj/getCoursesEvaluation */
+export async function getCoursesEvaluation(
+  body: {
+    XZQHM?: string;
+    /** 课程名称 */
+    KCMC?: string;
+    /** 课程类型 */
+    KCLX?: string;
+    /** 课程来源 */
+    KCLY?: string;
+    /** 学校ID */
+    XXJBSJId?: string;
+    /** 机构ID */
+    KHJYJGId?: string;
+    /** 学年 */
+    XN?: string;
+    /** 学期 */
+    XQ?: string;
+    /** 页数 */
+    page?: number;
+    /** 每页记录数 */
+    pageSize?: number;
+  },
+  options?: { [key: string]: any },
+) {
+  return request<any>('/jyjgsj/getCoursesEvaluation', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data: body,
+    ...(options || {}),
+  });
+}
+
+/** 区县教育局获取课程统计报表 POST /jyjgsj/getCoursesInfo */
+export async function getCoursesInfo(
+  body: {
+    XZQHM?: string;
+    /** 课程名称 */
+    KCMC?: string;
+    /** 课程类型 */
+    KCLX?: string;
+    /** 课程来源 */
+    KCLY?: string;
+    /** 学校ID */
+    XXJBSJId?: string;
+    /** 机构ID */
+    KHJYJGId?: string;
+    /** 学年学期 */
+    XNXQ?: string;
+    /** 页数 */
+    page?: number;
+    /** 每页记录数 */
+    pageSize?: number;
+  },
+  options?: { [key: string]: any },
+) {
+  return request<any>('/jyjgsj/getCoursesInfo', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data: body,
+    ...(options || {}),
+  });
+}

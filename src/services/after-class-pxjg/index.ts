@@ -25,6 +25,7 @@ import * as kcsj from './kcsj';
 import * as khbjpj from './khbjpj';
 import * as khbjsj from './khbjsj';
 import * as khjgrzsq from './khjgrzsq';
+import * as khjscq from './khjscq';
 import * as khjspj from './khjspj';
 import * as khjssj from './khjssj';
 import * as khjyjg from './khjyjg';
@@ -34,13 +35,18 @@ import * as khkcsj from './khkcsj';
 import * as khkcsq from './khkcsq';
 import * as khpksj from './khpksj';
 import * as khtksj from './khtksj';
+import * as khxkjl from './khxkjl';
+import * as khxksj from './khxksj';
 import * as khxscq from './khxscq';
 import * as khxsdd from './khxsdd';
 import * as khxspj from './khxspj';
 import * as khxsqj from './khxsqj';
+import * as khxxzzfw from './khxxzzfw';
+import * as khzzfw from './khzzfw';
 import * as njsj from './njsj';
 import * as pksj from './pksj';
 import * as redis from './redis';
+import * as reports from './reports';
 import * as sso from './sso';
 import * as upload from './upload';
 import * as wechat from './wechat';
@@ -86,6 +92,7 @@ export default {
   khbjpj,
   khbjsj,
   khjgrzsq,
+  khjscq,
   khjspj,
   khjssj,
   khjyjg,
@@ -95,13 +102,18 @@ export default {
   khkcsq,
   khpksj,
   khtksj,
+  khxkjl,
+  khxksj,
   khxscq,
   khxsdd,
   khxspj,
   khxsqj,
+  khxxzzfw,
+  khzzfw,
   njsj,
   pksj,
   redis,
+  reports,
   sso,
   upload,
   wechat,
@@ -122,5 +134,5 @@ export default {
   xxsjpz,
   xxtzgg,
   zxfa,
-  zxsj
+  zxsj,
 };

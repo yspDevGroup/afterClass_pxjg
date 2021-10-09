@@ -6,7 +6,7 @@ import { LeftOutlined } from '@ant-design/icons';
 
 const ArticleDetails = (props: any) => {
   const { state } = props.history.location;
-  return (
+return (
     <>
       <Button
         type="primary"

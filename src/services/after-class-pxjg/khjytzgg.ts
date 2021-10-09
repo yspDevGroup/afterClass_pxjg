@@ -99,6 +99,8 @@ export async function getKHJYTZGG(
     BT?: string;
     /** 类型 */
     LX?: number;
+    /** 机构ID */
+    KHJYJGId?: string;
     /** 状态 */
     ZT?: string[];
     /** 页数 */

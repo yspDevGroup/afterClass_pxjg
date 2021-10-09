@@ -11,7 +11,8 @@ import {
   FileTextOutlined,
   BlockOutlined,
   AppstoreAddOutlined,
-  NotificationOutlined
+  NotificationOutlined,
+  ZoomInOutlined
 } from '@ant-design/icons';
 export default {
   route: {
@@ -89,6 +90,43 @@ export default {
         hideInMenu: 'true'
       },
       {
+        path: '/query',
+        name: '查询',
+        icon: <ZoomInOutlined />,
+        routes: [
+          {
+            path: '/query/patrolclass',
+            name: '巡课查询',
+          },
+          {
+            path: '/query/reimbursementclass',
+            name: '退课查询',
+          },
+          {
+            path: '/query/appraise',
+            name: '评价查询',
+            routes: [
+              {
+                path: '/query/appraise/course',
+                name: '评价查询课程',
+                hideInMenu: 'true'
+              },
+              {
+                path: '/query/appraise/class',
+                name: '评价查询班级',
+                hideInMenu: 'true'
+              },
+              {
+                path: '/query/appraise/details',
+                name: '评价查询班级',
+                hideInMenu: 'true'
+
+              }
+            ]
+          },
+        ]
+      },
+      {
         path: '/announcements',
         name: '通知公告',
         icon: <NotificationOutlined />,
@@ -105,7 +143,7 @@ export default {
               {
                 path: '/announcements/notice/articleDetails',
                 hideInMenu: 'true',
-                name: '通知详情'
+                name: '公告详情'
               }
             ]
           },

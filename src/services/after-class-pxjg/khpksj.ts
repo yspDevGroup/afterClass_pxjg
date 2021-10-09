@@ -9,7 +9,7 @@ export async function getKHPKSJ(
     /** 课后排课ID */
     id: string;
   },
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{
@@ -75,7 +75,7 @@ export async function getKHPKSJ(
   }>(`/khpksj/${param0}`, {
     method: 'GET',
     params: { ...queryParams },
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -86,13 +86,13 @@ export async function deleteKHPKSJ(
     /** 课后排课ID */
     id: string;
   },
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{ status?: 'ok' | 'error'; message?: string }>(`/khpksj/${param0}`, {
     method: 'DELETE',
     params: { ...queryParams },
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -103,14 +103,17 @@ export async function getKHPKSJByBJID(
     /** 班级ID */
     id: string;
   },
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   const { id: param0, ...queryParams } = params;
-  return request<{ status?: 'ok' | 'error'; data?: API.KHPKSJ[]; message?: string }>(`/khpksj/weekSchedule/${param0}`, {
-    method: 'GET',
-    params: { ...queryParams },
-    ...(options || {})
-  });
+  return request<{ status?: 'ok' | 'error'; data?: API.KHPKSJ[]; message?: string }>(
+    `/khpksj/weekSchedule/${param0}`,
+    {
+      method: 'GET',
+      params: { ...queryParams },
+      ...(options || {}),
+    },
+  );
 }
 
 /** 查询所有课后排课数据 POST /khpksj/ */
@@ -123,15 +126,15 @@ export async function getAllKHPKSJ(
     /** 课程名称 */
     name?: string;
   },
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   return request<{ status?: 'ok' | 'error'; data?: API.KHPKSJ[]; message?: string }>('/khpksj/', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -141,7 +144,7 @@ export async function createKHPKSJ(
     bjIds?: string[];
     data?: API.CreateKHPKSJ[];
   },
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   return request<{
     status?: 'ok' | 'error';
@@ -157,10 +160,10 @@ export async function createKHPKSJ(
   }>('/khpksj/create', {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -172,17 +175,17 @@ export async function updateKHPKSJ(
     id: string;
   },
   body: API.UpdateKHPKSJ,
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{ status?: 'ok' | 'error'; message?: string }>(`/khpksj/update/${param0}`, {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     params: { ...queryParams },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -196,14 +199,14 @@ export async function getAgencySchedule(
     /** 课程名称 */
     KCMC?: string;
   },
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   return request<any>('/khpksj/getAgencySchedule', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }
