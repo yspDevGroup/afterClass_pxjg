@@ -3,12 +3,12 @@
 // API 更新时间：
 // API 唯一标识：
 import * as other from './other';
-import * as auth from './auth';
-import * as user from './user';
 import * as bjsj from './bjsj';
 import * as jzgjbsj from './jzgjbsj';
-import * as fjlx from './fjlx';
+import * as auth from './auth';
+import * as user from './user';
 import * as fjsj from './fjsj';
+import * as fjlx from './fjlx';
 import * as jcsj from './jcsj';
 import * as jcxx from './jcxx';
 import * as jxjhsj from './jxjhsj';
@@ -22,8 +22,8 @@ import * as jzglwsj from './jzglwsj';
 import * as jzgrysj from './jzgrysj';
 import * as jzgxxjl from './jzgxxjl';
 import * as kcsj from './kcsj';
-import * as khbjpj from './khbjpj';
 import * as khbjsj from './khbjsj';
+import * as khbjpj from './khbjpj';
 import * as khjgrzsq from './khjgrzsq';
 import * as khjscq from './khjscq';
 import * as khjspj from './khjspj';
@@ -33,6 +33,7 @@ import * as khjytzgg from './khjytzgg';
 import * as khkclx from './khkclx';
 import * as khkcsj from './khkcsj';
 import * as khkcsq from './khkcsq';
+import * as khktfc from './khktfc';
 import * as khpksj from './khpksj';
 import * as khtksj from './khtksj';
 import * as khxkjl from './khxkjl';
@@ -41,6 +42,7 @@ import * as khxscq from './khxscq';
 import * as khxsdd from './khxsdd';
 import * as khxspj from './khxspj';
 import * as khxsqj from './khxsqj';
+import * as khxstk from './khxstk';
 import * as khxxzzfw from './khxxzzfw';
 import * as khzzfw from './khzzfw';
 import * as njsj from './njsj';
@@ -70,12 +72,12 @@ import * as zxfa from './zxfa';
 import * as zxsj from './zxsj';
 export default {
   other,
-  auth,
-  user,
   bjsj,
   jzgjbsj,
-  fjlx,
+  auth,
+  user,
   fjsj,
+  fjlx,
   jcsj,
   jcxx,
   jxjhsj,
@@ -89,8 +91,8 @@ export default {
   jzgrysj,
   jzgxxjl,
   kcsj,
-  khbjpj,
   khbjsj,
+  khbjpj,
   khjgrzsq,
   khjscq,
   khjspj,
@@ -100,6 +102,7 @@ export default {
   khkclx,
   khkcsj,
   khkcsq,
+  khktfc,
   khpksj,
   khtksj,
   khxkjl,
@@ -108,6 +111,7 @@ export default {
   khxsdd,
   khxspj,
   khxsqj,
+  khxstk,
   khxxzzfw,
   khzzfw,
   njsj,

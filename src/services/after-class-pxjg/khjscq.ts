@@ -18,7 +18,7 @@ export async function getKHJSCQ(
       id?: string;
       CQZT?: '出勤' | '请假' | '缺席';
       CQRQ?: string;
-      KHJSSJId?: string;
+      JZGJBSJId?: string;
       KHBJSJId?: string;
     };
     message?: string;
@@ -50,7 +50,7 @@ export async function deleteKHJSCQ(
 export async function getAllKHJSCQ(
   body: {
     /** 教师ID */
-    KHJSSJId?: string;
+    JZGJBSJId?: string;
     /** 班级ID */
     KHBJSJId?: string;
     /** 出勤状态 */
@@ -81,7 +81,7 @@ export async function createKHJSCQ(body: API.CreateKHJSCQ[], options?: { [key: s
       id?: string;
       CQZT?: '出勤' | '请假' | '缺席';
       CQRQ?: string;
-      KHJSSJId?: string;
+      JZGJBSJId?: string;
       KHBJSJId?: string;
     };
     message?: string;

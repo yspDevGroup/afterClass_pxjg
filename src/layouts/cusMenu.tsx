@@ -97,10 +97,26 @@ export default {
           {
             path: '/query/patrolclass',
             name: '巡课查询',
-          },
+            routes: [
+              {
+                path: '/query/patrolclass/details',
+                name: '合作课程页面',
+                hideInMenu: 'true'
+
+              }
+
+            ]},
           {
             path: '/query/reimbursementclass',
             name: '退课查询',
+            routes: [
+              {
+                path: '/query/reimbursementClass/details',
+                name: '退课详情',
+                hideInMenu: 'true'
+               }
+            ]
+
           },
           {
             path: '/query/appraise',
@@ -124,6 +140,26 @@ export default {
               }
             ]
           },
+          {
+            path: '/query/order',
+            name: '订单查询',
+            routes:[
+                 {
+                  path: '/query/order/classorder',
+                  name: '课程订单',
+                  hideInMenu: 'true'
+
+                 },
+                 {
+                  path: '/query/order/ServiceOrder',
+                  name: '服务订单',
+                  hideInMenu: 'true'
+
+                 }
+
+            ]
+
+          }
         ]
       },
       {

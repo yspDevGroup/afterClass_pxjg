@@ -1,147 +1,160 @@
 import ProTable, { ProColumns } from '@ant-design/pro-table';
-import { Select, Popconfirm, Divider, message } from 'antd';
-import { useEffect, useRef, useState } from 'react';
-const { Option } = Select;
+import { Space,Tag } from 'antd';
+import { Link, useModel } from 'umi';
+import { getKHKCSQ, } from '@/services/after-class-pxjg/khkcsq';
+import {useEffect,useState} from 'react'
+import EllipsisHint from '@/components/EllipsisHint';
 
 
 
 
 
 const PatrolClass = () => {
-  const [termList, setTermList] = useState<any>();
+  const { initialState } = useModel('@@initialState');
+  const { currentUser } = initialState || {};
+  const [dataSource, setDataSource] = useState<any>([]);
 
-    const columns: ProColumns<API.KHXSDD>[] | undefined = [
+  useEffect(()=>{
+    (async()=>{
+      const res=await getKHKCSQ({JGId: currentUser?.jgId,ZT:[1],page: 0, pageSize: 0})
+      console.log(res);
+      if(res.status==='ok'){
+        setDataSource(res.data.rows)
+      }
+      
+
+    })()
+
+  },[])
+    const columns: ProColumns<any>[] | undefined = [
         {
             title: '序号',
+            align: 'center',
             dataIndex: 'index',
             valueType: 'index',
             width: 58,
-            align: 'center'
         },
         {
-            title: '巡课日期',
-            dataIndex: 'RQ',
-            key: 'RQ',
-            align: 'center',
-            width: 120
+          title: '课程名称',
+          dataIndex: 'KHKCSJ',
+          key: 'KHKCSJ',
+          align: 'center',
+          width: 150,
+          ellipsis: true,
+          render: (_, record) => record.KHKCSJ?.KCMC
         },
         {
-            title: '巡课教师',
-            dataIndex: 'XKJS',
-            key: 'XKJS',
-            align: 'center',
-            render: (text: any) => text?.XM,
-            width: 120
+          title: '学校名称',
+          key: 'XXJBSJ',
+          dataIndex: 'XXJBSJ',
+          align: 'center',
+          width: 150,
+          ellipsis: true,
+          render: (_, record) => record.XXJBSJ?.XXMC
+        },
+      
+        {
+          title: '课程类型',
+          dataIndex: 'KHKCLX',
+          key: 'KHKCLX',
+          align: 'center',
+          width: 100,
+          search: false,
+          ellipsis: true,
+          render: (_, record) => {
+            return record.KHKCSJ?.KHKCLX?.KCTAG || '-';
+          }
         },
         {
-            title: '授课教师',
-            dataIndex: 'SKJS',
-            key: 'SKJS',
-            align: 'center',
-            render: (text: any) => text?.XM,
-            width: 120
+          title: '适用年级',
+          key: 'SYNJ',
+          dataIndex: 'SYNJ',
+          align: 'center',
+          width: 200,
+          render: (_, record) => {
+            const grade = record.KHKCSJ?.NJSJs;
+            return (
+              <EllipsisHint
+                width="100%"
+                text={grade?.map((item) => {
+                  return (
+                    <Tag key={item.id} color="#EFEFEF" style={{ color: '#333' }}>
+                      {item.NJMC}
+                    </Tag>
+                  );
+                })}
+              />
+            );
+          }
         },
         {
-            title: '是否准时上课',
-            dataIndex: 'SFZSSK',
-            key: 'SFZSSK',
-            align: 'center',
-            render: (text) => text ? '是' : '否',
-            width: 120
+          title: '任课教师',
+          key: 'RKJS',
+          dataIndex: 'RKJS',
+          align: 'center',
+          width: 150,
+          render: (_, record) => {
+            const teacher = record.KHKCSJ?.KHKCJs;
+            return (
+              <EllipsisHint
+                width="100%"
+                text={teacher?.map((item: any) => {
+                  return <Tag key={item.id}>{item.KHJSSJ.XM}</Tag>;
+                })}
+              />
+            );
+          }
         },
+      
         {
-            title: '是否为原定教师',
-            dataIndex: 'SFYDJS',
-            key: ' SFYDJS',
+            title: '操作',
+            dataIndex: '',
+            key: '',
             align: 'center',
-            render: (text) => text ? '是' : '否',
-            width: 150
-        },
-        {
-            title: '课堂点名',
-            dataIndex: 'SFDM',
-            key: ' SFDM',
-            align: 'center',
-            render: (text) => text ? '是' : '否',
-            width: 120
-        },
-        {
-            title: '实到人数是否准确',
-            dataIndex: 'RSSFZQ',
-            key: ' RSSFZQ',
-            align: 'center',
-            render: (text) => text ? '是' : '否',
-            width: 150
-        },
-        {
-            title: '应到人数',
-            dataIndex: 'YDRS',
-            key: 'YDRS',
-            align: 'center',
-            width: 120,
-        },
-        {
-            title: '实到人数',
-            dataIndex: 'SDRS',
-            key: 'SDRS',
-            align: 'center',
-            width: 120,
-        },
-        {
-            title: '巡课确认人数',
-            dataIndex: 'QRRS',
-            key: 'QRRS',
-            align: 'center',
-            width: 120,
-        },
-        {
-            title: '备注信息',
-            dataIndex: 'BZXX',
-            key: 'BZXX',
-            align: 'center',
-            width: 220,
-            render: (text) => {
+            width: 230,
+            render: (_, record) => {
                 return (
-                    <Tooltip title={text}>
-                        <div style={{
-                            textOverflow: 'ellipsis',
-                            width: '100px',
-                            whiteSpace: 'nowrap',
-                            overflow: 'hidden',
-                            textAlign: 'center',
-                            margin: '0 auto',
-                        }}>{text}</div>
-                    </Tooltip>
-                )
-            }
+                  <Space>
+                    <Link
+                      to={{
+                        pathname: '/query/PatrolClass/Details',
+                        state: record
+                      }}
+                    >
+                      巡课详情
+                    </Link>
+                    {/* <Link
+                      to={{
+                        pathname: '/courseManagement/mechanismCourse/edit',
+                        state: {
+                          type: 'course',
+                          data: {
+                            type: 'detail',
+                            xxid: record.XXJBSJId,
+                            jgid: currentUser?.jgId,
+                            kcid: record.KHKCSJ?.id,
+                            xxmc: record.XXJBSJ?.XXMC
+                          }
+                        }
+                      }}
+                    >
+                      课程详情
+                    </Link> */}
+                   
+                  </Space>
+                );
+              }
         },
+      
+      
+      
+
+
     ]
-    
     return (
         <>
-            <div >
-                <span>
-                    所属学年学期：
-                    <Select
-                        // value={curXNXQId}
-                        style={{ width: 200 }}
-                        onChange={(value: string) => {
-                            //更新多选框的值
-                            //   setCurXNXQId(value);
-                        }}
-                    >
-                        {termList?.map((item: any) => {
-                            return (
-                                <Option key={item.value} value={item.value}>
-                                    {item.text}
-                                </Option>
-                            );
-                        })}
-                    </Select>
-                </span>
-            </div>
             <ProTable
-                //   dataSource={dataSource}
+                 dataSource={dataSource}
                 columns={columns}
                 options={{
                     setting: false,
@@ -150,11 +163,11 @@ const PatrolClass = () => {
                     reload: false,
                 }}
                 search={false}
+
             />
-
-
 
         </>
     )
 }
+PatrolClass.wrappers = ['@/wrappers/auth'];
 export default PatrolClass

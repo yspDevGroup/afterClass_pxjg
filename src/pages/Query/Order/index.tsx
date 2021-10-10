@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Link, useModel } from 'umi';
 import {cooperateSchool } from '@/services/after-class-pxjg/khjyjg';
 const { Option } = Select;
-const  ReimbursementClass=()=>{
+const Order=()=>{
   const [SchoolList, setSchoolList] = useState<any>([]);
   const [dataSource, setDataSource] = useState<any>([]);
   const { initialState } = useModel('@@initialState');
@@ -58,7 +58,7 @@ const columns: ProColumns<any>[] | undefined = [
         //   render: (text:any) =>text.length
         // },
         {
-          title: '操作',
+          title: '查看详情',
           align: 'center',
           search: false,
           render: (_, record) => {
@@ -66,12 +66,20 @@ const columns: ProColumns<any>[] | undefined = [
               <Space>
                 <Link
                   to={{
-                    pathname:'/query/reimbursementClass/details',
+                    pathname:'/query/order/classorder',
                     state: record
                   }}
                 >
-                  详情
+                  课程订单
                 </Link>
+                {/* <Link
+                  to={{
+                    pathname:'',
+                    state: record
+                  }}
+                >
+                  服务订单
+                </Link> */}
                
               </Space>
             );
@@ -135,5 +143,5 @@ const columns: ProColumns<any>[] | undefined = [
 
     )
 }
-ReimbursementClass.wrappers = ['@/wrappers/auth'];
-export default ReimbursementClass
+Order.wrappers = ['@/wrappers/auth'];
+export default Order

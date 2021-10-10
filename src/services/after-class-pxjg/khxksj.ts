@@ -22,7 +22,7 @@ export async function getKHXKSJ(
     /** 日期 */
     RQ?: string;
     /** 教师ID */
-    KHJSSJId?: string;
+    JZGJBSJId?: string;
     /** 页数 */
     page?: number;
     /** 每页记录数 */
@@ -80,7 +80,7 @@ export async function updateKHXKSJ(body: API.UpdateKHXKSJ[], options?: { [key: s
 export async function getScheduleByDate(
   body: {
     /** 教师ID */
-    KHJSSJId?: string;
+    JZGJBSJId?: string;
     /** 日期 */
     RQ?: string;
     /** 周几 */
