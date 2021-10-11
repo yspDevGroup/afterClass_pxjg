@@ -13,7 +13,7 @@ import { useEffect } from 'react';
 
 const { Option } = Select;
 const Class = (props: any) => {
-    const { idData, data } = props.location.state
+const {id} = props.location.state
 
     const columns: ProColumns<any>[] | undefined = [
         {
@@ -33,21 +33,24 @@ const Class = (props: any) => {
         },
         {
             title: '主讲师',
-            dataIndex: '',
-            key: '',
+            dataIndex: 'ZJS',
+            key: 'ZJS',
             align: 'center',
-            render: (_, record) => {
-                return (
-                    <EllipsisHint
-                        width="100%"
-                        text={record.KHBJJs.map((item) => {
-                            return (
-                                <Tag key={item.id} color="#EFEFEF" style={{ color: '#333' }}>
-                                    {item.KHJSSJ.XM}
-                                </Tag>
-                            );
-                        })}
-                    />)
+            render: (text:any) => {
+                return text
+                
+                
+                // return (
+                //     <EllipsisHint
+                //         width="100%"
+                //         text={record.KHBJJs.map((item) => {
+                //             return (
+                //                 <Tag key={item.id} color="#EFEFEF" style={{ color: '#333' }}>
+                //                     {item.KHJSSJ.XM}
+                //                 </Tag>
+                //             );
+                //         })}
+                //     />)
 
             }
 
@@ -77,7 +80,7 @@ const Class = (props: any) => {
 
         },
         {
-            title: '操作',
+            title: '查看互评详情',
             dataIndex: 'XSXM',
             key: 'XSXM',
             align: 'center',
@@ -100,35 +103,60 @@ const Class = (props: any) => {
     ]
     const [classList, SetclassList] = useState<any>();
     const { initialState } = useModel('@@initialState');
-    const [dataSource, setDataSource] = useState<any>([]);
+    const [dataSource, setDataSource] = useState<any>([
+        {
+            BJMC:'一年级二班',
+            ZJS:'李磊',
+            xs_count:5,
+            BJRS:5,
+            pk_count:4
+        },
+        {
+            BJMC:'二年级二班',
+            ZJS:'韩梅梅',
+            xs_count:3,
+            BJRS:3,
+            pk_count:4
+        },
+        {
+            BJMC:'三年级二班',
+            ZJS:'李艳茹',
+            xs_count:8,
+            BJRS:8,
+            pk_count:4
+        },
+    ]);
 
     const { currentUser } = initialState || {};
-    useEffect(() => {
-        //获取学年学期
-        (async () => {
-            const res1 = await getAllSemester({
-                KHJYJGId: currentUser.jgId,
-                XXJBSJId: idData,
-            })
-            if (res1.status === 'ok') {
-                (async () => {
-                    const res = await getAllClasses({
-                        XNXQId: res1.data[0].id,
-                        KHKCSJId: data.id
-                    })
-                    if (res.status === 'ok') {
-                        setDataSource(res.data.rows)
-                    }
+    // useEffect(() => {
+    //     //获取学年学期
+    //     (async () => {
+    //         const res1 = await getAllSemester({
+    //             KHJYJGId:currentUser.jgId,
+    //             XXJBSJId:id,
+    //         })
+    //         if (res1.status === 'ok') {
+                
+    //             (async () => {
+    //                 const res = await getAllClasses({
+    //                     XNXQId: res1.data[0].id,
+    //                     KHKCSJId:id
+    //                 })
+    //                 if (res.status === 'ok') {
+    //                     console.log(res);
+                        
+    //                     setDataSource(res.data.rows)
+    //                 }
 
 
-                })()
+    //             })()
 
-            }
+    //         }
 
 
-        })()
+    //     })()
 
-    }, [])
+    // }, [])
 
     return (
         <>
@@ -144,8 +172,7 @@ const Class = (props: any) => {
                 <LeftOutlined />
                 返回上一页
             </Button>
-            <div >
-                <div style={{ fontWeight: 'bold', fontSize: '25px', padding: '24px 0' }}>课程名称</div>
+            <div>
                 <span>
                     班级名称:
                     <Select
@@ -183,4 +210,5 @@ const Class = (props: any) => {
         </>
     )
 }
+ Class.wrappers = ['@/wrappers/auth']
 export default Class

@@ -1,9 +1,11 @@
 import ProTable, { ProColumns,ActionType } from '@ant-design/pro-table';
 import {useState,useEffect,useRef} from 'react'
-import { Select } from 'antd';
+import { Select, Button} from 'antd';
 import {useModel,} from 'umi';
 import { getAllKHXSDD } from '@/services/after-class-pxjg/khxsdd';
 import { getAllSemester} from '@/services/after-class-pxjg/khjyjg';
+import { LeftOutlined, } from '@ant-design/icons';
+
 
 
 const { Option } = Select;
@@ -110,6 +112,18 @@ const ClassOrder=(props:any)=>{
         <>
         <div>
       </div>
+      <Button
+        type="primary"
+        onClick={() => {
+          history.go(-1);
+        }}
+        style={{
+          marginBottom: '24px',
+        }}
+      >
+        <LeftOutlined />
+        返回上一页
+      </Button>
               <ProTable
                   dataSource={dataSource}
                 columns={columns}
@@ -152,4 +166,5 @@ const ClassOrder=(props:any)=>{
     )
   
 }
+ClassOrder.wrappers = ['@/wrappers/auth']
 export default ClassOrder

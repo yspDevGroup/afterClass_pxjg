@@ -1,15 +1,18 @@
 import ProTable, { ProColumns } from '@ant-design/pro-table';
-import { Select, Popconfirm, Divider, message,Space } from 'antd';
+import { Select, Popconfirm, Divider, message,Space ,Button} from 'antd';
 import { useEffect, useRef, useState } from 'react';
 import { Link, useModel } from 'umi';
 import {cooperateSchool } from '@/services/after-class-pxjg/khjyjg';
+import { LeftOutlined, } from '@ant-design/icons';
 const { Option } = Select;
-const Order=()=>{
+const  Appraise=()=>{
   const [SchoolList, setSchoolList] = useState<any>([]);
   const [dataSource, setDataSource] = useState<any>([]);
+  const [school,setschool] = useState<any>([]);
+
   const { initialState } = useModel('@@initialState');
   const { currentUser } = initialState || {};
-
+//  console.log(currentUser);
  
   
 const columns: ProColumns<any>[] | undefined = [
@@ -48,17 +51,17 @@ const columns: ProColumns<any>[] | undefined = [
           width: 180,
           search: false
         },
-        // {
-        //   title: '课程数量',
-        //   key: 'KHKCSQs',
-        //   dataIndex: 'KHKCSQs',
-        //   align: 'center',
-        //   width: 90,
-        //   search: false,
-        //   render: (text:any) =>text.length
-        // },
         {
-          title: '查看详情',
+          title: '课程数量',
+          key: 'KHKCSQs',
+          dataIndex: 'KHKCSQs',
+          align: 'center',
+          width: 90,
+          search: false,
+          render: (text:any) =>text.length
+        },
+        {
+          title: '查看学校班级',
           align: 'center',
           search: false,
           render: (_, record) => {
@@ -66,19 +69,11 @@ const columns: ProColumns<any>[] | undefined = [
               <Space>
                 <Link
                   to={{
-                    pathname:'/query/order/classorder',
+                    pathname: '/query/Appraise/class',
                     state: record
                   }}
                 >
-                  课程订单
-                </Link>
-                <Link
-                  to={{
-                    pathname:'/query/order/serviceorder',
-                    state: record
-                  }}
-                >
-                  服务订单
+                  详情
                 </Link>
                
               </Space>
@@ -95,19 +90,35 @@ const columns: ProColumns<any>[] | undefined = [
             pageSize: 0
           })
           if(res.status==='ok'){
+            // console.log(res,'学校');
+            console.log(res.data);
+            
             
             setDataSource(res.data?.rows)
+            setschool(res.data?.rows[0].XXMC)
            
           }
         })()
       },[])
     return(
         <div>
+            <Button
+                type="primary"
+                onClick={() => {
+                    history.go(-1);
+                }}
+                style={{
+                    marginBottom: '24px',
+                }}
+            >
+                <LeftOutlined />
+                返回上一页
+            </Button>
              <div >
                 <span>
                 学校名称：
                     <Select
-                        // value={curXNXQId}
+                        value={school}
                         style={{ width: 200 }}
                         onChange={(value: string) => {
                             //更新多选框的值
@@ -143,5 +154,5 @@ const columns: ProColumns<any>[] | undefined = [
 
     )
 }
-Order.wrappers = ['@/wrappers/auth'];
-export default Order
+Appraise.wrappers = ['@/wrappers/auth'];
+export default  Appraise

@@ -6,10 +6,24 @@ import { LeftOutlined, } from '@ant-design/icons';
 
 const Details = (props: any) => {
     const  {KHKCSJ, XXJBSJ } = props.location.state
-
-
+    const nowtime=new Date()
     const [termList, setTermList] = useState<any>();
-    const [dataSource, setDataSource] = useState<any>([]);
+    const [dataSource, setDataSource] = useState<any>([
+      {
+        RQ:nowtime.toLocaleDateString(),
+        XKJS:{XM:'刚新辉'},
+        SKJS:{XM:'刚新辉'},
+        SFZSSK:1,
+        SFYDJS:1,
+        SFDM:1,
+        RSSFZQ:1,
+        YDRS:12,
+        SDRS:12,
+        QRRS:12,
+        BZXX:'全员都到齐无人缺席'
+        
+        }
+    ]);
 
     const columns: ProColumns<API.KHXSDD>[] | undefined = [
         {

@@ -217,4 +217,5 @@ const Details = (props: any) => {
         </>
     )
 }
+Details.wrappers = ['@/wrappers/auth']
 export default Details
