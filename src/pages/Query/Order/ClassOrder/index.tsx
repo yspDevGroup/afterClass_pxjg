@@ -16,8 +16,7 @@ const ClassOrder=(props:any)=>{
     const { initialState } = useModel('@@initialState');
     const { currentUser } = initialState || {};
   const actionRef = useRef<ActionType>();
-
-    const columns: ProColumns<API.KHXSDD>[] | undefined = [
+ const columns: ProColumns<API.KHXSDD>[] | undefined = [
         {
           title: '序号',
           dataIndex: 'index',
@@ -75,12 +74,8 @@ const ClassOrder=(props:any)=>{
         },
       ];
   const [dataSource, setDataSource] = useState<API.KHXSDD[] | undefined>([]);
-
   const [activeKey, setActiveKey] = useState<string>('paid');
-    
-
-  
-  useEffect(()=>{
+   useEffect(()=>{
       (async()=>{
           const res1=await getAllSemester({
             KHJYJGId:currentUser.jgId,
@@ -92,19 +87,14 @@ const ClassOrder=(props:any)=>{
                 const res= await getAllKHXSDD({
                     XNXQId:res1.data[0].id,
                     XXJBSJId:id,
-                    //父传子判断要请求的状态
                     DDZT:activeKey,
                     DDLX:0
                 })
                 setDataSource(res?.data)
              })()
              
-          
-
           }
-          
-
-      })()
+         })()
   },[activeKey])
     
 

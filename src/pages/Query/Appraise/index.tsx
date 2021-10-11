@@ -32,12 +32,6 @@ const Course = (data: any) => {
   const { currentUser } = initialState || {};
   const [termList, setTermList] = useState<any>([]);
   const { Option } = Select;
-
-
-
-
-
-
   const columns: ProColumns<any>[] | undefined = [
     {
       title: '序号',

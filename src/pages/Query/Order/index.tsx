@@ -95,10 +95,8 @@ const columns: ProColumns<any>[] | undefined = [
             pageSize: 0
           })
           if(res.status==='ok'){
-            
             setDataSource(res.data?.rows)
-           
-          }
+           }
         })()
       },[])
     return(
@@ -135,11 +133,7 @@ const columns: ProColumns<any>[] | undefined = [
                 }}
                 search={false}
             />
-
-
-            
-
-        </div>
+   </div>
 
     )
 }

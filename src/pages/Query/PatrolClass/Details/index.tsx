@@ -3,27 +3,22 @@ import { Select, Button,Tooltip } from 'antd';
 import { useEffect, useRef, useState } from 'react';
 const { Option } = Select;
 import { LeftOutlined, } from '@ant-design/icons';
+import { getKHXKJL } from '@/services/after-class-pxjg/khxkjl'
+
 
 const Details = (props: any) => {
-    const  {KHKCSJ, XXJBSJ } = props.location.state
+    const  {KHKCSJ, XXJBSJ,id } = props.location.state
+    console.log(props.location.state);
+    
     const nowtime=new Date()
     const [termList, setTermList] = useState<any>();
-    const [dataSource, setDataSource] = useState<any>([
-      {
-        RQ:nowtime.toLocaleDateString(),
-        XKJS:{XM:'刚新辉'},
-        SKJS:{XM:'刚新辉'},
-        SFZSSK:1,
-        SFYDJS:1,
-        SFDM:1,
-        RSSFZQ:1,
-        YDRS:12,
-        SDRS:12,
-        QRRS:12,
-        BZXX:'全员都到齐无人缺席'
-        
-        }
-    ]);
+    const [dataSource, setDataSource] = useState<any>([]);
+    useEffect(() => {
+      (async () => {
+          const res = await getKHXKJL({XXJBSJId:XXJBSJ.id})
+           setDataSource(res.data?.rows)
+           })()
+       },[])
 
     const columns: ProColumns<API.KHXSDD>[] | undefined = [
         {
@@ -61,7 +56,7 @@ const Details = (props: any) => {
           dataIndex: 'SFZSSK',
           key: 'SFZSSK',
           align: 'center',
-          render: (text) => text ? '是' : '否',
+          render: (text) => <span style={{color:text ? 'black':'red'}}>{text ? '是' : '否'}</span>,
           width: 120
         },
         {
@@ -69,7 +64,7 @@ const Details = (props: any) => {
           dataIndex: 'SFYDJS',
           key: ' SFYDJS',
           align: 'center',
-          render: (text) => text ? '是' : '否',
+          render: (text) => <span style={{color:text ? 'black':'red'}}>{text ? '是' : '否'}</span>,
           width: 150
         },
         {
@@ -77,7 +72,7 @@ const Details = (props: any) => {
           dataIndex: 'SFDM',
           key: ' SFDM',
           align: 'center',
-          render: (text) => text ? '是' : '否',
+          render: (text) => <span style={{color:text ? 'black':'red'}}>{text ? '是' : '否'}</span>,
           width: 120
         },
         {
@@ -85,7 +80,7 @@ const Details = (props: any) => {
           dataIndex: 'RSSFZQ',
           key: ' RSSFZQ',
           align: 'center',
-          render: (text) => text ? '是' : '否',
+          render: (text) =><span style={{color:text ? 'black':'red'}}>{text ? '是' : '否'}</span>,
           width: 150
         },
         {
