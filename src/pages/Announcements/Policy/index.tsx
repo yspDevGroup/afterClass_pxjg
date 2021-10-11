@@ -42,15 +42,17 @@ const TableList = () => {
       key: 'ZZ',
       width: '9em',
       align: 'center',
+      ellipsis: true,
       search: false
     },
     {
       title: '来源',
       dataIndex: 'LY',
       key: 'LY',
-      width: '9em',
+      width: '12em',
       align: 'center',
       search: false,
+      ellipsis: true,
       render: (text, record) => {
         return <>{record.JYJGSJ.BMMC}</>;
       }
@@ -79,7 +81,7 @@ const TableList = () => {
       dataIndex: 'option',
       valueType: 'option',
       key: 'option',
-      width: '15em',
+      width: '6em',
       align: 'center',
       render: (text, record, action) => {
         return (
