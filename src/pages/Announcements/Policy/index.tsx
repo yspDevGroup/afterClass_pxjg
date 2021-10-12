@@ -34,13 +34,14 @@ const TableList = () => {
       dataIndex: 'BT',
       key: 'BT',
       ellipsis: true,
-      align: 'center'
+      align: 'center',
+      width: '14em'
     },
     {
       title: '作者',
       dataIndex: 'ZZ',
       key: 'ZZ',
-      width: '9em',
+      width: '8em',
       align: 'center',
       ellipsis: true,
       search: false
@@ -61,7 +62,7 @@ const TableList = () => {
       title: '关键词',
       dataIndex: 'GJC',
       key: 'GJC',
-      width: '9em',
+      width: '7em',
       align: 'center',
       ellipsis: true,
       search: false
