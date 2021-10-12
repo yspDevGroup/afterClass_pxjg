@@ -9,7 +9,7 @@ export async function getKHXSCQ(
     /** 出勤记录ID */
     id: string;
   },
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{
@@ -18,16 +18,13 @@ export async function getKHXSCQ(
       id?: string;
       CQZT?: '出勤' | '请假' | '缺席';
       CQRQ?: string | any;
-      XSId?: string;
-      XSXM?: string;
       KHPKSJId?: string;
+      XSJBSJ?: { id?: string; XH?: string; XM?: string; WechatUserId?: string };
       KHBJSJ?: {
         id?: string;
         BJMC?: string;
         BJMS?: string;
         BJZT?: '待开班' | '已开班' | '已结课';
-        ZJS?: string;
-        FJS?: string;
         BJRS?: number;
         KSS?: number;
         FY?: number;
@@ -36,19 +33,13 @@ export async function getKHXSCQ(
         BMKSSJ?: string;
         BMJSSJ?: string;
         KCTP?: string;
-        NJS?: string;
-        XQ?: string;
-        NJSName?: string;
-        XQName?: string;
-        ZJSName?: string;
-        FJSName?: string;
       };
     };
     message?: string;
   }>(`/khxscq/${param0}`, {
     method: 'GET',
     params: { ...queryParams },
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
@@ -59,13 +50,13 @@ export async function deleteKHXSCQ(
     /** 出勤记录ID */
     id: string;
   },
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{ status?: 'ok' | 'error'; message?: string }>(`/khxscq/${param0}`, {
     method: 'DELETE',
     params: { ...queryParams },
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
@@ -83,15 +74,15 @@ export async function getAllKHXSCQ(
     /** 课程排课ID */
     pkId?: string;
   },
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
   return request<{ status?: 'ok' | 'error'; data?: API.KHXSCQ[]; message?: string }>('/khxscq/', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     data: body,
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
@@ -103,16 +94,13 @@ export async function createKHXSCQ(body: API.CreateKHXSCQ[], options?: { [key: s
       id?: string;
       CQZT?: '出勤' | '请假' | '缺席';
       CQRQ?: string | any;
-      XSId?: string;
-      XSXM?: string;
       KHPKSJId?: string;
+      XSJBSJ?: { id?: string; XH?: string; XM?: string; WechatUserId?: string };
       KHBJSJ?: {
         id?: string;
         BJMC?: string;
         BJMS?: string;
         BJZT?: '待开班' | '已开班' | '已结课';
-        ZJS?: string;
-        FJS?: string;
         BJRS?: number;
         KSS?: number;
         FY?: number;
@@ -121,22 +109,16 @@ export async function createKHXSCQ(body: API.CreateKHXSCQ[], options?: { [key: s
         BMKSSJ?: string;
         BMJSSJ?: string;
         KCTP?: string;
-        NJS?: string;
-        XQ?: string;
-        NJSName?: string;
-        XQName?: string;
-        ZJSName?: string;
-        FJSName?: string;
       };
     };
     message?: string;
   }>('/khxscq/create', {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     data: body,
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
@@ -148,17 +130,17 @@ export async function updateKHXSCQ(
     id: string;
   },
   body: API.UpdateKHXSCQ,
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{ status?: 'ok' | 'error'; message?: string }>(`/khxscq/update/${param0}`, {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     params: { ...queryParams },
     data: body,
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
@@ -166,11 +148,11 @@ export async function updateKHXSCQ(
 export async function countKHXSCQ(
   body: {
     /** 学生ID */
-    XSId?: string;
+    XSJBSJId?: string;
     /** 学年学期ID */
     XNXQId?: string;
   },
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
   return request<{
     status?: 'ok' | 'error';
@@ -186,9 +168,9 @@ export async function countKHXSCQ(
   }>('/khxscq/statistical', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     data: body,
-    ...(options || {}),
+    ...(options || {})
   });
 }

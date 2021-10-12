@@ -11,14 +11,13 @@ import moment from 'moment';
 import { FormInstance, message } from 'antd';
 import CustomForm from '@/components/CustomForm';
 import { FormItemType } from '@/components/CustomForm/interfice';
-import { createKHJSSJ, updateKHJSSJ } from '@/services/after-class-pxjg/khjssj';
-
 import 'antd/es/modal/style';
 import styles from './components.less';
+import { createJZG, updateJZGJBSJ } from '@/services/after-class-pxjg/jzgjbsj';
 
 const formItemLayout = {
   labelCol: { flex: '8em' },
-  wrapperCol: { flex: 'auto' },
+  wrapperCol: { flex: 'auto' }
 };
 type PropsType = {
   values: any;
@@ -135,11 +134,11 @@ const SchoolInfo = (props: PropsType) => {
       groupItems: [
         {
           type: 'radio',
-          name: 'XB',
-          key: 'XB',
+          name: 'XBM',
+          key: 'XBM',
           label: '性别',
           hidden: readonly,
-          span:12,
+          span: 12,
           items: [
             {
               text: '男',
@@ -154,16 +153,16 @@ const SchoolInfo = (props: PropsType) => {
         {
           type: 'input',
           label: '性别',
-          span:12,
-          name: 'XB',
-          key: 'XB',
+          span: 12,
+          name: 'XBM',
+          key: 'XBM',
           hidden: !readonly,
           placeholder: readonly ? '-' : ''
         },
         {
           type: 'input',
           label: '学历',
-          span:12,
+          span: 12,
           name: 'XL',
           key: 'XL',
           placeholder: readonly ? '-' : ''
@@ -177,8 +176,8 @@ const SchoolInfo = (props: PropsType) => {
         {
           type: 'input',
           label: '民族',
-          name: 'MZ',
-          key: 'MZ',
+          name: 'MZM',
+          key: 'MZM',
           placeholder: readonly ? '-' : ''
         },
         {
@@ -242,8 +241,8 @@ const SchoolInfo = (props: PropsType) => {
       groupItems: [
         {
           type: 'select',
-          key: 'SFZJLX',
-          name: 'SFZJLX',
+          key: 'SFZJLXM',
+          name: 'SFZJLXM',
           label: '证件类型',
           placeholder: readonly ? '-' : '',
           items: [
@@ -315,14 +314,15 @@ const SchoolInfo = (props: PropsType) => {
     values.ZGZS = zgzsUrl ? zgzsUrl : values.ZGZS;
     values.ZP = zpUrl ? zpUrl : values.ZP;
     if (values.id) {
-      res = await updateKHJSSJ(
+      res = await updateJZGJBSJ(
         {
           id: values.id
         },
         values
       );
     } else {
-      res = await createKHJSSJ(values);
+      // res = await createKHJSSJ(values);
+      res = await createJZG(values);
     }
     if (res.status === 'ok') {
       message.success('保存成功');
@@ -338,10 +338,10 @@ const SchoolInfo = (props: PropsType) => {
         <CustomForm
           values={(() => {
             if (info) {
-              const { CSRQ,XB, ...rest } = info;
+              const { CSRQ, XB, ...rest } = info;
               return {
                 CSRQ: CSRQ ? moment(CSRQ) : '',
-                XB: readonly ? XB?.substring(0, 1):XB,
+                XB: readonly ? XB?.substring(0, 1) : XB,
                 ...rest
               };
             }

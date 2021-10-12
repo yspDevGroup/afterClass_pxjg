@@ -36,6 +36,8 @@ type PlatType = 'com-wx-mobile' | 'wx-mobile' | 'mobile' | 'com-wx-pc' | 'wx-pc'
 
 type UserInfo = {
   id?: string;
+  /** 学段 */
+  XD?: string;
   /** 学校代码 */
   XXDM?: string;
   /** 行政区号码 */

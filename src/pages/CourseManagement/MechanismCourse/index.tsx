@@ -32,7 +32,7 @@ const MechanismCourse = () => {
       dataIndex: 'index',
       valueType: 'index',
       width: 58,
-      align: 'center',
+      align: 'center'
     },
     {
       title: '课程名称',
@@ -64,7 +64,11 @@ const MechanismCourse = () => {
           <EllipsisHint
             width="100%"
             text={text?.map((item: any) => {
-              return <Tag key={item.id} style={{ margin: '4px' }}>{item.XD === '初中' ? `${item.NJMC}` : `${item.XD}${item.NJMC}`}</Tag>;
+              return (
+                <Tag key={item.id} style={{ margin: '4px' }}>
+                  {item.XD === '初中' ? `${item.NJMC}` : `${item.XD}${item.NJMC}`}
+                </Tag>
+              );
             })}
           />
         );
@@ -81,7 +85,7 @@ const MechanismCourse = () => {
           <EllipsisHint
             width="100%"
             text={text?.map((item: any) => {
-              return <Tag key={item.KHJSSJ.id}>{item.KHJSSJ.XM}</Tag>;
+              return <Tag key={item?.JZGJBSJId}>{item?.JZGJBSJ?.XM}</Tag>;
             })}
           />
         );
@@ -234,4 +238,5 @@ const MechanismCourse = () => {
   );
 };
 
+MechanismCourse.wrappers = ['@/wrappers/auth'];
 export default MechanismCourse;

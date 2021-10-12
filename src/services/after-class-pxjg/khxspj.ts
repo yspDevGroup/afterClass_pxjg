@@ -9,7 +9,7 @@ export async function getKHXSPJ(
     /** 学生评价记录ID */
     id: string;
   },
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{
@@ -18,12 +18,11 @@ export async function getKHXSPJ(
       id?: string;
       PJFS?: number;
       PY?: string;
-      XSId?: string;
-      XSXM?: string;
       KHBJSJId?: string;
       createdAt?: string;
       updatedAt?: string;
-      KHJSSJ?: { id?: string; XM?: string };
+      XSJBSJ?: { id?: string; XH?: string; XM?: string; WechatUserId?: string };
+      JZGJBSJ?: { id?: string; XM?: string };
       KHBJSJ?: {
         id?: string;
         BJMC?: string;
@@ -44,7 +43,7 @@ export async function getKHXSPJ(
   }>(`/khxspj/${param0}`, {
     method: 'GET',
     params: { ...queryParams },
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
@@ -55,13 +54,13 @@ export async function deleteKHXSPJ(
     /** 类型ID */
     id: string;
   },
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{ status?: 'ok' | 'error'; message?: string }>(`/khxspj/${param0}`, {
     method: 'DELETE',
     params: { ...queryParams },
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
@@ -69,7 +68,7 @@ export async function deleteKHXSPJ(
 export async function getAllKHXSPJ(
   body: {
     /** 学生ID */
-    XSId?: string;
+    XSJBSJId?: string;
     /** 班级ID */
     KHBJSJId?: string;
     /** 教师ID */
@@ -81,7 +80,7 @@ export async function getAllKHXSPJ(
     /** 每页记录数 */
     pageSize?: number;
   },
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
   return request<{
     status?: 'ok' | 'error';
@@ -90,10 +89,10 @@ export async function getAllKHXSPJ(
   }>('/khxspj/', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     data: body,
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
@@ -105,12 +104,11 @@ export async function createKHXSPJ(body: API.CreateKHXSPJ, options?: { [key: str
       id?: string;
       PJFS?: number;
       PY?: string;
-      XSId?: string;
-      XSXM?: string;
       KHBJSJId?: string;
       createdAt?: string;
       updatedAt?: string;
-      KHJSSJ?: { id?: string; XM?: string };
+      XSJBSJ?: { id?: string; XH?: string; XM?: string; WechatUserId?: string };
+      JZGJBSJ?: { id?: string; XM?: string };
       KHBJSJ?: {
         id?: string;
         BJMC?: string;
@@ -131,10 +129,10 @@ export async function createKHXSPJ(body: API.CreateKHXSPJ, options?: { [key: str
   }>('/khxspj/create', {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     data: body,
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
@@ -146,16 +144,16 @@ export async function updateKHXSPJ(
     id: string;
   },
   body: API.UpdateKHXSPJ,
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{ status?: 'ok' | 'error'; message?: string }>(`/khxspj/update/${param0}`, {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     params: { ...queryParams },
     data: body,
-    ...(options || {}),
+    ...(options || {})
   });
 }

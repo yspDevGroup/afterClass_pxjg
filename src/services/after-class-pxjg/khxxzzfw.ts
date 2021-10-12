@@ -25,10 +25,10 @@ export async function createKHXXZZFW(body: API.CreateKHXXZZFW, options?: { [key:
   }>('/khxxzzfw/create', {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     data: body,
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
@@ -52,7 +52,7 @@ export async function getKHXXZZFW(
     /** 每页记录数 */
     pageSize?: number;
   },
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
   return request<{
     status?: 'ok' | 'error';
@@ -61,10 +61,10 @@ export async function getKHXXZZFW(
   }>('/khxxzzfw/getAll', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     data: body,
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
@@ -75,7 +75,7 @@ export async function KHXXZZFW(
     /** 学校课后增值服务ID */
     id: string;
   },
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{
@@ -99,7 +99,7 @@ export async function KHXXZZFW(
   }>(`/khxxzzfw/${param0}`, {
     method: 'GET',
     params: { ...queryParams },
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
@@ -110,13 +110,13 @@ export async function deleteKHXXZZFW(
     /** 学校课后增值服务ID */
     id: string;
   },
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{ status?: 'ok' | 'error'; message?: string }>(`/khxxzzfw/${param0}`, {
     method: 'DELETE',
     params: { ...queryParams },
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
@@ -128,17 +128,17 @@ export async function updateKHXXZZFW(
     id: string;
   },
   body: API.UpdateKHXXZZFW,
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{ status?: 'ok' | 'error'; message?: string }>(`/khxxzzfw/update/${param0}`, {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     params: { ...queryParams },
     data: body,
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
@@ -146,7 +146,7 @@ export async function updateKHXXZZFW(
 export async function getStudent(
   body: {
     /** 学生ID */
-    XSId?: string;
+    XSJBSJId?: string;
     /** 学生姓名 */
     XSXM?: string;
     /** 学年学期ID */
@@ -158,7 +158,7 @@ export async function getStudent(
     /** 每页记录数 */
     pageSize?: number;
   },
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
   return request<{
     status?: 'ok' | 'error';
@@ -188,9 +188,9 @@ export async function getStudent(
   }>('/khxxzzfw/getStudent', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     data: body,
-    ...(options || {}),
+    ...(options || {})
   });
 }

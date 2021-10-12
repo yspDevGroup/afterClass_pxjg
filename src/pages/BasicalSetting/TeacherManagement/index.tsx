@@ -20,9 +20,9 @@ import { Link, useModel } from 'umi';
 
 import styles from './index.less';
 import { TableListParams } from '@/constant';
-import { deleteKHJSSJ, getKHJSSJ } from '@/services/after-class-pxjg/khjssj';
 import { Button, Divider, message, Modal, Popconfirm, Upload } from 'antd';
 import { getAuthorization } from '@/utils';
+import { getAllJZGJBSJ, deleteJZGJBSJ } from '@/services/after-class-pxjg/jzgjbsj';
 
 const TeacherManagement = () => {
   const { initialState } = useModel('@@initialState');
@@ -33,7 +33,7 @@ const TeacherManagement = () => {
   const [modalVisible, setModalVisible] = useState<boolean>(false);
 
   const handleConfirm = async (id: any) => {
-    const res = await deleteKHJSSJ({ id });
+    const res = await deleteJZGJBSJ({ id });
     if (res.status === 'ok') {
       message.success('删除成功');
       actionRef.current?.reload();
@@ -95,7 +95,7 @@ const TeacherManagement = () => {
       key: 'XB',
       align: 'center',
       width: 90,
-      render: (_, record) => record?.XB?.substring(0, 1)
+      render: (_, record) => record?.XBM?.substring(0, 1)
     },
     {
       title: '联系电话',
@@ -181,7 +181,8 @@ const TeacherManagement = () => {
             sorter: sort && Object.keys(sort).length ? sort : undefined,
             filter
           };
-          const res = await getKHJSSJ({ JGId: currentUser?.jgId, keyWord: opts.keyword, page: 0, pageSize: 0 }, opts);
+          // const res = await getKHJSSJ({ JGId: currentUser?.jgId, keyWord: opts.keyword, page: 0, pageSize: 0 }, opts);
+          const res = await getAllJZGJBSJ({ KHJYJGId: currentUser?.jgId, keyWord: opts.keyword, page: 0, pageSize: 0 });
           if (res.status === 'ok') {
             return {
               data: res.data?.rows,

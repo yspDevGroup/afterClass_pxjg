@@ -9,7 +9,7 @@ export async function getKHJSPJ(
     /** 教师评价记录ID */
     id: string;
   },
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{
@@ -19,14 +19,14 @@ export async function getKHJSPJ(
       PJFS?: number;
       PY?: string;
       JSId?: string;
-      XSId?: string;
       KHBJSJId?: string;
+      XSJBSJ?: { id?: string; XH?: string; XM?: string; WechatUserId?: string };
     };
     message?: string;
   }>(`/khjspj/${param0}`, {
     method: 'GET',
     params: { ...queryParams },
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
@@ -37,13 +37,13 @@ export async function deleteKHJSPJ(
     /** 类型ID */
     id: string;
   },
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{ status?: 'ok' | 'error'; message?: string }>(`/khjspj/${param0}`, {
     method: 'DELETE',
     params: { ...queryParams },
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
@@ -51,7 +51,7 @@ export async function deleteKHJSPJ(
 export async function getAllKHJSPJ(
   body: {
     /** 学生ID */
-    xsId?: string;
+    XSJBSJId?: string;
     /** 班级ID */
     bjId?: string;
     /** 评价类型 */
@@ -59,15 +59,15 @@ export async function getAllKHJSPJ(
     /** 评价日期 */
     PJRQ?: string;
   },
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
   return request<{ status?: 'ok' | 'error'; data?: API.KHJSPJ[]; message?: string }>('/khjspj/', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     data: body,
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
@@ -80,17 +80,17 @@ export async function createKHJSPJ(body: API.CreateKHJSPJ, options?: { [key: str
       PJFS?: number;
       PY?: string;
       JSId?: string;
-      XSId?: string;
       KHBJSJId?: string;
+      XSJBSJ?: { id?: string; XH?: string; XM?: string; WechatUserId?: string };
     };
     message?: string;
   }>('/khjspj/create', {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     data: body,
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
@@ -102,16 +102,16 @@ export async function updateKHJSPJ(
     id: string;
   },
   body: API.UpdateKHJSPJ,
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{ status?: 'ok' | 'error'; message?: string }>(`/khjspj/update/${param0}`, {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     params: { ...queryParams },
     data: body,
-    ...(options || {}),
+    ...(options || {})
   });
 }

@@ -16,18 +16,22 @@
     .ant-form-item-control-input {
       line-height: 32px;
     }
-
+    .ant-picker-input {
+      input[disabled] {
+        color: #333333;
+      }
+    }
     .ant-input[disabled],
     .ant-picker-disabled,
     .ant-input-number-disabled,
     .ant-select-disabled .ant-select-selector {
-      color: @text-color  !important;
-      background-color: inherit;
+      color: @text-color !important;
+      text-overflow: ellipsis;
       background: none !important;
+      background-color: inherit;
       border: none;
       cursor: default;
       resize: none;
-      text-overflow: ellipsis;
 
       .ant-picker-suffix {
         display: none;
@@ -41,8 +45,8 @@
 
   .teacherInfoBody {
     width: 85%;
-    margin: 0 auto;
     min-width: 850px;
+    margin: 0 auto;
 
     :global {
       .ant-form-horizontal .ant-form-item-control {

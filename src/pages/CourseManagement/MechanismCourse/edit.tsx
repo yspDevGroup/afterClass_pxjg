@@ -7,11 +7,11 @@ import { LeftOutlined } from '@ant-design/icons';
 import CustomForm from '@/components/CustomForm';
 import { FormItemType } from '@/components/CustomForm/interfice';
 import { getAllKHKCLX } from '@/services/after-class-pxjg/khkclx';
-import { getKHJSSJ } from '@/services/after-class-pxjg/khjssj';
 import { getAllGrades } from '@/services/after-class-pxjg/khjyjg';
 import { createKHKCSJ, getKHKCSJ, updateKHKCSJ } from '@/services/after-class-pxjg/khkcsj';
 import classes from '../index.less';
 import { courseColorType } from '@/theme-default';
+import { getAllJZGJBSJ } from '@/services/after-class-pxjg/jzgjbsj';
 
 /**
  * 机构端-课程列表-编辑页
@@ -40,7 +40,7 @@ const Edit = (props: any) => {
       // 老师表格数据
       const thData: any[] = [];
       state.KHKCJs.forEach((item: any) => {
-        thData.push(item?.KHJSSJ);
+        thData.push(item?.JZGJBSJ);
       });
       setTeacherData(thData);
     }
@@ -50,7 +50,7 @@ const Edit = (props: any) => {
         KCMC: state?.KCMC || '-',
         KCMS: state?.KCMS || '-',
         njIds: state?.NJSJs?.map((item: any) => item?.id) || '-',
-        jsIds: state?.KHKCJs?.map((item: any) => item?.KHJSSJ?.id) || '-',
+        jsIds: state?.KHKCJs?.map((item: any) => item?.JZGJBSJ?.id) || '-',
         KCTP: state?.KCTP || '-',
         KHKCLXId: state?.KHKCLXId || '-',
         KBYS: state?.KBYS || '-'
@@ -73,7 +73,7 @@ const Edit = (props: any) => {
         setKCLXOptions(data);
       }
       // 任课教师
-      const resTH = await getKHJSSJ({ JGId: currentUser?.jgId, page: 0, pageSize: 0 });
+      const resTH = await getAllJZGJBSJ({ KHJYJGId: currentUser?.jgId, page: 0, pageSize: 0 });
       if (resTH.status === 'ok') {
         const datas = resTH.data?.rows?.map((item: any) => {
           return {
@@ -83,6 +83,7 @@ const Edit = (props: any) => {
         });
         setJSSJOptions(datas);
       }
+
       // 适用年级
       const resNJ = await getAllGrades({ XD: currentUser?.XD?.split(',') });
       if (resNJ.status === 'ok') {
@@ -91,11 +92,7 @@ const Edit = (props: any) => {
         nj.forEach((items: any) => {
           resNJ.data?.forEach((item: any) => {
             if (items === item.XD) {
-              if (item.XD === '初中') {
-                dataNJ.push({ text: item.NJMC, value: item.id });
-              } else {
-                dataNJ.push({ text: `${item.XD}${item.NJMC}`, value: item.id });
-              }
+              dataNJ.push({ text: `${item.XD}${item.NJMC}`, value: item.id });
             }
           });
         });
@@ -358,9 +355,8 @@ const Edit = (props: any) => {
               marginTop: 24
             }}
           >
-           
             <Button
-            style={{ marginRight: 16 }}
+              style={{ marginRight: 16 }}
               type="primary"
               onClick={() => {
                 forms?.submit();
@@ -369,7 +365,6 @@ const Edit = (props: any) => {
               保存
             </Button>
             <Button
-              
               onClick={() => {
                 history.goBack();
               }}
@@ -383,4 +378,5 @@ const Edit = (props: any) => {
   );
 };
 
+Edit.wrappers = ['@/wrappers/auth'];
 export default Edit;

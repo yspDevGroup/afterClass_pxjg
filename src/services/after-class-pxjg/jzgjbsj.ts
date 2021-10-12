@@ -9,17 +9,14 @@ export async function getClasses(
     /** 教职工ID */
     id: string;
   },
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
   const { id: param0, ...queryParams } = params;
-  return request<{ status?: 'ok' | 'error'; data?: API.BJSJ[]; message?: string }>(
-    `/bjsj/classesByTeacher/${param0}`,
-    {
-      method: 'GET',
-      params: { ...queryParams },
-      ...(options || {}),
-    },
-  );
+  return request<{ status?: 'ok' | 'error'; data?: API.BJSJ[]; message?: string }>(`/bjsj/classesByTeacher/${param0}`, {
+    method: 'GET',
+    params: { ...queryParams },
+    ...(options || {})
+  });
 }
 
 /** 获取教职工基本数据 GET /jzgjbsj/${param0} */
@@ -29,7 +26,7 @@ export async function getJZGJBSJ(
     /** 教职工ID */
     id: string;
   },
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{
@@ -78,13 +75,23 @@ export async function getJZGJBSJ(
       ZYRKXD?: string;
       ZC?: string;
       ZW?: string;
+      BZ?: string;
+      ZP?: string;
+      ZGZS?: string;
+      ZGZSBH?: string;
+      JL?: number;
+      XL?: string;
+      BYYX?: string;
+      SXZY?: string;
+      JSKM?: string;
+      WechatUserId?: string;
       XNJGSJs?: { id?: string; LSJGH?: string; LSJGMC?: string; JGMC?: string; JGJC?: string }[];
     };
     message?: string;
   }>(`/jzgjbsj/${param0}`, {
     method: 'GET',
     params: { ...queryParams },
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
@@ -95,13 +102,13 @@ export async function deleteJZGJBSJ(
     /** 教职工ID */
     id: string;
   },
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{ status?: 'ok' | 'error'; message?: string }>(`/jzgjbsj/${param0}`, {
     method: 'DELETE',
     params: { ...queryParams },
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
@@ -110,6 +117,8 @@ export async function getAllJZGJBSJ(
   body: {
     /** 学校ID */
     XXJBSJId?: string;
+    /** 机构ID */
+    KHJYJGId?: string;
     /** 工号、姓名、联系电话模糊匹配 */
     keyWord?: string;
     /** 教师姓名 */
@@ -119,7 +128,7 @@ export async function getAllJZGJBSJ(
     /** 每页记录数 */
     pageSize?: number;
   },
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
   return request<{
     status?: 'ok' | 'error';
@@ -128,10 +137,10 @@ export async function getAllJZGJBSJ(
   }>('/jzgjbsj/', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     data: body,
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
@@ -183,16 +192,26 @@ export async function createJZG(body: API.CreateJZGJBSJ, options?: { [key: strin
       ZYRKXD?: string;
       ZC?: string;
       ZW?: string;
+      BZ?: string;
+      ZP?: string;
+      ZGZS?: string;
+      ZGZSBH?: string;
+      JL?: number;
+      XL?: string;
+      BYYX?: string;
+      SXZY?: string;
+      JSKM?: string;
+      WechatUserId?: string;
       XNJGSJs?: { id?: string; LSJGH?: string; LSJGMC?: string; JGMC?: string; JGJC?: string }[];
     };
     message?: string;
   }>('/jzgjbsj/create', {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     data: body,
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
@@ -204,17 +223,17 @@ export async function updateJZGJBSJ(
     id: string;
   },
   body: API.UpdateJZGJBSJ,
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{ status?: 'ok' | 'error'; message?: string }>(`/jzgjbsj/update/${param0}`, {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     params: { ...queryParams },
     data: body,
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
@@ -225,7 +244,7 @@ export async function getPortrait(
     /** 教职工ID */
     id: string;
   },
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{
@@ -347,6 +366,6 @@ export async function getPortrait(
   }>(`/jzgjbsj/portrait/${param0}`, {
     method: 'GET',
     params: { ...queryParams },
-    ...(options || {}),
+    ...(options || {})
   });
 }

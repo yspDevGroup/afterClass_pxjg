@@ -9,7 +9,7 @@ export async function getXSJBSJ(
     /** 学生ID */
     id: string;
   },
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{
@@ -52,6 +52,7 @@ export async function getXSJBSJ(
       DZXX?: string;
       ZYDZ?: string;
       XJH?: string;
+      WechatUserId?: string;
       XQSJ?: { id?: string; XQH?: string; XQMC?: string; XQDZ?: string };
       BJSJ?: {
         id?: string;
@@ -64,7 +65,7 @@ export async function getXSJBSJ(
   }>(`/xsjbsj/${param0}`, {
     method: 'GET',
     params: { ...queryParams },
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
@@ -75,13 +76,13 @@ export async function deleteXSJBSJ(
     /** 学生ID */
     id: string;
   },
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{ status?: 'ok' | 'error'; message?: string }>(`/xsjbsj/${param0}`, {
     method: 'DELETE',
     params: { ...queryParams },
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
@@ -97,7 +98,7 @@ export async function getAllXSJBSJ(
     /** 每页记录数 */
     pageSize?: number;
   },
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
   return request<{
     status?: 'ok' | 'error';
@@ -106,10 +107,10 @@ export async function getAllXSJBSJ(
   }>('/xsjbsj/', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     data: body,
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
@@ -155,6 +156,7 @@ export async function createXSJBSJ(body: API.CreateXSJBSJ, options?: { [key: str
       DZXX?: string;
       ZYDZ?: string;
       XJH?: string;
+      WechatUserId?: string;
       XQSJ?: { id?: string; XQH?: string; XQMC?: string; XQDZ?: string };
       BJSJ?: {
         id?: string;
@@ -167,10 +169,10 @@ export async function createXSJBSJ(body: API.CreateXSJBSJ, options?: { [key: str
   }>('/xsjbsj/create', {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     data: body,
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
@@ -182,17 +184,17 @@ export async function updateXSJBSJ(
     id: string;
   },
   body: API.UpdateXSJBSJ,
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{ status?: 'ok' | 'error'; message?: string }>(`/xsjbsj/update/${param0}`, {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     params: { ...queryParams },
     data: body,
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
@@ -203,7 +205,7 @@ export async function getPortrait(
     /** 学生ID */
     id: string;
   },
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{
@@ -293,6 +295,6 @@ export async function getPortrait(
   }>(`/xsjbsj/portrait/${param0}`, {
     method: 'GET',
     params: { ...queryParams },
-    ...(options || {}),
+    ...(options || {})
   });
 }
