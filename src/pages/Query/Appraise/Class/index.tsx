@@ -4,7 +4,8 @@ import { LeftOutlined, } from '@ant-design/icons';
 import ProTable, { ProColumns } from '@ant-design/pro-table';
 import { useState } from 'react';
 import { getAllClasses } from '@/services/after-class-pxjg/khbjsj';
-import { getAllSemester } from '@/services/after-class-pxjg/khjyjg';
+import { getClassesEvaluation } from "@/services/after-class-pxjg/khbjsj"
+// import { getAllSemester } from '@/services/after-class-pxjg/khjyjg';
 import EllipsisHint from '@/components/EllipsisHint';
 
 
@@ -13,7 +14,7 @@ import { useEffect } from 'react';
 
 const { Option } = Select;
 const Class = (props: any) => {
-const {id} = props.location.state
+    const { KHKCSJId } = props.location.state
 
     const columns: ProColumns<any>[] | undefined = [
         {
@@ -33,48 +34,45 @@ const {id} = props.location.state
         },
         {
             title: '主讲师',
-            dataIndex: 'ZJS',
-            key: 'ZJS',
+            dataIndex: 'KHBJJs',
+            key: 'KHBJJs',
             align: 'center',
-            render: (text:any) => {
-                return text
-                
-                
-                // return (
-                //     <EllipsisHint
-                //         width="100%"
-                //         text={record.KHBJJs.map((item) => {
-                //             return (
-                //                 <Tag key={item.id} color="#EFEFEF" style={{ color: '#333' }}>
-                //                     {item.KHJSSJ.XM}
-                //                 </Tag>
-                //             );
-                //         })}
-                //     />)
+            render: (text: any) => {
+            return (
+                    <EllipsisHint
+                        width="100%"
+                        text={text.map((item) => {
+                            return (
+                                <Tag key={item.id} color="#EFEFEF" style={{ color: '#333' }}>
+                                    {item.KHJSSJ.XM}
+                                </Tag>
+                            );
+                        })}
+                    />)
 
             }
 
         },
         {
             title: '评价人数',
-            dataIndex: 'xs_count',
-            key: ' xs_count',
+            dataIndex: 'pj_count',
+            key: ' pj_count',
             align: 'center',
             render: (text: any) => text
 
         },
         {
             title: '班级人数',
-            dataIndex: 'BJRS',
-            key: 'BJRS ',
+            dataIndex: 'xs_count',
+            key: 'xs_count ',
             align: 'center',
             render: (text: any) => text
 
         },
         {
             title: '班级评分',
-            dataIndex: 'pk_count',
-            key: 'pk_count',
+            dataIndex: 'pj_avg',
+            key: 'pj_avg',
             align: 'center',
             render: (text: any) => <Rate count={5} defaultValue={text} disabled={true} />,
 
@@ -103,60 +101,19 @@ const {id} = props.location.state
     ]
     const [classList, SetclassList] = useState<any>();
     const { initialState } = useModel('@@initialState');
-    const [dataSource, setDataSource] = useState<any>([
-        {
-            BJMC:'一年级二班',
-            ZJS:'李磊',
-            xs_count:5,
-            BJRS:5,
-            pk_count:4
-        },
-        {
-            BJMC:'二年级二班',
-            ZJS:'韩梅梅',
-            xs_count:3,
-            BJRS:3,
-            pk_count:4
-        },
-        {
-            BJMC:'三年级二班',
-            ZJS:'李艳茹',
-            xs_count:8,
-            BJRS:8,
-            pk_count:4
-        },
-    ]);
+    const [dataSource, setDataSource] = useState<any>([]);
 
     const { currentUser } = initialState || {};
-    // useEffect(() => {
-    //     //获取学年学期
-    //     (async () => {
-    //         const res1 = await getAllSemester({
-    //             KHJYJGId:currentUser.jgId,
-    //             XXJBSJId:id,
-    //         })
-    //         if (res1.status === 'ok') {
-                
-    //             (async () => {
-    //                 const res = await getAllClasses({
-    //                     XNXQId: res1.data[0].id,
-    //                     KHKCSJId:id
-    //                 })
-    //                 if (res.status === 'ok') {
-    //                     console.log(res);
-                        
-    //                     setDataSource(res.data.rows)
-    //                 }
+    useEffect(() => {
+        (async () => {
+            const res = await getClassesEvaluation({
+                KHKCSJId
 
+            })
+         setDataSource(res.data.rows)
+        })()
 
-    //             })()
-
-    //         }
-
-
-    //     })()
-
-    // }, [])
+    }, [])
 
     return (
         <>
@@ -210,5 +167,5 @@ const {id} = props.location.state
         </>
     )
 }
- Class.wrappers = ['@/wrappers/auth']
+Class.wrappers = ['@/wrappers/auth']
 export default Class

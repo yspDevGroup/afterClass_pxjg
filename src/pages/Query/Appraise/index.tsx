@@ -1,33 +1,12 @@
 import { Link, useModel } from 'umi';
-import { Select, Rate,Tag } from 'antd';
+import { Select, Rate, Tag } from 'antd';
 import ProTable, { ProColumns } from '@ant-design/pro-table';
 import { useEffect, useState } from 'react';
-import { getAllCourses } from '@/services/after-class-pxjg/khjyjg';
-import { getAllSemester } from '@/services/after-class-pxjg/khjyjg';
+import { getCourseEvaluation } from '@/services/after-class-pxjg/khjyjg';
 import EllipsisHint from '@/components/EllipsisHint';
 
-const Course = (data: any) => {
-  // const { id } = data.location.state
-  const [dataSource, setDataSource] = useState<any>([
-    {
-      KCMC: '少儿芭蕾舞',
-      KHKCLX: '艺术类',
-      RKJS: ['李磊','韩梅梅','李艳茹'],
-      PJFS: 5
-    },
-    {
-      KCMC: '篮球',
-      KHKCLX: '体育',
-      RKJS: ['姚明','王治郅','朱芳雨'],
-      PJFS: 4
-    },
-    {
-      KCMC: '国画',
-      KHKCLX: '艺术类',
-      RKJS: ['齐白石','毕加索'],
-      PJFS: 5
-    }
-  ]);
+const Course = () => {
+  const [dataSource, setDataSource] = useState<any>([]);
   const { initialState } = useModel('@@initialState');
   const { currentUser } = initialState || {};
   const [termList, setTermList] = useState<any>([]);
@@ -53,28 +32,28 @@ const Course = (data: any) => {
       key: 'KHKCLX',
       align: 'center',
       render: (test: any) => {
-        return test
+        return test.KCTAG
       },
     },
     {
       title: '任课教师',
-      dataIndex: 'RKJS',
-      key: 'RKJS',
+      dataIndex: 'KHKCJs',
+      key: 'KHKCJs',
       align: 'center',
-      render: (type:any) => {
-    return (
+      render: (test: any) => {
+        return (
           <EllipsisHint
             width="100%"
-            text={type?.map((item: any) => {
+            text={test?.map((item: any) => {
               return (
                 <Tag color="#EFEFEF" style={{ color: '#333' }}>
-                  {item}
+                  {item.KHJSSJ.XM}
                 </Tag>
               );
             })}
           />
         )
-      
+
       }
 
 
@@ -110,6 +89,15 @@ const Course = (data: any) => {
       ),
     },
   ];
+  useEffect(() => {
+    (async () => {
+      const res = await getCourseEvaluation({
+        KHJYJGId: currentUser?.jgId
+
+      })
+    setDataSource(res.data.rows)
+    })()
+  },[])
   return (
     <>
       <div style={{ padding: '24px 16px' }}>
@@ -147,9 +135,6 @@ const Course = (data: any) => {
 
       />
     </>
-
-
-
   )
 }
 Course.wrappers = ['@/wrappers/auth']

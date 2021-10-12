@@ -84,7 +84,7 @@ export async function getTeachers(
     /** 学年学期ID */
     XNXQId?: string;
     /** 教师ID */
-    JZGJBSJId?: string;
+    KHJSSJId?: string;
     /** 页数 */
     page?: number;
     /** 每页记录数 */
@@ -164,7 +164,7 @@ export async function getTeacherDetail(
     /** 学年学期ID */
     XNXQId?: string;
     /** 教师ID */
-    JZGJBSJId?: string;
+    KHJSSJId?: string;
   },
   options?: { [key: string]: any },
 ) {

@@ -5,14 +5,6 @@ import { LeftOutlined, } from '@ant-design/icons';
 import { getAllKHXSPJ } from '@/services/after-class-pxjg/khxspj'
 import { getKHBJPJ } from '@/services/after-class-pxjg/khbjpj'
 
-
-
-
-
-
-
-
-
 const Details = (props: any) => {
     const { data } = props.location.state;
     // 弹出框显示隐藏
@@ -131,7 +123,7 @@ const Details = (props: any) => {
     const [teacherList, setTeacherList] = useState<API.KHXSDD[] | undefined>([]);
     const [activeKey, setActiveKey] = useState<string>('student');
     useEffect(() => {
-        console.log(activeKey);
+     
         (async () => {
             const res2 = await getAllKHXSPJ({
                 KHBJSJId: data.id,
@@ -150,7 +142,6 @@ const Details = (props: any) => {
                     KHBJSJId: data.id,
                     XSId: '',
                     XXJBSJId: '',
-                    //   XNXQId,
                     page: 0,
                     pageSize: 0,
                 });

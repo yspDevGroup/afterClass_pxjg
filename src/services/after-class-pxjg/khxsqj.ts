@@ -39,7 +39,7 @@ export async function getKHXSQJ(
           FY?: number;
           KCTP?: string;
           XQSJ?: { id?: any; XXJBSJ?: { XXMC?: any } };
-          KHBJJs?: { JSLX?: string; id?: string; JZGJBSJ?: { id?: string; XM?: string } }[];
+          KHBJJs?: { JSLX?: string; id?: string; KHJSSJ?: { id?: string; XM?: string } }[];
         };
       }[];
     };
@@ -135,7 +135,7 @@ export async function createKHXSQJ(body: API.CreateKHXSQJ, options?: { [key: str
           FY?: number;
           KCTP?: string;
           XQSJ?: { id?: any; XXJBSJ?: { XXMC?: any } };
-          KHBJJs?: { JSLX?: string; id?: string; JZGJBSJ?: { id?: string; XM?: string } }[];
+          KHBJJs?: { JSLX?: string; id?: string; KHJSSJ?: { id?: string; XM?: string } }[];
         };
       }[];
     };

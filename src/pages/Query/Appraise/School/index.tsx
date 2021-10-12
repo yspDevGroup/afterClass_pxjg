@@ -2,17 +2,17 @@ import ProTable, { ProColumns } from '@ant-design/pro-table';
 import { Select, Popconfirm, Divider, message,Space ,Button} from 'antd';
 import { useEffect, useRef, useState } from 'react';
 import { Link, useModel } from 'umi';
-import {cooperateSchool } from '@/services/after-class-pxjg/khjyjg';
+import {getCourseSchools } from '@/services/after-class-pxjg/khjyjg';
 import { LeftOutlined, } from '@ant-design/icons';
 const { Option } = Select;
-const  Appraise=()=>{
-  const [SchoolList, setSchoolList] = useState<any>([]);
-  const [dataSource, setDataSource] = useState<any>([]);
-  const [school,setschool] = useState<any>([]);
+const  Appraise=(props:any)=>{
+const  {id} = props.location.state.data
+const [SchoolList, setSchoolList] = useState<any>([]);
+const [dataSource, setDataSource] = useState<any>([]);
+const [school,setschool] = useState<any>([]);
+const { initialState } = useModel('@@initialState');
+const { currentUser } = initialState || {};
 
-  const { initialState } = useModel('@@initialState');
-  const { currentUser } = initialState || {};
-//  console.log(currentUser);
  
   
 const columns: ProColumns<any>[] | undefined = [
@@ -51,15 +51,15 @@ const columns: ProColumns<any>[] | undefined = [
           width: 180,
           search: false
         },
-        {
-          title: '课程数量',
-          key: 'KHKCSQs',
-          dataIndex: 'KHKCSQs',
-          align: 'center',
-          width: 90,
-          search: false,
-          render: (text:any) =>text.length
-        },
+        // {
+        //   title: '课程数量',
+        //   key: 'KHKCSQs',
+        //   dataIndex: 'KHKCSQs',
+        //   align: 'center',
+        //   width: 90,
+        //   search: false,
+        //   render: (text:any) =>text.length
+        // },
         {
           title: '查看学校班级',
           align: 'center',
@@ -70,7 +70,8 @@ const columns: ProColumns<any>[] | undefined = [
                 <Link
                   to={{
                     pathname: '/query/Appraise/class',
-                    state: record
+                    state: record,
+                    KHKCSJId:id
                   }}
                 >
                   详情
@@ -83,22 +84,13 @@ const columns: ProColumns<any>[] | undefined = [
       ];
       useEffect(()=>{
         (async()=>{
-          const res= await cooperateSchool({
-            type:0,
-            JGId:currentUser?.jgId,
-            page: 0,
-            pageSize: 0
+          const res= await getCourseSchools({
+            KHKCSJId:id
           })
-          if(res.status==='ok'){
-            // console.log(res,'学校');
-            console.log(res.data);
-            
-            
-            setDataSource(res.data?.rows)
-            setschool(res.data?.rows[0].XXMC)
-           
-          }
-        })()
+         
+          
+          setDataSource(res.data?.rows)
+       })()
       },[])
     return(
         <div>

@@ -29,6 +29,10 @@ export async function createKHBJPJ(body: API.CreateKHBJPJ, options?: { [key: str
 /** 获取课后服务-课程评价数据 POST /khbjpj/getAll */
 export async function getKHBJPJ(
   body: {
+    /** 班级名称 */
+    BJMC?: string;
+    /** 课程ID */
+    KHKCSJId?: string;
     /** 班级ID */
     KHBJSJId?: string;
     /** 学生ID */

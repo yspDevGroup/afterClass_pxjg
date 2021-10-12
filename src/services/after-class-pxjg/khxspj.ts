@@ -23,7 +23,7 @@ export async function getKHXSPJ(
       KHBJSJId?: string;
       createdAt?: string;
       updatedAt?: string;
-      JZGJBSJ?: { id?: string; XM?: string };
+      KHJSSJ?: { id?: string; XM?: string };
       KHBJSJ?: {
         id?: string;
         BJMC?: string;
@@ -110,7 +110,7 @@ export async function createKHXSPJ(body: API.CreateKHXSPJ, options?: { [key: str
       KHBJSJId?: string;
       createdAt?: string;
       updatedAt?: string;
-      JZGJBSJ?: { id?: string; XM?: string };
+      KHJSSJ?: { id?: string; XM?: string };
       KHBJSJ?: {
         id?: string;
         BJMC?: string;

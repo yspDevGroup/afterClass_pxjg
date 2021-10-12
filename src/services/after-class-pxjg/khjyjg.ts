@@ -317,3 +317,50 @@ export async function homePage(
     ...(options || {}),
   });
 }
+
+/** 获取课后服务机构课程评价信息 POST /khjyjg/getCourseEvaluation */
+export async function getCourseEvaluation(
+  body: {
+    /** 机构ID */
+    KHJYJGId?: string;
+    /** 课程名称 */
+    KCMC?: string;
+  },
+  options?: { [key: string]: any },
+) {
+  return request<any>('/khjyjg/getCourseEvaluation', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data: body,
+    ...(options || {}),
+  });
+}
+
+/** 获取课后服务课程的合作学校列表 POST /khjyjg/getCourseSchools */
+export async function getCourseSchools(
+  body: {
+    /** 课程ID */
+    KHKCSJId?: string;
+    /** 学校名称 */
+    XXMC?: string;
+  },
+  options?: { [key: string]: any },
+) {
+  return request<{
+    status?: 'ok' | 'error';
+    data?: {
+      count?: number;
+      rows?: { id?: string; XXMC?: string; XD?: string; LXR?: string; LXDH?: string }[];
+    };
+    message?: string;
+  }>('/khjyjg/getCourseSchools', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data: body,
+    ...(options || {}),
+  });
+}

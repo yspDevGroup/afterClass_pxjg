@@ -14,13 +14,11 @@ import { message } from 'antd';
 
 const AuthCallback: FC = () => {
   const { loading, refresh } = useModel('@@initialState');
-
-  const ysp_access_token = getQueryString('ysp_access_token');
+ const ysp_access_token = getQueryString('ysp_access_token');
   const ysp_expires_in = getQueryString('ysp_expires_in');
   const ysp_refresh_token = getQueryString('ysp_refresh_token');
   const ysp_token_type = getQueryString('ysp_token_type');
-
-  const goto = async () => {
+ const goto = async () => {
     // 通知后台产生token
     const tokenRes = await createSSOToken({
       access_token: ysp_access_token!,

@@ -20,7 +20,7 @@ export async function getKHKTFC(
       TP?: string;
       createdAt?: string;
       KHBJSJId?: string;
-      JZGJBSJId?: string;
+      KHJSSJId?: string;
     };
     message?: string;
   }>(`/khktfc/${param0}`, {
@@ -51,7 +51,7 @@ export async function deleteKHKTFC(
 export async function getAllKHKTFC(
   body: {
     /** 教师ID */
-    JZGJBSJId?: string;
+    KHJSSJId?: string;
     /** 学年学期ID */
     XNXQId?: string;
     /** 班级ID */
@@ -89,7 +89,7 @@ export async function createKHKTFC(body: API.CreateKHKTFC, options?: { [key: str
       TP?: string;
       createdAt?: string;
       KHBJSJId?: string;
-      JZGJBSJId?: string;
+      KHJSSJId?: string;
     };
     message?: string;
   }>('/khktfc/create', {
