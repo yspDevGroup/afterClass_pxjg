@@ -1,16 +1,18 @@
 import ProTable, { ProColumns } from '@ant-design/pro-table';
-import { Select, Popconfirm, Divider, message } from 'antd';
+import { Select, Popconfirm, Divider, message,Button } from 'antd';
+import { LeftOutlined, } from '@ant-design/icons';
 import { useEffect, useRef, useState } from 'react';
 import { getKHTKSJ, updateKHTKSJ } from '@/services/after-class-pxjg/khtksj';
 import { getAllSemester } from '@/services/after-class-pxjg/khjyjg';
+import styles from '../index.less'
 
 const { Option } = Select;
-const Details=(props)=>{
-    const {id} = props.location.state
-    const [termList, setTermList] = useState<any>();
-    const [dataSource, setDataSource] = useState<any>([]);
+const Details = (props:any) => {
+  const { id } = props.location.state
+  const [termList, setTermList] = useState<any>();
+  const [dataSource, setDataSource] = useState<any>([]);
 
-       ///table表格数据
+  ///table表格数据
   const columns: ProColumns<any>[] = [
     {
       title: '序号',
@@ -137,21 +139,33 @@ const Details=(props)=>{
     //     ),
     // },
   ];
-  useEffect(()=>{
-      (async()=>{
-          const res=await getKHTKSJ({XXJBSJId:id})
-         if(res.status==='ok'){
-           console.log(res.data?.rows);
-           
-            setDataSource(res.data?.rows)
-         }
-          
+  useEffect(() => {
+    (async () => {
+      const res = await getKHTKSJ({ XXJBSJId: id })
+      if (res.status === 'ok') {
+        console.log(res.data?.rows);
 
-      })()
-  },[])
-    return(
-        <>
-            <div >
+        setDataSource(res.data?.rows)
+      }
+
+
+    })()
+  }, [])
+  return (
+    <>
+        <Button
+                type="primary"
+                onClick={() => {
+                    history.go(-1);
+                }}
+                style={{
+                    marginBottom: '24px',
+                }}
+            >
+                <LeftOutlined />
+                返回上一页
+            </Button>
+      {/* <div style={{padding:'16px 0'}}>
         <span>
           所属学年学期：
           <Select
@@ -159,7 +173,7 @@ const Details=(props)=>{
             style={{ width: 200 }}
             onChange={(value: string) => {
               //更新多选框的值
-            //   setCurXNXQId(value);
+              //   setCurXNXQId(value);
             }}
           >
             {termList?.map((item: any) => {
@@ -171,7 +185,8 @@ const Details=(props)=>{
             })}
           </Select>
         </span>
-      </div>
+      </div> */}
+      <div className={styles.Tables}>
         <ProTable
           dataSource={dataSource}
           columns={columns}
@@ -183,9 +198,12 @@ const Details=(props)=>{
           }}
           search={false}
         />
-            
-        </>
-    )
+
+      </div>
+
+
+    </>
+  )
 }
 Details.wrappers = ['@/wrappers/auth']
 export default Details

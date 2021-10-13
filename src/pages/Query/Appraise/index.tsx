@@ -4,6 +4,7 @@ import ProTable, { ProColumns } from '@ant-design/pro-table';
 import { useEffect, useState } from 'react';
 import { getCourseEvaluation } from '@/services/after-class-pxjg/khjyjg';
 import EllipsisHint from '@/components/EllipsisHint';
+import styles from './index.less'
 
 const Course = () => {
   const [dataSource, setDataSource] = useState<any>([]);
@@ -121,6 +122,7 @@ const Course = () => {
           </Select>
         </span>
       </div>
+      <div className={styles.Tables}>
       <ProTable
         columns={columns}
         dataSource={dataSource}
@@ -134,6 +136,9 @@ const Course = () => {
         }}
 
       />
+
+      </div>
+  
     </>
   )
 }

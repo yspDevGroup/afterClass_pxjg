@@ -3,20 +3,16 @@ import { Select, Rate, Button, Tag } from 'antd';
 import { LeftOutlined, } from '@ant-design/icons';
 import ProTable, { ProColumns } from '@ant-design/pro-table';
 import { useState } from 'react';
-import { getAllClasses } from '@/services/after-class-pxjg/khbjsj';
 import { getClassesEvaluation } from "@/services/after-class-pxjg/khbjsj"
-// import { getAllSemester } from '@/services/after-class-pxjg/khjyjg';
+import { queryXNXQList } from '@/services/local-services/xnxq';
 import EllipsisHint from '@/components/EllipsisHint';
-
-
+import styles from '../index.less'
+// import { queryXNXQList } from '@/services/local-services/xnxq';
 import { useEffect } from 'react';
-
-
 const { Option } = Select;
 const Class = (props: any) => {
-    const { KHKCSJId } = props.location.state
-
-    const columns: ProColumns<any>[] | undefined = [
+const { KHKCSJId, data } = props.location.state
+const columns: ProColumns<any>[] | undefined = [
         {
             title: '序号',
             dataIndex: 'index',
@@ -38,10 +34,10 @@ const Class = (props: any) => {
             key: 'KHBJJs',
             align: 'center',
             render: (text: any) => {
-            return (
+                return (
                     <EllipsisHint
                         width="100%"
-                        text={text.map((item) => {
+                        text={text.map((item: any) => {
                             return (
                                 <Tag key={item.id} color="#EFEFEF" style={{ color: '#333' }}>
                                     {item.KHJSSJ.XM}
@@ -99,21 +95,39 @@ const Class = (props: any) => {
             ),
         },
     ]
-    const [classList, SetclassList] = useState<any>();
+    const [curXNXQId, setCurXNXQId] = useState<any>();
     const { initialState } = useModel('@@initialState');
     const [dataSource, setDataSource] = useState<any>([]);
-
+    const [termList, setTermList] = useState<any>();
     const { currentUser } = initialState || {};
     useEffect(() => {
         (async () => {
-            const res = await getClassesEvaluation({
-                KHKCSJId
+            // 学年学期数据的获取
+            const res = await queryXNXQList(data.id);
+            const newData = res.xnxqList;
+            const curTerm = res.current;
+            if (newData?.length) {
+                if (curTerm) {
+                    setCurXNXQId(curTerm.id);
+                    setTermList(newData);
 
+                }
+            }
+        })();
+    }, []);
+
+    useEffect(() => {
+        (async () => {
+            const res1 = await getClassesEvaluation({
+                XNXQId: curXNXQId,
+                KHKCSJId,
+                page: 0,
+                pageSize: 0
             })
-         setDataSource(res.data.rows)
+            setDataSource(res1.data.rows)
         })()
 
-    }, [])
+    }, [curXNXQId])
 
     return (
         <>
@@ -129,18 +143,18 @@ const Class = (props: any) => {
                 <LeftOutlined />
                 返回上一页
             </Button>
+
             <div>
                 <span>
-                    班级名称:
+                    所属学年学期：
                     <Select
-                        // value={}
+                        value={curXNXQId}
                         style={{ width: 200 }}
                         onChange={(value: string) => {
-                            // 选择不同课程
-                            // choseclass(value);
+                            setCurXNXQId(value);
                         }}
                     >
-                        {classList?.map((item: any) => {
+                        {termList?.map((item: any) => {
                             return (
                                 <Option key={item.value} value={item.value}>
                                     {item.text}
@@ -148,20 +162,23 @@ const Class = (props: any) => {
                             );
                         })}
                     </Select>
-                    <ProTable
-                        columns={columns}
-                        dataSource={dataSource}
-                        rowKey="id"
-                        search={false}
-                        options={{
-                            setting: false,
-                            fullScreen: false,
-                            density: false,
-                            reload: false,
-                        }}
-
-                    />
                 </span>
+            </div>
+            <div className={styles.Tables}>
+                <ProTable
+                    columns={columns}
+                    dataSource={dataSource}
+                    rowKey="id"
+                    search={false}
+                    options={{
+                        setting: false,
+                        fullScreen: false,
+                        density: false,
+                        reload: false,
+                    }}
+
+                />
+
             </div>
 
         </>

@@ -4,18 +4,24 @@ import { useEffect, useRef, useState } from 'react';
 const { Option } = Select;
 import { LeftOutlined, } from '@ant-design/icons';
 import { getKHXKJL } from '@/services/after-class-pxjg/khxkjl'
+import styles from '../index.less'
 
 
 const Details = (props: any) => {
-    const  {KHKCSJ, XXJBSJ,id } = props.location.state
-    console.log(props.location.state);
-    
-    const nowtime=new Date()
+const  {KHKCSJ, XXJBSJ,id } = props.location.state
     const [termList, setTermList] = useState<any>();
     const [dataSource, setDataSource] = useState<any>([]);
     useEffect(() => {
       (async () => {
-          const res = await getKHXKJL({XXJBSJId:XXJBSJ.id})
+          const res = await getKHXKJL(
+            {XXJBSJId:XXJBSJ.id,
+              KHKCSJId:KHKCSJ.id,
+              page:0,
+              pageSize:0
+            }
+            )
+          console.log(res.data?.rows);
+          
            setDataSource(res.data?.rows)
            })()
        },[])
@@ -50,6 +56,24 @@ const Details = (props: any) => {
           align: 'center',
           render: (text: any) => text?.XM,
           width: 120
+        },
+        // {
+        //   title: '课程名称',
+        //   dataIndex: 'KHBJSJ',
+        //   key: 'KHBJSJ',
+        //   align: 'center',
+        //   render: (text: any) => text?.KCMC,
+        //   width: 120
+
+        // },
+        {
+          title: '班级名称',
+          dataIndex: 'KHBJSJ',
+          key: 'KHBJSJ',
+          align: 'center',
+          render: (text: any) => text?.BJMC,
+          width: 120
+
         },
         {
           title: '是否准时上课',
@@ -129,9 +153,7 @@ const Details = (props: any) => {
 
     return (
         <>
-        <div style={{fontSize:'34px',fontWeight:'bold',padding:'20px 0'}}>
-           {`${KHKCSJ.KCMC}(${XXJBSJ.XXMC})`}
-        </div>
+      
             <Button
                 type="primary"
                 onClick={() => {
@@ -144,7 +166,11 @@ const Details = (props: any) => {
                 <LeftOutlined />
                 返回上一页
             </Button>
-            <ProTable
+            <div style={{fontSize:'16px',fontWeight:'bold',padding:'16px 0'}}>
+           {`${KHKCSJ.KCMC}(${XXJBSJ.XXMC})`}
+        </div>
+        <div className={styles.TabList}>
+        <ProTable
                 dataSource={dataSource}
                 columns={columns}
                 options={{
@@ -156,6 +182,9 @@ const Details = (props: any) => {
                 search={false}
 
             />
+
+        </div>
+          
 
 
         </>

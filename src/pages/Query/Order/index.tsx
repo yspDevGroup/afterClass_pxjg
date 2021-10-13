@@ -3,6 +3,7 @@ import { Select, Popconfirm, Divider, message,Space } from 'antd';
 import { useEffect, useRef, useState } from 'react';
 import { Link, useModel } from 'umi';
 import {cooperateSchool } from '@/services/after-class-pxjg/khjyjg';
+import styles from './index.less'
 const { Option } = Select;
 const Order=()=>{
   const [SchoolList, setSchoolList] = useState<any>([]);
@@ -72,14 +73,14 @@ const columns: ProColumns<any>[] | undefined = [
                 >
                   课程订单
                 </Link>
-                <Link
+                {/* <Link
                   to={{
                     pathname:'/query/order/serviceorder',
                     state: record
                   }}
                 >
                   服务订单
-                </Link>
+                </Link> */}
                
               </Space>
             );
@@ -101,7 +102,7 @@ const columns: ProColumns<any>[] | undefined = [
       },[])
     return(
         <div>
-             <div >
+             <div style={{padding:'16px 24px'}}>
                 <span>
                 学校名称：
                     <Select
@@ -122,6 +123,7 @@ const columns: ProColumns<any>[] | undefined = [
                     </Select>
                 </span>
             </div>
+            <div className={styles.Tables}>
             <ProTable
                   dataSource={dataSource}
                 columns={columns}
@@ -133,6 +135,9 @@ const columns: ProColumns<any>[] | undefined = [
                 }}
                 search={false}
             />
+
+            </div>
+       
    </div>
 
     )

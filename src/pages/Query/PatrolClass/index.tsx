@@ -1,160 +1,127 @@
 import ProTable, { ProColumns } from '@ant-design/pro-table';
-import { Space,Tag } from 'antd';
+import { Select, Popconfirm, Divider, message,Space ,} from 'antd';
+import { useEffect, useRef, useState } from 'react';
 import { Link, useModel } from 'umi';
-import { getKHKCSQ, } from '@/services/after-class-pxjg/khkcsq';
-import {useEffect,useState} from 'react'
-import EllipsisHint from '@/components/EllipsisHint';
-
-
-
-
-
-const PatrolClass = () => {
+import {cooperateSchool } from '@/services/after-class-pxjg/khjyjg';
+import styles from './index.less'
+const { Option } = Select;
+const PatrolClass=()=>{
+  const [SchoolList, setSchoolList] = useState<any>([]);
+  const [dataSource, setDataSource] = useState<any>([]);
   const { initialState } = useModel('@@initialState');
   const { currentUser } = initialState || {};
-  const [dataSource, setDataSource] = useState<any>([]);
 
-  useEffect(()=>{
-    (async()=>{
-      const res=await getKHKCSQ({JGId: currentUser?.jgId,ZT:[1],page: 0, pageSize: 0})
-      console.log(res);
-      if(res.status==='ok'){
-        setDataSource(res.data.rows)
-      }
-      
-
-    })()
-
-  },[])
-    const columns: ProColumns<any>[] | undefined = [
+ 
+  
+const columns: ProColumns<any>[] | undefined = [
         {
-            title: '序号',
-            align: 'center',
-            dataIndex: 'index',
-            valueType: 'index',
-            width: 58,
-        },
-        {
-          title: '课程名称',
-          dataIndex: 'KHKCSJ',
-          key: 'KHKCSJ',
+          title: '序号',
           align: 'center',
-          width: 150,
-          ellipsis: true,
-          render: (_, record) => record.KHKCSJ?.KCMC
+          dataIndex: 'index',
+          valueType: 'index'
         },
         {
           title: '学校名称',
-          key: 'XXJBSJ',
-          dataIndex: 'XXJBSJ',
-          align: 'center',
-          width: 150,
-          ellipsis: true,
-          render: (_, record) => record.XXJBSJ?.XXMC
+          dataIndex: 'XXMC',
+          key: 'XXMC',
+          align: 'center'
         },
-      
         {
-          title: '课程类型',
-          dataIndex: 'KHKCLX',
-          key: 'KHKCLX',
+          title: '所属学段',
+          key: 'XD',
+          dataIndex: 'XD',
           align: 'center',
-          width: 100,
+          search: false
+        },
+        {
+          title: '联系人',
+          key: 'LXR',
+          dataIndex: 'LXR',
+          align: 'center',
+          width: 110,
+          search: false
+        },
+        {
+          title: '联系电话',
+          key: 'LXDH',
+          dataIndex: 'LXDH',
+          align: 'center',
+          width: 180,
+          search: false
+        },
+        // {
+        //   title: '课程数量',
+        //   key: 'KHKCSQs',
+        //   dataIndex: 'KHKCSQs',
+        //   align: 'center',
+        //   width: 90,
+        //   search: false,
+        //   render: (text:any) =>text.length
+        // },
+        {
+          title: '操作',
+          align: 'center',
           search: false,
-          ellipsis: true,
           render: (_, record) => {
-            return record.KHKCSJ?.KHKCLX?.KCTAG || '-';
-          }
-        },
-        {
-          title: '适用年级',
-          key: 'SYNJ',
-          dataIndex: 'SYNJ',
-          align: 'center',
-          width: 200,
-          render: (_, record) => {
-            const grade = record.KHKCSJ?.NJSJs;
             return (
-              <EllipsisHint
-                width="100%"
-                text={grade?.map((item) => {
-                  return (
-                    <Tag key={item.id} color="#EFEFEF" style={{ color: '#333' }}>
-                      {item.NJMC}
-                    </Tag>
-                  );
-                })}
-              />
+              <Space>
+                <Link
+                  to={{
+                    pathname:'/query/PatrolClass/Class',
+                    state: record
+                  }}
+                >
+                  详情
+                </Link>
+    
+    
+              </Space>
             );
           }
-        },
-        {
-          title: '任课教师',
-          key: 'RKJS',
-          dataIndex: 'RKJS',
-          align: 'center',
-          width: 150,
-          render: (_, record) => {
-            const teacher = record.KHKCSJ?.KHKCJs;
-            return (
-              <EllipsisHint
-                width="100%"
-                text={teacher?.map((item: any) => {
-                  return <Tag key={item.id}>{item.KHJSSJ.XM}</Tag>;
-                })}
-              />
-            );
-          }
-        },
-      
-        {
-            title: '操作',
-            dataIndex: '',
-            key: '',
-            align: 'center',
-            width: 230,
-            render: (_, record) => {
-                return (
-                  <Space>
-                    <Link
-                      to={{
-                        pathname: '/query/PatrolClass/Details',
-                        state: record
-                      }}
+        }
+      ];
+      useEffect(()=>{
+        (async()=>{
+          const res= await cooperateSchool({
+            type:0,
+            JGId:currentUser?.jgId,
+            page: 0,
+            pageSize: 0
+          })
+          if(res.status==='ok'){
+            console.log(res.data?.rows);
+            
+            setDataSource(res.data?.rows)
+           }
+        })()
+      },[])
+    return(
+        <div>
+        
+             <div style={{padding:'16px 24px'}}>
+                <span>
+                学校名称：
+                    <Select
+                        // value={curXNXQId}
+                        style={{ width: 200 }}
+                        onChange={(value: string) => {
+                            //更新多选框的值
+                            //   setCurXNXQId(value);
+                        }}
                     >
-                      巡课详情
-                    </Link>
-                    {/* <Link
-                      to={{
-                        pathname: '/courseManagement/mechanismCourse/edit',
-                        state: {
-                          type: 'course',
-                          data: {
-                            type: 'detail',
-                            xxid: record.XXJBSJId,
-                            jgid: currentUser?.jgId,
-                            kcid: record.KHKCSJ?.id,
-                            xxmc: record.XXJBSJ?.XXMC
-                          }
-                        }
-                      }}
-                    >
-                      课程详情
-                    </Link> */}
-                   
-                  </Space>
-                );
-              }
-        },
-      
-      
-      
-
-
-    ]
-    return (
-        <>
+                        {SchoolList?.map((item: any) => {
+                            return (
+                                <Option key={item.value} value={item.value}>
+                                    {item.text}
+                                </Option>
+                            );
+                        })}
+                    </Select>
+                </span>
+            </div>
+            <div className={styles.TabList}>
             <ProTable
-                 dataSource={dataSource}
+                  dataSource={dataSource}
                 columns={columns}
                 options={{
                     setting: false,
@@ -163,10 +130,11 @@ const PatrolClass = () => {
                     reload: false,
                 }}
                 search={false}
-
             />
+            </div>
+     
+   </div>
 
-        </>
     )
 }
 PatrolClass.wrappers = ['@/wrappers/auth'];

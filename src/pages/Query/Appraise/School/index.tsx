@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Link, useModel } from 'umi';
 import {getCourseSchools } from '@/services/after-class-pxjg/khjyjg';
 import { LeftOutlined, } from '@ant-design/icons';
+import styles from '../index.less'
 const { Option } = Select;
 const  Appraise=(props:any)=>{
 const  {id} = props.location.state.data
@@ -70,8 +71,8 @@ const columns: ProColumns<any>[] | undefined = [
                 <Link
                   to={{
                     pathname: '/query/Appraise/class',
-                    state: record,
-                    KHKCSJId:id
+                    state:{KHKCSJId:id,data:record},
+                   
                   }}
                 >
                   详情
@@ -127,6 +128,7 @@ const columns: ProColumns<any>[] | undefined = [
                     </Select>
                 </span>
             </div>
+            <div className={styles.Tables}>
             <ProTable
                   dataSource={dataSource}
                 columns={columns}
@@ -138,6 +140,9 @@ const columns: ProColumns<any>[] | undefined = [
                 }}
                 search={false}
             />
+
+            </div>
+       
 
 
             

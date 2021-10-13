@@ -74,17 +74,19 @@ const ClassOrder=(props:any)=>{
         },
       ];
   const [dataSource, setDataSource] = useState<API.KHXSDD[] | undefined>([]);
-  const [activeKey, setActiveKey] = useState<string>('paid');
+  const [activeKey, setActiveKey] = useState<string>('待付款');
    useEffect(()=>{
       (async()=>{
           const res1=await getAllSemester({
             KHJYJGId:currentUser.jgId,
             XXJBSJId:id,
 
-          })
+           })
           if(res1.status==='ok'){
             (async()=>{
                 const res= await getAllKHXSDD({
+                  //机构id
+                    KHJYJGId:currentUser?.jgId,
                     XNXQId:res1.data[0].id,
                     XXJBSJId:id,
                     DDZT:activeKey,
