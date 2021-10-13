@@ -129,27 +129,6 @@ const columns: ProColumns<any>[] | undefined = [
                 <LeftOutlined />
                 返回上一页
             </Button>
-
-            <div style={{paddingBottom:'24px'}}>
-                <span>
-                    所属学年学期：
-                    <Select
-                        value={curXNXQId}
-                        style={{ width: 200 }}
-                        onChange={(value: string) => {
-                            setCurXNXQId(value);
-                        }}
-                    >
-                        {termList?.map((item: any) => {
-                            return (
-                                <Option key={item.value} value={item.value}>
-                                    {item.text}
-                                </Option>
-                            );
-                        })}
-                    </Select>
-                </span>
-            </div>
             <div className={styles.Tables}>
                 <ProTable
                     columns={columns}

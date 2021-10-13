@@ -26,12 +26,15 @@ const Details = (props:any) => {
       dataIndex: 'XSXM',
       key: 'XSXM',
       align: 'center',
+      filters:true,
+      
     },
     {
       title: '课程名称 ',
       dataIndex: 'KHBJSJ',
       key: 'KHBJSJ',
       align: 'center',
+      search:false,
       render: (text: any) => {
         return text?.KHKCSJ?.KCMC;
       },
@@ -41,6 +44,12 @@ const Details = (props:any) => {
       dataIndex: 'KHBJSJ',
       key: 'KHBJSJ',
       align: 'center',
+      valueEnum:{
+        all: { text: '全部', status: 'Default' },
+        running: { text: '运行中', status: 'Processing' },
+        online: { text: '已上线', status: 'Success' },
+        error: { text: '异常', status: 'Error' },
+      },
       render: (text: any) => {
         return text?.BJMC;
       },
@@ -57,12 +66,15 @@ const Details = (props:any) => {
       dataIndex: 'KSS',
       key: 'KSS',
       align: 'center',
+      search:false,
+
     },
     {
       title: '状态',
       dataIndex: 'ZT',
       key: 'ZT',
       align: 'center',
+      search:false,
       valueEnum: {
         0: {
           text: '申请中',
@@ -84,60 +96,6 @@ const Details = (props:any) => {
       key: 'createdAt',
       align: 'center',
     },
-    // {
-    //   title: '操作',
-    //   dataIndex: '',
-    //   key: '',
-    //   align: 'center',
-    //   render: (record: any) =>
-    //     record.ZT === 0 ? (
-    //       <>
-    //         <Popconfirm
-    //           title="确认要同意么?"
-    //           onConfirm={async () => {
-    //             // try {
-    //             //   if (record.id) {
-    //             //     const params = { id: record.id };
-    //             //     const body = { ZT: 1 };
-    //             //     const res3 = await updateKHTKSJ(params, body);
-    //             //     if (res3.status === 'ok') {
-    //             //       message.success('已同意退课');
-    //             //       actionRef.current?.reload();
-    //             //     }
-    //             //   }
-    //             // } catch (err) {
-    //             //   message.error('删除课程出现错误，请联系管理员确认已删除');
-    //             // }
-    //           }}
-    //         >
-    //           <a>同意</a>
-    //         </Popconfirm>
-    //         <Divider type="vertical" />
-    //         <Popconfirm
-    //           title="不同意"
-    //           onConfirm={async () => {
-    //             // try {
-    //             //   if (record.id) {
-    //             //     const params = { id: record.id };
-    //             //     const body = { ZT: 2 };
-    //             //     const res3 = await updateKHTKSJ(params, body);
-    //             //     if (res3.status === 'ok') {
-    //             //       message.success('驳回退课申请');
-    //             //       actionRef.current?.reload();
-    //             //     }
-    //             //   }
-    //             // } catch (err) {
-    //             //   message.error('删除课程出现错误，请联系管理员确认已删除');
-    //             // }
-    //           }}
-    //         >
-    //           <a>不同意</a>
-    //         </Popconfirm>
-    //       </>
-    //     ) : (
-    //       ''
-    //     ),
-    // },
   ];
   useEffect(() => {
     (async () => {
@@ -165,27 +123,6 @@ const Details = (props:any) => {
                 <LeftOutlined />
                 返回上一页
             </Button>
-      {/* <div style={{padding:'16px 0'}}>
-        <span>
-          所属学年学期：
-          <Select
-            // value={curXNXQId}
-            style={{ width: 200 }}
-            onChange={(value: string) => {
-              //更新多选框的值
-              //   setCurXNXQId(value);
-            }}
-          >
-            {termList?.map((item: any) => {
-              return (
-                <Option key={item.value} value={item.value}>
-                  {item.text}
-                </Option>
-              );
-            })}
-          </Select>
-        </span>
-      </div> */}
       <div className={styles.Tables}>
         <ProTable
           dataSource={dataSource}
@@ -196,7 +133,7 @@ const Details = (props:any) => {
             density: false,
             reload: false,
           }}
-          search={false}
+          // search={false}
         />
 
       </div>

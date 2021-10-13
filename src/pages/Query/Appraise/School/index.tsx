@@ -107,27 +107,6 @@ const columns: ProColumns<any>[] | undefined = [
                 <LeftOutlined />
                 返回上一页
             </Button>
-             <div  style={{paddingBottom:'24px'}}>
-                <span>
-                学校名称：
-                    <Select
-                        value={school}
-                        style={{ width: 200 }}
-                        onChange={(value: string) => {
-                            //更新多选框的值
-                            //   setCurXNXQId(value);
-                        }}
-                    >
-                        {SchoolList?.map((item: any) => {
-                            return (
-                                <Option key={item.value} value={item.value}>
-                                    {item.text}
-                                </Option>
-                            );
-                        })}
-                    </Select>
-                </span>
-            </div>
             <div className={styles.Tables}>
             <ProTable
                   dataSource={dataSource}
