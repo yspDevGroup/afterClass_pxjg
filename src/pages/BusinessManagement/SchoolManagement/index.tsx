@@ -196,7 +196,8 @@ const SchoolManagement = () => {
         reload: false,
         search: {
           placeholder: '学校名称',
-          allowClear: true
+          allowClear: true,
+
         }
       }}
       rowKey="id"

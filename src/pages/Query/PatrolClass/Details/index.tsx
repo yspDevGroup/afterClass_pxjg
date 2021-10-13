@@ -76,7 +76,7 @@ const  {KHKCSJ, XXJBSJ,id } = props.location.state
 
         },
         {
-          title: '是否准时上课',
+          title: '准时上课',
           dataIndex: 'SFZSSK',
           key: 'SFZSSK',
           align: 'center',
@@ -84,7 +84,7 @@ const  {KHKCSJ, XXJBSJ,id } = props.location.state
           width: 120
         },
         {
-          title: '是否为原定教师',
+          title: '为原定教师',
           dataIndex: 'SFYDJS',
           key: ' SFYDJS',
           align: 'center',

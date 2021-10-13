@@ -10,11 +10,7 @@ const ReimbursementClass = () => {
   const [dataSource, setDataSource] = useState<any>([]);
   const { initialState } = useModel('@@initialState');
   const { currentUser } = initialState || {};
-
-
-
-
-  const columns: ProColumns<any>[] | undefined = [
+const columns: ProColumns<any>[] | undefined = [
     {
       title: '序号',
       align: 'center',
@@ -81,45 +77,32 @@ const ReimbursementClass = () => {
     }
   ];
   useEffect(() => {
-    (async () => {
-      const res = await cooperateSchool({
-        type: 0,
-        JGId: currentUser?.jgId,
-        page: 0,
-        pageSize: 0
-      })
-      if (res.status === 'ok') {
-
-        setDataSource(res.data?.rows)
-
-      }
-    })()
+    getSchool('')
   }, [])
+  const  getSchool=async(name:string)=>{
+    const res = await cooperateSchool({
+          type: 0,
+          JGId: currentUser?.jgId,
+          page: 0,
+          pageSize: 0,
+          name
+        })
+        if(res.status === 'ok') {
+           setDataSource(res.data?.rows)
+        }
+    }
   return (
     <>
-      <div style={{ padding: '16px' }}>
-        <span>
-          学校名称：
-          <Select
-            // value={curXNXQId}
-            style={{ width: 200 }}
-            onChange={(value: string) => {
-              //更新多选框的值
-              //   setCurXNXQId(value);
-            }}
-          >
-            {SchoolList?.map((item: any) => {
-              return (
-                <Option key={item.value} value={item.value}>
-                  {item.text}
-                </Option>
-              );
-            })}
-          </Select>
-        </span>
-      </div>
+      
       <div className={styles.Tables}>
         <ProTable
+          toolbar={{
+            onSearch: (value:string) => {
+              getSchool(value)
+
+            }
+
+          }}
           dataSource={dataSource}
           columns={columns}
           options={{
@@ -127,6 +110,10 @@ const ReimbursementClass = () => {
             fullScreen: false,
             density: false,
             reload: false,
+            search: {
+              placeholder: '学校名称',
+              allowClear: true
+            }
           }}
           search={false}
         />

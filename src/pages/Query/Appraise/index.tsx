@@ -11,6 +11,11 @@ const Course = () => {
   const { initialState } = useModel('@@initialState');
   const { currentUser } = initialState || {};
   const [termList, setTermList] = useState<any>([]);
+  const [classname, setclassname] = useState<any>([]);
+  const [choseClass, setchoseClass] = useState('');
+
+
+
   const { Option } = Select;
   const columns: ProColumns<any>[] | undefined = [
     {
@@ -97,25 +102,51 @@ const Course = () => {
 
       })
     setDataSource(res.data.rows)
+    const listdata=res.data.rows
+    const  classList: any[]=[]
+    listdata.map((item:any)=>{
+       return(
+        classList.push(item.KCMC)
+
+       )
+
+    })
+    setclassname(classList)
+    
     })()
   },[])
+  useEffect(()=>{
+    (async () => {
+      const res = await getCourseEvaluation({
+        KHJYJGId: currentUser?.jgId,
+        KCMC:choseClass
+
+      })
+      setDataSource(res.data.rows)
+
+   })()
+    
+    
+
+  },[choseClass])
   return (
     <>
       <div style={{ padding: '24px 16px' }}>
         <span  >
-          所属学校学年学期：
+           课程名称：
           <Select
-            // value={curXNXQId}
+          allowClear
+          value={choseClass}
             style={{ width: 200 }}
             onChange={(value: string) => {
-              //选择不同学期从新更新页面的数据
-              // setCurXNXQId(value);
+              setchoseClass(value)
+            
             }}
           >
-            {termList?.map((item: any) => {
+            {classname?.map((item: any) => {
               return (
-                <Option key={item.value} value={item.value}>
-                  {item.text}
+                <Option  value={item}>
+                  {item}
                 </Option>
               );
             })}

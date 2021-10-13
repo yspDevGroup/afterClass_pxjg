@@ -4,10 +4,8 @@ import { LeftOutlined, } from '@ant-design/icons';
 import ProTable, { ProColumns } from '@ant-design/pro-table';
 import { useState } from 'react';
 import { getClassesEvaluation } from "@/services/after-class-pxjg/khbjsj"
-import { queryXNXQList } from '@/services/local-services/xnxq';
 import EllipsisHint from '@/components/EllipsisHint';
 import styles from '../index.less'
-// import { queryXNXQList } from '@/services/local-services/xnxq';
 import { useEffect } from 'react';
 const { Option } = Select;
 const Class = (props: any) => {
@@ -101,19 +99,7 @@ const columns: ProColumns<any>[] | undefined = [
     const [termList, setTermList] = useState<any>();
     const { currentUser } = initialState || {};
     useEffect(() => {
-        (async () => {
-            // 学年学期数据的获取
-            const res = await queryXNXQList(data.id);
-            const newData = res.xnxqList;
-            const curTerm = res.current;
-            if (newData?.length) {
-                if (curTerm) {
-                    setCurXNXQId(curTerm.id);
-                    setTermList(newData);
-
-                }
-            }
-        })();
+     
     }, []);
 
     useEffect(() => {

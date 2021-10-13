@@ -91,7 +91,7 @@ export default {
       },
       {
         path: '/query',
-        name: '查询',
+        name: '信息查询',
         icon: <ZoomInOutlined />,
         routes: [
           {
@@ -123,7 +123,7 @@ export default {
             name: '评价查询',
             routes: [
               {
-                path: '/query/appraise/course',
+                path: '/query/appraise/school',
                 name: '评价查询课程',
                 hideInMenu: 'true'
               },
@@ -151,7 +151,7 @@ export default {
 
                  },
                  {
-                  path: '/query/order/ServiceOrder',
+                  path: '/query/order/serviceorder',
                   name: '服务订单',
                   hideInMenu: 'true'
 

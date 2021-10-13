@@ -1,14 +1,10 @@
 import ProTable, { ProColumns,ActionType } from '@ant-design/pro-table';
 import {useState,useEffect,useRef} from 'react'
-import { Select, Button} from 'antd';
+import { Button} from 'antd';
 import {useModel,} from 'umi';
 import { getAllKHXSDD } from '@/services/after-class-pxjg/khxsdd';
 import { getAllSemester} from '@/services/after-class-pxjg/khjyjg';
 import { LeftOutlined, } from '@ant-design/icons';
-
-
-
-const { Option } = Select;
 
 type selectType = { label: string; value: string };
 const ClassOrder=(props:any)=>{
@@ -29,12 +25,14 @@ const ClassOrder=(props:any)=>{
           dataIndex: 'XSXM',
           key: 'XSXM',
           align: 'center',
+          filters:true,
         },
         {
-          title: '班级',
+          title: '课程班',
           dataIndex: 'BJMC',
           key: 'BJMC',
           align: 'center',
+          search:false,
           render: (_text: any, record: any) => {
             return <div>{record?.KHBJSJ?.BJMC}</div>;
           },
@@ -44,6 +42,7 @@ const ClassOrder=(props:any)=>{
           dataIndex: 'KCMC',
           key: 'KCMC',
           align: 'center',
+          valueType:'select',
           render: (_text: any, record: any) => {
             return <div>{record?.KHBJSJ?.KHKCSJ?.KCMC}</div>;
           },
@@ -53,28 +52,34 @@ const ClassOrder=(props:any)=>{
           dataIndex: 'XDSJ',
           key: 'XDSJ',
           align: 'center',
+          search:false,
         },
         {
           title: '付款时间',
           dataIndex: 'ZFSJ',
           key: 'ZFSJ',
           align: 'center',
+          search:false,
         },
         {
           title: '订单费用(元)',
           dataIndex: 'DDFY',
           key: 'DDFY',
           align: 'center',
+          search:false,
         },
         {
           title: '订单状态',
           dataIndex: 'DDZT',
           key: 'DDZT',
           align: 'center',
+          search:false,
         },
       ];
   const [dataSource, setDataSource] = useState<API.KHXSDD[] | undefined>([]);
   const [activeKey, setActiveKey] = useState<string>('待付款');
+  const [classList,setclassList] = useState<any>([]);
+
    useEffect(()=>{
       (async()=>{
           const res1=await getAllSemester({
@@ -126,9 +131,9 @@ const ClassOrder=(props:any)=>{
                     reload: false,
 
                 }}
-                search={false}
+                // search={false}
                 toolbar={{
-                    menu: {
+                 menu: {
                       type: 'tab',
                       activeKey,
                       items: [
@@ -148,7 +153,9 @@ const ClassOrder=(props:any)=>{
                       onChange: (key) => {
                         setActiveKey(key as string);
                         actionRef.current?.reload();
-                      }
+                      },
+                    
+                      
                     }
                   }}
                   actionRef={actionRef}
