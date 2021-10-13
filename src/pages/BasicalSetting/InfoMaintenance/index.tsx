@@ -1,5 +1,5 @@
 /* eslint-disable complexity */
-import React, { useEffect, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { Button, Form, Input, Image, Divider, Row, Col, Alert, message, Popconfirm, Tooltip, Select } from 'antd';
 import { useModel } from 'umi';
 import { createKHJYJG, KHJYJG, updateKHJYJG } from '@/services/after-class-pxjg/khjyjg';
@@ -123,10 +123,13 @@ const InfoMaintenance = (props: any) => {
           message.success(`上传成功`);
           if (type === 'YYZZTP') {
             setYYZZImageUrl(res.data);
+            form.setFieldsValue({YYZZ: res.data})
           } else if (type === 'QYTBTP') {
             setQYTBImageUrl(res.data);
+            form.setFieldsValue({QYTB: res.data})
           } else {
             setBXXKZImageUrl(res.data);
+            form.setFieldsValue({BXXKZ: res.data})
           }
         }
       }
@@ -608,9 +611,6 @@ const InfoMaintenance = (props: any) => {
                 </Form.Item>
               )}
 
-              <Form.Item name="JGJJ" key="JGJJ" label="机构简介：">
-                <Input.TextArea placeholder={disabled === false ? '请输入' : '——'} rows={4} disabled={disabled} />
-              </Form.Item>
               <Form.Item
                 name="YYZZ"
                 key="YYZZ"
@@ -621,6 +621,7 @@ const InfoMaintenance = (props: any) => {
                     message: '请上传营业执照'
                   }
                 ]}
+                valuePropName="imageurl"
               >
                 <UploadImage
                   key="YYZZTP"
@@ -629,7 +630,9 @@ const InfoMaintenance = (props: any) => {
                   upurl="/api/upload/uploadFile?type=badge&plat=agency"
                   accept=".jpg, .jpeg, .png"
                   imagename="image"
-                  handleImageChange={(value: any) => {
+                  imgHeight={135}
+                  imgWidth={135}
+                  handleImageChange={(value: any) => {                    
                     imageChange('YYZZTP', value);
                   }}
                 />
@@ -644,6 +647,7 @@ const InfoMaintenance = (props: any) => {
                     message: '请上传办学许可证'
                   }
                 ]}
+                valuePropName="imageurl"
               >
                 <UploadImage
                   key="BXXKZTP"
@@ -652,6 +656,8 @@ const InfoMaintenance = (props: any) => {
                   upurl="/api/upload/uploadFile?type=badge&plat=agency"
                   accept=".jpg, .jpeg, .png"
                   imagename="image"
+                  imgHeight={135}
+                  imgWidth={135}
                   handleImageChange={(value: any) => {
                     imageChange('BXXKZTP', value);
                   }}
@@ -659,7 +665,10 @@ const InfoMaintenance = (props: any) => {
               </Form.Item>
             </Col>
           </Row>
-          <Form.Item>
+          <Form.Item name="JGJJ" key="JGJJ" label="机构简介：">
+            <Input.TextArea placeholder={disabled === false ? '请输入' : '——'} rows={4} disabled={disabled} />
+          </Form.Item>
+          <Form.Item className={styles.bottomBtnCon}>
             {disabled === true ? (
               <button onClick={onEditor} className={styles.btn}>
                 更改备案信息
