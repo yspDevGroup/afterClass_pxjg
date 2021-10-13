@@ -2,10 +2,11 @@
  * @description: 运行时配置
  * @author: zpl
  * @Date: 2021-08-09 10:44:42
- * @LastEditTime: 2021-09-07 18:02:42
- * @LastEditors: Sissle Lynn
+ * @LastEditTime: 2021-10-13 16:44:04
+ * @LastEditors: zpl
  */
 import { notification, message } from 'antd';
+import { history } from 'umi'
 import type { RequestConfig } from 'umi';
 import type { ResponseError } from 'umi-request';
 import { currentUser as getCurrentUser } from './services/after-class-pxjg/user';
@@ -140,6 +141,9 @@ export const request: RequestConfig = {
         ...ctx.req.options.headers
       };
       await next();
+      if (ctx.res.status !== 'ok' && ctx.res.message?.includes('Authorization token is invalid')) {
+        history.replace('/auth_callback/OverDue');
+      }
     }
   ]
 };
