@@ -144,7 +144,7 @@ const columns: ProColumns<any>[] | undefined = [
                 返回上一页
             </Button>
 
-            <div>
+            <div style={{paddingBottom:'24px'}}>
                 <span>
                     所属学年学期：
                     <Select

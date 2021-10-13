@@ -107,7 +107,7 @@ const columns: ProColumns<any>[] | undefined = [
                 <LeftOutlined />
                 返回上一页
             </Button>
-             <div >
+             <div  style={{paddingBottom:'24px'}}>
                 <span>
                 学校名称：
                     <Select
