@@ -26,7 +26,13 @@ export async function getKHXSTK(
       KHBJSJId?: string;
       KHXSDDId?: string;
       XXJBSJId?: string;
-      XSJBSJ?: { id?: string; XH?: string; XM?: string; WechatUserId?: string };
+      XSJBSJ?: {
+        id?: string;
+        XH?: string;
+        XM?: string;
+        WechatUserId?: string;
+        BJSJ?: { id?: string; BJ?: string; NJSJ?: { id?: string; NJMC?: string; XD?: string } };
+      };
       JZGJBSJ?: { id?: string; XM?: string; WechatUserId?: string };
       KHBJSJ?: { BJMC?: string; KHKCSJ?: { KCMC?: string } };
     };
@@ -105,7 +111,13 @@ export async function createKHXSTK(body: API.CreateKHXSTK, options?: { [key: str
       KHBJSJId?: string;
       KHXSDDId?: string;
       XXJBSJId?: string;
-      XSJBSJ?: { id?: string; XH?: string; XM?: string; WechatUserId?: string };
+      XSJBSJ?: {
+        id?: string;
+        XH?: string;
+        XM?: string;
+        WechatUserId?: string;
+        BJSJ?: { id?: string; BJ?: string; NJSJ?: { id?: string; NJMC?: string; XD?: string } };
+      };
       JZGJBSJ?: { id?: string; XM?: string; WechatUserId?: string };
       KHBJSJ?: { BJMC?: string; KHKCSJ?: { KCMC?: string } };
     };

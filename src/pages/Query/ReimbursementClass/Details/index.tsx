@@ -1,18 +1,50 @@
 import ProTable, { ProColumns } from '@ant-design/pro-table';
-import { Select, Popconfirm, Divider, message,Button } from 'antd';
+import { Select, Button, Input,message } from 'antd';
 import { LeftOutlined, } from '@ant-design/icons';
-import { useEffect, useRef, useState } from 'react';
-import { getKHTKSJ, updateKHTKSJ } from '@/services/after-class-pxjg/khtksj';
-import { getAllSemester } from '@/services/after-class-pxjg/khjyjg';
+import { useEffect, useState } from 'react';
+import { getKHTKSJ, } from '@/services/after-class-pxjg/khtksj';
+import { getAllCourses,getAllSemester } from '@/services/after-class-pxjg/khjyjg';
+import { Link, useModel } from 'umi';
 import styles from '../index.less'
+import { getCurrentXQ } from '@/utils';
+import {getAllTKByAgency} from '@/services/after-class-pxjg/khtksj';
+const { Search } = Input;
+
+
 
 const { Option } = Select;
-const Details = (props:any) => {
+const Details = (props: any) => {
   const { id } = props.location.state
   const [termList, setTermList] = useState<any>();
   const [dataSource, setDataSource] = useState<any>([]);
+  const [classNameList, setclassNameList] = useState<any>([]);
+  const [StudentName,SetStudentName ] = useState<any>('');
+  const [className, setclassName] = useState<any>([]);
+  const [term, setTerm] = useState<string>();
+  const { initialState } = useModel('@@initialState');
+  const { currentUser } = initialState || {};
+  const getXNXQ = async (xxdm: string, jgdm: string) => {
+    const res = await getAllSemester({
+        KHJYJGId: jgdm,
+        XXJBSJId: xxdm,
+    });
+    if (res?.status === 'ok') {
+        const { data = [] } = res;
+        const currentXQ = getCurrentXQ(data);
+        const term = [].map.call(data, (item: any) => {
+            return {
+                value: item.id,
+                text: `${item.XN} ${item.XQ}`
+            };
+        });
 
-  ///table表格数据
+        setTermList(term);
+        setTerm(currentXQ?.id || data[0].id);
+    } else {
+        message.error(res.message,);
+    }
+};
+ ///table表格数据
   const columns: ProColumns<any>[] = [
     {
       title: '序号',
@@ -23,20 +55,20 @@ const Details = (props:any) => {
     },
     {
       title: '学生姓名',
-      dataIndex: 'XSXM',
-      key: 'XSXM',
+      dataIndex: 'XSJBSJ',
+      key: 'XSJBSJ',
       align: 'center',
-      filters:true,
-      
+      render: (test) => test?.XM,
+
     },
     {
       title: '课程名称 ',
       dataIndex: 'KHBJSJ',
       key: 'KHBJSJ',
       align: 'center',
-      search:false,
+      search: false,
       render: (text: any) => {
-        return text?.KHKCSJ?.KCMC;
+        return text?.BJMS;
       },
     },
     {
@@ -44,29 +76,16 @@ const Details = (props:any) => {
       dataIndex: 'KHBJSJ',
       key: 'KHBJSJ',
       align: 'center',
-      valueEnum:{
-        all: { text: '全部', status: 'Default' },
-        running: { text: '运行中', status: 'Processing' },
-        online: { text: '已上线', status: 'Success' },
-        error: { text: '异常', status: 'Error' },
-      },
       render: (text: any) => {
-        return text?.BJMC;
+        return <div>{text?.BJMC}</div>
       },
     },
-    // {
-    //   title: '学校名称',
-    //   dataIndex: '',
-    //   key: '',
-    //   align: 'center',
-
-    // },
     {
       title: '退课课时数',
       dataIndex: 'KSS',
       key: 'KSS',
       align: 'center',
-      search:false,
+      search: false,
 
     },
     {
@@ -74,7 +93,7 @@ const Details = (props:any) => {
       dataIndex: 'ZT',
       key: 'ZT',
       align: 'center',
-      search:false,
+      search: false,
       valueEnum: {
         0: {
           text: '申请中',
@@ -95,44 +114,104 @@ const Details = (props:any) => {
       dataIndex: 'createdAt',
       key: 'createdAt',
       align: 'center',
-      search:false
+      search: false
     },
   ];
+ useEffect(()=>{
+       //获取学年学期
+       getXNXQ(id, currentUser?.jgId),
+       //培训机构课程列表
+       (async()=>{
+           const res= await getAllTKByAgency({
+            XXJBSJId:id,
+            KHJYJGId:currentUser?.jgId,
+            page:0,
+            pageSize:0
+          })
+          if (res.status === 'ok'){
+            setclassNameList(res.data.rows)
+          }
+           
+       })()
+ },[])
   useEffect(() => {
-    (async () => {
-      const res = await getKHTKSJ({ XXJBSJId: id })
+  (async () => {
+      const res = await getAllTKByAgency({
+        XXJBSJId: id,
+        KHJYJGId:currentUser?.jgId,
+        XNXQId:term,
+        page:0,
+        pageSize:0
+        // XSXM:StudentName
+      })
       if (res.status === 'ok') {
-        console.log(res.data?.rows);
-
         setDataSource(res.data?.rows)
       }
-
-
     })()
-  }, [])
+  
+  },[term,StudentName,className])
+  
   return (
     <>
-        <Button
-                type="primary"
-                onClick={() => {
-                    history.go(-1);
-                }}
-                style={{
-                    marginBottom: '24px',
-                }}
-            >
-                <LeftOutlined />
-                返回上一页
-            </Button>
+      <Button
+        type="primary"
+        onClick={() => {
+          history.go(-1);
+        }}
+        style={{
+          marginBottom: '24px',
+        }}
+      >
+        <LeftOutlined />
+        返回上一页
+      </Button>
+      <div className={styles.TabTop}>
+        <span>
+          所属学年学期：
+                    <Select
+                       allowClear={true}
+                        value={term}
+                        style={{ width: 200 }}
+                        onChange={(value: string) => {
+                          setTerm(value);
+                        }}
+                    >
+                        {termList?.map((item: any) => {
+                            return <Option key={item.value} value={item.value}>{item.text}</Option>;
+                        })}
+                    </Select>
+        </span>
+        <span>
+          学生姓名：
+          <Search style={{width: 200}} 
+          placeholder='请输入学生姓名'
+          allowClear
+           onSearch={(value)=>{
+            SetStudentName(value)
+          
+          }} />
+        </span>
+        <span>
+          课程名称：
+          <Select
+            // value={}
+            style={{ width: 200 }}
+            onChange={(value: string) => {
+              setclassName(value)
+            }}
+          >
+            {classNameList?.map((item: any) => {
+              return <Option key={item.id} value={item.id}>{item.KCMC}</Option>;
+            })}
+          </Select>
+        </span>
+      </div>
+
       <div className={styles.Tables}>
         <ProTable
-        onSubmit={(value)=>{
-          console.log(value);
-          
-          console.log('aaaaa');
-          
-
-       }}
+          onSubmit={(value) => {
+            console.log(value);
+          }}
           dataSource={dataSource}
           columns={columns}
           options={{
@@ -141,7 +220,7 @@ const Details = (props:any) => {
             density: false,
             reload: false,
           }}
-          // search={false}
+          search={false}
         />
 
       </div>

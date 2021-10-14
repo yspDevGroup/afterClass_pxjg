@@ -165,6 +165,8 @@ export async function getFJPlan(
     bjId?: string;
     /** 课程ID */
     kcId?: string;
+    /** 教师姓名 */
+    JSXM?: string;
     /** 是否有排课 */
     isPk?: boolean;
     /** 学年 */

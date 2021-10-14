@@ -244,6 +244,8 @@ export async function getSchoolClasses(
   body: {
     /** 学校ID */
     XXJBSJId?: string;
+    /** 学年学期ID */
+    XNXQId?: string;
     /** 年级ID */
     njId?: string;
     /** 页数 */
@@ -268,6 +270,8 @@ export async function getClassStudents(
   body: {
     /** 班级ID */
     BJSJId?: string;
+    /** 学年学期ID */
+    XNXQId?: string;
     /** 学生姓名 */
     XM?: string;
     /** 课程名称 */
