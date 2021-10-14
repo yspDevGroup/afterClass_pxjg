@@ -61,6 +61,7 @@ const SchoolManagement = () => {
             width="100%"
             text={type?.map((item: any) => {
               return (
+                // eslint-disable-next-line react/jsx-key
                 <Tag color="#EFEFEF" style={{ color: '#333' }}>
                   {item}
                 </Tag>
@@ -196,8 +197,7 @@ const SchoolManagement = () => {
         reload: false,
         search: {
           placeholder: '学校名称',
-          allowClear: true,
-
+          allowClear: true
         }
       }}
       rowKey="id"

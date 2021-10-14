@@ -4,7 +4,7 @@ import ProTable, { ProColumns } from '@ant-design/pro-table';
 import { useEffect, useState } from 'react';
 import { getCourseEvaluation } from '@/services/after-class-pxjg/khjyjg';
 import EllipsisHint from '@/components/EllipsisHint';
-import styles from './index.less'
+import styles from './index.less';
 
 const Course = () => {
   const [dataSource, setDataSource] = useState<any>([]);
@@ -13,8 +13,6 @@ const Course = () => {
   const [termList, setTermList] = useState<any>([]);
   const [classname, setclassname] = useState<any>([]);
   const [choseClass, setchoseClass] = useState('');
-
-
 
   const { Option } = Select;
   const columns: ProColumns<any>[] | undefined = [
@@ -29,8 +27,7 @@ const Course = () => {
       title: '课程名称',
       dataIndex: 'KCMC',
       key: 'KCMC',
-      align: 'center',
-
+      align: 'center'
     },
     {
       title: '课程类型',
@@ -38,8 +35,8 @@ const Course = () => {
       key: 'KHKCLX',
       align: 'center',
       render: (test: any) => {
-        return test.KCTAG
-      },
+        return test.KCTAG;
+      }
     },
     {
       title: '任课教师',
@@ -52,17 +49,14 @@ const Course = () => {
             width="100%"
             text={test?.map((item: any) => {
               return (
-                <Tag color="#EFEFEF" style={{ color: '#333' }}>
-                  {item.KHJSSJ.XM}
+                <Tag color="#EFEFEF" style={{ color: '#333' }} key={item.id}>
+                  {item.JZGJBSJ.XM}
                 </Tag>
               );
             })}
           />
-        )
-
+        );
       }
-
-
     },
     {
       title: '课程评分',
@@ -70,7 +64,7 @@ const Course = () => {
       key: 'PJFS',
       align: 'center',
       width: 200,
-      render: (text: any) => <Rate count={5} defaultValue={text} disabled={true} />,
+      render: (text: any) => <Rate count={5} defaultValue={text} disabled={true} />
     },
 
     {
@@ -85,93 +79,74 @@ const Course = () => {
               pathname: '/query/appraise/school',
               state: {
                 type: 'detail',
-                data: record,
-              },
+                data: record
+              }
             }}
           >
             详情
           </Link>
         </>
-      ),
-    },
+      )
+    }
   ];
   useEffect(() => {
     (async () => {
       const res = await getCourseEvaluation({
         KHJYJGId: currentUser?.jgId
-
-      })
-    setDataSource(res.data.rows)
-    const listdata=res.data.rows
-    const  classList: any[]=[]
-    listdata.map((item:any)=>{
-       return(
-        classList.push(item.KCMC)
-
-       )
-
-    })
-    setclassname(classList)
-    
-    })()
-  },[])
-  useEffect(()=>{
+      });
+      setDataSource(res.data.rows);
+      const listdata = res.data.rows;
+      const classList: any[] = [];
+      listdata.map((item: any) => {
+        return classList.push(item.KCMC);
+      });
+      setclassname(classList);
+    })();
+  }, []);
+  useEffect(() => {
     (async () => {
       const res = await getCourseEvaluation({
         KHJYJGId: currentUser?.jgId,
-        KCMC:choseClass
-
-      })
-      setDataSource(res.data.rows)
-
-   })()
-    
-    
-
-  },[choseClass])
+        KCMC: choseClass
+      });
+      setDataSource(res.data.rows);
+    })();
+  }, [choseClass]);
   return (
     <>
       <div style={{ padding: '24px 16px' }}>
-        <span  >
-           课程名称：
+        <span>
+          课程名称：
           <Select
-          allowClear
-          value={choseClass}
+            allowClear
+            value={choseClass}
             style={{ width: 200 }}
             onChange={(value: string) => {
-              setchoseClass(value)
-            
+              setchoseClass(value);
             }}
           >
             {classname?.map((item: any) => {
-              return (
-                <Option  value={item}>
-                  {item}
-                </Option>
-              );
+              return <Option value={item}>{item}</Option>;
             })}
           </Select>
         </span>
       </div>
       <div className={styles.Tables}>
-      <ProTable
-        columns={columns}
-        dataSource={dataSource}
-        rowKey="id"
-        search={false}
-        options={{
-          setting: false,
-          fullScreen: false,
-          density: false,
-          reload: false,
-        }}
-
-      />
-
+        <ProTable
+          columns={columns}
+          dataSource={dataSource}
+          rowKey="id"
+          search={false}
+          options={{
+            setting: false,
+            fullScreen: false,
+            density: false,
+            reload: false
+          }}
+        />
       </div>
-  
     </>
-  )
-}
-Course.wrappers = ['@/wrappers/auth']
-export default Course
+  );
+};
+Course.wrappers = ['@/wrappers/auth'];
+export default Course;

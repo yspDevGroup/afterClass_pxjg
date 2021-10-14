@@ -90,7 +90,7 @@ const CourseList = (props: any) => {
           <EllipsisHint
             width="100%"
             text={text?.map((item: any) => {
-              return <Tag key={item.KHJSSJ.id}>{item.KHJSSJ.XM}</Tag>;
+              return <Tag key={item.JZGJBSJId}>{item.JZGJBSJ.XM}</Tag>;
             })}
           />
         );

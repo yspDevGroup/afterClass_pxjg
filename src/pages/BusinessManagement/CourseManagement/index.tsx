@@ -152,7 +152,7 @@ const CourseManagement = () => {
           <EllipsisHint
             width="100%"
             text={teacher?.map((item: any) => {
-              return <Tag key={item.id}>{item.KHJSSJ.XM}</Tag>;
+              return <Tag key={item.id}>{item.JZGJBSJ.XM}</Tag>;
             })}
           />
         );
