@@ -25,14 +25,14 @@ const ClassOrder=(props:any)=>{
           dataIndex: 'XSXM',
           key: 'XSXM',
           align: 'center',
-          filters:true,
+          // filters:true,
         },
         {
           title: '课程班',
           dataIndex: 'BJMC',
           key: 'BJMC',
           align: 'center',
-          search:false,
+          valueType:'select',
           render: (_text: any, record: any) => {
             return <div>{record?.KHBJSJ?.BJMC}</div>;
           },
@@ -42,7 +42,7 @@ const ClassOrder=(props:any)=>{
           dataIndex: 'KCMC',
           key: 'KCMC',
           align: 'center',
-          valueType:'select',
+          search:false,
           render: (_text: any, record: any) => {
             return <div>{record?.KHBJSJ?.KHKCSJ?.KCMC}</div>;
           },
@@ -92,7 +92,7 @@ const ClassOrder=(props:any)=>{
                 const res= await getAllKHXSDD({
                   //机构id
                     KHJYJGId:currentUser?.jgId,
-                    XNXQId:res1.data[0].id,
+                    // XNXQId:res1.data[0].id,
                     XXJBSJId:id,
                     DDZT:activeKey,
                     DDLX:0

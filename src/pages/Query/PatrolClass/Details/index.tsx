@@ -1,16 +1,61 @@
 import ProTable, { ProColumns } from '@ant-design/pro-table';
-import { Select, Button, Tooltip } from 'antd';
+import { Select, Button, Tooltip, DatePicker, message } from 'antd';
 import { useEffect, useRef, useState } from 'react';
 const { Option } = Select;
 import { LeftOutlined, } from '@ant-design/icons';
 import { getKHXKJL } from '@/services/after-class-pxjg/khxkjl'
+import { getAllSemester } from '@/services/after-class-pxjg/khjyjg'
 import styles from '../index.less'
+import { Link, useModel } from 'umi';
+import { getAllJZGJBSJ, } from '@/services/after-class-pxjg/jzgjbsj';
+
+
 
 
 const Details = (props: any) => {
     const { KHKCSJ, XXJBSJ, id } = props.location.state
-    const [termList, setTermList] = useState<any>();
+    const [PatrolData, setPatrolData] = useState<any>('');
     const [dataSource, setDataSource] = useState<any>([]);
+    const [term, setTerm] = useState<string>();
+    const [termList, setTermList] = useState<any>();
+    const [teacher, setTeacher] = useState<any>('');
+  const [teacherList,setteacherList ] = useState<any>([]);
+    const { initialState } = useModel('@@initialState');
+    const { currentUser } = initialState || {};
+    const getXNXQ = async (xxdm: string, jgdm: string) => {
+        const res = await getAllSemester({
+            KHJYJGId: jgdm,
+            XXJBSJId: xxdm,
+        });
+        if (res?.status === 'ok') {
+            const { data = [] } = res;
+            const term = [].map.call(data, (item: any) => {
+                return {
+                    value: item.id,
+                    text: `${item.XN} ${item.XQ}`
+                };
+            });
+
+            setTermList(term);
+        } else {
+            message.error(res.message,);
+        }
+    };
+    const getTeacher = async () => {
+        const res = await getAllJZGJBSJ({
+            KHJYJGId: currentUser?.jgId,
+            page: 0,
+            pageSize: 0
+
+        })
+       if(res.status==='ok'){
+        setteacherList(res.data?.rows)
+
+
+       }
+        
+    }
+
     useEffect(() => {
         (async () => {
             const res = await getKHXKJL(
@@ -21,11 +66,32 @@ const Details = (props: any) => {
                     pageSize: 0
                 }
             )
-            console.log(res.data?.rows);
-
             setDataSource(res.data?.rows)
         })()
-    }, [])
+        getXNXQ(XXJBSJ.id, currentUser?.jgId);
+        getTeacher()
+    }, []),
+        useEffect(() => {
+            (async () => {
+                const res = await getKHXKJL(
+                    {
+                        XXJBSJId: XXJBSJ.id,
+                        KHKCSJId: KHKCSJ.id,
+                        RQ: PatrolData,
+                        SKJSId:teacher, 
+                        XNXQId: term,
+                        page: 0,
+                        pageSize: 0,
+
+                    }
+                )
+
+                setDataSource(res.data?.rows)
+            })()
+
+        }, [PatrolData,term,teacher])
+
+
 
     const columns: ProColumns<API.KHXSDD>[] | undefined = [
         {
@@ -42,7 +108,7 @@ const Details = (props: any) => {
             align: 'center',
             width: 120,
             valueType: 'date'
-             
+
         },
         {
             title: '巡课教师',
@@ -156,7 +222,6 @@ const Details = (props: any) => {
 
     return (
         <>
-
             <Button
                 type="primary"
                 onClick={() => {
@@ -170,17 +235,41 @@ const Details = (props: any) => {
                 返回上一页
             </Button>
             <div className={styles.TabTop}>
-                <span>{`${KHKCSJ.KCMC}(${XXJBSJ.XXMC})`}</span>
+                <span style={{ lineHeight: '32px' }}>{`${KHKCSJ.KCMC}(${XXJBSJ.XXMC})`}</span>
                 <span>
-                    所属学年学期:
+                    所属学年学期：
                     <Select
+                        value={term}
                         style={{ width: 200 }}
                         onChange={(value: string) => {
-
+                          setTerm(value);
                         }}
                     >
                         {termList?.map((item: any) => {
                             return <Option key={item.value} value={item.value}>{item.text}</Option>;
+                        })}
+                    </Select>
+                </span>
+                <span>
+                    巡课日期：<DatePicker
+                        style={{ width: 150 }}
+                        onChange={(value) => {
+                            setPatrolData(value)
+
+                        }}
+                    />
+                </span>
+                <span>
+                    机构授课教师：
+                    <Select
+                        style={{ width: 150 }}
+                        onChange={(value: string) => {
+                            setTeacher(value)
+
+                        }}
+                    >
+                        {teacherList?.map((item: any) => {
+                            return <Option key={item.id} value={item.id}>{item.XM}</Option>;
                         })}
                     </Select>
                 </span>
@@ -196,7 +285,6 @@ const Details = (props: any) => {
                         reload: false,
                     }}
                     search={false}
-
                 />
 
             </div>

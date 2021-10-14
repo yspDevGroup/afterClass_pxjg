@@ -83,6 +83,8 @@ export async function getKHKCSQ(
   body: {
     /** 机构ID */
     JGId?: string;
+    /** 学校ID */
+    XXJBSJId?: string;
     /** 课程引入状态 */
     ZT?: number[];
     /** 课程名称 */

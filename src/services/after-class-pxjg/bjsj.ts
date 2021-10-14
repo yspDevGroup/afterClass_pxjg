@@ -238,3 +238,53 @@ export async function deleteClassTeacher(
     ...(options || {}),
   });
 }
+
+/** 查找学校所有班级数据 POST /bjsj/getSchoolClasses */
+export async function getSchoolClasses(
+  body: {
+    /** 学校ID */
+    XXJBSJId?: string;
+    /** 年级ID */
+    njId?: string;
+    /** 页数 */
+    page?: number;
+    /** 每页记录数 */
+    pageSize?: number;
+  },
+  options?: { [key: string]: any },
+) {
+  return request<any>('/bjsj/getSchoolClasses', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data: body,
+    ...(options || {}),
+  });
+}
+
+/** 查找班级的学生列表(行政班) POST /bjsj/getClassStudents */
+export async function getClassStudents(
+  body: {
+    /** 班级ID */
+    BJSJId?: string;
+    /** 学生姓名 */
+    XM?: string;
+    /** 课程名称 */
+    KCMC?: string;
+    /** 页数 */
+    page?: number;
+    /** 每页记录数 */
+    pageSize?: number;
+  },
+  options?: { [key: string]: any },
+) {
+  return request<any>('/bjsj/getClassStudents', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data: body,
+    ...(options || {}),
+  });
+}

@@ -95,6 +95,7 @@ const Details = (props:any) => {
       dataIndex: 'createdAt',
       key: 'createdAt',
       align: 'center',
+      search:false
     },
   ];
   useEffect(() => {
@@ -125,6 +126,13 @@ const Details = (props:any) => {
             </Button>
       <div className={styles.Tables}>
         <ProTable
+        onSubmit={(value)=>{
+          console.log(value);
+          
+          console.log('aaaaa');
+          
+
+       }}
           dataSource={dataSource}
           columns={columns}
           options={{

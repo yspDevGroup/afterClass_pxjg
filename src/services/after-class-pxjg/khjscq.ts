@@ -9,7 +9,7 @@ export async function getKHJSCQ(
     /** 教师出勤记录ID */
     id: string;
   },
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{
@@ -25,7 +25,7 @@ export async function getKHJSCQ(
   }>(`/khjscq/${param0}`, {
     method: 'GET',
     params: { ...queryParams },
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -36,13 +36,13 @@ export async function deleteKHJSCQ(
     /** 教师出勤记录ID */
     id: string;
   },
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{ status?: 'ok' | 'error'; message?: string }>(`/khjscq/${param0}`, {
     method: 'DELETE',
     params: { ...queryParams },
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -58,16 +58,19 @@ export async function getAllKHJSCQ(
     /** 出勤日期 */
     CQRQ?: string;
   },
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
-  return request<{ status?: 'ok' | 'error'; data?: API.KHJSCQ[]; message?: string }>('/khjscq/getAll', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
+  return request<{ status?: 'ok' | 'error'; data?: API.KHJSCQ[]; message?: string }>(
+    '/khjscq/getAll',
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      data: body,
+      ...(options || {}),
     },
-    data: body,
-    ...(options || {})
-  });
+  );
 }
 
 /** 创建课后服务教师出勤记录 PUT /khjscq/create */
@@ -85,10 +88,10 @@ export async function createKHJSCQ(body: API.CreateKHJSCQ[], options?: { [key: s
   }>('/khjscq/create', {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -100,16 +103,16 @@ export async function updateKHJSCQ(
     id: string;
   },
   body: API.UpdateKHJSCQ,
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{ status?: 'ok' | 'error'; message?: string }>(`/khjscq/update/${param0}`, {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     params: { ...queryParams },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }

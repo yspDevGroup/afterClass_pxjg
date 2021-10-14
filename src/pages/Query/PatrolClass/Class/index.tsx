@@ -1,33 +1,42 @@
 import ProTable, { ProColumns } from '@ant-design/pro-table';
 import { Space, Tag, Button } from 'antd';
 import { Link, useModel } from 'umi';
-import { getKHKCSQ } from '@/services/after-class-pxjg/khkcsq';
-import { useEffect, useState } from 'react';
+import { getKHKCSQ, } from '@/services/after-class-pxjg/khkcsq';
+import { useEffect, useState } from 'react'
 import EllipsisHint from '@/components/EllipsisHint';
-import { LeftOutlined } from '@ant-design/icons';
-import styles from '../index.less';
+import { LeftOutlined, } from '@ant-design/icons';
+import styles from '../index.less'
 
-const PatrolClass = () => {
+const PatrolClass = (props:any) => {
+  const {id } = props.location.state
   const { initialState } = useModel('@@initialState');
   const { currentUser } = initialState || {};
   const [dataSource, setDataSource] = useState<any>([]);
 
   useEffect(() => {
     (async () => {
-      const res = await getKHKCSQ({ JGId: currentUser?.jgId, ZT: [1], page: 0, pageSize: 0 });
-      console.log(res);
+      const res = await getKHKCSQ({
+        JGId: currentUser?.jgId,
+        XXJBSJId:id,
+        ZT: [1],
+        page: 0,
+        pageSize: 0
+      })
       if (res.status === 'ok') {
-        setDataSource(res.data.rows);
+        setDataSource(res.data.rows)
       }
-    })();
-  }, []);
+
+
+    })()
+
+  }, [])
   const columns: ProColumns<any>[] | undefined = [
     {
       title: '序号',
       align: 'center',
       dataIndex: 'index',
       valueType: 'index',
-      width: 58
+      width: 58,
     },
     {
       title: '课程名称',
@@ -84,8 +93,8 @@ const PatrolClass = () => {
     },
     {
       title: '任课教师',
-      key: 'RKJS',
-      dataIndex: 'RKJS',
+      key: '',
+      dataIndex: '',
       align: 'center',
       width: 150,
       render: (_, record) => {
@@ -135,11 +144,17 @@ const PatrolClass = () => {
                     >
                       课程详情
                     </Link> */}
+
           </Space>
         );
       }
-    }
-  ];
+    },
+
+
+
+
+
+  ]
   return (
     <>
       <Button
@@ -148,7 +163,7 @@ const PatrolClass = () => {
           history.go(-1);
         }}
         style={{
-          marginBottom: '24px'
+          marginBottom: '24px',
         }}
       >
         <LeftOutlined />
@@ -162,13 +177,18 @@ const PatrolClass = () => {
             setting: false,
             fullScreen: false,
             density: false,
-            reload: false
+            reload: false,
           }}
           search={false}
+
+
         />
+
       </div>
+
+
     </>
-  );
-};
+  )
+}
 PatrolClass.wrappers = ['@/wrappers/auth'];
-export default PatrolClass;
+export default PatrolClass
