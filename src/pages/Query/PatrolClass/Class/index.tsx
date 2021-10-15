@@ -2,7 +2,7 @@ import ProTable, { ProColumns } from '@ant-design/pro-table';
 import { Space, Tag, Button } from 'antd';
 import { Link, useModel } from 'umi';
 import { getKHKCSQ, } from '@/services/after-class-pxjg/khkcsq';
-import { useEffect, useState } from 'react'
+import { Key, ReactChild, ReactFragment, ReactPortal, useEffect, useState } from 'react'
 import EllipsisHint from '@/components/EllipsisHint';
 import { LeftOutlined, } from '@ant-design/icons';
 import styles from '../index.less'
@@ -81,7 +81,7 @@ const PatrolClass = (props:any) => {
         return (
           <EllipsisHint
             width="100%"
-            text={grade?.map((item) => {
+            text={grade?.map((item: { id: string; NJMC: string;}) => {
               return (
                 <Tag key={item.id} color="#EFEFEF" style={{ color: '#333' }}>
                   {item.NJMC}

@@ -117,7 +117,7 @@ export async function getAllTK(
 }
 
 /** 机构端获取学生退课信息 POST /khtksj/getAllTKByAgency */
-export async function xugetAllTKByAgency(
+export async function getAllTKByAgency(
   body: {
     /** 退课状态 */
     ZT?: number[];

@@ -3,14 +3,15 @@ import { Select, Popconfirm, Divider, message, Space } from 'antd';
 import { useEffect, useRef, useState } from 'react';
 import { Link, useModel } from 'umi';
 import { cooperateSchool } from '@/services/after-class-pxjg/khjyjg';
-import styles from './index.less'
+import styles from './index.less';
+
 const { Option } = Select;
 const ReimbursementClass = () => {
   const [SchoolList, setSchoolList] = useState<any>([]);
   const [dataSource, setDataSource] = useState<any>([]);
   const { initialState } = useModel('@@initialState');
   const { currentUser } = initialState || {};
-const columns: ProColumns<any>[] | undefined = [
+  const columns: ProColumns<any>[] | undefined = [
     {
       title: '序号',
       align: 'center',
@@ -70,7 +71,6 @@ const columns: ProColumns<any>[] | undefined = [
             >
               详情
             </Link>
-
           </Space>
         );
       }
@@ -79,25 +79,25 @@ const columns: ProColumns<any>[] | undefined = [
   useEffect(() => {
     getSchool('')
   }, [])
-  const  getSchool=async(name:string)=>{
+  const getSchool = async (name: string) => {
     const res = await cooperateSchool({
-          type: 0,
-          JGId: currentUser?.jgId,
-          page: 0,
-          pageSize: 0,
-          name
-        })
-        if(res.status === 'ok') {
-           setDataSource(res.data?.rows)
-        }
+      type: 0,
+      JGId: currentUser?.jgId,
+      page: 0,
+      pageSize: 0,
+      name
+    })
+    if (res.status === 'ok') {
+      setDataSource(res.data?.rows)
     }
+  }
   return (
     <>
-      
+
       <div className={styles.Tables}>
         <ProTable
           toolbar={{
-            onSearch: (value:string) => {
+            onSearch: (value: string) => {
               getSchool(value)
 
             }
