@@ -2,7 +2,7 @@
  * @description:
  * @author: Sissle Lynn
  * @Date: 2021-09-07 08:30:40
- * @LastEditTime: 2021-09-10 08:44:26
+ * @LastEditTime: 2021-10-15 18:07:16
  * @LastEditors: Sissle Lynn
  */
 import React, { useEffect, useState } from 'react';
@@ -11,6 +11,7 @@ import { Button, Card, Col, Avatar, Row, Empty } from 'antd';
 import stuImg from '@/assets/stu.png';
 
 import styles from '../components/components.less';
+import WWOpenDataCom from '@/components/WWOpenDataCom';
 
 const { Meta } = Card;
 const StudentList = (props: any) => {
@@ -52,6 +53,7 @@ const StudentList = (props: any) => {
             {stuList?.length ? (
               <Row gutter={[24, 24]}>
                 {stuList?.map((item: any) => {
+                  const showWXName = item.XSJBSJ?.XM === '未知' && item.XSJBSJ?.WechatUserId;
                   return (
                     <Col span={4} key={item.XSId}>
                       <Card style={{ display: 'flex' }}>
@@ -61,7 +63,7 @@ const StudentList = (props: any) => {
                             display: 'flex',
                             alignItems: 'center'
                           }}
-                          title={item.XSJBSJ?.XM}
+                          title={showWXName ? <WWOpenDataCom type="userName" openid={item.XSJBSJ?.WechatUserId} /> : item.XSJBSJ?.XM}
                         />
                       </Card>
                     </Col>

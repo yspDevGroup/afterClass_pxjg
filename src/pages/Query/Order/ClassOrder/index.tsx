@@ -6,6 +6,7 @@ import { getAllKHXSDD } from '@/services/after-class-pxjg/khxsdd';
 import { getAllSemester } from '@/services/after-class-pxjg/khjyjg';
 import { LeftOutlined } from '@ant-design/icons';
 import { getCourses } from '@/services/after-class-pxjg/jyjgsj';
+import WWOpenDataCom from '@/components/WWOpenDataCom';
 
 const { Search } = Input;
 const { Option } = Select;
@@ -28,14 +29,19 @@ const ClassOrder = (props: any) => {
       dataIndex: 'XSJBSJ',
       key: 'XSJBSJ',
       align: 'center',
-      render: (test: any) => test.XM
+      width: 120,
+      ellipsis: true,
+      render: (_text: any, record: any) => {
+        const showWXName = record?.XSJBSJ?.XM === '未知' && record?.XSJBSJ?.XM.WechatUserId;
+        return showWXName ? (<WWOpenDataCom type="userName" openid={record?.XSJBSJ?.WechatUserId} />) : (record?.XSJBSJ?.XM);
+      }
     },
     {
       title: '行政班名称',
       dataIndex: 'BJSJ',
       key: 'BJSJ',
       align: 'center',
-      width: 100,
+      width: 130,
       ellipsis: true,
       render: (_text: any, record: any) => {
         return `${record?.XSJBSJ?.BJSJ?.NJSJ?.NJMC}${record?.XSJBSJ?.BJSJ?.BJ}`;
@@ -46,7 +52,8 @@ const ClassOrder = (props: any) => {
       dataIndex: 'BJMC',
       key: 'BJMC',
       align: 'center',
-      valueType: 'select',
+      width: 160,
+      ellipsis: true,
       render: (_text: any, record: any) => {
         return <div>{record?.KHBJSJ?.KHKCSJ.KCMC}</div>;
       }
@@ -56,6 +63,8 @@ const ClassOrder = (props: any) => {
       dataIndex: 'KCMC',
       key: 'KCMC',
       align: 'center',
+      width: 160,
+      ellipsis: true,
       render: (_text: any, record: any) => {
         return <div>{record?.KHBJSJ?.BJMC}</div>;
       }
@@ -65,24 +74,32 @@ const ClassOrder = (props: any) => {
       dataIndex: 'XDSJ',
       key: 'XDSJ',
       align: 'center',
+      width: 170,
+      ellipsis: true,
     },
     {
       title: '付款时间',
       dataIndex: 'ZFSJ',
       key: 'ZFSJ',
       align: 'center',
+      width: 170,
+      ellipsis: true,
     },
     {
       title: '订单费用(元)',
       dataIndex: 'DDFY',
       key: 'DDFY',
       align: 'center',
+      width: 130,
+      ellipsis: true,
     },
     {
       title: '订单状态',
       dataIndex: 'DDZT',
       key: 'DDZT',
       align: 'center',
+      width: 160,
+      ellipsis: true,
     }
   ];
   const [dataSource, setDataSource] = useState<API.KHXSDD[] | undefined>([]);
@@ -114,10 +131,8 @@ const ClassOrder = (props: any) => {
     })()
   }, [activeKey, StudentName, coursName])
   const screenData = async (value: any) => {
-    const { XSJBSJ } = value
+    const { XSJBSJ } = value;
     const res = await getAllKHXSDD({
-      //机构id
-      KHJYJGId: currentUser?.jgId,
       XXJBSJId: id,
       XSXM: XSJBSJ,
       DDZT: activeKey,

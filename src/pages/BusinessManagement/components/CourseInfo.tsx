@@ -2,7 +2,7 @@
  * @description:
  * @author: Sissle Lynn
  * @Date: 2021-08-26 19:54:41
- * @LastEditTime: 2021-09-10 12:01:27
+ * @LastEditTime: 2021-10-15 18:04:53
  * @LastEditors: Sissle Lynn
  */
 import React, { useEffect, useState } from 'react';
@@ -18,12 +18,12 @@ import { getAllCourses, getAllSemester } from '@/services/after-class-pxjg/khjyj
 import { getCurrentXQ } from '@/utils';
 import { getKHKCSJ } from '@/services/after-class-pxjg/khkcsj';
 import moment from 'moment';
+import WWOpenDataCom from '@/components/WWOpenDataCom';
 
 const { Search } = Input;
 const { Option } = Select;
 const CourseItemDom = (props: { school: string; course: any; type: string; ind: number }) => {
   const { school, course, type, ind } = props;
-  console.log(school, course, type, ind);
   const ZT = course?.KHKCSQs?.[0].ZT;
   const [curIndex, setCurIndex] = useState<number | undefined>(0);
   let bgColor = '#58D14E';
@@ -92,6 +92,7 @@ const CourseItemDom = (props: { school: string; course: any; type: string; ind: 
                   <p>
                     任课教师：
                     {item.KHBJJs?.map((val: any, index: number) => {
+                      const showWXName = val.JZGJBSJ?.XM === '未知' && val.JZGJBSJ?.WechatUserId;
                       return (
                         <Link
                           key={val.id}
@@ -103,7 +104,7 @@ const CourseItemDom = (props: { school: string; course: any; type: string; ind: 
                             }
                           }}
                         >
-                          {val.JZGJBSJ?.XM}
+                          {showWXName ? <WWOpenDataCom type="userName" openid={val.JZGJBSJ?.WechatUserId} /> : val.JZGJBSJ?.XM}
                           {index < item.KHBJJs.length - 1 ? <Divider type="vertical" /> : ''}
                         </Link>
                       );

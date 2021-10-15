@@ -7,6 +7,7 @@ import EllipsisHint from '@/components/EllipsisHint';
 import { getCourses } from '@/services/after-class-pxjg/jyjgsj';
 
 import styles from './index.less';
+import WWOpenDataCom from '@/components/WWOpenDataCom';
 
 const Course = () => {
   const [dataSource, setDataSource] = useState<any>([]);
@@ -45,19 +46,17 @@ const Course = () => {
       dataIndex: 'KHKCJs',
       key: 'KHKCJs',
       align: 'center',
-      render: (test: any) => {
+      render: (_: any,record: any) => {
+        const teacher = record.KHKCJs;
         return (
           <EllipsisHint
             width="100%"
-            text={test?.map((item: any) => {
-              return (
-                <Tag color="#EFEFEF" style={{ color: '#333' }} key={item.id}>
-                  {item.JZGJBSJ.XM}
-                </Tag>
-              );
+            text={teacher?.map((item: any) => {
+              const showWXName = item.JZGJBSJ.XM === '未知' && item.JZGJBSJ.WechatUserId;
+              return <Tag key={item.JZGJBSJId}>{showWXName ? (<WWOpenDataCom type="userName" openid={item.JZGJBSJ.WechatUserId} />) : (item.JZGJBSJ.XM)}</Tag>;
             })}
           />
-        );
+        )
       }
     },
     {
@@ -100,7 +99,7 @@ const Course = () => {
         setcourseList(res.data?.rows)
       }
     })()
-   
+
   }, []);
   useEffect(() => {
     (async () => {

@@ -7,6 +7,7 @@ import { getClassesEvaluation } from '@/services/after-class-pxjg/khbjsj';
 import EllipsisHint from '@/components/EllipsisHint';
 import styles from '../index.less';
 import { useEffect } from 'react';
+import WWOpenDataCom from '@/components/WWOpenDataCom';
 const { Option } = Select;
 const Class = (props: any) => {
   const { KHKCSJId,} = props.location.state;
@@ -30,19 +31,17 @@ const Class = (props: any) => {
       dataIndex: 'KHBJJs',
       key: 'KHBJJs',
       align: 'center',
-      render: (text: any) => {
+      render: (_: any,record: any) => {
+        const teacher = record.KHBJJs;
         return (
           <EllipsisHint
             width="100%"
-            text={text.map((item: any) => {
-              return (
-                <Tag key={item.id} color="#EFEFEF" style={{ color: '#333' }}>
-                  {item.JZGJBSJ.XM}
-                </Tag>
-              );
+            text={teacher?.map((item: any) => {
+              const showWXName = item.JZGJBSJ.XM === '未知' && item.JZGJBSJ.WechatUserId;
+              return <Tag key={item.JZGJBSJId}>{showWXName ? (<WWOpenDataCom type="userName" openid={item.JZGJBSJ?.WechatUserId} />) : (item.JZGJBSJ.XM)}</Tag>;
             })}
           />
-        );
+        )
       }
     },
     {

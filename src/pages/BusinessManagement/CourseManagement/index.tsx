@@ -2,8 +2,8 @@
  * @description:
  * @author: Sissle Lynn
  * @Date: 2021-08-24 14:37:02
- * @LastEditTime: 2021-09-26 10:25:36
- * @LastEditors: zpl
+ * @LastEditTime: 2021-10-15 18:08:52
+ * @LastEditors: Sissle Lynn
  */
 import React, { useRef, useState } from 'react';
 import { Link, useModel } from 'umi';
@@ -17,6 +17,7 @@ import styles from './index.less';
 import { KHKCSQSJ } from '../data';
 import { getKHKCSQ, updateKHKCSQ } from '@/services/after-class-pxjg/khkcsq';
 import EllipsisHint from '@/components/EllipsisHint';
+import WWOpenDataCom from '@/components/WWOpenDataCom';
 
 const { Search } = Input;
 const CourseManagement = () => {
@@ -152,10 +153,11 @@ const CourseManagement = () => {
           <EllipsisHint
             width="100%"
             text={teacher?.map((item: any) => {
-              return <Tag key={item.id}>{item.JZGJBSJ.XM}</Tag>;
+              const showWXName = item.JZGJBSJ.XM === '未知' && item.JZGJBSJ.WechatUserId;
+              return <Tag key={item.JZGJBSJId}>{showWXName ? (<WWOpenDataCom type="userName" openid={item.JZGJBSJ.WechatUserId} />) : (item.JZGJBSJ.XM)}</Tag>;
             })}
           />
-        );
+        )
       }
     },
     {

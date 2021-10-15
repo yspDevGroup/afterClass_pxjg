@@ -4,6 +4,7 @@ import { Rate, Button, Modal } from 'antd';
 import { LeftOutlined } from '@ant-design/icons';
 import { getAllKHXSPJ } from '@/services/after-class-pxjg/khxspj';
 import { getKHBJPJ } from '@/services/after-class-pxjg/khbjpj';
+import WWOpenDataCom from '@/components/WWOpenDataCom';
 
 const Details = (props: any) => {
   const { data } = props.location.state;
@@ -20,15 +21,23 @@ const Details = (props: any) => {
       title: '序号',
       dataIndex: 'index',
       valueType: 'index',
-      width: 58,
+      width: 60,
       align: 'center'
     },
     {
-      title: '评价时间',
-      dataIndex: 'createdAt',
-      key: 'createdAt',
+      title: '评价人',
+      dataIndex: 'PJR',
+      key: 'PJR',
+      width: 120,
+      align: 'center'
+    },
+    {
+      title: '评价内容',
+      dataIndex: 'PY',
+      key: 'PY',
+      width: 200,
       align: 'center',
-      width: 200
+      ellipsis: true
     },
     {
       title: '课程评分',
@@ -39,18 +48,12 @@ const Details = (props: any) => {
       render: (_, record) => <Rate count={5} defaultValue={record?.PJFS} disabled={true} />
     },
     {
-      title: '评价人',
-      dataIndex: 'PJR',
-      key: '',
-      align: 'center'
-    },
-    {
-      title: '评价内容',
-      dataIndex: 'PY',
-      key: 'PY',
+      title: '评价时间',
+      dataIndex: 'createdAt',
+      key: 'createdAt',
       align: 'center',
-      ellipsis: true
-    }
+      width: 200
+    },
   ];
 
   const student: ProColumns<any>[] | undefined = [
@@ -67,7 +70,8 @@ const Details = (props: any) => {
       key: 'XSXM',
       align: 'center',
       render: (_text: any, record: any) => {
-        return record?.XSJBSJ?.XM;
+        const showWXName = record?.XSJBSJ?.XM === '未知' && record?.XSJBSJ?.XM.WechatUserId;
+        return showWXName ? (<WWOpenDataCom type="userName" openid={record?.XSJBSJ?.WechatUserId} />) : (record?.XSJBSJ?.XM);
       }
     },
     {
