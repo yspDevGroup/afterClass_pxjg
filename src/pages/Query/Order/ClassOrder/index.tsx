@@ -1,14 +1,14 @@
 import ProTable, { ProColumns, ActionType } from '@ant-design/pro-table';
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef } from 'react';
 import { Button } from 'antd';
-import { useModel, } from 'umi';
+import { useModel } from 'umi';
 import { getAllKHXSDD } from '@/services/after-class-pxjg/khxsdd';
 import { getAllSemester } from '@/services/after-class-pxjg/khjyjg';
-import { LeftOutlined, } from '@ant-design/icons';
+import { LeftOutlined } from '@ant-design/icons';
 
 type selectType = { label: string; value: string };
 const ClassOrder = (props: any) => {
-  const { id } = props.location.state
+  const { id } = props.location.state;
   const { initialState } = useModel('@@initialState');
   const { currentUser } = initialState || {};
   const actionRef = useRef<ActionType>();
@@ -18,14 +18,14 @@ const ClassOrder = (props: any) => {
       dataIndex: 'index',
       valueType: 'index',
       align: 'center',
-      width: 60,
+      width: 60
     },
     {
       title: '学生姓名',
       dataIndex: 'XSJBSJ',
       key: 'XSJBSJ',
       align: 'center',
-      render:(test:any)=>test.XM
+      render: (test: any) => test.XM
     },
     {
       title: '课程名称',
@@ -34,8 +34,8 @@ const ClassOrder = (props: any) => {
       align: 'center',
       valueType: 'select',
       render: (_text: any, record: any) => {
-        return <div>{ record?.KHBJSJ?.KHKCSJ.KCMC}</div>;
-      },
+        return <div>{record?.KHBJSJ?.KHKCSJ.KCMC}</div>;
+      }
     },
     {
       title: '课程班名称',
@@ -45,36 +45,36 @@ const ClassOrder = (props: any) => {
       search: false,
       render: (_text: any, record: any) => {
         return <div>{record?.KHBJSJ?.BJMC}</div>;
-      },
+      }
     },
     {
       title: '下单时间',
       dataIndex: 'XDSJ',
       key: 'XDSJ',
       align: 'center',
-      search: false,
+      search: false
     },
     {
       title: '付款时间',
       dataIndex: 'ZFSJ',
       key: 'ZFSJ',
       align: 'center',
-      search: false,
+      search: false
     },
     {
       title: '订单费用(元)',
       dataIndex: 'DDFY',
       key: 'DDFY',
       align: 'center',
-      search: false,
+      search: false
     },
     {
       title: '订单状态',
       dataIndex: 'DDZT',
       key: 'DDZT',
       align: 'center',
-      search: false,
-    },
+      search: false
+    }
   ];
   const [dataSource, setDataSource] = useState<API.KHXSDD[] | undefined>([]);
   const [activeKey, setActiveKey] = useState<string>('已付款');
@@ -83,41 +83,33 @@ const ClassOrder = (props: any) => {
   useEffect(() => {
     (async () => {
       const res = await getAllKHXSDD({
-        //机构id
-        KHJYJGId: currentUser?.jgId,
         XXJBSJId: id,
         DDZT: activeKey,
         DDLX: 0
-      })
-      setDataSource(res?.data)
-    })()
-  }, [activeKey])
-  const  screenData=async (value:any)=>{
-    const {XSJBSJ}=value
+      });
+      setDataSource(res?.data);
+    })();
+  }, [activeKey]);
+  const screenData = async (value: any) => {
+    const { XSJBSJ } = value;
     const res = await getAllKHXSDD({
-      //机构id
-      KHJYJGId: currentUser?.jgId,
       XXJBSJId: id,
-      XSXM:XSJBSJ,
+      XSXM: XSJBSJ,
       DDZT: activeKey,
       DDLX: 0
-    })
-    setDataSource(res?.data)
-
-  }
-
-
+    });
+    setDataSource(res?.data);
+  };
   return (
     <>
-      <div>
-      </div>
+      <div />
       <Button
         type="primary"
         onClick={() => {
           history.go(-1);
         }}
         style={{
-          marginBottom: '24px',
+          marginBottom: '24px'
         }}
       >
         <LeftOutlined />
@@ -126,16 +118,14 @@ const ClassOrder = (props: any) => {
       <ProTable
         dataSource={dataSource}
         columns={columns}
-        onSubmit={(value)=>{
-          screenData(value)
-          
+        onSubmit={(value) => {
+          screenData(value);
         }}
         options={{
           setting: false,
           fullScreen: false,
           density: false,
-          reload: false,
-
+          reload: false
         }}
         // search={false}
         toolbar={{
@@ -151,7 +141,7 @@ const ClassOrder = (props: any) => {
                 key: '待付款',
                 label: <span>待付款</span>
               },
-          
+
               {
                 key: '已过期',
                 label: <span>已过期</span>
@@ -160,17 +150,13 @@ const ClassOrder = (props: any) => {
             onChange: (key) => {
               setActiveKey(key as string);
               actionRef.current?.reload();
-            },
-
-
+            }
           }
         }}
         actionRef={actionRef}
       />
     </>
-
-  )
-
-}
-ClassOrder.wrappers = ['@/wrappers/auth']
-export default ClassOrder
+  );
+};
+ClassOrder.wrappers = ['@/wrappers/auth'];
+export default ClassOrder;

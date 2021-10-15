@@ -321,7 +321,6 @@ const SchoolInfo = (props: PropsType) => {
         values
       );
     } else {
-      // res = await createKHJSSJ(values);
       res = await createJZG(values);
     }
     if (res.status === 'ok') {

@@ -181,7 +181,6 @@ const TeacherManagement = () => {
             sorter: sort && Object.keys(sort).length ? sort : undefined,
             filter
           };
-          // const res = await getKHJSSJ({ JGId: currentUser?.jgId, keyWord: opts.keyword, page: 0, pageSize: 0 }, opts);
           const res = await getAllJZGJBSJ({ KHJYJGId: currentUser?.jgId, keyWord: opts.keyword, page: 0, pageSize: 0 });
           if (res.status === 'ok') {
             return {

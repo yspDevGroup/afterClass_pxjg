@@ -61,7 +61,7 @@ const StudentList = (props: any) => {
                             display: 'flex',
                             alignItems: 'center'
                           }}
-                          title={item.XSXM}
+                          title={item.XSJBSJ?.XM}
                         />
                       </Card>
                     </Col>
