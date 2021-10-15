@@ -105,7 +105,7 @@ const InfoMaintenance = (props: any) => {
     });
     if (rescreateKHJGRZSQ.status === 'ok') {
       onKHJYJG();
-      message.success('备案申请提交成功');
+      message.success('准入申请提交成功');
     } else {
       message.error('申请失败');
     }
@@ -263,14 +263,14 @@ const InfoMaintenance = (props: any) => {
           {SQDatas?.length === 0 ? (
             <Popconfirm
               placement="topRight"
-              title="确定本机构信息填写完整且无误后，点击“确定”申请备案资格"
+              title="确定本机构信息填写完整且无误后，点击“确定”申请准入资格"
               onConfirm={confirm}
               okText="确定"
               cancelText="取消"
               disabled={XZQHM ? false : true}
             >
               <Button type="primary" className={styles.RZbtn} disabled={XZQHM ? false : true}>
-                申请备案
+                申请准入
               </Button>
             </Popconfirm>
           ) : (
@@ -282,7 +282,7 @@ const InfoMaintenance = (props: any) => {
                   </>
                 ) : SQDatas?.[0].ZT === 1 ? (
                   <>
-                    <Alert message="恭喜您已成功备案" type="success" style={{ height: 33 }} />
+                    <Alert message="恭喜您已成功准入" type="success" style={{ height: 33 }} />
                   </>
                 ) : SQDatas?.[0].ZT === 2 ? (
                   <>
@@ -300,13 +300,13 @@ const InfoMaintenance = (props: any) => {
                     </Tooltip>
                     <Popconfirm
                       placement="topRight"
-                      title="确定本机构信息填写完整且无误后，点击“确定”申请备案资格"
+                      title="确定本机构信息填写完整且无误后，点击“确定”申请准入资格"
                       onConfirm={confirm}
                       okText="确定"
                       cancelText="取消"
                     >
                       <Button type="primary" className={styles.RZbtn} disabled={currentUser?.jgId ? false : true}>
-                        申请备案
+                        申请准入
                       </Button>
                     </Popconfirm>
                   </>
@@ -317,13 +317,13 @@ const InfoMaintenance = (props: any) => {
                     </Tooltip>
                     <Popconfirm
                       placement="topRight"
-                      title="确定本机构信息填写完整且无误后，点击“确定”申请备案资格"
+                      title="确定本机构信息填写完整且无误后，点击“确定”申请准入资格"
                       onConfirm={confirm}
                       okText="确定"
                       cancelText="取消"
                     >
                       <Button type="primary" className={styles.RZbtn} disabled={currentUser?.jgId ? false : true}>
-                        申请备案
+                        申请准入
                       </Button>
                     </Popconfirm>
                   </>
@@ -343,13 +343,13 @@ const InfoMaintenance = (props: any) => {
                     </Tooltip>
                     <Popconfirm
                       placement="topRight"
-                      title="确定本机构信息填写完整且无误后，点击“确定”申请备案资格"
+                      title="确定本机构信息填写完整且无误后，点击“确定”申请准入资格"
                       onConfirm={confirm}
                       okText="确定"
                       cancelText="取消"
                     >
                       <Button type="primary" className={styles.RZbtn} disabled={currentUser?.jgId ? false : true}>
-                        申请备案
+                        申请准入
                       </Button>
                     </Popconfirm>
                   </>
@@ -362,7 +362,7 @@ const InfoMaintenance = (props: any) => {
                     <Alert
                       message={
                         <>
-                          您已失去备案资格
+                          您已失去准入资格
                           <QuestionCircleOutlined />
                         </>
                       }
@@ -377,7 +377,7 @@ const InfoMaintenance = (props: any) => {
                     <Alert
                       message={
                         <>
-                          您已恢复备案资格
+                          您已恢复准入资格
                           <QuestionCircleOutlined />
                         </>
                       }
@@ -387,13 +387,13 @@ const InfoMaintenance = (props: any) => {
                   </Tooltip>
                   <Popconfirm
                     placement="topRight"
-                    title="确定本机构信息填写完整且无误后，点击“确定”申请备案资格"
+                    title="确定本机构信息填写完整且无误后，点击“确定”申请准入资格"
                     onConfirm={confirm}
                     okText="确定"
                     cancelText="取消"
                   >
                     <Button type="primary" className={styles.RZbtn} disabled={currentUser?.jgId ? false : true}>
-                      申请备案
+                      申请准入
                     </Button>
                   </Popconfirm>
                 </>
@@ -416,6 +416,8 @@ const InfoMaintenance = (props: any) => {
                   upurl="/api/upload/uploadFile?type=badge&plat=agency"
                   accept=".jpg, .jpeg, .png"
                   imagename="image"
+                  imgWidth={100}
+                  imgHeight={100}
                   handleImageChange={(value: any) => {
                     imageChange('QYTBTP', value);
                   }}
@@ -630,8 +632,8 @@ const InfoMaintenance = (props: any) => {
                   upurl="/api/upload/uploadFile?type=badge&plat=agency"
                   accept=".jpg, .jpeg, .png"
                   imagename="image"
-                  imgHeight={135}
-                  imgWidth={135}
+                  imgHeight={150}
+                  imgWidth={225}
                   handleImageChange={(value: any) => {                    
                     imageChange('YYZZTP', value);
                   }}
@@ -656,8 +658,8 @@ const InfoMaintenance = (props: any) => {
                   upurl="/api/upload/uploadFile?type=badge&plat=agency"
                   accept=".jpg, .jpeg, .png"
                   imagename="image"
-                  imgHeight={135}
-                  imgWidth={135}
+                  imgHeight={150}
+                  imgWidth={225}
                   handleImageChange={(value: any) => {
                     imageChange('BXXKZTP', value);
                   }}
@@ -671,7 +673,7 @@ const InfoMaintenance = (props: any) => {
           <Form.Item className={styles.bottomBtnCon}>
             {disabled === true ? (
               <button onClick={onEditor} className={styles.btn}>
-                更改备案信息
+                更改准入信息
               </button>
             ) : (
               <>

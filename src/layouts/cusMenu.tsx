@@ -2,8 +2,8 @@
  * @description:
  * @author: Sissle Lynn
  * @Date: 2021-08-24 17:21:12
- * @LastEditTime: 2021-09-08 11:28:09
- * @LastEditors: Sissle Lynn
+ * @LastEditTime: 2021-10-14 09:00:53
+ * @LastEditors: zpl
  */
 import React from 'react';
 import {
@@ -30,7 +30,7 @@ export default {
         routes: [
           {
             path: '/basicalSetting/infoMaintenance',
-            name: '备案申请'
+            name: '准入申请'
           },
           {
             path: '/basicalSetting/teacherManagement',

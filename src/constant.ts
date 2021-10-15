@@ -2,8 +2,8 @@
  * @description:
  * @author: Sissle Lynn
  * @Date: 2021-08-04 17:10:53
- * @LastEditTime: 2021-08-31 11:51:51
- * @LastEditors: Sissle Lynn
+ * @LastEditTime: 2021-10-14 09:00:40
+ * @LastEditors: zpl
  */
 
 import { TablePaginationConfig } from "antd";
@@ -54,5 +54,5 @@ export const copCourseStatus = {
 export const courseStatus = {
   0: '待发布',
   1: '已发布',
-  2: '已备案'
+  2: '已准入'
 };

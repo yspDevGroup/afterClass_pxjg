@@ -2,8 +2,8 @@
  * @description:
  * @author: Sissle Lynn
  * @Date: 2021-08-24 19:59:45
- * @LastEditTime: 2021-09-09 11:24:40
- * @LastEditors: Sissle Lynn
+ * @LastEditTime: 2021-10-14 09:06:44
+ * @LastEditors: zpl
  */
 export const bgColor = [
   {
@@ -37,7 +37,7 @@ export const topNum = [
     type: 'xxNum'
   },
   {
-    title: '备案课程数',
+    title: '准入课程数',
     type: 'kcNum',
   },
   {
@@ -54,7 +54,8 @@ export const topNum = [
   },
   {
     title: '待处理申请数',
-    type: 'amount'
+    type: 'amount',
+    link: '/businessManagement/courseManagement'
   }
 ];
 export const chartConfig: any = {

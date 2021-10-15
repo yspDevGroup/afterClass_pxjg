@@ -102,7 +102,7 @@ const MechanismCourse = () => {
           case 1:
             return '已申报';
           case 2:
-            return '已备案';
+            return '已准入';
           default:
             return '待申报';
         }
