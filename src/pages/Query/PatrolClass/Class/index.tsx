@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react'
 import EllipsisHint from '@/components/EllipsisHint';
 import { LeftOutlined, } from '@ant-design/icons';
 import styles from '../index.less'
+import WWOpenDataCom from '@/components/WWOpenDataCom';
 
 const PatrolClass = (props:any) => {
   const {id } = props.location.state
@@ -103,7 +104,8 @@ const PatrolClass = (props:any) => {
           <EllipsisHint
             width="100%"
             text={teacher?.map((item: any) => {
-              return <Tag key={item.id}>{item.JZGJBSJ.XM}</Tag>;
+              const showWXName = item.JZGJBSJ?.XM === '未知' && item.JZGJBSJ?.WechatUserId;
+              return <Tag key={item.JZGJBSJId}>{showWXName ? (<WWOpenDataCom type="userName" openid={item.JZGJBSJ.WechatUserId} />):(item.JZGJBSJ.XM)}</Tag>;
             })}
           />
         );

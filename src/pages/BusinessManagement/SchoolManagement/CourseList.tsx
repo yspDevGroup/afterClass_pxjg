@@ -2,8 +2,8 @@
  * @description:
  * @author: Sissle Lynn
  * @Date: 2021-08-26 16:26:59
- * @LastEditTime: 2021-09-08 11:20:58
- * @LastEditors: Sissle Lynn
+ * @LastEditTime: 2021-10-15 15:39:36
+ * @LastEditors: zpl
  */
 import React, { useEffect, useState } from 'react';
 import { Link } from 'umi';
@@ -11,9 +11,10 @@ import { Divider, message, Tag, Button } from 'antd';
 import { LeftOutlined } from '@ant-design/icons';
 import ProTable, { ProColumns } from '@ant-design/pro-table';
 import { getAllCourses } from '@/services/after-class-pxjg/khjyjg';
+import EllipsisHint from '@/components/EllipsisHint';
+import WWOpenDataCom from '@/components/WWOpenDataCom';
 
 import styles from './index.less';
-import EllipsisHint from '@/components/EllipsisHint';
 
 const CourseList = (props: any) => {
   const { state } = props.history.location;
@@ -90,7 +91,8 @@ const CourseList = (props: any) => {
           <EllipsisHint
             width="100%"
             text={text?.map((item: any) => {
-              return <Tag key={item.JZGJBSJId}>{item.JZGJBSJ.XM}</Tag>;
+              const showWXName = item.JZGJBSJ.XM === '未知' && item.JZGJBSJ.WechatUserId;
+              return <Tag key={item.JZGJBSJId}>{showWXName ? (<WWOpenDataCom type="userName" openid={item.JZGJBSJ.WechatUserId} />):(item.JZGJBSJ.XM)}</Tag>;
             })}
           />
         );

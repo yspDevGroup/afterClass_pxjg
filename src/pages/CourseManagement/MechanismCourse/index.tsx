@@ -8,6 +8,7 @@ import classes from '../index.less';
 import { getCourses } from '@/services/after-class-pxjg/khjyjg';
 import EllipsisHint from '@/components/EllipsisHint';
 import { deleteKHKCSJ, updateKHKCSJ } from '@/services/after-class-pxjg/khkcsj';
+import WWOpenDataCom from '@/components/WWOpenDataCom';
 
 /**
  * 机构端-课程列表
@@ -85,7 +86,8 @@ const MechanismCourse = () => {
           <EllipsisHint
             width="100%"
             text={text?.map((item: any) => {
-              return <Tag key={item?.JZGJBSJId}>{item?.JZGJBSJ?.XM}</Tag>;
+              const showWXName = item.JZGJBSJ.XM === '未知' && item.JZGJBSJ.WechatUserId;
+              return <Tag key={item?.JZGJBSJId}>{showWXName ? (<WWOpenDataCom type="userName" openid={item.JZGJBSJ.WechatUserId} />):(item.JZGJBSJ.XM)}</Tag>;
             })}
           />
         );

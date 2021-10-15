@@ -2,8 +2,8 @@
  * @description:
  * @author: Sissle Lynn
  * @Date: 2021-08-28 09:22:33
- * @LastEditTime: 2021-09-17 17:26:07
- * @LastEditors: Sissle Lynn
+ * @LastEditTime: 2021-10-15 15:33:02
+ * @LastEditors: zpl
  */
 /*
  * @description:
@@ -23,6 +23,7 @@ import { TableListParams } from '@/constant';
 import { Button, Divider, message, Modal, Popconfirm, Upload } from 'antd';
 import { getAuthorization } from '@/utils';
 import { getAllJZGJBSJ, deleteJZGJBSJ } from '@/services/after-class-pxjg/jzgjbsj';
+import WWOpenDataCom from '@/components/WWOpenDataCom';
 
 const TeacherManagement = () => {
   const { initialState } = useModel('@@initialState');
@@ -87,7 +88,13 @@ const TeacherManagement = () => {
       key: 'XM',
       align: 'center',
       width: 120,
-      ellipsis: true
+      render: (_, record) => {
+        const showWXName = record.XM === '未知' && record.WechatUserId;
+        if (showWXName) {
+          return <WWOpenDataCom type="userName" openid={record.WechatUserId} />
+        }
+        return record.XM;
+      }
     },
     {
       title: '性别',

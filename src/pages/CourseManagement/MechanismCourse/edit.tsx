@@ -12,6 +12,7 @@ import { createKHKCSJ, getKHKCSJ, updateKHKCSJ } from '@/services/after-class-px
 import classes from '../index.less';
 import { courseColorType } from '@/theme-default';
 import { getAllJZGJBSJ } from '@/services/after-class-pxjg/jzgjbsj';
+import WWOpenDataCom from '@/components/WWOpenDataCom';
 
 /**
  * 机构端-课程列表-编辑页
@@ -269,7 +270,14 @@ const Edit = (props: any) => {
       title: '姓名',
       dataIndex: 'XM',
       key: 'XM',
-      align: 'center'
+      align: 'center',
+      render: (_: any, record: any) => {
+        const showWXName = record.XM === '未知' && record.WechatUserId;
+        if (showWXName) {
+          return <WWOpenDataCom type="userName" openid={record.WechatUserId} />
+        }
+        return record.XM;
+      }
     },
     {
       title: '联系电话',
