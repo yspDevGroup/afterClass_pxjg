@@ -10,12 +10,8 @@ const Order = () => {
   const [dataSource, setDataSource] = useState<any>([]);
   const { initialState } = useModel('@@initialState');
   const { currentUser } = initialState || {};
-  console.log();
-  
-
-
-
-  const columns: ProColumns<any>[] | undefined = [
+ 
+   const columns: ProColumns<any>[] | undefined = [
     {
       title: '序号',
       align: 'center',
@@ -102,8 +98,6 @@ const Order = () => {
       name
     })
     if (res.status === 'ok') {
-      console.log(res);
-      
       setDataSource(res.data?.rows)
     }
   }

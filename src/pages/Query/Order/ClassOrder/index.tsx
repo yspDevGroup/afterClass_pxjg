@@ -83,16 +83,20 @@ const ClassOrder = (props: any) => {
   useEffect(() => {
     (async () => {
       const res = await getAllKHXSDD({
+        //机构id
+        KHJYJGId: currentUser?.jgId,
         XXJBSJId: id,
         DDZT: activeKey,
         DDLX: 0
-      });
-      setDataSource(res?.data);
-    })();
-  }, [activeKey]);
-  const screenData = async (value: any) => {
-    const { XSJBSJ } = value;
+      })
+      setDataSource(res?.data)
+    })()
+  }, [activeKey])
+  const  screenData=async (value:any)=>{
+    const {XSJBSJ}=value
     const res = await getAllKHXSDD({
+      //机构id
+      KHJYJGId: currentUser?.jgId,
       XXJBSJId: id,
       XSXM: XSJBSJ,
       DDZT: activeKey,
