@@ -1,11 +1,14 @@
 import ProTable, { ProColumns, ActionType } from '@ant-design/pro-table';
 import { useState, useEffect, useRef } from 'react';
-import { Button } from 'antd';
+import { Button,Input,Select} from 'antd';
 import { useModel } from 'umi';
 import { getAllKHXSDD } from '@/services/after-class-pxjg/khxsdd';
 import { getAllSemester } from '@/services/after-class-pxjg/khjyjg';
 import { LeftOutlined } from '@ant-design/icons';
+import {getCourses } from '@/services/after-class-pxjg/jyjgsj';
 
+const { Search } = Input;
+const { Option } = Select;
 type selectType = { label: string; value: string };
 const ClassOrder = (props: any) => {
   const { id } = props.location.state;
@@ -42,7 +45,6 @@ const ClassOrder = (props: any) => {
       dataIndex: 'KCMC',
       key: 'KCMC',
       align: 'center',
-      search: false,
       render: (_text: any, record: any) => {
         return <div>{record?.KHBJSJ?.BJMC}</div>;
       }
@@ -52,46 +54,54 @@ const ClassOrder = (props: any) => {
       dataIndex: 'XDSJ',
       key: 'XDSJ',
       align: 'center',
-      search: false
     },
     {
       title: '付款时间',
       dataIndex: 'ZFSJ',
       key: 'ZFSJ',
       align: 'center',
-      search: false
     },
     {
       title: '订单费用(元)',
       dataIndex: 'DDFY',
       key: 'DDFY',
       align: 'center',
-      search: false
     },
     {
       title: '订单状态',
       dataIndex: 'DDZT',
       key: 'DDZT',
       align: 'center',
-      search: false
     }
   ];
   const [dataSource, setDataSource] = useState<API.KHXSDD[] | undefined>([]);
   const [activeKey, setActiveKey] = useState<string>('已付款');
-  const [classList, setclassList] = useState<any>([]);
+  const [StudentName,SetStudentName ] = useState<any>();
+  const [coursName, setcoursName] = useState<any>();
+  const [ courseList,setcourseList] = useState<any>([]);
+ useEffect(()=>{
+  (async()=>{
+    const res =await getCourses({
+     JGId:currentUser?.jgId
+   })
+   if(res.status==='ok'){
+     setcourseList(res.data?.rows)
+   }
+   })()
+ },[])
 
   useEffect(() => {
     (async () => {
       const res = await getAllKHXSDD({
         //机构id
-        KHJYJGId: currentUser?.jgId,
         XXJBSJId: id,
         DDZT: activeKey,
-        DDLX: 0
+        DDLX: 0,
+        XSXM:StudentName
       })
       setDataSource(res?.data)
     })()
-  }, [activeKey])
+  }, [activeKey,StudentName,coursName])
   const  screenData=async (value:any)=>{
     const {XSJBSJ}=value
     const res = await getAllKHXSDD({
@@ -119,6 +129,31 @@ const ClassOrder = (props: any) => {
         <LeftOutlined />
         返回上一页
       </Button>
+      <div style={{padding:'24px 0'}}>
+      <span>
+          学生姓名：
+          <Search style={{width: 200}} 
+          placeholder='请输入学生姓名'
+          allowClear
+         onSearch={(value)=>{
+              SetStudentName(value)
+          
+          }} />
+        </span>
+        <span style={{marginLeft:'24px'}}>
+        课程名称：
+          <Select
+            style={{ width: 200 }}
+            onChange={(value: string) => {
+              setcoursName(value)
+            }}
+          >
+            {courseList?.map((item: any) => {
+              return <Option key={item.id} value={item.id}>{item.KCMC}</Option>;
+            })}
+          </Select>
+        </span>
+      </div>
       <ProTable
         dataSource={dataSource}
         columns={columns}
@@ -131,7 +166,7 @@ const ClassOrder = (props: any) => {
           density: false,
           reload: false
         }}
-        // search={false}
+        search={false}
         toolbar={{
           menu: {
             type: 'tab',

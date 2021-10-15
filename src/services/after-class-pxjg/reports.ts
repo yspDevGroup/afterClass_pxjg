@@ -62,11 +62,7 @@ export async function getClasses(
   },
   options?: { [key: string]: any },
 ) {
-  return request<{
-    status?: 'ok' | 'error';
-    data?: { count?: number; rows?: API.KHBJTJSJ[] };
-    message?: string;
-  }>('/reports/getClasses', {
+  return request<any>('/reports/getClasses', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
