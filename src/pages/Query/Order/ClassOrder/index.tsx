@@ -1,11 +1,11 @@
 import ProTable, { ProColumns, ActionType } from '@ant-design/pro-table';
 import { useState, useEffect, useRef } from 'react';
-import { Button,Input,Select} from 'antd';
+import { Button, Input, Select } from 'antd';
 import { useModel } from 'umi';
 import { getAllKHXSDD } from '@/services/after-class-pxjg/khxsdd';
 import { getAllSemester } from '@/services/after-class-pxjg/khjyjg';
 import { LeftOutlined } from '@ant-design/icons';
-import {getCourses } from '@/services/after-class-pxjg/jyjgsj';
+import { getCourses } from '@/services/after-class-pxjg/jyjgsj';
 
 const { Search } = Input;
 const { Option } = Select;
@@ -29,6 +29,17 @@ const ClassOrder = (props: any) => {
       key: 'XSJBSJ',
       align: 'center',
       render: (test: any) => test.XM
+    },
+    {
+      title: '行政班名称',
+      dataIndex: 'BJSJ',
+      key: 'BJSJ',
+      align: 'center',
+      width: 100,
+      ellipsis: true,
+      render: (_text: any, record: any) => {
+        return `${record?.XSJBSJ?.BJSJ?.NJSJ?.NJMC}${record?.XSJBSJ?.BJSJ?.BJ}`;
+      }
     },
     {
       title: '课程名称',
@@ -76,19 +87,19 @@ const ClassOrder = (props: any) => {
   ];
   const [dataSource, setDataSource] = useState<API.KHXSDD[] | undefined>([]);
   const [activeKey, setActiveKey] = useState<string>('已付款');
-  const [StudentName,SetStudentName ] = useState<any>();
+  const [StudentName, SetStudentName] = useState<any>();
   const [coursName, setcoursName] = useState<any>();
-  const [ courseList,setcourseList] = useState<any>([]);
- useEffect(()=>{
-  (async()=>{
-    const res =await getCourses({
-     JGId:currentUser?.jgId
-   })
-   if(res.status==='ok'){
-     setcourseList(res.data?.rows)
-   }
-   })()
- },[])
+  const [courseList, setcourseList] = useState<any>([]);
+  useEffect(() => {
+    (async () => {
+      const res = await getCourses({
+        JGId: currentUser?.jgId
+      })
+      if (res.status === 'ok') {
+        setcourseList(res.data?.rows)
+      }
+    })()
+  }, [])
 
   useEffect(() => {
     (async () => {
@@ -97,13 +108,13 @@ const ClassOrder = (props: any) => {
         XXJBSJId: id,
         DDZT: activeKey,
         DDLX: 0,
-        XSXM:StudentName
+        XSXM: StudentName
       })
       setDataSource(res?.data)
     })()
-  }, [activeKey,StudentName,coursName])
-  const  screenData=async (value:any)=>{
-    const {XSJBSJ}=value
+  }, [activeKey, StudentName, coursName])
+  const screenData = async (value: any) => {
+    const { XSJBSJ } = value
     const res = await getAllKHXSDD({
       //机构id
       KHJYJGId: currentUser?.jgId,
@@ -129,19 +140,19 @@ const ClassOrder = (props: any) => {
         <LeftOutlined />
         返回上一页
       </Button>
-      <div style={{padding:'24px 0'}}>
-      <span>
+      <div style={{ padding: '24px 0' }}>
+        <span>
           学生姓名：
-          <Search style={{width: 200}} 
-          placeholder='请输入学生姓名'
-          allowClear
-         onSearch={(value)=>{
+          <Search style={{ width: 200 }}
+            placeholder='请输入学生姓名'
+            allowClear
+            onSearch={(value) => {
               SetStudentName(value)
-          
-          }} />
+
+            }} />
         </span>
-        <span style={{marginLeft:'24px'}}>
-        课程名称：
+        <span style={{ marginLeft: '24px' }}>
+          课程名称：
           <Select
             style={{ width: 200 }}
             onChange={(value: string) => {
