@@ -9,7 +9,7 @@ import styles from '../index.less';
 import { useEffect } from 'react';
 const { Option } = Select;
 const Class = (props: any) => {
-  const { KHKCSJId, data } = props.location.state;
+  const { KHKCSJId,} = props.location.state;
   const columns: ProColumns<any>[] | undefined = [
     {
       title: '序号',
@@ -88,24 +88,20 @@ const Class = (props: any) => {
       )
     }
   ];
-  const [curXNXQId, setCurXNXQId] = useState<any>();
-  const { initialState } = useModel('@@initialState');
   const [dataSource, setDataSource] = useState<any>([]);
-  const [termList, setTermList] = useState<any>();
-  const { currentUser } = initialState || {};
+
   useEffect(() => {}, []);
 
   useEffect(() => {
     (async () => {
       const res1 = await getClassesEvaluation({
-        XNXQId: curXNXQId,
         KHKCSJId,
         page: 0,
         pageSize: 0
       });
       setDataSource(res1.data.rows);
     })();
-  }, [curXNXQId]);
+  }, []);
 
   return (
     <>

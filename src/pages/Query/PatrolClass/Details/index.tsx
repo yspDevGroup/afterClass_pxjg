@@ -6,7 +6,7 @@ import { LeftOutlined, } from '@ant-design/icons';
 import { getKHXKJL } from '@/services/after-class-pxjg/khxkjl'
 import { getAllSemester } from '@/services/after-class-pxjg/khjyjg'
 import styles from '../index.less'
-import { Link, useModel } from 'umi';
+import {useModel } from 'umi';
 import { getAllJZGJBSJ, } from '@/services/after-class-pxjg/jzgjbsj';
 
 

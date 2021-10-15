@@ -4,17 +4,19 @@ import ProTable, { ProColumns } from '@ant-design/pro-table';
 import { useEffect, useState } from 'react';
 import { getCourseEvaluation } from '@/services/after-class-pxjg/khjyjg';
 import EllipsisHint from '@/components/EllipsisHint';
+import { getCourses } from '@/services/after-class-pxjg/jyjgsj';
+
 import styles from './index.less';
 
 const Course = () => {
   const [dataSource, setDataSource] = useState<any>([]);
+  const [coursName, setcoursName] = useState<any>();
   const { initialState } = useModel('@@initialState');
   const { currentUser } = initialState || {};
-  const [termList, setTermList] = useState<any>([]);
-  const [classname, setclassname] = useState<any>([]);
   const [choseClass, setchoseClass] = useState('');
-
-  const { Option } = Select;
+  const [courseList, setcourseList] = useState<any>([]);
+  const [course, setcourse] = useState<any>();
+ const { Option } = Select;
   const columns: ProColumns<any>[] | undefined = [
     {
       title: '序号',
@@ -91,42 +93,37 @@ const Course = () => {
   ];
   useEffect(() => {
     (async () => {
-      const res = await getCourseEvaluation({
-        KHJYJGId: currentUser?.jgId
-      });
-      setDataSource(res.data.rows);
-      const listdata = res.data.rows;
-      const classList: any[] = [];
-      listdata.map((item: any) => {
-        return classList.push(item.KCMC);
-      });
-      setclassname(classList);
-    })();
+      const res = await getCourses({
+        JGId: currentUser?.jgId
+      })
+      if (res.status === 'ok') {
+        setcourseList(res.data?.rows)
+      }
+    })()
+   
   }, []);
   useEffect(() => {
     (async () => {
       const res = await getCourseEvaluation({
         KHJYJGId: currentUser?.jgId,
-        KCMC: choseClass
+        KCMC:course
       });
       setDataSource(res.data.rows);
     })();
-  }, [choseClass]);
+  }, [course]);
   return (
     <>
       <div style={{ padding: '24px 16px' }}>
-        <span>
+      <span style={{ marginLeft: '24px' }}>
           课程名称：
           <Select
-            allowClear
-            value={choseClass}
             style={{ width: 200 }}
             onChange={(value: string) => {
-              setchoseClass(value);
+              setcourse(value)
             }}
           >
-            {classname?.map((item: any) => {
-              return <Option value={item}>{item}</Option>;
+            {courseList?.map((item: any) => {
+              return <Option key={item.id} value={item.KCMC}>{item.KCMC}</Option>;
             })}
           </Select>
         </span>
