@@ -7,7 +7,7 @@ export default defineConfig({
     ENV_copyRight: '2021 版权所有：陕西五育汇智信息技术有限公司',
     ENV_host: 'http://afterclassPxjg.test.xianyunshipei.com',
     ENV_backUrl: 'http://api.test.xianyunshipei.com',
-    ssoHost: 'http://platform.test.xianyunshipei.com',
+    ssoHost: 'http://sso.test.xianyunshipei.com',
     authType: 'wechat',
     clientId: 'ww73f350f785b450ab',
     clientSecret: 'GioaHZFINvGOlb3e6rW2BBgjVEpHi-CUYBxGpC0NI9c'
