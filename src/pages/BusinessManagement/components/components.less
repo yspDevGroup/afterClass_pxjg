@@ -12,8 +12,8 @@
 
   .schoolInfoBody {
     width: 85%;
-    margin: 0 auto;
     min-width: 850px;
+    margin: 0 auto;
 
     .schoolInfoTitle {
       display: flex;
@@ -30,10 +30,10 @@
       }
 
       .schoolInfoTitleHeader {
+        flex: 1;
         color: @text-color;
         font-weight: bold;
         font-size: 18px;
-        flex: 1;
 
         p {
           margin-bottom: 0;
@@ -54,11 +54,11 @@
 
         .ant-input[disabled] {
           color: @text-color;
+          text-overflow: ellipsis;
           background-color: inherit;
           border: none;
           cursor: default;
           resize: none;
-          text-overflow: ellipsis;
         }
       }
     }
@@ -70,7 +70,25 @@
 
   .searchWrapper {
     padding: @padding-lg;
-    box-shadow: 0px 1px 0px #E4E4E4;
+    box-shadow: 0px 1px 0px #e4e4e4;
+  }
+  :global {
+    .ant-col {
+      width: 20%;
+      .ant-card-body {
+        width: 100%;
+        p {
+          margin-top: 10px;
+          margin-bottom: 0;
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          span {
+            margin-right: 14px;
+          }
+        }
+      }
+    }
   }
 
   .courseIntro {
@@ -81,15 +99,15 @@
 
       .moreInfo {
         display: flex;
-        justify-content: left;
         align-items: center;
-        box-shadow: 0px 1px 0px #E4E4E4;
+        justify-content: left;
+        box-shadow: 0px 1px 0px #e4e4e4;
 
-        >div {
+        > div {
           width: 110px;
-          border: 1px solid #efefef;
-          text-align: center;
           margin-right: @padding-lg;
+          text-align: center;
+          border: 1px solid #efefef;
 
           img {
             max-width: 100%;
@@ -103,60 +121,60 @@
       }
 
       h3 {
-        line-height: 54px;
-        font-size: @font-size-lg;
-        font-weight: bold;
-        margin-bottom: 0;
-        box-shadow: 0px 1px 0px #E4E4E4;
         position: relative;
+        margin-bottom: 0;
+        font-weight: bold;
+        font-size: @font-size-lg;
+        line-height: 54px;
+        box-shadow: 0px 1px 0px #e4e4e4;
 
         .extraInfo {
-          >span:nth-child(1) {
+          > span:nth-child(1) {
             display: inline-block;
             height: 22px;
-            line-height: 22px;
+            margin-left: @padding-md;
             padding: 0 @padding-md;
-            border-radius: 22px;
+            color: #fff;
             font-weight: normal;
             font-size: @font-size-sm;
-            color: #fff;
-            margin-left: @padding-md;
+            line-height: 22px;
+            border-radius: 22px;
           }
 
-          >span:nth-child(2) {
+          span:nth-child(2) {
             padding-left: @padding-lg;
             color: @text-color-secondary;
-            font-size: @font-size-sm;
             font-weight: normal;
+            font-size: @font-size-sm;
 
-            >span {
+            > span {
               margin-left: @padding-sm;
             }
           }
 
-          >span:nth-child(3) {
+          span:nth-child(3) {
             position: absolute;
-            color: @primary-color;
             right: 0;
+            color: @primary-color;
             font-size: @font-size-sm;
 
-            >span {
+            > span {
               margin-left: @padding-sm;
             }
           }
         }
 
         .extraDesc {
+          padding-bottom: @padding-lg;
+          color: @text-color;
           font-weight: normal;
           font-size: @font-size-base;
-          color: @text-color;
           line-height: 26px;
-          padding-bottom: @padding-lg;
 
           p {
             margin-bottom: 0;
 
-            span+span {
+            span + span {
               padding-left: @padding-md;
             }
           }
@@ -164,23 +182,23 @@
       }
 
       .classItem {
-        background: #FBFBFB;
-        border-radius: @padding-sm/2;
+        background: #fbfbfb;
+        border-radius: @padding-sm / 2;
 
         p {
           margin: 0;
-          line-height: 26px;
-          font-size: @font-size-sm;
-          color: @text-color-secondary;
           padding: 0 @padding-sm;
-          border-radius: @padding-sm/2 @padding-sm/2 0 0;
+          color: @text-color-secondary;
+          font-size: @font-size-sm;
+          line-height: 26px;
+          border-radius: @padding-sm / 2 @padding-sm / 2 0 0;
 
           &:nth-child(1) {
-            padding: @padding-sm;
-            font-size: @font-size-base;
-            margin: @padding-sm 0;
-            color: #fff;
             position: relative;
+            margin: @padding-sm 0;
+            padding: @padding-sm;
+            color: #fff;
+            font-size: @font-size-base;
 
             span {
               position: absolute;

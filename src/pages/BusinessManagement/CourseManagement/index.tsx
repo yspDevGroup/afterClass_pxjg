@@ -148,16 +148,21 @@ const CourseManagement = () => {
       width: 150,
       hideInTable: activeKey !== 'duration',
       render: (_, record) => {
+        console.log(record, '-----------');
         const teacher = record.KHKCSJ?.KHKCJs;
         return (
           <EllipsisHint
             width="100%"
             text={teacher?.map((item: any) => {
               const showWXName = item.JZGJBSJ.XM === '未知' && item.JZGJBSJ.WechatUserId;
-              return <Tag key={item.JZGJBSJId}>{showWXName ? (<WWOpenDataCom type="userName" openid={item.JZGJBSJ.WechatUserId} />) : (item.JZGJBSJ.XM)}</Tag>;
+              return (
+                <Tag key={item.JZGJBSJId}>
+                  {showWXName ? <WWOpenDataCom type="userName" openid={item.JZGJBSJ.WechatUserId} /> : item.JZGJBSJ.XM}
+                </Tag>
+              );
             })}
           />
-        )
+        );
       }
     },
     {

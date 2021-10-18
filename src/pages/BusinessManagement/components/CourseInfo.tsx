@@ -79,6 +79,7 @@ const CourseItemDom = (props: { school: string; course: any; type: string; ind: 
       {course?.KHBJSJs?.length && ind === curIndex ? (
         <Row gutter={[24, 24]}>
           {course.KHBJSJs.map((item: any, index: number) => {
+            console.log(item, '0-=00-0');
             const colorInd = Math.ceil(index / 6) < 2 ? index : Math.ceil(Math.ceil(index / 6) * 6 - index);
             return (
               <Col key={item.id} span={6}>
@@ -104,7 +105,11 @@ const CourseItemDom = (props: { school: string; course: any; type: string; ind: 
                             }
                           }}
                         >
-                          {showWXName ? <WWOpenDataCom type="userName" openid={val.JZGJBSJ?.WechatUserId} /> : val.JZGJBSJ?.XM}
+                          {showWXName ? (
+                            <WWOpenDataCom type="userName" openid={val.JZGJBSJ?.WechatUserId} />
+                          ) : (
+                            val.JZGJBSJ?.XM
+                          )}
                           {index < item.KHBJJs.length - 1 ? <Divider type="vertical" /> : ''}
                         </Link>
                       );
@@ -152,7 +157,8 @@ const CourseItemDom = (props: { school: string; course: any; type: string; ind: 
                           xxmc: school,
                           kcmc: course.KCMC,
                           bjmc: item.BJMC,
-                          xssj: item.KHXSBJs
+                          xssj: item.KHXSBJs,
+                          bjId: item.id
                         }
                       }}
                     >

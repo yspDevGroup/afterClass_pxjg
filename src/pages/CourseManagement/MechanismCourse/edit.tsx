@@ -274,7 +274,7 @@ const Edit = (props: any) => {
       render: (_: any, record: any) => {
         const showWXName = record.XM === '未知' && record.WechatUserId;
         if (showWXName) {
-          return <WWOpenDataCom type="userName" openid={record.WechatUserId} />
+          return <WWOpenDataCom type="userName" openid={record.WechatUserId} />;
         }
         return record.XM;
       }
