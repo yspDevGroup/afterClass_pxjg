@@ -103,7 +103,7 @@ const Order = () => {
   }
   return (
     <div>
-      <div className={styles.Tables}>
+      <div>
         <ProTable
           toolbar={{
             onSearch: (value: string) => {

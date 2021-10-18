@@ -96,7 +96,7 @@ const PatrolClass = () => {
   
   return (
     <div>
-      <div className={styles.TabList}>
+      <div>
         <ProTable
           toolbar={{
             onSearch: (value:string) => {
