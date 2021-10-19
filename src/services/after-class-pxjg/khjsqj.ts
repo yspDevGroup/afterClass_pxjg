@@ -21,6 +21,13 @@ export async function getKHJSQJ(
       QJSC?: number;
       QJYY?: string;
       QJZT?: number;
+      JZGJBSJ?: { id?: string; XM?: string; WechatUserId?: string };
+      KHJSQJKCs?: {
+        QJRQ?: string;
+        KCMC?: string;
+        KHBJSJ?: { id?: string; BJMC?: string };
+        XXSJPZ?: { id?: string; KSSJ?: string; JSSJ?: string; TITLE?: string };
+      }[];
     };
     message?: string;
   }>(`/khjsqj/${param0}`, {
@@ -47,19 +54,19 @@ export async function deleteKHJSQJ(
   });
 }
 
-/** 查询所有课后服务教师请假记录 POST /khjsqj/ */
+/** 查询所有课后服务教师请假记录 POST /khjsqj/getAll */
 export async function getAllKHJSQJ(
   body: {
-    /** 学生ID */
-    XSJBSJId?: string;
+    /** 学校ID */
+    XXJBSJId?: string;
     /** 班级ID */
     KHBJSJId?: string;
     /** 教师ID */
-    JSId?: string;
+    JZGJBSJId?: string;
+    /** 教师姓名 */
+    JSXM?: string;
     /** 请假状态 */
     QJZT?: number[];
-    /** 请假类型 */
-    QJLX?: string;
     /** 请假日期 */
     QJRQ?: string;
     /** 学年学期ID */
@@ -71,11 +78,7 @@ export async function getAllKHJSQJ(
   },
   options?: { [key: string]: any },
 ) {
-  return request<{
-    status?: 'ok' | 'error';
-    data?: { count?: number; rows?: API.KHJSQJ[] };
-    message?: string;
-  }>('/khjsqj/', {
+  return request<any>('/khjsqj/getAll', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -96,6 +99,13 @@ export async function createKHJSQJ(body: API.CreateKHJSQJ, options?: { [key: str
       QJSC?: number;
       QJYY?: string;
       QJZT?: number;
+      JZGJBSJ?: { id?: string; XM?: string; WechatUserId?: string };
+      KHJSQJKCs?: {
+        QJRQ?: string;
+        KCMC?: string;
+        KHBJSJ?: { id?: string; BJMC?: string };
+        XXSJPZ?: { id?: string; KSSJ?: string; JSSJ?: string; TITLE?: string };
+      }[];
     };
     message?: string;
   }>('/khjsqj/create', {

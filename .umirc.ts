@@ -1,3 +1,11 @@
+/*
+ * @Author: your name
+ * @Date: 2021-09-24 16:43:37
+ * @LastEditTime: 2021-10-19 17:51:49
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \afterClass_pxjg\.umirc.ts
+ */
 import { defineConfig } from 'umi';
 import CompressionWebpackPlugin from 'compression-webpack-plugin';
 import theme from './theme';
@@ -47,7 +55,8 @@ export default defineConfig({
   },
   proxy: {
     '/api': {
-      target: 'http://api.test.xianyunshipei.com',
+      // target: 'http://api.test.xianyunshipei.com',
+      target: 'http://192.168.0.113:3000',
       changeOrigin: true,
       pathRewrite: { '^/api': '' }
     }

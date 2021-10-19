@@ -1,3 +1,11 @@
+/*
+ * @Author: your name
+ * @Date: 2021-09-24 16:43:37
+ * @LastEditTime: 2021-10-19 17:50:19
+ * @LastEditors: your name
+ * @Description: In User Settings Edit
+ * @FilePath: \afterClass_pxjg\.umirc.dev.ts
+ */
 import { defineConfig } from 'umi';
 
 export default defineConfig({
@@ -14,8 +22,8 @@ export default defineConfig({
   },
   proxy: {
     '/api': {
-      target: 'http://api.test.xianyunshipei.com',
-      // target: 'http://192.168.0.113:3000',
+      // target: 'http://api.test.xianyunshipei.com',
+      target: 'http://192.168.0.113:3000',
       changeOrigin: true,
       pathRewrite: { '^/api': '' }
     }

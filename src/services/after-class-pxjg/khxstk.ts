@@ -35,6 +35,9 @@ export async function getKHXSTK(
       };
       JZGJBSJ?: { id?: string; XM?: string; WechatUserId?: string };
       KHBJSJ?: { BJMC?: string; KHKCSJ?: { KCMC?: string } };
+      KHXXZZFW?:
+        | { id?: string; FWMC?: string; KHZZFW?: { id?: string; FWMC?: string; FWJGMC?: string } }
+        | any;
     };
     message?: string;
   }>(`/khxstk/${param0}`, {
@@ -66,6 +69,8 @@ export async function getAllKHXSTK(
   body: {
     /** 退款状态 */
     TKZT?: number[];
+    /** 退款类型,0:退款;1:停餐 */
+    LX?: number;
     /** 学生ID */
     XSJBSJId?: string;
     /** 学年学期ID */
@@ -120,6 +125,9 @@ export async function createKHXSTK(body: API.CreateKHXSTK, options?: { [key: str
       };
       JZGJBSJ?: { id?: string; XM?: string; WechatUserId?: string };
       KHBJSJ?: { BJMC?: string; KHKCSJ?: { KCMC?: string } };
+      KHXXZZFW?:
+        | { id?: string; FWMC?: string; KHZZFW?: { id?: string; FWMC?: string; FWJGMC?: string } }
+        | any;
     };
     message?: string;
   }>('/khxstk/create', {

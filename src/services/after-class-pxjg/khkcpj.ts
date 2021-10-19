@@ -43,8 +43,10 @@ export async function deleteKHKCPJ(
 /** 查询所有机构课程评价 POST /khkcpj/ */
 export async function getAllKHKCPJ(
   body: {
-    /** 机构课程评价 */
-    name?: string;
+    /** 页数 */
+    page?: number;
+    /** 每页记录数 */
+    pageSize?: number;
   },
   options?: { [key: string]: any },
 ) {

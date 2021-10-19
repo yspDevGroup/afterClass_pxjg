@@ -2,8 +2,8 @@
  * @description:
  * @author: Sissle Lynn
  * @Date: 2021-08-26 16:26:59
- * @LastEditTime: 2021-10-15 15:39:36
- * @LastEditors: zpl
+ * @LastEditTime: 2021-10-19 18:28:34
+ * @LastEditors: Please set LastEditors
  */
 import React, { useEffect, useState } from 'react';
 import { Link } from 'umi';
@@ -15,6 +15,7 @@ import EllipsisHint from '@/components/EllipsisHint';
 import WWOpenDataCom from '@/components/WWOpenDataCom';
 
 import styles from './index.less';
+import { render } from 'react-dom';
 
 const CourseList = (props: any) => {
   const { state } = props.history.location;
@@ -97,6 +98,22 @@ const CourseList = (props: any) => {
           />
         );
       }
+    },
+    {
+      title: '学校评价',
+      key: 'KHKCPJs',
+      dataIndex: 'KHKCPJs',
+      align: 'center',
+      ellipsis:true,
+      width:100,
+      render:(_,record)=>{
+     return(
+         <span>{record.KHKCPJs[record.KHKCPJs.length-1].PY}</span>
+       )
+      
+
+      }
+
     },
     {
       title: '操作',

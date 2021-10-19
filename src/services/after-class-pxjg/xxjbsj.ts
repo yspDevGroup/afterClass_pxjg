@@ -224,3 +224,22 @@ export async function getAttendanceTrend(
     ...(options || {}),
   });
 }
+
+/** 学校按日期统计收款，退款信息 POST /xxjbsj/getRefund */
+export async function getRefund(
+  body: {
+    XXJBSJId?: string;
+    startDate?: string;
+    endDate?: string;
+  },
+  options?: { [key: string]: any },
+) {
+  return request<any>('/xxjbsj/getRefund', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data: body,
+    ...(options || {}),
+  });
+}
