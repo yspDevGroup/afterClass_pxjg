@@ -148,7 +148,6 @@ const CourseManagement = () => {
       width: 150,
       hideInTable: activeKey !== 'duration',
       render: (_, record) => {
-        console.log(record, '-----------');
         const teacher = record.KHKCSJ?.KHKCJs;
         return (
           <EllipsisHint

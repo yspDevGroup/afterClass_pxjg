@@ -85,8 +85,9 @@ const Details = (props: any) => {
       search: false,
       width: 140,
       ellipsis: true,
-      render: (text: any) => {
-        return text?.BJMS;
+      render: (_,record: any) => {
+      
+        return record.KHBJSJ?.BJMS;
       },
     },
     {
@@ -96,8 +97,8 @@ const Details = (props: any) => {
       align: 'center',
       width: 140,
       ellipsis: true,
-      render: (text: any) => {
-        return <div>{text?.BJMC}</div>
+      render: (_,record: any) => {
+      return record.KHBJSJ?.BJMC
       },
     },
     {
@@ -164,6 +165,8 @@ const Details = (props: any) => {
         XSXM: StudentName
       })
       if (res.status === 'ok') {
+     
+        
         setDataSource(res.data?.rows)
       }
     })()

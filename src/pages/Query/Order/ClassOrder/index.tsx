@@ -121,7 +121,6 @@ const ClassOrder = (props: any) => {
   useEffect(() => {
     (async () => {
       const res = await getAllKHXSDD({
-        //机构id
         XXJBSJId: id,
         DDZT: activeKey,
         DDLX: 0,

@@ -24,7 +24,6 @@ const formItemLayout = {
 };
 const Edit = (props: any) => {
   const { state } = props.location;
-
   const [disabled, setDisabled] = useState(false);
   const [imageUrl, setImageUrl] = useState('');
   const [forms, setForm] = useState<FormInstance<any>>();
