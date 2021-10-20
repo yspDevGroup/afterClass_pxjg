@@ -17,19 +17,23 @@ const Course = () => {
   const [choseClass, setchoseClass] = useState('');
   const [courseList, setcourseList] = useState<any>([]);
   const [course, setcourse] = useState<any>();
- const { Option } = Select;
+  const { Option } = Select;
   const columns: ProColumns<any>[] | undefined = [
     {
       title: '序号',
       dataIndex: 'index',
       valueType: 'index',
       width: 58,
+      fixed: 'left',
       align: 'center'
     },
     {
       title: '课程名称',
       dataIndex: 'KCMC',
       key: 'KCMC',
+      fixed: 'left',
+      width: 130,
+      ellipsis: true,
       align: 'center'
     },
     {
@@ -37,8 +41,11 @@ const Course = () => {
       dataIndex: 'KHKCLX',
       key: 'KHKCLX',
       align: 'center',
-      render: (test: any) => {
-        return test.KCTAG;
+      width: 120,
+      ellipsis: true,
+      render: (_: any, record: any) => {
+        const text = record?.KHKCLX;
+        return text?.KCTAG || '-';
       }
     },
     {
@@ -46,7 +53,9 @@ const Course = () => {
       dataIndex: 'KHKCJs',
       key: 'KHKCJs',
       align: 'center',
-      render: (_: any,record: any) => {
+      width: 130,
+      ellipsis: true,
+      render: (_: any, record: any) => {
         const teacher = record.KHKCJs;
         return (
           <EllipsisHint
@@ -64,15 +73,17 @@ const Course = () => {
       dataIndex: 'PJFS',
       key: 'PJFS',
       align: 'center',
-      width: 200,
+      width: 180,
       render: (text: any) => <Rate count={5} defaultValue={text} disabled={true} />
     },
-
     {
-      title: '合作学校',
-      dataIndex: 'XSXM',
-      key: 'XSXM',
+      title: '操作',
+      dataIndex: 'operation',
+      key: 'operation',
       align: 'center',
+      width: 120,
+      fixed:'right',
+      ellipsis: true,
       render: (_, record) => (
         <>
           <Link
@@ -105,17 +116,18 @@ const Course = () => {
     (async () => {
       const res = await getCourseEvaluation({
         KHJYJGId: currentUser?.jgId,
-        KCMC:course
+        KCMC: course
       });
       setDataSource(res.data.rows);
     })();
   }, [course]);
   return (
-    <>
-      <div style={{ padding: '24px 16px' }}>
-      <span style={{ marginLeft: '24px' }}>
+    <div className={styles.Tables}>
+      <div style={{ padding: '24px 24px 0', backgroundColor: '#fff' }}>
+        <span>
           课程名称：
           <Select
+            allowClear
             style={{ width: 200 }}
             onChange={(value: string) => {
               setcourse(value)
@@ -127,21 +139,25 @@ const Course = () => {
           </Select>
         </span>
       </div>
-      <div className={styles.Tables}>
-        <ProTable
-          columns={columns}
-          dataSource={dataSource}
-          rowKey="id"
-          search={false}
-          options={{
-            setting: false,
-            fullScreen: false,
-            density: false,
-            reload: false
-          }}
-        />
-      </div>
-    </>
+      <ProTable
+        columns={columns}
+        dataSource={dataSource}
+        rowKey="id"
+        pagination={{
+          showQuickJumper: true,
+          pageSize: 10,
+          defaultCurrent: 1,
+        }}
+        scroll={{ x: 900 }}
+        search={false}
+        options={{
+          setting: false,
+          fullScreen: false,
+          density: false,
+          reload: false
+        }}
+      />
+    </div>
   );
 };
 Course.wrappers = ['@/wrappers/auth'];

@@ -43,20 +43,22 @@ const Details = (props: any) => {
       message.error(res.message,);
     }
   };
-  ///table表格数据
+  // table表格数据
   const columns: ProColumns<any>[] = [
     {
       title: '序号',
       dataIndex: 'index',
       valueType: 'index',
       align: 'center',
-      width: 60,
+      width: 58,
+      fixed: 'left',
     },
     {
       title: '学生姓名',
       dataIndex: 'XSJBSJ',
       key: 'XSJBSJ',
       align: 'center',
+      fixed: 'left',
       width: 120,
       render: (_text: any, record: any) => {
         const showWXName = record?.XSJBSJ?.XM === '未知' && record?.XSJBSJ?.WechatUserId;
@@ -85,8 +87,7 @@ const Details = (props: any) => {
       search: false,
       width: 140,
       ellipsis: true,
-      render: (_,record: any) => {
-      
+      render: (_, record: any) => {
         return record.KHBJSJ?.BJMS;
       },
     },
@@ -97,8 +98,8 @@ const Details = (props: any) => {
       align: 'center',
       width: 140,
       ellipsis: true,
-      render: (_,record: any) => {
-      return record.KHBJSJ?.BJMC
+      render: (_, record: any) => {
+        return record.KHBJSJ?.BJMC
       },
     },
     {
@@ -106,14 +107,14 @@ const Details = (props: any) => {
       dataIndex: 'KSS',
       key: 'KSS',
       align: 'center',
-      width: 120,
+      width: 110,
       search: false
     },
     {
       title: '状态',
       dataIndex: 'ZT',
       key: 'ZT',
-      width: 120,
+      width: 100,
       align: 'center',
       search: false,
       valueEnum: {
@@ -137,7 +138,8 @@ const Details = (props: any) => {
       key: 'createdAt',
       align: 'center',
       width: 170,
-      search: false
+      search: false,
+      ellipsis: true
     },
   ];
   useEffect(() => {
@@ -165,8 +167,6 @@ const Details = (props: any) => {
         XSXM: StudentName
       })
       if (res.status === 'ok') {
-     
-        
         setDataSource(res.data?.rows)
       }
     })()
@@ -225,10 +225,15 @@ const Details = (props: any) => {
           </Select>
         </span>
       </div>
-
       <div className={styles.Tables}>
         <ProTable
           dataSource={dataSource}
+          pagination={{
+            showQuickJumper: true,
+            pageSize: 10,
+            defaultCurrent: 1,
+          }}
+          scroll={{ x: 1000 }}
           columns={columns}
           options={{
             setting: false,

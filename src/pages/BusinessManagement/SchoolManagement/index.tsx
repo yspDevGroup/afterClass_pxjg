@@ -2,7 +2,7 @@
  * @description:
  * @author: Sissle Lynn
  * @Date: 2021-08-24 14:37:02
- * @LastEditTime: 2021-09-07 19:52:51
+ * @LastEditTime: 2021-10-20 09:34:56
  * @LastEditors: Sissle Lynn
  */
 import React, { useRef, useState } from 'react';
@@ -30,6 +30,7 @@ const SchoolManagement = () => {
       dataIndex: 'index',
       valueType: 'index',
       width: 58,
+      fixed:'left',
       align: 'center'
     },
     {
@@ -38,6 +39,7 @@ const SchoolManagement = () => {
       key: 'XXMC',
       align: 'center',
       width: 160,
+      fixed:'left',
       ellipsis: true
     },
     // {
@@ -99,6 +101,7 @@ const SchoolManagement = () => {
       title: '操作',
       valueType: 'option',
       width: 180,
+      fixed:'right',
       align: 'center',
       render: (_, record) => (
         <>
@@ -141,6 +144,12 @@ const SchoolManagement = () => {
       className={styles.schoolTable}
       actionRef={actionRef}
       search={false}
+      pagination={{
+        showQuickJumper: true,
+        pageSize: 10,
+        defaultCurrent: 1,
+      }}
+      scroll={{ x: 1000 }}
       request={async (
         params: KHHZXYSJ & {
           pageSize?: number;

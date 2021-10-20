@@ -1,35 +1,87 @@
 import ProTable, { ProColumns, ActionType } from '@ant-design/pro-table';
 import { useState, useEffect, useRef } from 'react';
-import { Button, Input, Select } from 'antd';
+import { Button, Input, message, Select } from 'antd';
 import { useModel } from 'umi';
 import { getAllKHXSDD } from '@/services/after-class-pxjg/khxsdd';
-import { getAllSemester } from '@/services/after-class-pxjg/khjyjg';
 import { LeftOutlined } from '@ant-design/icons';
 import { getCourses } from '@/services/after-class-pxjg/jyjgsj';
 import WWOpenDataCom from '@/components/WWOpenDataCom';
+import { getAllXNXQ } from '@/services/after-class-pxjg/xnxq';
+import { getCurrentXQ } from '@/utils';
 
 const { Search } = Input;
 const { Option } = Select;
-type selectType = { label: string; value: string };
 const ClassOrder = (props: any) => {
   const { id } = props.location.state;
   const { initialState } = useModel('@@initialState');
   const { currentUser } = initialState || {};
   const actionRef = useRef<ActionType>();
+  const [dataSource, setDataSource] = useState<API.KHXSDD[] | undefined>([]);
+  const [StudentName, SetStudentName] = useState<any>();
+  const [coursName, setcoursName] = useState<any>();
+  const [courseList, setcourseList] = useState<any>([]);
+  // 选择学年学期
+  const [term, setTerm] = useState<string>();
+  // 学年学期列表数据
+  const [termList, setTermList] = useState<any>();
+  useEffect(() => {
+    (async () => {
+      const res = await getCourses({
+        JGId: currentUser?.jgId
+      })
+      if (res.status === 'ok') {
+        setcourseList(res.data?.rows)
+      }
+    })()
+    getXNXQ(id);
+  }, [])
+  const getXNXQ = async (xxdm: string) => {
+    const res = await getAllXNXQ({
+      XXJBSJId: xxdm
+    });
+    if (res?.status === 'ok') {
+      const { data = [] } = res;
+      const currentXQ = getCurrentXQ(data);
+      const term = [].map.call(data, (item: any) => {
+        return {
+          value: item.id,
+          text: `${item.XN} ${item.XQ}`
+        };
+      });
+      setTermList(term);
+      setTerm(currentXQ?.id || data[0].id);
+    } else {
+      message.error(res.message);
+    }
+  };
+  useEffect(() => {
+    (async () => {
+      const res = await getAllKHXSDD({
+        XXJBSJId: id,
+        DDZT: '已付款',
+        DDLX: 0,
+        XSXM: StudentName
+      })
+      setDataSource(res?.data)
+    })()
+  }, [StudentName, coursName])
+
   const columns: ProColumns<API.KHXSDD>[] | undefined = [
     {
       title: '序号',
       dataIndex: 'index',
       valueType: 'index',
       align: 'center',
-      width: 60
+      width: 58,
+      fixed: 'left',
     },
     {
       title: '学生姓名',
       dataIndex: 'XSJBSJ',
       key: 'XSJBSJ',
       align: 'center',
-      width: 120,
+      width: 100,
+      fixed: 'left',
       ellipsis: true,
       render: (_text: any, record: any) => {
         const showWXName = record?.XSJBSJ?.XM === '未知' && record?.XSJBSJ?.XM.WechatUserId;
@@ -102,46 +154,8 @@ const ClassOrder = (props: any) => {
       ellipsis: true,
     }
   ];
-  const [dataSource, setDataSource] = useState<API.KHXSDD[] | undefined>([]);
-  const [activeKey, setActiveKey] = useState<string>('已付款');
-  const [StudentName, SetStudentName] = useState<any>();
-  const [coursName, setcoursName] = useState<any>();
-  const [courseList, setcourseList] = useState<any>([]);
-  useEffect(() => {
-    (async () => {
-      const res = await getCourses({
-        JGId: currentUser?.jgId
-      })
-      if (res.status === 'ok') {
-        setcourseList(res.data?.rows)
-      }
-    })()
-  }, [])
-
-  useEffect(() => {
-    (async () => {
-      const res = await getAllKHXSDD({
-        XXJBSJId: id,
-        DDZT: activeKey,
-        DDLX: 0,
-        XSXM: StudentName
-      })
-      setDataSource(res?.data)
-    })()
-  }, [activeKey, StudentName, coursName])
-  const screenData = async (value: any) => {
-    const { XSJBSJ } = value;
-    const res = await getAllKHXSDD({
-      XXJBSJId: id,
-      XSXM: XSJBSJ,
-      DDZT: activeKey,
-      DDLX: 0
-    });
-    setDataSource(res?.data);
-  };
   return (
     <>
-      <div />
       <Button
         type="primary"
         onClick={() => {
@@ -154,8 +168,26 @@ const ClassOrder = (props: any) => {
         <LeftOutlined />
         返回上一页
       </Button>
-      <div style={{ padding: '24px 0' }}>
+      <div style={{ padding: '24px',backgroundColor:'#fff' }}>
         <span>
+          所属学年学期：
+          <Select
+            value={term}
+            style={{ width: 200 }}
+            onChange={(value: string) => {
+              setTerm(value);
+            }}
+          >
+            {termList?.map((item: any) => {
+              return (
+                <Option key={item.value} value={item.value}>
+                  {item.text}
+                </Option>
+              );
+            })}
+          </Select>
+        </span>
+        <span style={{ marginLeft: '24px' }}>
           学生姓名：
           <Search style={{ width: 200 }}
             placeholder='请输入学生姓名'
@@ -182,9 +214,12 @@ const ClassOrder = (props: any) => {
       <ProTable
         dataSource={dataSource}
         columns={columns}
-        onSubmit={(value) => {
-          screenData(value);
+        pagination={{
+          showQuickJumper: true,
+          pageSize: 10,
+          defaultCurrent: 1,
         }}
+        scroll={{ x: 1000 }}
         options={{
           setting: false,
           fullScreen: false,
@@ -192,31 +227,6 @@ const ClassOrder = (props: any) => {
           reload: false
         }}
         search={false}
-        toolbar={{
-          menu: {
-            type: 'tab',
-            activeKey,
-            items: [
-              {
-                key: '已付款',
-                label: <span>已付款</span>
-              },
-              {
-                key: '待付款',
-                label: <span>待付款</span>
-              },
-
-              {
-                key: '已过期',
-                label: <span>已过期</span>
-              }
-            ],
-            onChange: (key) => {
-              setActiveKey(key as string);
-              actionRef.current?.reload();
-            }
-          }
-        }}
         actionRef={actionRef}
       />
     </>

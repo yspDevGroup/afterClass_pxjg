@@ -27,7 +27,8 @@ const TableList = () => {
       dataIndex: 'index',
       valueType: 'index',
       width: 58,
-      align: 'center'
+      fixed: 'left',
+      align: 'center',
     },
     {
       title: '标题',
@@ -35,14 +36,24 @@ const TableList = () => {
       key: 'BT',
       ellipsis: true,
       align: 'center',
-      width: '14em'
+      fixed: 'left',
+      width: 180,
+    },
+    {
+      title: '副标题',
+      dataIndex: 'FBT',
+      key: 'FBT',
+      ellipsis: true,
+      align: 'center',
+      search: false,
+      width: 120,
     },
     {
       title: '作者',
       dataIndex: 'ZZ',
       key: 'ZZ',
-      width: '8em',
       align: 'center',
+      width: 100,
       ellipsis: true,
       search: false
     },
@@ -50,39 +61,40 @@ const TableList = () => {
       title: '来源',
       dataIndex: 'LY',
       key: 'LY',
-      width: '12em',
       align: 'center',
+      width: 120,
       search: false,
       ellipsis: true,
       render: (text, record) => {
-        return <>{record.JYJGSJ.BMMC}</>;
-      }
+        return <>{record.JYJGSJ?.BMMC || ''}</>;
+      },
     },
     {
       title: '关键词',
       dataIndex: 'GJC',
       key: 'GJC',
-      width: '7em',
+      width: 120,
       align: 'center',
       ellipsis: true,
-      search: false
+      search: false,
     },
     {
       title: '发布时间',
       dataIndex: 'RQ',
       key: 'RQ',
-      width: '12em',
+      width: 160,
       valueType: 'dateTime',
       hideInForm: true,
       align: 'center',
-      search: false
+      search: false,
     },
     {
       title: '操作',
       dataIndex: 'option',
       valueType: 'option',
       key: 'option',
-      width: '6em',
+      width: 120,
+      fixed:'right',
       align: 'center',
       render: (text, record, action) => {
         return (
@@ -103,10 +115,16 @@ const TableList = () => {
   return (
     <>
       <ProTable<any>
-        headerTitle="政策列表"
+        headerTitle={<div style={{ fontWeight: 'bold' }}>政策列表</div>}
         actionRef={actionRef}
         className={styles.proTableStyles}
         rowKey="id"
+        pagination={{
+          showQuickJumper: true,
+          pageSize: 10,
+          defaultCurrent: 1,
+        }}
+        scroll={{ x: 1000 }}
         request={async (params, sorter, filter) => {
           if (params.ZT || params.BT) {
             const resgetXXTZGG = await getJYJGTZGG({

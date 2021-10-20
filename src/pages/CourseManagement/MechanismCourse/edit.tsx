@@ -72,17 +72,6 @@ const Edit = (props: any) => {
         });
         setKCLXOptions(data);
       }
-      // 任课教师
-      const resTH = await getAllJZGJBSJ({ KHJYJGId: currentUser?.jgId, page: 0, pageSize: 0 });
-      if (resTH.status === 'ok') {
-        const datas = resTH.data?.rows?.map((item: any) => {
-          return {
-            value: item.id,
-            text: item.XM
-          };
-        });
-        setJSSJOptions(datas);
-      }
 
       // 适用年级
       const resNJ = await getAllGrades({ XD: currentUser?.XD?.split(',') });
@@ -97,6 +86,19 @@ const Edit = (props: any) => {
           });
         });
         setNJDataOption(dataNJ);
+      }
+      if (state?.type !== 'info') {
+        // 任课教师
+        const resTH = await getAllJZGJBSJ({ KHJYJGId: currentUser?.jgId, page: 0, pageSize: 0 });
+        if (resTH.status === 'ok') {
+          const datas = resTH.data?.rows?.map((item: any) => {
+            return {
+              value: item.id,
+              text: item.XM
+            };
+          });
+          setJSSJOptions(datas);
+        }
       }
     })();
   }, []);

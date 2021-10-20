@@ -88,6 +88,7 @@ const Details = (props: any) => {
       dataIndex: 'index',
       valueType: 'index',
       width: 58,
+      fixed: 'left',
       align: 'center'
     },
     {
@@ -96,6 +97,7 @@ const Details = (props: any) => {
       key: 'RQ',
       align: 'center',
       width: 120,
+      fixed: 'left',
       valueType: 'date'
     },
     {
@@ -212,49 +214,55 @@ const Details = (props: any) => {
         <LeftOutlined />
         返回上一页
       </Button>
-      <div className={styles.TabTop}>
-        <span style={{ lineHeight: '32px' }}>{`${KHKCSJ.KCMC}(${XXJBSJ.XXMC})`}</span>
-        <span>
-          所属学年学期：
-          <Select
-            value={term}
-            style={{ width: 200 }}
-            onChange={(value: string) => {
-              setTerm(value);
-            }}
-          >
-            {termList?.map((item: any) => {
-              return <Option key={item.value} value={item.value}>{item.text}</Option>;
-            })}
-          </Select>
-        </span>
-        <span>
-          巡课日期：<DatePicker
-            style={{ width: 150 }}
-            onChange={(value) => {
-              setPatrolData(value)
-
-            }}
-          />
-        </span>
-        <span>
-          机构授课教师：
-          <Select
-            style={{ width: 150 }}
-            onChange={(value: string) => {
-              setTeacher(value)
-
-            }}
-          >
-            {teacherList?.map((item: any) => {
-              return <Option key={item.id} value={item.id}>{item.XM}</Option>;
-            })}
-          </Select>
-        </span>
-      </div>
       <div className={styles.TabList}>
+        <div className={styles.TabTop}>
+          <span>
+            所属学年学期：
+            <Select
+              value={term}
+              style={{ width: 200 }}
+              onChange={(value: string) => {
+                setTerm(value);
+              }}
+            >
+              {termList?.map((item: any) => {
+                return <Option key={item.value} value={item.value}>{item.text}</Option>;
+              })}
+            </Select>
+          </span>
+          <span>
+            巡课日期：<DatePicker
+              style={{ width: 150 }}
+              onChange={(value) => {
+                setPatrolData(value)
+
+              }}
+            />
+          </span>
+          <span>
+            机构授课教师：
+            <Select
+              style={{ width: 150 }}
+              allowClear
+              onChange={(value: string) => {
+                setTeacher(value)
+              }}
+            >
+              {teacherList?.map((item: any) => {
+                return <Option key={item.id} value={item.id}>{item.XM}</Option>;
+              })}
+            </Select>
+          </span>
+        </div>
         <ProTable
+          headerTitle={`${KHKCSJ.KCMC} / ${XXJBSJ.XXMC}`}
           dataSource={dataSource}
+          pagination={{
+            showQuickJumper: true,
+            pageSize: 10,
+            defaultCurrent: 1,
+          }}
+          scroll={{ x: 1500 }}
           columns={columns}
           options={{
             setting: false,

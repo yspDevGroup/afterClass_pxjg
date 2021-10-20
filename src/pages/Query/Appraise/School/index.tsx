@@ -1,134 +1,173 @@
 import ProTable, { ProColumns } from '@ant-design/pro-table';
-import { Select, Popconfirm, Divider, message,Space ,Button} from 'antd';
-import { useEffect, useRef, useState } from 'react';
-import { Link, useModel } from 'umi';
-import {getCourseSchools } from '@/services/after-class-pxjg/khjyjg';
+import { Space, Button, message, Tag, Input } from 'antd';
+import { useEffect, useState } from 'react';
+import { Link } from 'umi';
+import { getCourseSchools } from '@/services/after-class-pxjg/khjyjg';
 import { LeftOutlined, } from '@ant-design/icons';
-import styles from '../index.less'
-const { Option } = Select;
-const  Appraise=(props:any)=>{
-const  {id} = props.location.state.data
-const [SchoolList, setSchoolList] = useState<any>([]);
-const [dataSource, setDataSource] = useState<any>([]);
-const [school,setschool] = useState<any>([]);
-const { initialState } = useModel('@@initialState');
-const { currentUser } = initialState || {};
+import styles from '../index.less';
+import EllipsisHint from '@/components/EllipsisHint';
 
- 
-  
-const columns: ProColumns<any>[] | undefined = [
-        {
-          title: '序号',
-          align: 'center',
-          dataIndex: 'index',
-          valueType: 'index'
-        },
-        {
-          title: '学校名称',
-          dataIndex: 'XXMC',
-          key: 'XXMC',
-          align: 'center'
-        },
-        {
-          title: '所属学段',
-          key: 'XD',
-          dataIndex: 'XD',
-          align: 'center',
-          search: false
-        },
-        {
-          title: '联系人',
-          key: 'LXR',
-          dataIndex: 'LXR',
-          align: 'center',
-          width: 110,
-          search: false
-        },
-        {
-          title: '联系电话',
-          key: 'LXDH',
-          dataIndex: 'LXDH',
-          align: 'center',
-          width: 180,
-          search: false
-        },
-        // {
-        //   title: '课程数量',
-        //   key: 'KHKCSQs',
-        //   dataIndex: 'KHKCSQs',
-        //   align: 'center',
-        //   width: 90,
-        //   search: false,
-        //   render: (text:any) =>text.length
-        // },
-        {
-          title: '查看学校班级',
-          align: 'center',
-          search: false,
-          render: (_, record) => {
-            return (
-              <Space>
-                <Link
-                  to={{
-                    pathname: '/query/Appraise/class',
-                    state:{KHKCSJId:id,data:record},
-                   
-                  }}
-                >
-                  详情
-                </Link>
-               
-              </Space>
-            );
-          }
-        }
-      ];
-      useEffect(()=>{
-        (async()=>{
-          const res= await getCourseSchools({
-            KHKCSJId:id
-          })
-         
-          
-          setDataSource(res.data?.rows)
-       })()
-      },[])
-    return(
-        <div>
-            <Button
-                type="primary"
-                onClick={() => {
-                    history.go(-1);
-                }}
-                style={{
-                    marginBottom: '24px',
-                }}
+const { Search } = Input;
+const Appraise = (props: any) => {
+  const { id, KCMC } = props.location?.state?.data;
+  const [dataSource, setDataSource] = useState<any>([]);
+  const [school, setSchool] = useState<string>();
+
+  const columns: ProColumns<any>[] | undefined = [
+    {
+      title: '序号',
+      align: 'center',
+      dataIndex: 'index',
+      valueType: 'index',
+      width: 58,
+      fixed: 'left',
+    },
+    {
+      title: '学校名称',
+      dataIndex: 'XXMC',
+      key: 'XXMC',
+      width: 130,
+      fixed: 'left',
+      align: 'center'
+    },
+    {
+      title: '所属学段',
+      key: 'XD',
+      dataIndex: 'XD',
+      align: 'center',
+      width: 130,
+      search: false,
+      render: (_: any, record: any) => {
+        const text = record?.XD?.split(/,/g);
+        return (
+          <EllipsisHint
+            width="100%"
+            text={text?.length && text.map((item: any) => {
+              return (
+                <Tag key={item} style={{ margin: '4px' }}>
+                  {item}
+                </Tag>
+              );
+            })}
+          />
+        );
+      }
+    },
+    {
+      title: '联系人',
+      key: 'LXR',
+      dataIndex: 'LXR',
+      align: 'center',
+      width: 110,
+      search: false
+    },
+    {
+      title: '联系电话',
+      key: 'LXDH',
+      dataIndex: 'LXDH',
+      align: 'center',
+      width: 150,
+      search: false
+    },
+    // {
+    //   title: '课程数量',
+    //   key: 'KHKCSQs',
+    //   dataIndex: 'KHKCSQs',
+    //   align: 'center',
+    //   width: 90,
+    //   search: false,
+    //   render: (text:any) =>text.length
+    // },
+    {
+      title: '操作',
+      align: 'center',
+      search: false,
+      width: 120,
+      fixed: 'right',
+      render: (_, record) => {
+        return (
+          <Space>
+            <Link
+              to={{
+                pathname: '/query/Appraise/class',
+                state: { KCMC, KHKCSJId: id, XXMC: record?.XXMC },
+              }}
             >
-                <LeftOutlined />
-                返回上一页
-            </Button>
-            <div className={styles.Tables}>
-            <ProTable
-                  dataSource={dataSource}
-                columns={columns}
-                options={{
-                    setting: false,
-                    fullScreen: false,
-                    density: false,
-                    reload: false,
-                }}
-                search={false}
+              查看课程班
+            </Link>
+          </Space>
+        );
+      }
+    }
+  ];
+  useEffect(() => {
+    (async () => {
+      const res = await getCourseSchools({
+        KHKCSJId: id,
+        XXMC: school
+      });
+      if (res.status === 'ok') {
+        setDataSource(res.data?.rows)
+      } else {
+        message.error(res?.message || '数据获取失败，请联系系统管理员或稍后再试');
+      }
+    })()
+  }, [school])
+  return (
+    <div>
+      <Button
+        type="primary"
+        onClick={() => {
+          history.go(-1);
+        }}
+        style={{
+          marginBottom: '24px',
+        }}
+      >
+        <LeftOutlined />
+        返回上一页
+      </Button>
+      <div className={styles.Tables}>
+        <div className={styles.searchs}>
+          <span>
+            学校名称：
+            <Search
+              allowClear
+              style={{ width: 200 }}
+              onSearch={(val) => {
+                setSchool(val)
+              }}
             />
-
-            </div>
-       
-
-
-            
-
+          </span>
         </div>
+        <ProTable
+          headerTitle={KCMC}
+          dataSource={dataSource}
+          pagination={{
+            showQuickJumper: true,
+            pageSize: 10,
+            defaultCurrent: 1,
+          }}
+          scroll={{ x: 900 }}
+          columns={columns}
+          options={{
+            setting: false,
+            fullScreen: false,
+            density: false,
+            reload: false,
+          }}
+          search={false}
+        />
 
-    )
+      </div>
+
+
+
+
+
+    </div>
+
+  )
 }
 Appraise.wrappers = ['@/wrappers/auth'];
-export default  Appraise
+export default Appraise

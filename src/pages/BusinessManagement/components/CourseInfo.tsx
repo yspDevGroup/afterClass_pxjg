@@ -79,7 +79,6 @@ const CourseItemDom = (props: { school: string; course: any; type: string; ind: 
       {course?.KHBJSJs?.length && ind === curIndex ? (
         <Row gutter={[24, 24]}>
           {course.KHBJSJs.map((item: any, index: number) => {
-            console.log(item, '0-=00-0');
             const colorInd = Math.ceil(index / 6) < 2 ? index : Math.ceil(Math.ceil(index / 6) * 6 - index);
             return (
               <Col key={item.id} span={6}>

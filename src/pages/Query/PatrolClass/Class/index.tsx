@@ -8,8 +8,8 @@ import { LeftOutlined, } from '@ant-design/icons';
 import styles from '../index.less'
 import WWOpenDataCom from '@/components/WWOpenDataCom';
 
-const PatrolClass = (props:any) => {
-  const {id } = props.location.state
+const PatrolClass = (props: any) => {
+  const { id } = props.location.state
   const { initialState } = useModel('@@initialState');
   const { currentUser } = initialState || {};
   const [dataSource, setDataSource] = useState<any>([]);
@@ -18,7 +18,7 @@ const PatrolClass = (props:any) => {
     (async () => {
       const res = await getKHKCSQ({
         JGId: currentUser?.jgId,
-        XXJBSJId:id,
+        XXJBSJId: id,
         ZT: [1],
         page: 0,
         pageSize: 0
@@ -38,6 +38,7 @@ const PatrolClass = (props:any) => {
       dataIndex: 'index',
       valueType: 'index',
       width: 58,
+      fixed:'left',
     },
     {
       title: '课程名称',
@@ -45,6 +46,7 @@ const PatrolClass = (props:any) => {
       key: 'KHKCSJ',
       align: 'center',
       width: 150,
+      fixed:'left',
       ellipsis: true,
       render: (_, record) => record.KHKCSJ?.KCMC
     },
@@ -57,7 +59,6 @@ const PatrolClass = (props:any) => {
       ellipsis: true,
       render: (_, record) => record.XXJBSJ?.XXMC
     },
-
     {
       title: '课程类型',
       dataIndex: 'KHKCLX',
@@ -81,7 +82,7 @@ const PatrolClass = (props:any) => {
         return (
           <EllipsisHint
             width="100%"
-            text={grade?.map((item: { id: string; NJMC: string;}) => {
+            text={grade?.map((item: { id: string; NJMC: string; }) => {
               return (
                 <Tag key={item.id} color="#EFEFEF" style={{ color: '#333' }}>
                   {item.NJMC}
@@ -94,8 +95,8 @@ const PatrolClass = (props:any) => {
     },
     {
       title: '任课教师',
-      key: '',
-      dataIndex: '',
+      key: 'KHKCJs',
+      dataIndex: 'KHKCJs',
       align: 'center',
       width: 150,
       render: (_, record) => {
@@ -105,7 +106,7 @@ const PatrolClass = (props:any) => {
             width="100%"
             text={teacher?.map((item: any) => {
               const showWXName = item.JZGJBSJ?.XM === '未知' && item.JZGJBSJ?.WechatUserId;
-              return <Tag key={item.JZGJBSJId}>{showWXName ? (<WWOpenDataCom type="userName" openid={item.JZGJBSJ.WechatUserId} />):(item.JZGJBSJ.XM)}</Tag>;
+              return <Tag key={item.JZGJBSJId}>{showWXName ? (<WWOpenDataCom type="userName" openid={item.JZGJBSJ.WechatUserId} />) : (item.JZGJBSJ.XM)}</Tag>;
             })}
           />
         );
@@ -114,10 +115,11 @@ const PatrolClass = (props:any) => {
 
     {
       title: '操作',
-      dataIndex: '',
-      key: '',
+      dataIndex: 'operation',
+      key: 'operation',
       align: 'center',
-      width: 230,
+      width: 120,
+      fixed:'right',
       render: (_, record) => {
         return (
           <Space>
@@ -129,33 +131,10 @@ const PatrolClass = (props:any) => {
             >
               巡课详情
             </Link>
-            {/* <Link
-                      to={{
-                        pathname: '/courseManagement/mechanismCourse/edit',
-                        state: {
-                          type: 'course',
-                          data: {
-                            type: 'detail',
-                            xxid: record.XXJBSJId,
-                            jgid: currentUser?.jgId,
-                            kcid: record.KHKCSJ?.id,
-                            xxmc: record.XXJBSJ?.XXMC
-                          }
-                        }
-                      }}
-                    >
-                      课程详情
-                    </Link> */}
-
           </Space>
         );
       }
     },
-
-
-
-
-
   ]
   return (
     <>
@@ -174,6 +153,12 @@ const PatrolClass = (props:any) => {
       <div className={styles.TabList}>
         <ProTable
           dataSource={dataSource}
+          pagination={{
+            showQuickJumper: true,
+            pageSize: 10,
+            defaultCurrent: 1,
+          }}
+          scroll={{ x: 1000 }}
           columns={columns}
           options={{
             setting: false,
@@ -182,8 +167,6 @@ const PatrolClass = (props:any) => {
             reload: false,
           }}
           search={false}
-
-
         />
 
       </div>

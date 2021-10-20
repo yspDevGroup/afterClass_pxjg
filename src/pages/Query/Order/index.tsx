@@ -1,35 +1,55 @@
 import ProTable, { ProColumns } from '@ant-design/pro-table';
-import { Select, Popconfirm, Divider, message, Space } from 'antd';
-import { useEffect, useRef, useState } from 'react';
+import { Space, Tag, } from 'antd';
+import { useEffect, useState } from 'react';
 import { Link, useModel } from 'umi';
 import { cooperateSchool } from '@/services/after-class-pxjg/khjyjg';
-import styles from './index.less'
-const { Option } = Select;
+import styles from './index.less';
+import EllipsisHint from '@/components/EllipsisHint';
+
 const Order = () => {
-  const [SchoolList, setSchoolList] = useState<any>([]);
   const [dataSource, setDataSource] = useState<any>([]);
   const { initialState } = useModel('@@initialState');
   const { currentUser } = initialState || {};
- 
+
    const columns: ProColumns<any>[] | undefined = [
     {
       title: '序号',
       align: 'center',
       dataIndex: 'index',
-      valueType: 'index'
+      valueType: 'index',
+      fixed:'left',
+      width: 58
     },
     {
       title: '学校名称',
       dataIndex: 'XXMC',
       key: 'XXMC',
-      align: 'center'
+      align: 'center',
+      fixed:'left',
+      width: 130
     },
     {
       title: '所属学段',
       key: 'XD',
       dataIndex: 'XD',
       align: 'center',
-      search: false
+      search: false,
+      width: 120,
+      render: (_: any,record: any) => {
+        const text = record?.XD?.split(/,/g);
+        return (
+          <EllipsisHint
+            width="100%"
+            text={text?.length && text.map((item: any) => {
+              return (
+                <Tag key={item} style={{ margin: '4px' }}>
+                  {item}
+                </Tag>
+              );
+            })}
+          />
+        );
+      }
     },
     {
       title: '联系人',
@@ -44,22 +64,26 @@ const Order = () => {
       key: 'LXDH',
       dataIndex: 'LXDH',
       align: 'center',
-      width: 180,
+      width: 150,
       search: false
     },
-    // {
-    //   title: '课程数量',
-    //   key: 'KHKCSQs',
-    //   dataIndex: 'KHKCSQs',
-    //   align: 'center',
-    //   width: 90,
-    //   search: false,
-    //   render: (text:any) =>text.length
-    // },
     {
-      title: '查看详情',
+      title: '合作课程数量',
+      key: 'KHKCSQs',
+      dataIndex: 'KHKCSQs',
+      align: 'center',
+      width: 100,
+      search: false,
+      render: (_: any,record: any) =>{
+        return record?.KHKCSQs?.length
+      }
+    },
+    {
+      title: '操作',
       align: 'center',
       search: false,
+      width: 100,
+      fixed:'right',
       render: (_, record) => {
         return (
           <Space>
@@ -86,10 +110,9 @@ const Order = () => {
     }
   ];
   useEffect(() => {
-    getSchool('')
-
+    getSchool()
   }, [])
-  const getSchool = async (name: string) => {
+  const getSchool = async (name?: string) => {
     const res = await cooperateSchool({
       type: 0,
       JGId: currentUser?.jgId,
@@ -108,11 +131,15 @@ const Order = () => {
           toolbar={{
             onSearch: (value: string) => {
               getSchool(value)
-
             }
-
           }}
           dataSource={dataSource}
+          pagination={{
+            showQuickJumper: true,
+            pageSize: 10,
+            defaultCurrent: 1,
+          }}
+          scroll={{ x: 1000 }}
           columns={columns}
           options={{
             setting: false,

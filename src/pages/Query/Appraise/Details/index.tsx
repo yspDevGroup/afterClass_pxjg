@@ -7,7 +7,7 @@ import { getKHBJPJ } from '@/services/after-class-pxjg/khbjpj';
 import WWOpenDataCom from '@/components/WWOpenDataCom';
 
 const Details = (props: any) => {
-  const { data } = props.location.state;
+  const { KCMC, XXMC, BJId } = props.location.state;
   // 弹出框显示隐藏
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [DetailsValue, setDetailsValue] = useState('');
@@ -21,7 +21,8 @@ const Details = (props: any) => {
       title: '序号',
       dataIndex: 'index',
       valueType: 'index',
-      width: 60,
+      width: 58,
+      fixed: 'left',
       align: 'center'
     },
     {
@@ -29,6 +30,7 @@ const Details = (props: any) => {
       dataIndex: 'PJR',
       key: 'PJR',
       width: 120,
+      fixed: 'left',
       align: 'center'
     },
     {
@@ -41,10 +43,10 @@ const Details = (props: any) => {
     },
     {
       title: '课程评分',
-      dataIndex: '',
-      key: '',
+      dataIndex: 'PJFS',
+      key: 'PJFS',
       align: 'center',
-      width: 200,
+      width: 180,
       render: (_, record) => <Rate count={5} defaultValue={record?.PJFS} disabled={true} />
     },
     {
@@ -62,6 +64,7 @@ const Details = (props: any) => {
       dataIndex: 'index',
       valueType: 'index',
       width: 58,
+      fixed: 'left',
       align: 'center'
     },
     {
@@ -69,6 +72,8 @@ const Details = (props: any) => {
       dataIndex: 'XSXM',
       key: 'XSXM',
       align: 'center',
+      fixed: 'left',
+      width: 120,
       render: (_text: any, record: any) => {
         const showWXName = record?.XSJBSJ?.XM === '未知' && record?.XSJBSJ?.XM.WechatUserId;
         return showWXName ? (<WWOpenDataCom type="userName" openid={record?.XSJBSJ?.WechatUserId} />) : (record?.XSJBSJ?.XM);
@@ -79,19 +84,21 @@ const Details = (props: any) => {
       dataIndex: 'BJSJ',
       key: 'BJSJ',
       align: 'center',
-      width: 100,
+      width: 130,
       ellipsis: true,
       render: (_text: any, record: any) => {
         return `${record?.XSJBSJ?.BJSJ?.NJSJ?.NJMC}${record?.XSJBSJ?.BJSJ?.BJ}`;
       }
     },
     {
-      title: '班级',
+      title: '课程班名称',
       dataIndex: 'KHBJSJ',
       key: 'KHBJSJ',
       align: 'center',
-      render: (text: any) => {
-        return <span>{text.BJMC}</span>;
+      width: 130,
+      ellipsis: true,
+      render: (_: any, record: any) => {
+        return <span>{record?.KHBJSJ?.BJMC}</span>;
       }
     },
     {
@@ -99,14 +106,14 @@ const Details = (props: any) => {
       dataIndex: 'createdAt',
       key: 'createdAt',
       align: 'center',
-      width: 200
+      width: 170
     },
     {
       title: '课程评分',
-      dataIndex: '',
-      key: '',
+      dataIndex: 'PJFS',
+      key: 'PJFS',
       align: 'center',
-      width: 200,
+      width: 180,
       render: (_, record) => <Rate count={5} defaultValue={record?.PJFS} disabled={true} />
     },
     {
@@ -114,12 +121,13 @@ const Details = (props: any) => {
       dataIndex: 'PY',
       key: 'PY',
       align: 'center',
+      fixed: 'right',
+      width: 150,
       render: (text: any) => {
         return (
           <a
             onClick={() => {
               setDetailsValue(text);
-
               setIsModalVisible(true);
             }}
           >
@@ -131,12 +139,12 @@ const Details = (props: any) => {
   ];
   const [StuList, setStuList] = useState<API.KHXSDD[] | undefined>([]);
   const [teacherList, setTeacherList] = useState<API.KHXSDD[] | undefined>([]);
-  const [activeKey, setActiveKey] = useState<string>('student');
+  const [activeKey, setActiveKey] = useState<string>('teacher');
   useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     (async () => {
       const res2 = await getAllKHXSPJ({
-        KHBJSJId: data.id,
+        KHBJSJId: BJId,
         JSId: '',
         page: 0,
         pageSize: 0
@@ -145,21 +153,19 @@ const Details = (props: any) => {
         // 老师给学生的评语
         setStuList(res2.data?.rows);
       }
-    })(),
-      (async () => {
-        const res = await getKHBJPJ({
-          // 课后班级数据
-          KHBJSJId: data.id,
-          XSJBSJId: '',
-          XXJBSJId: '',
-          page: 0,
-          pageSize: 0
-        });
-        if (res?.data?.rows) {
-          // 家长给老师的评价
-          setTeacherList(res.data.rows);
-        }
-      })();
+      const res = await getKHBJPJ({
+        // 课后班级数据
+        KHBJSJId: BJId,
+        XSJBSJId: '',
+        XXJBSJId: '',
+        page: 0,
+        pageSize: 0
+      });
+      if (res?.data?.rows) {
+        // 家长给老师的评价
+        setTeacherList(res.data.rows);
+      }
+    })()
   }, []);
 
   return (
@@ -176,39 +182,53 @@ const Details = (props: any) => {
         <LeftOutlined />
         返回上一页
       </Button>
-      <ProTable
-        columns={activeKey === 'student' ? teacher : student}
-        dataSource={activeKey === 'student' ? teacherList : StuList}
-        rowKey="id"
-        search={false}
-        actionRef={actionRef}
-        options={{
-          setting: false,
-          fullScreen: false,
-          density: false,
-          reload: false
-        }}
-        toolbar={{
-          menu: {
-            type: 'tab',
-            activeKey,
-            items: [
-              {
-                key: 'teacher',
-                label: <span>学生评价</span>
-              },
-              {
-                key: 'student',
-                label: <span>课程反馈</span>
+      <div style={{ backgroundColor: '#fff' }}>
+        <p style={{
+          padding: '24px 24px 0',
+          fontSize: '16px',
+          fontWeight:'bold',
+          marginBottom:0
+        }}>{`${KCMC} / ${XXMC}`}</p>
+        <ProTable
+          columns={activeKey === 'student' ? teacher : student}
+          dataSource={activeKey === 'student' ? teacherList : StuList}
+          rowKey="id"
+          search={false}
+          actionRef={actionRef}
+          pagination={{
+            showQuickJumper: true,
+            pageSize: 10,
+            defaultCurrent: 1,
+          }}
+          scroll={{ x: 900 }}
+          options={{
+            setting: false,
+            fullScreen: false,
+            density: false,
+            reload: false
+          }}
+          toolbar={{
+            menu: {
+              type: 'tab',
+              activeKey,
+              items: [
+                {
+                  key: 'teacher',
+                  label: <span>学生评价</span>
+                },
+                {
+                  key: 'student',
+                  label: <span>课程反馈</span>
+                }
+              ],
+              onChange: (key) => {
+                setActiveKey(key as string);
+                actionRef.current?.reload();
               }
-            ],
-            onChange: (key) => {
-              setActiveKey(key as string);
-              actionRef.current?.reload();
             }
-          }
-        }}
-      />
+          }}
+        />
+      </div>
       <Modal visible={isModalVisible} onCancel={handleCancel} title="表现详情" footer={null}>
         <span>{DetailsValue}</span>
       </Modal>

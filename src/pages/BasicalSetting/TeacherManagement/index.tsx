@@ -2,8 +2,8 @@
  * @description:
  * @author: Sissle Lynn
  * @Date: 2021-08-28 09:22:33
- * @LastEditTime: 2021-10-15 15:33:02
- * @LastEditors: zpl
+ * @LastEditTime: 2021-10-20 09:33:07
+ * @LastEditors: Sissle Lynn
  */
 /*
  * @description:
@@ -80,6 +80,7 @@ const TeacherManagement = () => {
       dataIndex: 'index',
       valueType: 'index',
       width: 58,
+      fixed:'left',
       align: 'center'
     },
     {
@@ -87,7 +88,8 @@ const TeacherManagement = () => {
       dataIndex: 'XM',
       key: 'XM',
       align: 'center',
-      width: 120,
+      width: 100,
+      fixed:'left',
       render: (_, record) => {
         const showWXName = record.XM === '未知' && record.WechatUserId;
         if (showWXName) {
@@ -101,7 +103,7 @@ const TeacherManagement = () => {
       dataIndex: 'XB',
       key: 'XB',
       align: 'center',
-      width: 90,
+      width: 80,
       render: (_, record) => record?.XBM?.substring(0, 1)
     },
     {
@@ -109,14 +111,14 @@ const TeacherManagement = () => {
       key: 'LXDH',
       dataIndex: 'LXDH',
       align: 'center',
-      width: 180
+      width: 130
     },
     {
       title: '教授科目',
       key: 'JSKM',
       dataIndex: 'JSKM',
       align: 'center',
-      width: 110,
+      width: 120,
       ellipsis: true
     },
     {
@@ -124,14 +126,15 @@ const TeacherManagement = () => {
       key: 'JL',
       dataIndex: 'JL',
       align: 'center',
-      width: 110,
+      width: 100,
       ellipsis: true
     },
     {
       title: '操作',
       valueType: 'option',
-      width: 200,
+      width: 150,
       align: 'center',
+      fixed:'right',
       render: (_, record) => (
         <>
           <Link
@@ -173,6 +176,12 @@ const TeacherManagement = () => {
         className={styles.schoolTable}
         actionRef={actionRef}
         search={false}
+        pagination={{
+          showQuickJumper: true,
+          pageSize: 10,
+          defaultCurrent: 1,
+        }}
+        scroll={{ x: 1000 }}
         request={async (
           params: any & {
             pageSize?: number;

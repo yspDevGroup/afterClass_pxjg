@@ -122,6 +122,7 @@ const Sitclass = () => {
               const result = row.title
                 ? await createKHKCLX({
                     KCLX: row.KCLX!,
+                    KCTAG:''
                   })
                 : await updateKHKCLX(
                     {

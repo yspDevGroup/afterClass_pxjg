@@ -2,8 +2,8 @@
  * @description:
  * @author: Sissle Lynn
  * @Date: 2021-08-26 16:26:59
- * @LastEditTime: 2021-10-20 09:54:18
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-10-20 11:09:01
+ * @LastEditors: Sissle Lynn
  */
 import React, { useEffect, useState } from 'react';
 import { Link } from 'umi';
@@ -13,8 +13,8 @@ import ProTable, { ProColumns } from '@ant-design/pro-table';
 import { getAllCourses } from '@/services/after-class-pxjg/khjyjg';
 import EllipsisHint from '@/components/EllipsisHint';
 import WWOpenDataCom from '@/components/WWOpenDataCom';
+
 import styles from './index.less';
-import { render } from 'react-dom';
 
 const CourseList = (props: any) => {
   const { state } = props.history.location;
@@ -41,12 +41,21 @@ const CourseList = (props: any) => {
   }, [xxid, jgid]);
   const columns: ProColumns<any>[] = [
     {
+      title: '序号',
+      dataIndex: 'index',
+      valueType: 'index',
+      width: 58,
+      fixed: 'left',
+      align: 'center'
+    },
+    {
       title: '课程名称',
       dataIndex: 'KCMC',
       key: 'KCMC',
       align: 'center',
+      fixed: 'left',
       search: false,
-      width: '10rem'
+      width: 160,
     },
     {
       title: '课程类型',
@@ -54,7 +63,7 @@ const CourseList = (props: any) => {
       key: 'KHKCLX',
       align: 'center',
       search: false,
-      width: '10rem',
+      width: 120,
       render: (text: any) => {
         return text?.KCTAG || '-';
       }
@@ -64,7 +73,7 @@ const CourseList = (props: any) => {
       key: 'NJSJs',
       dataIndex: 'NJSJs',
       align: 'center',
-      width: '20rem',
+      width: 200,
       render: (text: any) => {
         return (
           <EllipsisHint
@@ -85,14 +94,15 @@ const CourseList = (props: any) => {
       key: 'KHKCJs',
       dataIndex: 'KHKCJs',
       align: 'center',
-      width: '20rem',
-      render: (text: any) => {
+      width: 160,
+      render: (_, record) => {
+        const text = record?.KHKCJs;
         return (
           <EllipsisHint
             width="100%"
             text={text?.map((item: any) => {
-              const showWXName = item.JZGJBSJ.XM === '未知' && item.JZGJBSJ.WechatUserId;
-              return <Tag key={item.JZGJBSJId}>{showWXName ? (<WWOpenDataCom type="userName" openid={item.JZGJBSJ.WechatUserId} />):(item.JZGJBSJ.XM)}</Tag>;
+              const showWXName = item?.JZGJBSJ?.XM === '未知' && item?.JZGJBSJ?.WechatUserId;
+              return <Tag key={item?.JZGJBSJId}>{showWXName ? (<WWOpenDataCom type="userName" openid={item?.JZGJBSJ?.WechatUserId} />) : (item?.JZGJBSJ?.XM)}</Tag>;
             })}
           />
         );
@@ -104,21 +114,21 @@ const CourseList = (props: any) => {
       dataIndex: 'KHKCPJs',
       align: 'center',
       ellipsis: true,
-      width: 100,
+      width: 160,
       render: (_, record) => {
-       return (
+        return (
           <EllipsisHint
             width="100%"
-            text={record.KHKCPJs[record.KHKCPJs.length - 1].PY}
-
+            text={record?.KHKCPJs?.length ? record?.KHKCPJs[record?.KHKCPJs?.length - 1]?.PY : ''}
           />
-          )
-        }
-      },
+        )
+      }
+    },
     {
       title: '操作',
       valueType: 'option',
-      width: 200,
+      width: 160,
+      fixed:'right',
       align: 'center',
       render: (_: any, record: { id: any }) => (
         <>
@@ -174,6 +184,12 @@ const CourseList = (props: any) => {
         columns={columns}
         className={styles.schoolTable}
         search={false}
+        pagination={{
+          showQuickJumper: true,
+          pageSize: 10,
+          defaultCurrent: 1,
+        }}
+        scroll={{ x: 1000 }}
         headerTitle={xxmc}
         dataSource={courseList}
         options={{

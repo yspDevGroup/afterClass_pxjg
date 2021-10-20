@@ -33,6 +33,7 @@ const MechanismCourse = () => {
       dataIndex: 'index',
       valueType: 'index',
       width: 58,
+      fixed: 'left',
       align: 'center'
     },
     {
@@ -41,7 +42,9 @@ const MechanismCourse = () => {
       key: 'KCMC',
       align: 'center',
       search: false,
-      width: 200
+      fixed: 'left',
+      width: 160,
+      ellipsis: true,
     },
     {
       title: '课程类型',
@@ -50,7 +53,9 @@ const MechanismCourse = () => {
       align: 'center',
       width: 120,
       search: false,
-      render: (text: any) => {
+      ellipsis: true,
+      render: (_: any,record: any) => {
+        const text = record?.KHKCLX;
         return text?.KCTAG || '-';
       }
     },
@@ -60,11 +65,13 @@ const MechanismCourse = () => {
       dataIndex: 'NJSJs',
       align: 'center',
       width: 160,
-      render: (text: any) => {
+      ellipsis: true,
+      render: (_: any,record: any) => {
+        const text = record?.NJSJs;
         return (
           <EllipsisHint
             width="100%"
-            text={text?.map((item: any) => {
+            text={text?.length && text.map((item: any) => {
               return (
                 <Tag key={item.id} style={{ margin: '4px' }}>
                   {item.XD === '初中' ? `${item.NJMC}` : `${item.XD}${item.NJMC}`}
@@ -81,11 +88,13 @@ const MechanismCourse = () => {
       dataIndex: 'KHKCJs',
       align: 'center',
       width: 130,
-      render: (text: any) => {
+      ellipsis: true,
+      render: (_: any,record: any) => {
+        const text = record?.KHKCJs;
         return (
           <EllipsisHint
             width="100%"
-            text={text?.map((item: any) => {
+            text={text?.length && text.map((item: any) => {
               const showWXName = item.JZGJBSJ.XM === '未知' && item.JZGJBSJ.WechatUserId;
               return <Tag key={item?.JZGJBSJId}>{showWXName ? (<WWOpenDataCom type="userName" openid={item.JZGJBSJ.WechatUserId} />):(item.JZGJBSJ.XM)}</Tag>;
             })}
@@ -99,8 +108,9 @@ const MechanismCourse = () => {
       dataIndex: 'KCZT',
       align: 'center',
       width: 120,
-      render: (text: any) => {
-        switch (text) {
+      ellipsis: true,
+      render: (_: any,record: any) => {
+        switch (record?.KCZT) {
           case 1:
             return '已申报';
           case 2:
@@ -114,7 +124,8 @@ const MechanismCourse = () => {
       title: '操作',
       key: 'action',
       align: 'center',
-      width: 230,
+      width: 150,
+      fixed: 'right',
       render: (text: any, record: any, index: any, action: any) => (
         <Space size="middle">
           <a
@@ -190,6 +201,12 @@ const MechanismCourse = () => {
         search={false}
         rowKey="id"
         dateFormatter="string"
+        pagination={{
+          showQuickJumper: true,
+          pageSize: 10,
+          defaultCurrent: 1,
+        }}
+        scroll={{ x: 1000 }}
         request={async (param = {}, sort, filter) => {
           const params = {
             ...sort,

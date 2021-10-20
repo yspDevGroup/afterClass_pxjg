@@ -10,28 +10,33 @@ import { useEffect } from 'react';
 import WWOpenDataCom from '@/components/WWOpenDataCom';
 const { Option } = Select;
 const Class = (props: any) => {
-  const { KHKCSJId,} = props.location.state;
+  const { KCMC, KHKCSJId, XXMC } = props.location.state;
   const columns: ProColumns<any>[] | undefined = [
     {
       title: '序号',
       dataIndex: 'index',
       valueType: 'index',
       width: 58,
+      fixed: 'left',
       align: 'center'
     },
     {
       title: '班级名称',
       dataIndex: 'BJMC',
       key: 'BJMC',
-      align: 'center'
-      // render:(text:any)=>text.BJMC
+      align: 'center',
+      fixed: 'left',
+      width: 130,
+      ellipsis: true,
     },
     {
-      title: '主讲师',
+      title: '主班',
       dataIndex: 'KHBJJs',
       key: 'KHBJJs',
       align: 'center',
-      render: (_: any,record: any) => {
+      width: 130,
+      ellipsis: true,
+      render: (_: any, record: any) => {
         const teacher = record.KHBJJs;
         return (
           <EllipsisHint
@@ -49,27 +54,32 @@ const Class = (props: any) => {
       dataIndex: 'pj_count',
       key: ' pj_count',
       align: 'center',
-      render: (text: any) => text
+      width: 110,
+      ellipsis: true,
     },
     {
       title: '班级人数',
       dataIndex: 'xs_count',
       key: 'xs_count ',
       align: 'center',
-      render: (text: any) => text
+      width: 110,
+      ellipsis: true,
     },
     {
       title: '班级评分',
       dataIndex: 'pj_avg',
       key: 'pj_avg',
       align: 'center',
-      render: (text: any) => <Rate count={5} defaultValue={text} disabled={true} />
+      width: 180,
+      ellipsis: true,
+      render: (_: any, record: any) => <Rate count={5} defaultValue={record?.pj_avg} disabled={true} />
     },
     {
-      title: '查看互评详情',
-      dataIndex: 'XSXM',
-      key: 'XSXM',
+      title: '操作',
+      dataIndex: 'operation',
+      key: 'operation',
       align: 'center',
+      fixed: 'right',
       render: (_, record) => (
         <>
           <Link
@@ -77,19 +87,19 @@ const Class = (props: any) => {
               pathname: '/query/appraise/details',
               state: {
                 type: 'detail',
-                data: record
+                KCMC,
+                XXMC,
+                BJId: record?.id,
               }
             }}
           >
-            详情
+            互评详情
           </Link>
         </>
       )
     }
   ];
   const [dataSource, setDataSource] = useState<any>([]);
-
-  useEffect(() => {}, []);
 
   useEffect(() => {
     (async () => {
@@ -118,9 +128,16 @@ const Class = (props: any) => {
       </Button>
       <div className={styles.Tables}>
         <ProTable
+          headerTitle={`${KCMC} / ${XXMC}`}
           columns={columns}
           dataSource={dataSource}
           rowKey="id"
+          pagination={{
+            showQuickJumper: true,
+            pageSize: 10,
+            defaultCurrent: 1,
+          }}
+          scroll={{ x: 900 }}
           search={false}
           options={{
             setting: false,
