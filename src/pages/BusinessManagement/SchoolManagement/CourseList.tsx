@@ -2,7 +2,7 @@
  * @description:
  * @author: Sissle Lynn
  * @Date: 2021-08-26 16:26:59
- * @LastEditTime: 2021-10-19 18:28:34
+ * @LastEditTime: 2021-10-20 09:54:18
  * @LastEditors: Please set LastEditors
  */
 import React, { useEffect, useState } from 'react';
@@ -13,7 +13,6 @@ import ProTable, { ProColumns } from '@ant-design/pro-table';
 import { getAllCourses } from '@/services/after-class-pxjg/khjyjg';
 import EllipsisHint from '@/components/EllipsisHint';
 import WWOpenDataCom from '@/components/WWOpenDataCom';
-
 import styles from './index.less';
 import { render } from 'react-dom';
 
@@ -104,17 +103,18 @@ const CourseList = (props: any) => {
       key: 'KHKCPJs',
       dataIndex: 'KHKCPJs',
       align: 'center',
-      ellipsis:true,
-      width:100,
-      render:(_,record)=>{
-     return(
-         <span>{record.KHKCPJs[record.KHKCPJs.length-1].PY}</span>
-       )
-      
+      ellipsis: true,
+      width: 100,
+      render: (_, record) => {
+       return (
+          <EllipsisHint
+            width="100%"
+            text={record.KHKCPJs[record.KHKCPJs.length - 1].PY}
 
-      }
-
-    },
+          />
+          )
+        }
+      },
     {
       title: '操作',
       valueType: 'option',
