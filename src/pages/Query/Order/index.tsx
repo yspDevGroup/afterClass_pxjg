@@ -2,8 +2,7 @@ import ProTable, { ProColumns } from '@ant-design/pro-table';
 import { Space, Tag, } from 'antd';
 import { useEffect, useState } from 'react';
 import { Link, useModel } from 'umi';
-import { cooperateSchool } from '@/services/after-class-pxjg/khjyjg';
-import styles from './index.less';
+import { cooperateSchoolOrder } from '@/services/after-class-pxjg/khjyjg';
 import EllipsisHint from '@/components/EllipsisHint';
 
 const Order = () => {
@@ -11,13 +10,13 @@ const Order = () => {
   const { initialState } = useModel('@@initialState');
   const { currentUser } = initialState || {};
 
-   const columns: ProColumns<any>[] | undefined = [
+  const columns: ProColumns<any>[] | undefined = [
     {
       title: '序号',
       align: 'center',
       dataIndex: 'index',
       valueType: 'index',
-      fixed:'left',
+      fixed: 'left',
       width: 58
     },
     {
@@ -25,7 +24,7 @@ const Order = () => {
       dataIndex: 'XXMC',
       key: 'XXMC',
       align: 'center',
-      fixed:'left',
+      fixed: 'left',
       width: 130
     },
     {
@@ -35,7 +34,7 @@ const Order = () => {
       align: 'center',
       search: false,
       width: 120,
-      render: (_: any,record: any) => {
+      render: (_: any, record: any) => {
         const text = record?.XD?.split(/,/g);
         return (
           <EllipsisHint
@@ -69,31 +68,40 @@ const Order = () => {
     },
     {
       title: '合作课程数量',
-      key: 'KHKCSQs',
-      dataIndex: 'KHKCSQs',
+      key: 'kcCount',
+      dataIndex: 'kcCount',
       align: 'center',
       width: 100,
       search: false,
-      render: (_: any,record: any) =>{
-        return record?.KHKCSQs?.length
-      }
+    },
+    {
+      title: '课程订单数量',
+      key: 'ddCount',
+      dataIndex: 'ddCount',
+      align: 'center',
+      width: 100,
+      search: false,
     },
     {
       title: '操作',
       align: 'center',
       search: false,
       width: 100,
-      fixed:'right',
+      fixed: 'right',
       render: (_, record) => {
         return (
           <Space>
             <Link
               to={{
                 pathname: '/query/order/classorder',
-                state: record
+                state: {
+                  xxId: record?.id,
+                  XXMC: record?.XXMC,
+                  jgId: currentUser?.jgId
+                }
               }}
             >
-              课程订单
+              详情
             </Link>
             {/* <Link
                   to={{
@@ -113,8 +121,7 @@ const Order = () => {
     getSchool()
   }, [])
   const getSchool = async (name?: string) => {
-    const res = await cooperateSchool({
-      type: 0,
+    const res = await cooperateSchoolOrder({
       JGId: currentUser?.jgId,
       page: 0,
       pageSize: 0,

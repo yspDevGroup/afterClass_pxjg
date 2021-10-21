@@ -8,33 +8,35 @@ import { getCourses } from '@/services/after-class-pxjg/jyjgsj';
 import WWOpenDataCom from '@/components/WWOpenDataCom';
 import { getAllXNXQ } from '@/services/after-class-pxjg/xnxq';
 import { getCurrentXQ } from '@/utils';
+import { cooperateSchoolOrderList } from '@/services/after-class-pxjg/khjyjg';
 
 const { Search } = Input;
 const { Option } = Select;
 const ClassOrder = (props: any) => {
-  const { id } = props.location.state;
-  const { initialState } = useModel('@@initialState');
-  const { currentUser } = initialState || {};
+  const { xxId, XXMC, jgId } = props.location.state;
   const actionRef = useRef<ActionType>();
   const [dataSource, setDataSource] = useState<API.KHXSDD[] | undefined>([]);
-  const [StudentName, SetStudentName] = useState<any>();
+  const [studentName, setStudentName] = useState<any>();
   const [coursName, setcoursName] = useState<any>();
   const [courseList, setcourseList] = useState<any>([]);
   // 选择学年学期
   const [term, setTerm] = useState<string>();
   // 学年学期列表数据
   const [termList, setTermList] = useState<any>();
-  useEffect(() => {
-    (async () => {
-      const res = await getCourses({
-        JGId: currentUser?.jgId
-      })
-      if (res.status === 'ok') {
-        setcourseList(res.data?.rows)
-      }
-    })()
-    getXNXQ(id);
-  }, [])
+  const getData = async (XQId?: string) => {
+    const res = await cooperateSchoolOrderList({
+      KHJYJGId: jgId,
+      XXId: xxId,
+      XQId: XQId ? XQId : term,
+      KCId: coursName,
+      XSMC: studentName,
+      page: 0,
+      pageSize: 0
+    })
+    if (res.status === 'ok') {
+      setDataSource(res.data?.rows)
+    }
+  };
   const getXNXQ = async (xxdm: string) => {
     const res = await getAllXNXQ({
       XXJBSJId: xxdm
@@ -49,23 +51,26 @@ const ClassOrder = (props: any) => {
         };
       });
       setTermList(term);
-      setTerm(currentXQ?.id || data[0].id);
+      setTerm(currentXQ?.id || data?.[0]?.id);
+      getData(currentXQ?.id || data?.[0]?.id);
     } else {
       message.error(res.message);
     }
   };
   useEffect(() => {
     (async () => {
-      const res = await getAllKHXSDD({
-        XXJBSJId: id,
-        DDZT: '已付款',
-        DDLX: 0,
-        XSXM: StudentName
+      const res = await getCourses({
+        JGId: jgId
       })
-      setDataSource(res?.data)
+      if (res.status === 'ok') {
+        setcourseList(res.data?.rows)
+      }
     })()
-  }, [StudentName, coursName])
-
+    getXNXQ(xxId);
+  }, [])
+  useEffect(() => {
+    getData();
+  }, [studentName,coursName])
   const columns: ProColumns<API.KHXSDD>[] | undefined = [
     {
       title: '序号',
@@ -168,13 +173,14 @@ const ClassOrder = (props: any) => {
         <LeftOutlined />
         返回上一页
       </Button>
-      <div style={{ padding: '24px',backgroundColor:'#fff' }}>
+      <div style={{ padding: '24px', backgroundColor: '#fff' }}>
         <span>
           所属学年学期：
           <Select
             value={term}
             style={{ width: 200 }}
             onChange={(value: string) => {
+              getData(value);
               setTerm(value);
             }}
           >
@@ -193,16 +199,16 @@ const ClassOrder = (props: any) => {
             placeholder='请输入学生姓名'
             allowClear
             onSearch={(value) => {
-              SetStudentName(value)
-
+              setStudentName(value)
             }} />
         </span>
         <span style={{ marginLeft: '24px' }}>
           课程名称：
           <Select
             style={{ width: 200 }}
+            allowClear
             onChange={(value: string) => {
-              setcoursName(value)
+              setcoursName(value);
             }}
           >
             {courseList?.map((item: any) => {

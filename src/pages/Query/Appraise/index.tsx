@@ -11,10 +11,8 @@ import WWOpenDataCom from '@/components/WWOpenDataCom';
 
 const Course = () => {
   const [dataSource, setDataSource] = useState<any>([]);
-  const [coursName, setcoursName] = useState<any>();
   const { initialState } = useModel('@@initialState');
   const { currentUser } = initialState || {};
-  const [choseClass, setchoseClass] = useState('');
   const [courseList, setcourseList] = useState<any>([]);
   const [course, setcourse] = useState<any>();
   const { Option } = Select;
@@ -74,7 +72,10 @@ const Course = () => {
       key: 'PJFS',
       align: 'center',
       width: 180,
-      render: (text: any) => <Rate count={5} defaultValue={text} disabled={true} />
+      render: (_: any,record: any) => {
+        const fs = Number(record.PJFS).toFixed(0) || 0;
+        return <Rate count={5} value={fs as unknown as number} disabled={true} />
+      }
     },
     {
       title: '操作',

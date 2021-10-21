@@ -1,5 +1,5 @@
 import ProTable, { ProColumns } from '@ant-design/pro-table';
-import { Space, Button, message, Tag, Input } from 'antd';
+import { Space, Button, message, Tag, Input, Rate } from 'antd';
 import { useEffect, useState } from 'react';
 import { Link } from 'umi';
 import { getCourseSchools } from '@/services/after-class-pxjg/khjyjg';
@@ -68,6 +68,17 @@ const Appraise = (props: any) => {
       align: 'center',
       width: 150,
       search: false
+    },
+    {
+      title: '课程评分',
+      dataIndex: 'PJFS',
+      key: 'PJFS',
+      align: 'center',
+      width: 180,
+      render: (_: any,record: any) => {
+        const fs = Number(record.PJFS).toFixed(0) || 0;
+        return <Rate count={5} value={fs as unknown as number} disabled={true} />
+      }
     },
     // {
     //   title: '课程数量',

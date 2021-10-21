@@ -7,42 +7,43 @@ import * as auth from './auth';
 import * as user from './user';
 import * as bjsj from './bjsj';
 import * as jzgjbsj from './jzgjbsj';
+import * as fjlx from './fjlx';
 import * as fjsj from './fjsj';
 import * as jcxx from './jcxx';
 import * as jcsj from './jcsj';
-import * as fjlx from './fjlx';
 import * as jxjhsj from './jxjhsj';
-import * as jyjgsj from './jyjgsj';
 import * as jyjgtzgg from './jyjgtzgg';
+import * as jyjgsj from './jyjgsj';
 import * as jzgcfsj from './jzgcfsj';
-import * as jzgjtcy from './jzgjtcy';
 import * as jzggzjl from './jzggzjl';
+import * as jzgjtcy from './jzgjtcy';
 import * as jzgktyj from './jzgktyj';
-import * as jzgrysj from './jzgrysj';
 import * as jzglwsj from './jzglwsj';
-import * as kcsj from './kcsj';
+import * as jzgrysj from './jzgrysj';
 import * as jzgxxjl from './jzgxxjl';
+import * as kcsj from './kcsj';
 import * as khbjpj from './khbjpj';
 import * as khbjsj from './khbjsj';
 import * as khjgrzsq from './khjgrzsq';
 import * as khjscq from './khjscq';
-import * as khjsqj from './khjsqj';
 import * as khjspj from './khjspj';
+import * as khjsqj from './khjsqj';
+import * as khjssj from './khjssj';
+import * as khjstdk from './khjstdk';
 import * as khjyjg from './khjyjg';
 import * as khjytzgg from './khjytzgg';
 import * as khkclx from './khkclx';
-import * as khjssj from './khjssj';
 import * as khkcpj from './khkcpj';
-import * as khkcsq from './khkcsq';
 import * as khkcsj from './khkcsj';
+import * as khkcsq from './khkcsq';
 import * as khktfc from './khktfc';
 import * as khpksj from './khpksj';
 import * as khtksj from './khtksj';
 import * as khxkjl from './khxkjl';
 import * as khxksj from './khxksj';
 import * as khxscq from './khxscq';
-import * as khxsdd from './khxsdd';
 import * as khxspj from './khxspj';
+import * as khxsdd from './khxsdd';
 import * as khxsqj from './khxsqj';
 import * as khxstk from './khxstk';
 import * as khxxzzfw from './khxxzzfw';
@@ -58,11 +59,11 @@ import * as xksj from './xksj';
 import * as xl from './xl';
 import * as xnjgsj from './xnjgsj';
 import * as xnxq from './xnxq';
-import * as xqsj from './xqsj';
 import * as xscfsj from './xscfsj';
+import * as xqsj from './xqsj';
 import * as xsjbsj from './xsjbsj';
-import * as xsjlsj from './xsjlsj';
 import * as xsjtcy from './xsjtcy';
+import * as xsjlsj from './xsjlsj';
 import * as xsxxjl from './xsxxjl';
 import * as xxgg from './xxgg';
 import * as xxjbpz from './xxjbpz';
@@ -78,42 +79,43 @@ export default {
   user,
   bjsj,
   jzgjbsj,
+  fjlx,
   fjsj,
   jcxx,
   jcsj,
-  fjlx,
   jxjhsj,
-  jyjgsj,
   jyjgtzgg,
+  jyjgsj,
   jzgcfsj,
-  jzgjtcy,
   jzggzjl,
+  jzgjtcy,
   jzgktyj,
-  jzgrysj,
   jzglwsj,
-  kcsj,
+  jzgrysj,
   jzgxxjl,
+  kcsj,
   khbjpj,
   khbjsj,
   khjgrzsq,
   khjscq,
-  khjsqj,
   khjspj,
+  khjsqj,
+  khjssj,
+  khjstdk,
   khjyjg,
   khjytzgg,
   khkclx,
-  khjssj,
   khkcpj,
-  khkcsq,
   khkcsj,
+  khkcsq,
   khktfc,
   khpksj,
   khtksj,
   khxkjl,
   khxksj,
   khxscq,
-  khxsdd,
   khxspj,
+  khxsdd,
   khxsqj,
   khxstk,
   khxxzzfw,
@@ -129,11 +131,11 @@ export default {
   xl,
   xnjgsj,
   xnxq,
-  xqsj,
   xscfsj,
+  xqsj,
   xsjbsj,
-  xsjlsj,
   xsjtcy,
+  xsjlsj,
   xsxxjl,
   xxgg,
   xxjbpz,

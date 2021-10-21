@@ -352,10 +352,70 @@ export async function getCourseSchools(
     status?: 'ok' | 'error';
     data?: {
       count?: number;
-      rows?: { id?: string; XXMC?: string; XD?: string; LXR?: string; LXDH?: string }[];
+      rows?: {
+        id?: string;
+        XXMC?: string;
+        XD?: string;
+        LXR?: string;
+        LXDH?: string;
+        PJFS?: number;
+      }[];
     };
     message?: string;
   }>('/khjyjg/getCourseSchools', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data: body,
+    ...(options || {}),
+  });
+}
+
+/** 获取机构的合作学校订单 POST /khjyjg/cooperateSchoolOrder */
+export async function cooperateSchoolOrder(
+  body: {
+    /** 学校名称 */
+    name?: string;
+    JGId?: string;
+    /** 页数 */
+    page?: number;
+    /** 每页记录数 */
+    pageSize?: number;
+  },
+  options?: { [key: string]: any },
+) {
+  return request<any>('/khjyjg/cooperateSchoolOrder', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data: body,
+    ...(options || {}),
+  });
+}
+
+/** 获取机构的合作学校订单列表 POST /khjyjg/cooperateSchoolOrderList */
+export async function cooperateSchoolOrderList(
+  body: {
+    /** 机构id */
+    KHJYJGId?: string;
+    /** 学校id */
+    XXId?: string;
+    /** 学期id */
+    XQId?: string;
+    /** 课程id */
+    KCId?: string;
+    /** 学生名称 */
+    XSMC?: string;
+    /** 页数 */
+    page?: number;
+    /** 每页记录数 */
+    pageSize?: number;
+  },
+  options?: { [key: string]: any },
+) {
+  return request<any>('/khjyjg/cooperateSchoolOrderList', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
