@@ -20,7 +20,7 @@ export const topNum = [
     bgImg: openOrganization,
   },
   {
-    title: '准入课程书',
+    title: '准入课程数',
     type: 'zrkc_count',
     bgImg: courseSum,
 
