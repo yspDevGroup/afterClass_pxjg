@@ -28,10 +28,10 @@ const ChartsPage = (props: any) => {
       courseCollect: [],
       checkOut: [],
       numCollect: [],
-      schoolNum: [],
+      courseCol: [],
       courseNum: [],
       enrollNum: [],
-      checkOutTeacher: []
+      schoolNum: [],
     };
     const result = await homePage({
       ...res,
@@ -59,15 +59,15 @@ const ChartsPage = (props: any) => {
         defaultData.checkOut = [{
           icon: should,
           title: '应到人数',
-          num: data.ydxs_count || 0
+          num: data.ydjs_count || 0
         }, {
           icon: real,
           title: '实到人数',
-          num: data.sdxs_count || 0
+          num: data.sdjs_count || 0
         }, {
           icon: leave,
           title: '请假人数',
-          num: (data.qjxs_count || 0)
+          num: (data.qjjs_count || 0)
         }];
         defaultData.numCollect = [{
           title: '服务学校数',
@@ -94,7 +94,7 @@ const ChartsPage = (props: any) => {
             })
           }
         });
-        defaultData.schoolNum = data.kcs?.length ? [].map.call(data.kcs, (item: any) => {
+        defaultData.courseCol = data.kcs?.length ? [].map.call(data.kcs, (item: any) => {
           return item.KCMC;
         }) : [];
         data.kcs?.length && data.kcs.forEach((item: any) => {
@@ -114,6 +114,9 @@ const ChartsPage = (props: any) => {
             school: item.XXMC,
             value: item.xs_count,
           };
+        }) : [];
+        defaultData.schoolNum = data.xxbm?.length ? [].map.call(data.xxbm, (item: any) => {
+          return item.XXMC;
         }) : [];
         defaultData.checkOutTeacher = [{
           icon: should,
@@ -168,7 +171,7 @@ const ChartsPage = (props: any) => {
             <div>
               <span className={styles.boxfoot} />
               <header>
-                今日学生出勤情况
+                今日教师出勤情况
               </header>
               <div className={styles.container}>
                 <NumberCollect data={currentData?.checkOut} col={3} color={textColor2} />
@@ -188,7 +191,7 @@ const ChartsPage = (props: any) => {
                 本学期开设课程
               </header>
               <div className={styles.container}>
-                <List data={currentData?.schoolNum} />
+                <List data={currentData?.courseCol} />
               </div>
             </div>
             <div>
@@ -214,10 +217,10 @@ const ChartsPage = (props: any) => {
             <div>
               <span className={styles.boxfoot} />
               <header>
-                今日教师出勤情况
+                本学期合作学校
               </header>
               <div className={styles.container}>
-                <NumberCollect data={currentData?.checkOutTeacher} col={3} color={textColor2} />
+                <List data={currentData?.schoolNum} />
               </div>
             </div>
           </Col>
