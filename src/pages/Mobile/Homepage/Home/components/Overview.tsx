@@ -35,7 +35,7 @@ const Overview = () => {
     return (
       <Card className={styles.card} bordered={false} bodyStyle={{paddingTop: 8.8, paddingLeft: 8.8, minHeight: '101.7px'}}>
         <p style={{whiteSpace:'nowrap',overflow:'hidden',textOverflow:'ellipsis'}}>{title}</p>
-        <p>{count}</p>
+        <p>{title.indexOf("元") !== -1 ? parseFloat(count).toFixed(2) : count}</p>
         <img className={styles.bgImg} src={bgImg} alt="" />
       </Card>
     )
