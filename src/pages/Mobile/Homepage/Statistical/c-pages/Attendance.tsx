@@ -34,7 +34,7 @@ const attendance = () => {
     }
   ]});
   const [startTime, setStartTime] = useState<any>(moment().subtract(30, "days").format("YYYY-MM-DD"));
-  const [endTime, setEndTime] = useState<any>(moment().format("YYYY-MM-DD"));
+  const [endTime, setEndTime] = useState<any>(moment().subtract(-1, "days").format("YYYY-MM-DD"));
   const [xskqConfig, setXskqConfig] = useState<any>({...studentConfig});
   const [jskqConfig, setJskqConfig] = useState<any>({...teacherConfig});
 
@@ -134,7 +134,7 @@ const attendance = () => {
               </Col>
               <Col span={2}>-</Col>
               <Col span={11}>
-                <DatePicker placeholder='请选择结束日期' defaultValue={moment(moment(), 'YYYY-MM-DD')} onChange={handleEndTime} format="YYYY-MM-DD"/>
+                <DatePicker placeholder='请选择结束日期' defaultValue={moment(moment().subtract(-1, "days"), 'YYYY-MM-DD')} onChange={handleEndTime} format="YYYY-MM-DD"/>
               </Col>
             </ConfigProvider>
           </Row>
