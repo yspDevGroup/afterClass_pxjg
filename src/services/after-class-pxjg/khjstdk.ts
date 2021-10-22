@@ -28,7 +28,9 @@ export async function getKHJSTDK(
       SKFJ?: { id?: string; BH?: string; FJMC?: string } | any;
       TKFJ?: { id?: string; BH?: string; FJMC?: string } | any;
       XXSJPZ?: { id?: string; KSSJ?: string; JSSJ?: string; TITLE?: string };
-      KHBJSJ?: { id?: string; BJMC?: string };
+      KHBJSJ?: { id?: string; BJMC?: string; KHKCSJ?: { id?: string; KCMC?: string } };
+      createdAt?: string;
+      updatedAt?: string;
     };
     message?: string;
   }>(`/khjstdk/${param0}`, {
@@ -107,7 +109,9 @@ export async function createKHJSTDK(body: API.CreateKHJSTDK, options?: { [key: s
       SKFJ?: { id?: string; BH?: string; FJMC?: string } | any;
       TKFJ?: { id?: string; BH?: string; FJMC?: string } | any;
       XXSJPZ?: { id?: string; KSSJ?: string; JSSJ?: string; TITLE?: string };
-      KHBJSJ?: { id?: string; BJMC?: string };
+      KHBJSJ?: { id?: string; BJMC?: string; KHKCSJ?: { id?: string; KCMC?: string } };
+      createdAt?: string;
+      updatedAt?: string;
     };
     message?: string;
   }>('/khjstdk/create', {

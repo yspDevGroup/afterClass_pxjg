@@ -238,6 +238,8 @@ export async function getAllCourses(
     XXJBSJId?: string;
     /** 学年学期ID */
     XNXQId?: string;
+    /** 年级ID */
+    NJId?: string;
     /** 课程来源 */
     SSJGLX?: string;
     /** 机构名称 */
@@ -252,6 +254,28 @@ export async function getAllCourses(
   options?: { [key: string]: any },
 ) {
   return request<any>('/khkcsj/getAllCourses', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data: body,
+    ...(options || {}),
+  });
+}
+
+/** 通过课后课程id获取教职工信息 POST /khkcsj/getTeacherByClassId */
+export async function getTeacherByClassId(
+  body: {
+    /** 课后课程ID */
+    KHKCSJId?: string;
+    /** 页数 */
+    page?: number;
+    /** 每页记录数 */
+    pageSize?: number;
+  },
+  options?: { [key: string]: any },
+) {
+  return request<any>('/khkcsj/getTeacherByClassId', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

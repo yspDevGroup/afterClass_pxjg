@@ -2,8 +2,8 @@
  * @description:
  * @author: Sissle Lynn
  * @Date: 2021-08-24 19:59:45
- * @LastEditTime: 2021-10-14 09:06:44
- * @LastEditors: zpl
+ * @LastEditTime: 2021-10-22 11:28:31
+ * @LastEditors: Sissle Lynn
  */
 export const bgColor = [
   {
@@ -34,23 +34,23 @@ export const bgColor = [
 export const topNum = [
   {
     title: '服务学校数',
-    type: 'xxNum'
+    type: 'xx_count'
   },
   {
     title: '准入课程数',
-    type: 'kcNum',
+    type: 'zrkc_count',
   },
   {
-    title: '服务班级数',
-    type: 'bjNum'
+    title: '本学期服务班级数',
+    type: 'bj_count'
   },
   {
     title: '机构教师数',
-    type: 'jsNum'
+    type: 'js_count'
   },
   {
-    title: '参加学生数',
-    type: 'xsNum'
+    title: '本学期参加学生数',
+    type: 'xs_count'
   },
   {
     title: '待处理申请数',

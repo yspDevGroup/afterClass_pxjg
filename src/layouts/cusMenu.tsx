@@ -2,8 +2,8 @@
  * @description:
  * @author: Sissle Lynn
  * @Date: 2021-08-24 17:21:12
- * @LastEditTime: 2021-10-14 09:00:53
- * @LastEditors: zpl
+ * @LastEditTime: 2021-10-22 10:00:49
+ * @LastEditors: Sissle Lynn
  */
 import React from 'react';
 import {
@@ -12,7 +12,8 @@ import {
   BlockOutlined,
   AppstoreAddOutlined,
   NotificationOutlined,
-  ZoomInOutlined
+  ZoomInOutlined,
+  PieChartOutlined
 } from '@ant-design/icons';
 export default {
   route: {
@@ -90,79 +91,6 @@ export default {
         hideInMenu: 'true'
       },
       {
-        path: '/query',
-        name: '信息查询',
-        icon: <ZoomInOutlined />,
-        routes: [
-          {
-            path: '/query/patrolclass',
-            name: '巡课查询',
-            routes: [
-              {
-                path: '/query/patrolclass/details',
-                name: '合作课程页面',
-                hideInMenu: 'true'
-
-              }
-
-            ]},
-          {
-            path: '/query/reimbursementclass',
-            name: '退课查询',
-            routes: [
-              {
-                path: '/query/reimbursementClass/details',
-                name: '退课详情',
-                hideInMenu: 'true'
-               }
-            ]
-
-          },
-          {
-            path: '/query/appraise',
-            name: '评价查询',
-            routes: [
-              {
-                path: '/query/appraise/school',
-                name: '评价查询课程',
-                hideInMenu: 'true'
-              },
-              {
-                path: '/query/appraise/class',
-                name: '评价查询班级',
-                hideInMenu: 'true'
-              },
-              {
-                path: '/query/appraise/details',
-                name: '评价查询班级',
-                hideInMenu: 'true'
-
-              }
-            ]
-          },
-          {
-            path: '/query/order',
-            name: '订单查询',
-            routes:[
-                 {
-                  path: '/query/order/classorder',
-                  name: '课程订单',
-                  hideInMenu: 'true'
-
-                 },
-                 {
-                  path: '/query/order/serviceorder',
-                  name: '服务订单',
-                  hideInMenu: 'true'
-
-                 }
-
-            ]
-
-          }
-        ]
-      },
-      {
         path: '/announcements',
         name: '通知公告',
         icon: <NotificationOutlined />,
@@ -195,6 +123,78 @@ export default {
             ]
           }
         ]
+      },
+      {
+        path: '/query',
+        name: '信息查询',
+        icon: <ZoomInOutlined />,
+        routes: [
+          {
+            path: '/query/patrolclass',
+            name: '巡课查询',
+            routes: [
+              {
+                path: '/query/patrolclass/details',
+                name: '合作课程页面',
+                hideInMenu: 'true'
+              }
+            ]
+          },
+          {
+            path: '/query/reimbursementclass',
+            name: '退课查询',
+            routes: [
+              {
+                path: '/query/reimbursementClass/details',
+                name: '退课详情',
+                hideInMenu: 'true'
+              }
+            ]
+          },
+          {
+            path: '/query/appraise',
+            name: '评价查询',
+            routes: [
+              {
+                path: '/query/appraise/school',
+                name: '评价查询课程',
+                hideInMenu: 'true'
+              },
+              {
+                path: '/query/appraise/class',
+                name: '评价查询班级',
+                hideInMenu: 'true'
+              },
+              {
+                path: '/query/appraise/details',
+                name: '评价查询班级',
+                hideInMenu: 'true'
+              }
+            ]
+          },
+          {
+            path: '/query/order',
+            name: '订单查询',
+            routes: [
+              {
+                path: '/query/order/classorder',
+                name: '课程订单',
+                hideInMenu: 'true'
+              },
+              {
+                path: '/query/order/serviceorder',
+                name: '服务订单',
+                hideInMenu: 'true'
+              }
+            ]
+          }
+        ]
+      },
+
+      {
+        path: '/graphic',
+        name: '数据大屏',
+        icon: <PieChartOutlined />,
       }
     ]
   }
