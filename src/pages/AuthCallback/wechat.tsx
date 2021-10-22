@@ -2,8 +2,8 @@
  * @description: 微信认证回调，本页面接收code后，通知后台获取登录信息
  * @author: zpl
  * @Date: 2021-09-04 09:00:38
- * @LastEditTime: 2021-09-07 18:02:29
- * @LastEditors: Sissle Lynn
+ * @LastEditTime: 2021-10-22 16:31:30
+ * @LastEditors: zpl
  */
 import React from 'react';
 import { message } from 'antd';
@@ -39,7 +39,6 @@ const WechatAuth = () => {
       history.replace('/403');
     }
   };
-
   goto();
 
   return <LoadingPage />;
