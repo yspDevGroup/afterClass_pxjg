@@ -2,7 +2,7 @@
  * @description:
  * @author: Sissle Lynn
  * @Date: 2021-08-24 14:37:02
- * @LastEditTime: 2021-10-20 11:19:36
+ * @LastEditTime: 2021-10-15 18:08:52
  * @LastEditors: Sissle Lynn
  */
 import React, { useRef, useState } from 'react';
@@ -59,7 +59,6 @@ const CourseManagement = () => {
       dataIndex: 'index',
       valueType: 'index',
       width: 58,
-      fixed:'left',
       align: 'center'
     },
     {
@@ -68,7 +67,6 @@ const CourseManagement = () => {
       key: 'KHKCSJ',
       align: 'center',
       width: 150,
-      fixed:'left',
       ellipsis: true,
       render: (_, record) => record.KHKCSJ?.KCMC
     },
@@ -150,15 +148,16 @@ const CourseManagement = () => {
       width: 150,
       hideInTable: activeKey !== 'duration',
       render: (_, record) => {
+        console.log(record, '-----------');
         const teacher = record.KHKCSJ?.KHKCJs;
         return (
           <EllipsisHint
             width="100%"
             text={teacher?.map((item: any) => {
-              const showWXName = item?.JZGJBSJ?.XM === '未知' && item?.JZGJBSJ?.WechatUserId;
+              const showWXName = item.JZGJBSJ.XM === '未知' && item.JZGJBSJ.WechatUserId;
               return (
-                <Tag key={item?.JZGJBSJId}>
-                  {showWXName ? <WWOpenDataCom type="userName" openid={item?.JZGJBSJ?.WechatUserId} /> : item?.JZGJBSJ?.XM}
+                <Tag key={item.JZGJBSJId}>
+                  {showWXName ? <WWOpenDataCom type="userName" openid={item.JZGJBSJ.WechatUserId} /> : item.JZGJBSJ.XM}
                 </Tag>
               );
             })}
@@ -196,8 +195,7 @@ const CourseManagement = () => {
     {
       title: '操作',
       valueType: 'option',
-      width: 200,
-      fixed:'right',
+      width: 260,
       align: 'center',
       render: (_, record) => {
         return (
@@ -271,12 +269,6 @@ const CourseManagement = () => {
         className={styles.courseTable}
         actionRef={actionRef}
         search={false}
-        pagination={{
-          showQuickJumper: true,
-          pageSize: 10,
-          defaultCurrent: 1,
-        }}
-        scroll={{ x: 1200 }}
         request={async (
           params: KHKCSQSJ & {
             pageSize?: number;

@@ -1,19 +1,19 @@
 import ProTable, { ProColumns } from '@ant-design/pro-table';
 import { Select, Button, Input, message } from 'antd';
-import { LeftOutlined, } from '@ant-design/icons';
+import { LeftOutlined } from '@ant-design/icons';
 import { useEffect, useState } from 'react';
-import { getAllSemester, } from '@/services/after-class-pxjg/khjyjg';
+import { getAllSemester } from '@/services/after-class-pxjg/khjyjg';
 import { getCourses } from '@/services/after-class-pxjg/jyjgsj';
 
 import { Link, useModel } from 'umi';
-import styles from '../index.less'
+import styles from '../index.less';
 import { getCurrentXQ } from '@/utils';
 import { getAllTKByAgency } from '@/services/after-class-pxjg/khtksj';
 import WWOpenDataCom from '@/components/WWOpenDataCom';
 const { Search } = Input;
 const { Option } = Select;
 const Details = (props: any) => {
-  const { id } = props.location.state
+  const { id } = props.location.state;
   const [termList, setTermList] = useState<any>();
   const [dataSource, setDataSource] = useState<any>([]);
   const [StudentName, SetStudentName] = useState<any>('');
@@ -25,7 +25,7 @@ const Details = (props: any) => {
   const getXNXQ = async (xxdm: string, jgdm: string) => {
     const res = await getAllSemester({
       KHJYJGId: jgdm,
-      XXJBSJId: xxdm,
+      XXJBSJId: xxdm
     });
     if (res?.status === 'ok') {
       const { data = [] } = res;
@@ -40,7 +40,7 @@ const Details = (props: any) => {
       setTermList(term);
       setTerm(currentXQ?.id || data[0].id);
     } else {
-      message.error(res.message,);
+      message.error(res.message);
     }
   };
   // table表格数据
@@ -51,7 +51,7 @@ const Details = (props: any) => {
       valueType: 'index',
       align: 'center',
       width: 58,
-      fixed: 'left',
+      fixed: 'left'
     },
     {
       title: '学生姓名',
@@ -63,7 +63,7 @@ const Details = (props: any) => {
       render: (_text: any, record: any) => {
         const showWXName = record?.XSJBSJ?.XM === '未知' && record?.XSJBSJ?.WechatUserId;
         if (showWXName) {
-          return <WWOpenDataCom type="userName" openid={record?.XSJBSJ?.WechatUserId} />
+          return <WWOpenDataCom type="userName" openid={record?.XSJBSJ?.WechatUserId} />;
         }
         return record?.XSJBSJ?.XM;
       }
@@ -88,8 +88,8 @@ const Details = (props: any) => {
       width: 140,
       ellipsis: true,
       render: (_, record: any) => {
-        return record.KHBJSJ?.BJMS;
-      },
+        return record?.KHBJSJ?.KHKCSJ?.KCMC;
+      }
     },
     {
       title: '课程班名称  ',
@@ -99,8 +99,8 @@ const Details = (props: any) => {
       width: 140,
       ellipsis: true,
       render: (_, record: any) => {
-        return record.KHBJSJ?.BJMC
-      },
+        return record.KHBJSJ?.BJMC;
+      }
     },
     {
       title: '退课课时数',
@@ -120,17 +120,17 @@ const Details = (props: any) => {
       valueEnum: {
         0: {
           text: '申请中',
-          status: 'Processing',
+          status: 'Processing'
         },
         1: {
           text: '已通过',
-          status: 'Success',
+          status: 'Success'
         },
         2: {
           text: '已驳回',
-          status: 'Error',
-        },
-      },
+          status: 'Error'
+        }
+      }
     },
     {
       title: '申请时间',
@@ -140,22 +140,22 @@ const Details = (props: any) => {
       width: 170,
       search: false,
       ellipsis: true
-    },
+    }
   ];
   useEffect(() => {
     if (currentUser?.jgId) {
-      //获取学年学期
+      // 获取学年学期
       getXNXQ(id, currentUser?.jgId),
         (async () => {
           const res = await getCourses({
             JGId: currentUser?.jgId
-          })
+          });
           if (res.status === 'ok') {
-            setcourseList(res.data?.rows)
+            setcourseList(res.data?.rows);
           }
-        })()
+        })();
     }
-  }, [currentUser])
+  }, [currentUser]);
   useEffect(() => {
     (async () => {
       const res = await getAllTKByAgency({
@@ -165,12 +165,12 @@ const Details = (props: any) => {
         page: 0,
         pageSize: 0,
         XSXM: StudentName
-      })
+      });
       if (res.status === 'ok') {
-        setDataSource(res.data?.rows)
+        setDataSource(res.data?.rows);
       }
-    })()
-  }, [term, StudentName, coursName])
+    })();
+  }, [term, StudentName, coursName]);
 
   return (
     <>
@@ -180,7 +180,7 @@ const Details = (props: any) => {
           history.go(-1);
         }}
         style={{
-          marginBottom: '24px',
+          marginBottom: '24px'
         }}
       >
         <LeftOutlined />
@@ -198,29 +198,39 @@ const Details = (props: any) => {
             }}
           >
             {termList?.map((item: any) => {
-              return <Option key={item.value} value={item.value}>{item.text}</Option>;
+              return (
+                <Option key={item.value} value={item.value}>
+                  {item.text}
+                </Option>
+              );
             })}
           </Select>
         </span>
         <span>
           学生姓名：
-          <Search style={{ width: 200 }}
-            placeholder='请输入学生姓名'
+          <Search
+            style={{ width: 200 }}
+            placeholder="请输入学生姓名"
             allowClear
             onSearch={(value) => {
-              SetStudentName(value)
-            }} />
+              SetStudentName(value);
+            }}
+          />
         </span>
         <span>
           课程名称：
           <Select
             style={{ width: 200 }}
             onChange={(value: string) => {
-              setcoursName(value)
+              setcoursName(value);
             }}
           >
             {courseList?.map((item: any) => {
-              return <Option key={item.id} value={item.id}>{item.KCMC}</Option>;
+              return (
+                <Option key={item.id} value={item.id}>
+                  {item.KCMC}
+                </Option>
+              );
             })}
           </Select>
         </span>
@@ -231,7 +241,7 @@ const Details = (props: any) => {
           pagination={{
             showQuickJumper: true,
             pageSize: 10,
-            defaultCurrent: 1,
+            defaultCurrent: 1
           }}
           scroll={{ x: 1000 }}
           columns={columns}
@@ -239,16 +249,13 @@ const Details = (props: any) => {
             setting: false,
             fullScreen: false,
             density: false,
-            reload: false,
+            reload: false
           }}
           search={false}
         />
-
       </div>
-
-
     </>
-  )
-}
-Details.wrappers = ['@/wrappers/auth']
-export default Details
+  );
+};
+Details.wrappers = ['@/wrappers/auth'];
+export default Details;

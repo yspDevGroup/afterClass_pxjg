@@ -46,7 +46,7 @@ const CourseItemDom = (props: { school: string; course: any; type: string; ind: 
           {course.KCMC}
           <span className={styles.extraInfo}>
             <span style={{ backgroundColor: bgColor }}>{copCourseStatus[ZT]}</span>
-            <span>
+            <div className={styles.synj}>
               适用年级：
               {course.NJSJs?.map((item: any, index: number) => {
                 return (
@@ -65,7 +65,7 @@ const CourseItemDom = (props: { school: string; course: any; type: string; ind: 
                   </span>
                 );
               })}
-            </span>
+            </div>
             {type === 'list' ? (
               <span onClick={() => handleCollapse(ind)}>
                 课程班详情 {ind === curIndex ? <UpOutlined /> : <DownOutlined />}

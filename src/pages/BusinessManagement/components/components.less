@@ -141,7 +141,7 @@
             border-radius: 22px;
           }
 
-          span:nth-child(2) {
+          > span:nth-child(2) {
             padding-left: @padding-lg;
             color: @text-color-secondary;
             font-weight: normal;
@@ -152,7 +152,7 @@
             }
           }
 
-          span:nth-child(3) {
+          > span:nth-child(3) {
             position: absolute;
             right: 0;
             color: @primary-color;
@@ -160,6 +160,15 @@
 
             > span {
               margin-left: @padding-sm;
+            }
+          }
+          .synj {
+            display: inline-block;
+            margin-left: 20px;
+            span {
+              > span {
+                padding: 3px 8px;
+              }
             }
           }
         }
