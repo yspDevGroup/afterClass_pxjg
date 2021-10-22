@@ -1,7 +1,7 @@
 /*
- * @Author: your name
+ * @Author: 9朵云配置
  * @Date: 2021-09-24 16:43:37
- * @LastEditTime: 2021-10-20 17:11:57
+ * @LastEditTime: 2021-10-22 12:42:32
  * @LastEditors: zpl
  * @Description: In User Settings Edit
  * @FilePath: \afterClass_pxjg\.umirc.ts
@@ -22,11 +22,12 @@ export default defineConfig({
   define: {
     ENV_title: '课后帮',
     ENV_subTitle: '课后服务平台',
-    ENV_copyRight: '2021 版权所有：陕西五育汇智信息技术有限公司',
-    ENV_host: 'http://afterclassPxjg.wuyu.imzhiliao.com',
-    ENV_backUrl: 'http://api.wuyu.imzhiliao.com',
-    ssoHost: 'http://sso.wuyu.imzhiliao.com',
+    ENV_copyRight: '2021 版权所有：广东九朵云科技有限公司',
+    ENV_host: 'http://afterclassPxjg.9cloudstech.com',
+    ENV_backUrl: 'http://api.9cloudstech.com',
+    ssoHost: 'http://sso.9cloudstech.com',
     authType: 'wechat',
+    // FIXME: 下面两个参数必须调整为9朵云提供的值
     clientId: 'ww47296cadbd4de507',
     clientSecret: 'Do9LvJl3Xnf8Tj0rt9iy-wvcT-shBvdzsQZqp4IKkJc'
   },
