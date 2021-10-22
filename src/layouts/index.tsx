@@ -3,8 +3,8 @@
  * @description: 通用布局
  * @author: zpl
  * @Date: 2021-08-16 17:31:56
- * @LastEditTime: 2021-09-17 11:49:36
- * @LastEditors: zpl
+ * @LastEditTime: 2021-10-22 10:03:51
+ * @LastEditors: Sissle Lynn
  */
 import React, { FC, useEffect, useState } from 'react';
 import { IRouteComponentProps, Link, useAccess, history } from 'umi';
@@ -43,7 +43,8 @@ const CommonLayout: FC<IRouteComponentProps> = ({ children, location, route, his
   useEffect(() => {
     const path = location.pathname.toLowerCase();
     const isLoginPage = path.startsWith('/user/login');
-    setHiddenHeader(isLoginPage);
+    const idGraphic = path.startsWith('/graphic');
+    setHiddenHeader(isLoginPage || idGraphic);
   }, [location.pathname]);
 
   return (

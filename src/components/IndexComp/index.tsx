@@ -2,7 +2,7 @@
  * @description:
  * @author: Sissle Lynn
  * @Date: 2021-09-01 08:49:11
- * @LastEditTime: 2021-09-09 11:08:23
+ * @LastEditTime: 2021-10-22 10:19:05
  * @LastEditors: Sissle Lynn
  */
 import React, { useEffect, useState } from 'react';
@@ -20,6 +20,7 @@ import noCourse from '@/assets/noCourse.png';
 import styles from './index.less';
 import { getKHKCSQ } from '@/services/after-class-pxjg/khkcsq';
 import { getJYJGTZGG } from '@/services/after-class-pxjg/jyjgtzgg';
+import { getTerm } from '@/pages/Graphic/component/utils';
 
 const Index = () => {
   const { initialState } = useModel('@@initialState');
@@ -32,21 +33,23 @@ const Index = () => {
 
   useEffect(() => {
     async function fetchData() {
+      const term = getTerm();
       const res = await homePage({
-        KHJYJGId: currentUser?.jgId
+        KHJYJGId: currentUser?.jgId,
+        ...term
       });
       if (res.status === 'ok') {
-        const { xxbm, kcbm, ...rest } = res.data;
+        const { xxbm, kcs, ...rest } = res.data;
         // 配置头部统计栏目数据
         setHomeData({ ...rest });
         // 配置底部课程开设班级数量数据
-        if (kcbm?.length) {
+        if (kcs?.length) {
           const newKcbm: { type: any; number: any }[] = [];
-          kcbm.forEach((item: any) => {
+          kcs.forEach((item: any) => {
             if (item.id) {
               newKcbm.push({
                 type: item.KCMC,
-                number: item.count
+                number: item.bj_count
               });
             }
           });
@@ -59,7 +62,7 @@ const Index = () => {
             if (item.id) {
               newXxbm.push({
                 type: item.XXMC,
-                number: item.count
+                number: item.kc_count
               });
             }
           });

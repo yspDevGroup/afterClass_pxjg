@@ -9,12 +9,12 @@ import * as bjsj from './bjsj';
 import * as jzgjbsj from './jzgjbsj';
 import * as fjlx from './fjlx';
 import * as fjsj from './fjsj';
-import * as jcxx from './jcxx';
 import * as jcsj from './jcsj';
+import * as jcxx from './jcxx';
 import * as jxjhsj from './jxjhsj';
-import * as jyjgtzgg from './jyjgtzgg';
 import * as jyjgsj from './jyjgsj';
 import * as jzgcfsj from './jzgcfsj';
+import * as jyjgtzgg from './jyjgtzgg';
 import * as jzggzjl from './jzggzjl';
 import * as jzgjtcy from './jzgjtcy';
 import * as jzgktyj from './jzgktyj';
@@ -42,8 +42,8 @@ import * as khtksj from './khtksj';
 import * as khxkjl from './khxkjl';
 import * as khxksj from './khxksj';
 import * as khxscq from './khxscq';
-import * as khxspj from './khxspj';
 import * as khxsdd from './khxsdd';
+import * as khxspj from './khxspj';
 import * as khxsqj from './khxsqj';
 import * as khxstk from './khxstk';
 import * as khxxzzfw from './khxxzzfw';
@@ -59,11 +59,11 @@ import * as xksj from './xksj';
 import * as xl from './xl';
 import * as xnjgsj from './xnjgsj';
 import * as xnxq from './xnxq';
-import * as xscfsj from './xscfsj';
 import * as xqsj from './xqsj';
+import * as xscfsj from './xscfsj';
 import * as xsjbsj from './xsjbsj';
-import * as xsjtcy from './xsjtcy';
 import * as xsjlsj from './xsjlsj';
+import * as xsjtcy from './xsjtcy';
 import * as xsxxjl from './xsxxjl';
 import * as xxgg from './xxgg';
 import * as xxjbpz from './xxjbpz';
@@ -81,12 +81,12 @@ export default {
   jzgjbsj,
   fjlx,
   fjsj,
-  jcxx,
   jcsj,
+  jcxx,
   jxjhsj,
-  jyjgtzgg,
   jyjgsj,
   jzgcfsj,
+  jyjgtzgg,
   jzggzjl,
   jzgjtcy,
   jzgktyj,
@@ -114,8 +114,8 @@ export default {
   khxkjl,
   khxksj,
   khxscq,
-  khxspj,
   khxsdd,
+  khxspj,
   khxsqj,
   khxstk,
   khxxzzfw,
@@ -131,11 +131,11 @@ export default {
   xl,
   xnjgsj,
   xnxq,
-  xscfsj,
   xqsj,
+  xscfsj,
   xsjbsj,
-  xsjtcy,
   xsjlsj,
+  xsjtcy,
   xsxxjl,
   xxgg,
   xxjbpz,

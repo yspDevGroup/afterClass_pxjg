@@ -305,6 +305,8 @@ export async function getAllCourses(
 export async function homePage(
   body: {
     KHJYJGId?: string;
+    XN?: string;
+    XQ?: string;
   },
   options?: { [key: string]: any },
 ) {
@@ -416,6 +418,25 @@ export async function cooperateSchoolOrderList(
   options?: { [key: string]: any },
 ) {
   return request<any>('/khjyjg/cooperateSchoolOrderList', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data: body,
+    ...(options || {}),
+  });
+}
+
+/** 培训机构查看考勤趋势 POST /khjyjg/getAttendanceTrend */
+export async function getAttendanceTrend(
+  body: {
+    KHJYJGId?: string;
+    startDate?: string;
+    endDate?: string;
+  },
+  options?: { [key: string]: any },
+) {
+  return request<any>('/khjyjg/getAttendanceTrend', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

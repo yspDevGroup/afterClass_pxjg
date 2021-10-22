@@ -2,7 +2,7 @@
  * @description:
  * @author: Sissle Lynn
  * @Date: 2021-08-26 16:24:39
- * @LastEditTime: 2021-09-13 18:17:11
+ * @LastEditTime: 2021-10-22 09:38:39
  * @LastEditors: Sissle Lynn
  */
 import React, { useEffect, useState } from 'react';
@@ -337,15 +337,15 @@ const SchoolInfo = (props: PropsType) => {
         <CustomForm
           values={(() => {
             if (info) {
-              const { CSRQ, XB, ...rest } = info;
+              const { CSRQ, XBM, ...rest } = info;
               return {
                 CSRQ: CSRQ ? moment(CSRQ) : '',
-                XB: readonly ? XB?.substring(0, 1) : XB,
+                XBM: readonly ? XBM?.substring(0, 1) : XBM,
                 ...rest
               };
             }
             return {
-              XB: '男',
+              XBM: '男性',
               KHJYJGId: currentUser?.jgId
             };
           })()}

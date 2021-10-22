@@ -183,3 +183,39 @@ export async function getFJPlan(
     ...(options || {}),
   });
 }
+
+/** 按日期，时段查询空闲场地 POST /fjsj/freeSpace */
+export async function freeSpace(
+  body: {
+    /** 学校ID */
+    XXJBSJId?: string;
+    /** 学年学期ID */
+    XNXQId?: string;
+    /** 日期 */
+    RQ?: string;
+    /** 开始时间 */
+    KSSJ?: string;
+    /** 结束时间 */
+    JSSJ?: string;
+    /** 场地名称 */
+    FJMC?: string;
+    /** 页数 */
+    page?: number;
+    /** 每页记录数 */
+    pageSize?: number;
+  },
+  options?: { [key: string]: any },
+) {
+  return request<{
+    status?: 'ok' | 'error';
+    data?: { count?: number; rows?: API.FJSJ[] };
+    message?: string;
+  }>('/fjsj/freeSpace', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data: body,
+    ...(options || {}),
+  });
+}

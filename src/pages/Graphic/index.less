@@ -1,0 +1,170 @@
+.diaplayBox {
+  width: 100vw;
+  height: 100vh;
+  overflow-x: hidden;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  font-size: calc(100vw/75) !important;
+
+  .diaplayTop {
+    width: 100%;
+    height: 5.6vh;
+    background-repeat: no-repeat;
+    background-position: center bottom;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1em;
+    line-height: 5.6vh;
+    color: #fff;
+  }
+
+  .bodyRow {
+
+    >div[class*='ant-col'] {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 90vh;
+      padding: 0 1vh;
+      color: #fff;
+
+      >div {
+        width: 100%;
+        box-shadow: 0 0 1vw #3845CD inset;
+        position: relative;
+        min-height: 20vh;
+
+        &+div {
+          margin-top: 1.5vh;
+        }
+
+        span.boxfoot::after,
+        span.boxfoot::before,
+        &::before,
+        &::after {
+          position: absolute;
+          content: '';
+          width: 1em;
+          height: 1em;
+        }
+
+        &::before {
+          top: 0;
+          left: 0;
+          border-top: 0.1em solid #356AE0;
+          border-left: 0.1em solid #356AE0;
+        }
+
+        &::after {
+          top: 0;
+          right: 0;
+          border-right: 0.1em solid #356AE0;
+          border-top: 0.1em solid #356AE0;
+        }
+
+        span.boxfoot::before {
+          left: 0;
+          bottom: 0;
+          border-bottom: 0.1em solid #356AE0;
+          border-left: 0.1em solid #356AE0;
+        }
+
+        span.boxfoot::after {
+          right: 0;
+          bottom: 0;
+          border-right: 0.1em solid #356AE0;
+          border-bottom: 0.1em solid #356AE0;
+        }
+
+        header {
+          font-weight: bold;
+          font-size: 0.7em;
+          color: #fff;
+          padding: 0 2vh;
+          height: 6vh;
+          line-height: 6vh;
+          border-bottom: 0.1em solid #356AE0;
+        }
+
+        .container {
+          padding: 1vh;
+
+          .serviceNum {
+            div[class*='ant-col'] {
+              padding: 1vh;
+            }
+
+            h3 {
+              font-weight: normal;
+              font-size: 0.6em;
+              color: #fff;
+              margin: 0;
+            }
+
+            p {
+              margin: 0;
+              font-weight: bold;
+              font-size: 1em;
+            }
+          }
+
+          .chartContainer {
+            >div {
+              height: 25vh !important;
+              overflow: hidden;
+            }
+          }
+
+          .chartContainerMore {
+            >div {
+              height: 54vh !important;
+              overflow: hidden;
+            }
+          }
+
+          .serviceList {
+            overflow: hidden;
+
+            div[class*='ant-col'] {
+              height: 4vh;
+              line-height: 4vh;
+              margin: 0 !important;
+            }
+
+            p {
+              margin: 0;
+              width: 100%;
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              font-size: 0.6em;
+
+              &::before {
+                display: inline-block;
+                content: '';
+                width: 0.2em;
+                height: 0.2em;
+                vertical-align: middle;
+                margin-right: 0.6em;
+                background-color: #fff;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .diaplay2 {
+      .serviceNum {
+        div[class*='ant-col'] {
+          padding: 0.5vh 1vh !important;
+        }
+
+        p {
+          font-size: 1.5em !important;
+        }
+      }
+    }
+  }
+}
