@@ -96,7 +96,7 @@ export const barConfig: any = {
   },
   maxBarWidth: 30,
   meta: {
-    school: { alias: '课程名称' },
+    school: { alias: '学校名称' },
     value: { alias: '报名人数' },
   },
 };

@@ -2,7 +2,7 @@
  * @description:
  * @author: Sissle Lynn
  * @Date: 2021-08-24 19:59:45
- * @LastEditTime: 2021-10-22 10:14:38
+ * @LastEditTime: 2021-10-22 11:28:31
  * @LastEditors: Sissle Lynn
  */
 export const bgColor = [
@@ -41,7 +41,7 @@ export const topNum = [
     type: 'zrkc_count',
   },
   {
-    title: '服务班级数',
+    title: '本学期服务班级数',
     type: 'bj_count'
   },
   {
@@ -49,7 +49,7 @@ export const topNum = [
     type: 'js_count'
   },
   {
-    title: '参加学生数',
+    title: '本学期参加学生数',
     type: 'xs_count'
   },
   {

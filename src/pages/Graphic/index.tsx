@@ -39,7 +39,6 @@ const ChartsPage = (props: any) => {
     });
     if (result?.status === 'ok') {
       const { data } = result;
-      console.log(data);
       if (data) {
         defaultData.serviceNum = [{
           title: '教师总数',
@@ -68,7 +67,7 @@ const ChartsPage = (props: any) => {
         }, {
           icon: leave,
           title: '请假人数',
-          num: (data.ydxs_count || 0) - (data.sdxs_count || 0)
+          num: (data.qjxs_count || 0)
         }];
         defaultData.numCollect = [{
           title: '服务学校数',
@@ -127,7 +126,7 @@ const ChartsPage = (props: any) => {
         }, {
           icon: leave,
           title: '请假人数',
-          num: (data.ydjs_count || 0) - (data.sdjs_count || 0)
+          num: (data.qjjs_count || 0)
         }];
       }
     }
