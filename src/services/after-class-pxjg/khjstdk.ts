@@ -19,6 +19,7 @@ export async function getKHJSTDK(
       LX?: number;
       ZT?: number;
       BZ?: string;
+      DKBZ?: string;
       KSSJ?: string;
       JSSJ?: string;
       SKRQ?: string | any;
@@ -66,6 +67,10 @@ export async function getAllKHJSTDK(
     ZT?: number[];
     /** 学年学期ID */
     XNXQId?: string;
+    /** 授课教师ID */
+    SKJSId?: string;
+    /** 代课教师ID */
+    DKJSId?: string;
     /** 班级ID */
     KHBJSJId?: string;
     /** 学校ID */
@@ -100,6 +105,7 @@ export async function createKHJSTDK(body: API.CreateKHJSTDK, options?: { [key: s
       LX?: number;
       ZT?: number;
       BZ?: string;
+      DKBZ?: string;
       KSSJ?: string;
       JSSJ?: string;
       SKRQ?: string | any;

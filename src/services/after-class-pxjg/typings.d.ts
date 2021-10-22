@@ -471,48 +471,6 @@ declare namespace API {
     CorpID?: string;
   };
 
-  type JZGCFSJ = {
-    id: string;
-    /** 名称 */
-    MC: string;
-    /** 日期 */
-    RQ?: string | any;
-    /** 组织机构 */
-    ZZJG?: string;
-    /** 惩罚原因 */
-    CFYY?: string;
-    /** 来源 */
-    LY?: string;
-  };
-
-  type CreateJZGCFSJ = {
-    /** 名称 */
-    MC: string;
-    /** 日期 */
-    RQ?: string | any;
-    /** 组织机构 */
-    ZZJG?: string;
-    /** 惩罚原因 */
-    CFYY?: string;
-    /** 来源 */
-    LY?: string;
-    /** 教师ID */
-    JZGJBSJId?: string;
-  };
-
-  type UpdateJZGCFSJ = {
-    /** 名称 */
-    MC?: string;
-    /** 日期 */
-    RQ?: string | any;
-    /** 组织机构 */
-    ZZJG?: string;
-    /** 惩罚原因 */
-    CFYY?: string;
-    /** 来源 */
-    LY?: string;
-  };
-
   type JYJGTZGG = {
     id: string;
     /** 标题 */
@@ -608,6 +566,48 @@ declare namespace API {
     SFTJ?: number;
     /** 内容 */
     NR?: string;
+  };
+
+  type JZGCFSJ = {
+    id: string;
+    /** 名称 */
+    MC: string;
+    /** 日期 */
+    RQ?: string | any;
+    /** 组织机构 */
+    ZZJG?: string;
+    /** 惩罚原因 */
+    CFYY?: string;
+    /** 来源 */
+    LY?: string;
+  };
+
+  type CreateJZGCFSJ = {
+    /** 名称 */
+    MC: string;
+    /** 日期 */
+    RQ?: string | any;
+    /** 组织机构 */
+    ZZJG?: string;
+    /** 惩罚原因 */
+    CFYY?: string;
+    /** 来源 */
+    LY?: string;
+    /** 教师ID */
+    JZGJBSJId?: string;
+  };
+
+  type UpdateJZGCFSJ = {
+    /** 名称 */
+    MC?: string;
+    /** 日期 */
+    RQ?: string | any;
+    /** 组织机构 */
+    ZZJG?: string;
+    /** 惩罚原因 */
+    CFYY?: string;
+    /** 来源 */
+    LY?: string;
   };
 
   type JZGGZJL = {
@@ -2006,6 +2006,8 @@ declare namespace API {
     ZT?: number;
     /** 备注信息 */
     BZ?: string;
+    /** 代课备注信息 */
+    DKBZ?: string;
     /** 调课后的上课开始时间 */
     KSSJ?: string;
     /** 调课后的上课结束时间 */
@@ -2031,6 +2033,8 @@ declare namespace API {
     ZT?: number;
     /** 备注信息 */
     BZ?: string;
+    /** 代课备注信息 */
+    DKBZ?: string;
     /** 调课后的上课开始时间 */
     KSSJ?: string;
     /** 调课后的上课结束时间 */
@@ -2060,6 +2064,8 @@ declare namespace API {
     ZT?: number;
     /** 备注信息 */
     BZ?: string;
+    /** 代课备注信息 */
+    DKBZ?: string;
     /** 调课后的上课开始时间 */
     KSSJ?: string;
     /** 调课后的上课结束时间 */

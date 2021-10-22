@@ -445,3 +445,22 @@ export async function getAttendanceTrend(
     ...(options || {}),
   });
 }
+
+/** 培训机构按日期统计收款，退款信息 POST /khjyjg/getRefund */
+export async function getRefund(
+  body: {
+    KHJYJGId?: string;
+    startDate?: string;
+    endDate?: string;
+  },
+  options?: { [key: string]: any },
+) {
+  return request<any>('/khjyjg/getRefund', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data: body,
+    ...(options || {}),
+  });
+}

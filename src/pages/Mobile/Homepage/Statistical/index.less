@@ -1,0 +1,112 @@
+@import '../theme.less' ;
+
+.statisticalPage{
+  background-color: @pageBgColor;
+  min-height: 900px;
+  padding-top: 42px;
+  :global {
+    .ant-empty-description{
+      color: #999;
+      font-size: 12px;
+    }
+  }
+  .course{
+    min-height: 1100px;
+    background-color: @pageBgColor;
+  }
+  .attendance{
+    min-height: 1000px;
+    background-color: @pageBgColor;
+  }
+  .topText{
+    width: 100%;
+    height: 20px;
+    padding: 12px 0;
+    text-align: center;
+    color: @textColor;
+    font-size: 14px;
+    line-height: 20px;
+  }
+  .theTabs{
+    margin-top: 12px;
+    :global {
+      .ant-tabs-nav{
+        background-color: @boxBgColor;
+        padding: 10px;
+        margin: 0;
+        .ant-tabs-tab{
+          width: 80px;
+          height: 34px;
+          padding: 6px;
+          margin: 0 5.5px;
+          background: @pageBgColor;
+          border-radius: 27px;
+          color: #999999;
+          font-size: 16px;
+          line-height: 22px;
+        }
+        .ant-tabs-tab-active{
+          border-color: rgba(0, 102, 255, 0);
+          background: rgba(0, 102, 255, 0.2);
+          color: #0066FF;
+        }
+
+      }
+    }
+  }
+  .moduleTitle{
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 22px;
+    text-align: left;
+    &:before {
+      display: inline-block;
+      width: 3px;
+      height: 12px;
+      line-height: 22px;
+      color: @textColor;
+      vertical-align: baseline;
+      background-color: @GreenColor;
+      content: '';
+      margin-right: 4px;
+    }
+  }
+  .container{
+    margin: 10px;
+    padding: 10px;
+    background: @boxBgColor;
+    border-radius: 8px;
+  }
+  .allLinks{
+    font-size: 12px;
+    line-height: 22px;
+    color: #999999;
+  }
+  .serviceNum{
+    margin: 20px 0;
+    h2{
+      color: @GreenColor;
+    }
+    p{
+      color: #999999;
+    }
+  }
+  .chartsContainer{
+    width: 100%;
+    height: 95%;
+    padding: 20px 0;
+  }
+  .iconContainer{
+    position: absolute;
+  }
+  .iconStyle{
+    position: relative;
+    font-size: 21px;
+  }
+  .iconAfter{
+    height: 100%;
+    line-height: 100%;
+    margin-left: 26px;
+  }
+
+}

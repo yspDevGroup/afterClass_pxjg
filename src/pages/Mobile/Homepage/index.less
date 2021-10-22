@@ -1,0 +1,75 @@
+@import './theme.less';
+
+.mobilePageHeader {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background: #fff;
+
+  .menuTab {
+    width: 100%;
+
+    > div[class='ant-tabs-nav'] {
+      position: fixed;
+      bottom: 0;
+      display: block;
+      width: 100%;
+      height: 50px;
+      margin: 0;
+      border-top: 1px solid #eee;
+
+      &::before {
+        top: 0;
+        bottom: auto;
+      }
+
+      :global {
+        .ant-tabs-tab-active {
+          .ant-tabs-tab-btn {
+            color: @GreenColor;
+            border-color: @GreenColor;
+          }
+        }
+        .ant-tabs-nav-wrap {
+          display: block;
+          background-color: #fff;
+          .ant-tabs-nav-list {
+            flex-flow: initial;
+            justify-content: space-around;
+
+            .ant-tabs-tab {
+              .anticon {
+                display: block;
+                margin: 0;
+              }
+
+              color: @text-color-secondary;
+              font-size: @font-size-sm;
+
+              & + .ant-tabs-tab {
+                margin: 0;
+              }
+            }
+          }
+        }
+
+        .ant-tabs-nav-operations,
+        .ant-tabs-ink-bar {
+          display: none;
+        }
+      }
+    }
+
+    > div[class='ant-tabs-content-holder'] {
+      height: calc(~'100vh - 50px');
+      overflow-y: auto;
+      > div {
+        height: 100%;
+      }
+    }
+  }
+  .noScrollBar::-webkit-scrollbar {
+    display: none; /* Chrome Safari */
+  }
+}
