@@ -122,7 +122,7 @@ const EditArticle = () => {
       <Button
         type="primary"
         onClick={() => {
-          history.goBack();
+          history.go(-1);
         }}
       >
         <LeftOutlined />

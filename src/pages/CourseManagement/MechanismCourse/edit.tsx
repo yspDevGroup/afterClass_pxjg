@@ -375,7 +375,7 @@ const Edit = (props: any) => {
             </Button>
             <Button
               onClick={() => {
-                history.goBack();
+                history.go(-1);
               }}
             >
               取消
