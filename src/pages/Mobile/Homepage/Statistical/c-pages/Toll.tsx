@@ -6,7 +6,6 @@ import { Bar } from '@ant-design/charts';
 import moment from 'moment';
 
 import { getTerm, tollBarConfig } from '../utils';
-import { getScreenInfo , getTotalCost } from '@/services/after-class-pxjg/jyjgsj';
 import { homePage, getRefund } from '@/services/after-class-pxjg/khjyjg';
 
 import noData from '@/assets/noData.png';
@@ -82,12 +81,12 @@ useEffect(()=>{
           defaultData.trendNum.push({
             label: item.XXMC,
             type: '收款金额',
-            value: parseInt(item.dd_amount) || 0,
+            value: parseFloat(item.dd_amount) || 0,
           })
           defaultData.trendNum.push({
             label: item.XXMC,
             type: '退款金额',
-            value: parseInt(item.tk_amount) || 0,
+            value: parseFloat(item.tk_amount) || 0,
           })
         });
         tollBarConfig.data = defaultData.trendNum;
@@ -111,11 +110,6 @@ useEffect(()=>{
         }
       ]);
     }
-
-    const result = await getScreenInfo({
-      ...res,
-      XZQHM: currentUser?.XZQHM
-    });
 
   };
 
