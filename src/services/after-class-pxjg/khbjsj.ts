@@ -190,6 +190,10 @@ export async function getAllClasses(
     XNXQId?: string;
     /** 课程ID */
     KHKCSJId?: string;
+    /** 年级ID */
+    NJSJId?: string;
+    /** 班级状态 */
+    BJZT?: string;
     /** 学年 */
     XN?: string;
     /** 学期 */

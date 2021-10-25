@@ -127,6 +127,33 @@ const ClassOrder = (props: any) => {
       }
     },
     {
+      title: '课程费用(元)',
+      dataIndex: 'KCFY',
+      key: 'KCFY',
+      align: 'center',
+      width: 110,
+      render: (_text: any, record: any) => {
+        return <div>{record?.KHBJSJ?.FY}</div>;
+      },
+    },
+    {
+      title: '教辅费用(元)',
+      dataIndex: 'JCFY',
+      key: 'JCFY',
+      align: 'center',
+      width: 110,
+      render: (_text: any, record: any) => {
+        return <div>{record.DDFY - record?.KHBJSJ?.FY}</div>;
+      },
+    },
+    {
+      title: '订单总费用(元)',
+      dataIndex: 'DDFY',
+      key: 'DDFY',
+      align: 'center',
+      width: 120,
+    },
+    {
       title: '下单时间',
       dataIndex: 'XDSJ',
       key: 'XDSJ',
@@ -151,12 +178,15 @@ const ClassOrder = (props: any) => {
       ellipsis: true,
     },
     {
-      title: '订单状态',
-      dataIndex: 'DDZT',
-      key: 'DDZT',
+      title: '支付方式',
+      dataIndex: 'ZFFS',
+      key: 'ZFFS',
       align: 'center',
-      width: 160,
       ellipsis: true,
+      width: 150,
+      render: (_text: any, record: any) => {
+        return record.ZFFS;
+      },
     }
   ];
   return (
