@@ -191,7 +191,7 @@ const ChartsPage = (props: any) => {
                 本学期开设课程
               </header>
               <div className={styles.container}>
-                <List data={currentData?.courseCol} />
+                <List col={3} data={currentData?.courseCol} />
               </div>
             </div>
             <div>
