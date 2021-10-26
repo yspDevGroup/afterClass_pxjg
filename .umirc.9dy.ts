@@ -1,7 +1,7 @@
 /*
  * @Author: 9朵云配置
  * @Date: 2021-09-24 16:43:37
- * @LastEditTime: 2021-10-22 12:42:32
+ * @LastEditTime: 2021-10-26 14:52:15
  * @LastEditors: zpl
  * @Description: In User Settings Edit
  * @FilePath: \afterClass_pxjg\.umirc.ts
@@ -27,9 +27,8 @@ export default defineConfig({
     ENV_backUrl: 'http://api.9cloudstech.com',
     ssoHost: 'http://sso.9cloudstech.com',
     authType: 'wechat',
-    // FIXME: 下面两个参数必须调整为9朵云提供的值
-    clientId: 'ww47296cadbd4de507',
-    clientSecret: 'Do9LvJl3Xnf8Tj0rt9iy-wvcT-shBvdzsQZqp4IKkJc'
+    clientId: 'ww201fdc0b014dbbf5',
+    clientSecret: '2apZaZvNHwzqcukXc54bzN6pmjel3U76Vgk15ecL3CY'
   },
   links: [{ rel: 'icon', href: './title.png' }],
   dynamicImport: {
