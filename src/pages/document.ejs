@@ -44,8 +44,40 @@
       <img src="<%= context.config.publicPath +'loading.gif'%>" alt="loading" />
     </div>
   </div>
-  <script src="https://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
-  <script src="https://open.work.weixin.qq.com/wwopen/js/jwxwork-1.0.0.js"></script>
+  <script>
+    function loadScript(url, callback) {
+      const script = document.createElement('script');
+      script.type = 'text/javascript';
+      if (script.readyState) {
+        script.onreadystatechange = function() {
+          if (script.readyState == 'loaded' || script.readyState == 'complete') {
+            script.onreadystatechange = null;
+            callback();
+          }
+        }
+      } else {
+        script.onload = function() {
+          callback();
+        }
+      }
+      script.src = url;
+      document.head.appendChild(script);
+    }
+
+    const isWx = /micromessenger/i.test(navigator.userAgent); // 是否微信
+    const isComWx = /wxwork/i.test(navigator.userAgent); // 是否企业微信
+    if(isWx || isComWx) {
+      const wxUrl1 = "//res.wx.qq.com/open/js/jweixin-1.2.0.js";
+      const wxUrl2 = "//open.work.weixin.qq.com/wwopen/js/jwxwork-1.0.0.js"
+      loadScript(wxUrl1, function() {
+        loadScript(wxUrl2, function() {
+          console.log('微信脚本加载完成');
+        });
+      });
+    }
+  </script>
+  <!-- <script src="https://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+  <script src="https://open.work.weixin.qq.com/wwopen/js/jwxwork-1.0.0.js"></script> -->
 </body>
 
 </html>
