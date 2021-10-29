@@ -1,10 +1,12 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { message, Spin } from 'antd';
-import { useAccess, useModel } from 'umi';
+import React, { useEffect, useRef, useState, useCallback } from 'react';
+import { Menu, message, Spin } from 'antd';
+import { LogoutOutlined } from '@ant-design/icons';
+import { useAccess, useModel, history } from 'umi';
 import WWOpenDataCom from '@/components/WWOpenDataCom'
 import { KHJYJG } from '@/services/after-class-pxjg/khjyjg';
 import { initWXAgentConfig, initWXConfig, showUserName } from '@/wx';
 import styles from './index.less';
+import HeaderDropdown from '../HeaderDropdown';
 
 export type GlobalHeaderRightProps = {
   menu?: boolean;
@@ -12,7 +14,7 @@ export type GlobalHeaderRightProps = {
 
 const AvatarDropdown: React.FC<GlobalHeaderRightProps> = () => {
   const { isAdmin } = useAccess();
-  const { initialState } = useModel('@@initialState');
+  const { initialState, setInitialState } = useModel('@@initialState');
   const { currentUser } = initialState || {};
   const [wechatReded, setWechatReded] = useState(false);
   const [wechatInfo, setWechatInfo] = useState({
@@ -53,6 +55,23 @@ const AvatarDropdown: React.FC<GlobalHeaderRightProps> = () => {
     })
   }, [wechatReded])
 
+  const onMenuClick = useCallback(
+    (event: {
+      key: React.Key;
+      keyPath: React.Key[];
+      item: React.ReactInstance;
+      domEvent: React.MouseEvent<HTMLElement>;
+    }) => {
+      const { key } = event;
+      if (key === 'logout' && initialState) {
+        setInitialState({ ...initialState, currentUser: undefined });
+        history.replace('/authCallback/overDue');
+        return;
+      }
+    },
+    [initialState, setInitialState],
+  );
+
   const loading = (
     <span className={`${styles.action} ${styles.account}`}>
       <Spin
@@ -67,18 +86,33 @@ const AvatarDropdown: React.FC<GlobalHeaderRightProps> = () => {
   if (!initialState) {
     return loading;
   }
+
+  const menuHeaderDropdown = (
+    <Menu className={styles.menu} selectedKeys={[]} onClick={onMenuClick}>
+
+      <Menu.Item key="logout">
+        <LogoutOutlined />
+        退出登录
+      </Menu.Item>
+    </Menu>
+  );
+
   return (
     <>
       <span className={`${styles.action}`}>
         {jgData ? (
-          <span style={{ paddingRight: '40px' }}>
-            {jgData?.QYTB && jgData?.QYTB.indexOf('http') > -1 ? (
-              <img style={{ width: '40px', height: '40px', borderRadius: '40px' }} src={jgData?.QYTB} />
-            ) : (
-              ''
-            )}{' '}
-            {jgData?.QYMC}
-          </span>
+          <HeaderDropdown overlay={menuHeaderDropdown}>
+            <span className={`${styles.action} ${styles.account}`}>
+              <span style={{ paddingRight: '40px' }}>
+                {jgData?.QYTB && jgData?.QYTB.indexOf('http') > -1 ? (
+                  <img style={{ width: '40px', height: '40px', borderRadius: '40px' }} src={jgData?.QYTB} />
+                ) : (
+                  ''
+                )}{' '}
+                {jgData?.QYMC}
+              </span>
+            </span>
+          </HeaderDropdown>
         ) : (
           ''
         )}
