@@ -1,7 +1,15 @@
+/*
+ * @Author: your name
+ * @Date: 2021-10-25 15:42:48
+ * @LastEditTime: 2021-10-30 18:41:41
+ * @LastEditors: your name
+ * @Description: In User Settings Edit
+ * @FilePath: \afterClass_pxjg\src\components\RightContent\AvatarDropdown.tsx
+ */
 import React, { useEffect, useRef, useState } from 'react';
 import { message, Spin } from 'antd';
 import { useAccess, useModel } from 'umi';
-import WWOpenDataCom from '@/components/WWOpenDataCom'
+import WWOpenDataCom from '@/components/WWOpenDataCom';
 import { KHJYJG } from '@/services/after-class-pxjg/khjyjg';
 import { initWXAgentConfig, initWXConfig, showUserName } from '@/wx';
 import styles from './index.less';
@@ -17,7 +25,7 @@ const AvatarDropdown: React.FC<GlobalHeaderRightProps> = () => {
   const [wechatReded, setWechatReded] = useState(false);
   const [wechatInfo, setWechatInfo] = useState({
     openId: ''
-  })
+  });
   const [jgData, setJgData] = useState<any>();
   const userRef = useRef(null);
   useEffect(() => {
@@ -48,10 +56,11 @@ const AvatarDropdown: React.FC<GlobalHeaderRightProps> = () => {
   }, [currentUser]);
 
   useEffect(() => {
-    wechatReded && setWechatInfo({
-      openId: currentUser?.UserId || ''
-    })
-  }, [wechatReded])
+    wechatReded &&
+      setWechatInfo({
+        openId: currentUser?.UserId || ''
+      });
+  }, [wechatReded]);
 
   const loading = (
     <span className={`${styles.action} ${styles.account}`}>
@@ -83,7 +92,7 @@ const AvatarDropdown: React.FC<GlobalHeaderRightProps> = () => {
           ''
         )}
         <span className={`${styles.name} anticon`} ref={userRef}>
-          <WWOpenDataCom type='userName' openid={wechatInfo.openId} />
+          <WWOpenDataCom type="userName" openid={wechatInfo.openId} />
           {/* {currentUser?.username} */}
           {isAdmin ? '' : '老师'}
         </span>
