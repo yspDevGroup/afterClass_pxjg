@@ -9,6 +9,7 @@ declare module '*.svg' {
   export default url;
 }
 
+declare const ENV_type: string;
 /** 系统标题 */
 declare const ENV_title: string;
 /** 系统副标题 */

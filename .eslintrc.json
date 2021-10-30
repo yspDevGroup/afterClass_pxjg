@@ -25,6 +25,7 @@
     "CustomWindow": true,
     "React": true,
     "API": true,
+    "ENV_type": true,
     "ENV_title": true,
     "ENV_subTitle": true,
     "ENV_copyRight": true,

@@ -1,8 +1,8 @@
 /*
  * @Author: your name
  * @Date: 2021-09-24 16:43:37
- * @LastEditTime: 2021-10-19 17:51:49
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-10-30 12:53:46
+ * @LastEditors: zpl
  * @Description: In User Settings Edit
  * @FilePath: \afterClass_pxjg\.umirc.ts
  */
@@ -20,6 +20,7 @@ export default defineConfig({
   },
   fastRefresh: {},
   define: {
+    ENV_type: 'prod',
     ENV_title: '课后帮',
     ENV_subTitle: '课后服务平台',
     ENV_copyRight: '2021 版权所有：陕西五育汇智信息技术有限公司',

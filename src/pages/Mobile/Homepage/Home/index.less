@@ -60,11 +60,19 @@
       align-items: center;
       height: 116px;
       margin: 20px 0;
-      background-image: url('../../../../assets/banner.png');
       background-repeat: no-repeat;
       background-size:100% 100%;
       border-radius: 6px;
       box-shadow: 0 0 0px rgba(0, 0, 0, 0.1);
+      &.dev, &.prod {
+        background-image: url('/banner.png');
+      }
+      &.chanming {
+        background-image: url('/banner_chanming.png');
+      }
+      &.9dy {
+        background-image: url('/banner.png');
+      }
     }
   }
   .things{
