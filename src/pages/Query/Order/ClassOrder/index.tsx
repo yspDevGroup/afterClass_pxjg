@@ -32,9 +32,9 @@ const ClassOrder = (props: any) => {
       XSMC: studentName,
       page: 0,
       pageSize: 0
-    })
+    });
     if (res.status === 'ok') {
-      setDataSource(res.data?.rows)
+      setDataSource(res.data?.rows);
     }
   };
   const getXNXQ = async (xxdm: string) => {
@@ -61,16 +61,16 @@ const ClassOrder = (props: any) => {
     (async () => {
       const res = await getCourses({
         JGId: jgId
-      })
+      });
       if (res.status === 'ok') {
-        setcourseList(res.data?.rows)
+        setcourseList(res.data?.rows);
       }
-    })()
+    })();
     getXNXQ(xxId);
-  }, [])
+  }, []);
   useEffect(() => {
     getData();
-  }, [studentName,coursName])
+  }, [studentName, coursName]);
   const columns: ProColumns<API.KHXSDD>[] | undefined = [
     {
       title: '序号',
@@ -78,7 +78,7 @@ const ClassOrder = (props: any) => {
       valueType: 'index',
       align: 'center',
       width: 58,
-      fixed: 'left',
+      fixed: 'left'
     },
     {
       title: '学生姓名',
@@ -90,7 +90,11 @@ const ClassOrder = (props: any) => {
       ellipsis: true,
       render: (_text: any, record: any) => {
         const showWXName = record?.XSJBSJ?.XM === '未知' && record?.XSJBSJ?.XM.WechatUserId;
-        return showWXName ? (<WWOpenDataCom type="userName" openid={record?.XSJBSJ?.WechatUserId} />) : (record?.XSJBSJ?.XM);
+        return showWXName ? (
+          <WWOpenDataCom type="userName" openid={record?.XSJBSJ?.WechatUserId} />
+        ) : (
+          record?.XSJBSJ?.XM
+        );
       }
     },
     {
@@ -134,7 +138,7 @@ const ClassOrder = (props: any) => {
       width: 110,
       render: (_text: any, record: any) => {
         return <div>{record?.KHBJSJ?.FY}</div>;
-      },
+      }
     },
     {
       title: '教辅费用(元)',
@@ -143,15 +147,15 @@ const ClassOrder = (props: any) => {
       align: 'center',
       width: 110,
       render: (_text: any, record: any) => {
-        return <div>{record.DDFY - record?.KHBJSJ?.FY}</div>;
-      },
+        return <div>{Number(record.DDFY) - Number(record?.KHBJSJ?.FY)}</div>;
+      }
     },
     {
       title: '订单总费用(元)',
       dataIndex: 'DDFY',
       key: 'DDFY',
       align: 'center',
-      width: 120,
+      width: 120
     },
     {
       title: '下单时间',
@@ -159,7 +163,7 @@ const ClassOrder = (props: any) => {
       key: 'XDSJ',
       align: 'center',
       width: 170,
-      ellipsis: true,
+      ellipsis: true
     },
     {
       title: '付款时间',
@@ -167,7 +171,7 @@ const ClassOrder = (props: any) => {
       key: 'ZFSJ',
       align: 'center',
       width: 170,
-      ellipsis: true,
+      ellipsis: true
     },
     {
       title: '订单费用(元)',
@@ -175,7 +179,7 @@ const ClassOrder = (props: any) => {
       key: 'DDFY',
       align: 'center',
       width: 130,
-      ellipsis: true,
+      ellipsis: true
     },
     {
       title: '支付方式',
@@ -186,7 +190,7 @@ const ClassOrder = (props: any) => {
       width: 150,
       render: (_text: any, record: any) => {
         return record.ZFFS;
-      },
+      }
     }
   ];
   return (
@@ -225,12 +229,14 @@ const ClassOrder = (props: any) => {
         </span>
         <span style={{ marginLeft: '24px' }}>
           学生姓名：
-          <Search style={{ width: 200 }}
-            placeholder='请输入学生姓名'
+          <Search
+            style={{ width: 200 }}
+            placeholder="请输入学生姓名"
             allowClear
             onSearch={(value) => {
-              setStudentName(value)
-            }} />
+              setStudentName(value);
+            }}
+          />
         </span>
         <span style={{ marginLeft: '24px' }}>
           课程名称：
@@ -242,7 +248,11 @@ const ClassOrder = (props: any) => {
             }}
           >
             {courseList?.map((item: any) => {
-              return <Option key={item.id} value={item.id}>{item.KCMC}</Option>;
+              return (
+                <Option key={item.id} value={item.id}>
+                  {item.KCMC}
+                </Option>
+              );
             })}
           </Select>
         </span>
@@ -253,7 +263,7 @@ const ClassOrder = (props: any) => {
         pagination={{
           showQuickJumper: true,
           pageSize: 10,
-          defaultCurrent: 1,
+          defaultCurrent: 1
         }}
         scroll={{ x: 1000 }}
         options={{
