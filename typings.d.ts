@@ -37,6 +37,8 @@ type PlatType = 'com-wx-mobile' | 'wx-mobile' | 'mobile' | 'com-wx-pc' | 'wx-pc'
 
 type UserInfo = {
   id?: string;
+  /** 微信用户id */
+  wechatUserId?: string;
   /** 学段 */
   XD?: string;
   /** 学校代码 */

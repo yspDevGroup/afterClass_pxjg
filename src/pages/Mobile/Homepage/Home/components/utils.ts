@@ -1,5 +1,5 @@
-import joinSchool from '@/assets/icons/join-school.png'
-import openOrganization from '@/assets/icons/open-Organization.png'
+import joinSchool from '@/assets/icons/Join-school.png'
+import openOrganization from '@/assets/icons/open-organization.png'
 import courseSum from '@/assets/icons/course-sum.png'
 import joinStudent from '@/assets/icons/join-student.png'
 import joinTeacher from '@/assets/icons/join-teacher.png'

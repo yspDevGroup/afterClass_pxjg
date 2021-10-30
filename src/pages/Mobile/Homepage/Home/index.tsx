@@ -1,15 +1,15 @@
-import { Link, useModel } from 'umi';
+import { useModel, history } from 'umi';
 import { Col, Row, Image, Avatar } from 'antd';
 import styles from './index.less';
-import Things from './components/Things';
 import Overview from './components/Overview';
 import Notice from './components/Notice';
 import WWOpenDataCom from '@/components/WWOpenDataCom';
 import IconFont from '@/components/CustomIcon';
 import { defUserImg } from '@/constant';
+import { removeOAuthToken } from '@/utils';
 
 const Home = () => {
-  const { initialState } = useModel('@@initialState');
+  const { initialState, setInitialState } = useModel('@@initialState');
   const { currentUser } = initialState || {};
 
   return (
@@ -27,13 +27,19 @@ const Home = () => {
               <span className={styles.school}>未来之星国际学校</span>
             </div>
           </Col>
-          <Col span={2}><Link to="/authCallback/overDue">
-            <IconFont type="icon-tuichu" className={styles.signOut} />
-          </Link></Col>
+          <Col span={2}>
+            <a onClick={() => {
+              setInitialState({ ...initialState, currentUser: null });
+              removeOAuthToken();
+              history.replace('/authCallback/overDue');
+            }}>
+              <IconFont type="icon-tuichu" className={styles.signOut} />
+            </a>
+          </Col>
         </Row>
       </div>
     <div className={styles.pageContent}>
-        <div className={styles.noticeArea}></div>
+        <div className={styles.noticeArea} />
         {/* <Things/> */}
         <Overview/>
         <Notice/>
