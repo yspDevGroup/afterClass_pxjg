@@ -55,7 +55,7 @@ const CourseList = (props: any) => {
       align: 'center',
       fixed: 'left',
       search: false,
-      width: 160,
+      width: 160
     },
     {
       title: '课程类型',
@@ -81,7 +81,7 @@ const CourseList = (props: any) => {
             text={text?.map((item: any) => {
               return (
                 <Tag key={item.id} color="#EFEFEF" style={{ color: '#333' }}>
-                  {item.XD === '初中' ? `${item.NJMC}` : `${item.XD}${item.NJMC}`}
+                  {`${item.XD}${item.NJMC}`}
                 </Tag>
               );
             })}
@@ -102,7 +102,15 @@ const CourseList = (props: any) => {
             width="100%"
             text={text?.map((item: any) => {
               const showWXName = item?.JZGJBSJ?.XM === '未知' && item?.JZGJBSJ?.WechatUserId;
-              return <Tag key={item?.JZGJBSJId}>{showWXName ? (<WWOpenDataCom type="userName" openid={item?.JZGJBSJ?.WechatUserId} />) : (item?.JZGJBSJ?.XM)}</Tag>;
+              return (
+                <Tag key={item?.JZGJBSJId}>
+                  {showWXName ? (
+                    <WWOpenDataCom type="userName" openid={item?.JZGJBSJ?.WechatUserId} />
+                  ) : (
+                    item?.JZGJBSJ?.XM
+                  )}
+                </Tag>
+              );
             })}
           />
         );
@@ -121,14 +129,14 @@ const CourseList = (props: any) => {
             width="100%"
             text={record?.KHKCPJs?.length ? record?.KHKCPJs[record?.KHKCPJs?.length - 1]?.PY : ''}
           />
-        )
+        );
       }
     },
     {
       title: '操作',
       valueType: 'option',
       width: 160,
-      fixed:'right',
+      fixed: 'right',
       align: 'center',
       render: (_: any, record: { id: any }) => (
         <>
@@ -187,7 +195,7 @@ const CourseList = (props: any) => {
         pagination={{
           showQuickJumper: true,
           pageSize: 10,
-          defaultCurrent: 1,
+          defaultCurrent: 1
         }}
         scroll={{ x: 1000 }}
         headerTitle={xxmc}

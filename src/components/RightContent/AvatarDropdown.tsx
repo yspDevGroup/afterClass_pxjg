@@ -1,18 +1,13 @@
-/*
- * @Author: your name
- * @Date: 2021-10-25 15:42:48
- * @LastEditTime: 2021-10-30 18:41:41
- * @LastEditors: your name
- * @Description: In User Settings Edit
- * @FilePath: \afterClass_pxjg\src\components\RightContent\AvatarDropdown.tsx
- */
-import React, { useEffect, useRef, useState } from 'react';
-import { message, Spin } from 'antd';
-import { useAccess, useModel } from 'umi';
-import WWOpenDataCom from '@/components/WWOpenDataCom';
+import React, { useEffect, useRef, useState, useCallback } from 'react';
+import { Menu, message, Spin } from 'antd';
+import { LogoutOutlined } from '@ant-design/icons';
+import { useAccess, useModel, history } from 'umi';
+import WWOpenDataCom from '@/components/WWOpenDataCom'
 import { KHJYJG } from '@/services/after-class-pxjg/khjyjg';
 import { initWXAgentConfig, initWXConfig, showUserName } from '@/wx';
 import styles from './index.less';
+import HeaderDropdown from '../HeaderDropdown';
+import { removeOAuthToken } from '@/utils';
 
 export type GlobalHeaderRightProps = {
   menu?: boolean;
@@ -20,12 +15,12 @@ export type GlobalHeaderRightProps = {
 
 const AvatarDropdown: React.FC<GlobalHeaderRightProps> = () => {
   const { isAdmin } = useAccess();
-  const { initialState } = useModel('@@initialState');
+  const { initialState, setInitialState } = useModel('@@initialState');
   const { currentUser } = initialState || {};
   const [wechatReded, setWechatReded] = useState(false);
   const [wechatInfo, setWechatInfo] = useState({
     openId: ''
-  });
+  })
   const [jgData, setJgData] = useState<any>();
   const userRef = useRef(null);
   useEffect(() => {
@@ -56,11 +51,28 @@ const AvatarDropdown: React.FC<GlobalHeaderRightProps> = () => {
   }, [currentUser]);
 
   useEffect(() => {
-    wechatReded &&
-      setWechatInfo({
-        openId: currentUser?.UserId || ''
-      });
-  }, [wechatReded]);
+    wechatReded && setWechatInfo({
+      openId: currentUser?.UserId || ''
+    })
+  }, [wechatReded])
+
+  const onMenuClick = useCallback(
+    (event: {
+      key: React.Key;
+      keyPath: React.Key[];
+      item: React.ReactInstance;
+      domEvent: React.MouseEvent<HTMLElement>;
+    }) => {
+      const { key } = event;
+      if (key === 'logout' && initialState) {
+        setInitialState({ ...initialState, currentUser: null });
+        removeOAuthToken();
+        history.replace('/authCallback/overDue');
+        return;
+      }
+    },
+    [initialState, setInitialState],
+  );
 
   const loading = (
     <span className={`${styles.action} ${styles.account}`}>
@@ -76,23 +88,38 @@ const AvatarDropdown: React.FC<GlobalHeaderRightProps> = () => {
   if (!initialState) {
     return loading;
   }
+
+  const menuHeaderDropdown = (
+    <Menu className={styles.menu} selectedKeys={[]} onClick={onMenuClick}>
+
+      <Menu.Item key="logout">
+        <LogoutOutlined />
+        退出登录
+      </Menu.Item>
+    </Menu>
+  );
+
   return (
     <>
       <span className={`${styles.action}`}>
         {jgData ? (
-          <span style={{ paddingRight: '40px' }}>
-            {jgData?.QYTB && jgData?.QYTB.indexOf('http') > -1 ? (
-              <img style={{ width: '40px', height: '40px', borderRadius: '40px' }} src={jgData?.QYTB} />
-            ) : (
-              ''
-            )}{' '}
-            {jgData?.QYMC}
-          </span>
+          <HeaderDropdown overlay={menuHeaderDropdown}>
+            <span className={`${styles.action} ${styles.account}`}>
+              <span style={{ paddingRight: '40px' }}>
+                {jgData?.QYTB && jgData?.QYTB.indexOf('http') > -1 ? (
+                  <img style={{ width: '40px', height: '40px', borderRadius: '40px' }} src={jgData?.QYTB} />
+                ) : (
+                  ''
+                )}{' '}
+                {jgData?.QYMC}
+              </span>
+            </span>
+          </HeaderDropdown>
         ) : (
           ''
         )}
         <span className={`${styles.name} anticon`} ref={userRef}>
-          <WWOpenDataCom type="userName" openid={wechatInfo.openId} />
+          <WWOpenDataCom type='userName' openid={wechatInfo.openId} />
           {/* {currentUser?.username} */}
           {isAdmin ? '' : '老师'}
         </span>

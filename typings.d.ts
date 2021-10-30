@@ -9,6 +9,7 @@ declare module '*.svg' {
   export default url;
 }
 
+declare const ENV_type: string;
 /** 系统标题 */
 declare const ENV_title: string;
 /** 系统副标题 */
@@ -37,6 +38,8 @@ type PlatType = 'com-wx-mobile' | 'wx-mobile' | 'mobile' | 'com-wx-pc' | 'wx-pc'
 
 type UserInfo = {
   id?: string;
+  /** 微信用户id */
+  wechatUserId?: string;
   /** 学段 */
   XD?: string;
   /** 学校代码 */

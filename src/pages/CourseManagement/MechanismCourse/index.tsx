@@ -44,7 +44,7 @@ const MechanismCourse = () => {
       search: false,
       fixed: 'left',
       width: 160,
-      ellipsis: true,
+      ellipsis: true
     },
     {
       title: '课程类型',
@@ -54,7 +54,7 @@ const MechanismCourse = () => {
       width: 120,
       search: false,
       ellipsis: true,
-      render: (_: any,record: any) => {
+      render: (_: any, record: any) => {
         const text = record?.KHKCLX;
         return text?.KCTAG || '-';
       }
@@ -66,18 +66,21 @@ const MechanismCourse = () => {
       align: 'center',
       width: 160,
       ellipsis: true,
-      render: (_: any,record: any) => {
+      render: (_: any, record: any) => {
         const text = record?.NJSJs;
         return (
           <EllipsisHint
             width="100%"
-            text={text?.length && text.map((item: any) => {
-              return (
-                <Tag key={item.id} style={{ margin: '4px' }}>
-                  {item.XD === '初中' ? `${item.NJMC}` : `${item.XD}${item.NJMC}`}
-                </Tag>
-              );
-            })}
+            text={
+              text?.length &&
+              text.map((item: any) => {
+                return (
+                  <Tag key={item.id} style={{ margin: '4px' }}>
+                    {`${item.XD}${item.NJMC}`}
+                  </Tag>
+                );
+              })
+            }
           />
         );
       }
@@ -89,15 +92,26 @@ const MechanismCourse = () => {
       align: 'center',
       width: 130,
       ellipsis: true,
-      render: (_: any,record: any) => {
+      render: (_: any, record: any) => {
         const text = record?.KHKCJs;
         return (
           <EllipsisHint
             width="100%"
-            text={text?.length && text.map((item: any) => {
-              const showWXName = item.JZGJBSJ.XM === '未知' && item.JZGJBSJ.WechatUserId;
-              return <Tag key={item?.JZGJBSJId}>{showWXName ? (<WWOpenDataCom type="userName" openid={item.JZGJBSJ.WechatUserId} />):(item.JZGJBSJ.XM)}</Tag>;
-            })}
+            text={
+              text?.length &&
+              text.map((item: any) => {
+                const showWXName = item.JZGJBSJ.XM === '未知' && item.JZGJBSJ.WechatUserId;
+                return (
+                  <Tag key={item?.JZGJBSJId}>
+                    {showWXName ? (
+                      <WWOpenDataCom type="userName" openid={item.JZGJBSJ.WechatUserId} />
+                    ) : (
+                      item.JZGJBSJ.XM
+                    )}
+                  </Tag>
+                );
+              })
+            }
           />
         );
       }
@@ -109,7 +123,7 @@ const MechanismCourse = () => {
       align: 'center',
       width: 120,
       ellipsis: true,
-      render: (_: any,record: any) => {
+      render: (_: any, record: any) => {
         switch (record?.KCZT) {
           case 1:
             return '已申报';
@@ -204,7 +218,7 @@ const MechanismCourse = () => {
         pagination={{
           showQuickJumper: true,
           pageSize: 10,
-          defaultCurrent: 1,
+          defaultCurrent: 1
         }}
         scroll={{ x: 1000 }}
         request={async (param = {}, sort, filter) => {

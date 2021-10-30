@@ -1,7 +1,7 @@
 /*
  * @Author: 蝉鸣配置
  * @Date: 2021-09-24 16:43:37
- * @LastEditTime: 2021-10-22 12:42:14
+ * @LastEditTime: 2021-10-30 12:53:05
  * @LastEditors: zpl
  * @Description: In User Settings Edit
  * @FilePath: \afterClass_pxjg\.umirc.ts
@@ -20,6 +20,7 @@ export default defineConfig({
   },
   fastRefresh: {},
   define: {
+    ENV_type: 'chanming',
     ENV_title: '课后帮',
     ENV_subTitle: '课后服务平台',
     ENV_copyRight: '2021 版权所有：蝉鸣科技（西安）有限公司',

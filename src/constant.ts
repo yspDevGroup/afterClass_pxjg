@@ -10,6 +10,10 @@ import { TablePaginationConfig } from "antd";
 import { SortOrder } from "antd/lib/table/interface";
 import { ReactText } from "react";
 
+export const defUserImg =
+  'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHgAAAB4CAMAAAAOusbgAAAAbFBMVEXd3d3e3t7f39/g4ODh4eHi4uLj4+Pk5OTk5unl5eXm5ubn5+fo6Ojp6enq6urr6+vs7Ozt7e3u7u7v7+/w8PDx8fHy8vLz8/P09PT19fX29vb39/f4+Pj5+fn6+vr7+/v8/Pz9/f3+/v7///8Fdw+DAAACEklEQVRo3u3bbXKCMBCA4c021IogVgEpFol4/zv2X2c6Qj53Q2vzXuAZQYFdRnhbKVgRvq9QghOc4AQnOMEJTrBH/XEnEeXu2MeEx8MLfPdyGCPBai/gR2KvYsBnhIfwzA9XMFvFDS+4rrIzXMNiNSc84jKMIyNcgKaCD56EDhYTG9yBto4NrvRwxQbnejhng6UellzwBIYmJngwwQMT/GGCP5jg1gS3TPDJBJ+Y4IMJPjwbXJng6tng1Q71at/qswk+M8G9Ce6Z4JsJvnHdFjO9m7Hdj/d6eP98z1wT6lzke8rUH2uHI+0MX3TwhXN22i67W9ahrae4eniNqZsld8M8H18ozrDXRqCcd0v2VYSa/S2jYofvxzn4GGHrM87BYwR4bnST9xjw7hHeRYHL4O+0J1wFr9f+2id+fYRfY8BqZuckVAS4Dt4nesIycO/iC7ehywBPeGmNiiMvrBaf6TPFCV81s0R25YMb/XN1wwR/bk1D2/aTAR5KsKgciOGhAMuKgRB+eMWlXdTbvP6ygqd3BKfwfaKAOwnOyS4YHnPwKh/D4BrBM6wD4OsGAtpcfeEGISjNpUwH3woIrri5w0MGBGWDK9whkISdG9wIIEo0LnALhLX2sEJKeG52XoBPQFptDee0cG4NS1pYWsOCFhbWMBD3++HVznFPKsueaDCnKMEJTnCCE5zgBP93+J/9i+8LmPKq0dXXgKwAAAAASUVORK5CYII=';
+
+
 /**
  * 查询参数
  *
