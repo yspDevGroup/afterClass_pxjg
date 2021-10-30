@@ -2,7 +2,7 @@
  * @description:
  * @author: Sissle Lynn
  * @Date: 2021-08-26 19:54:41
- * @LastEditTime: 2021-10-15 18:04:53
+ * @LastEditTime: 2021-10-30 19:24:03
  * @LastEditors: Sissle Lynn
  */
 import React, { useEffect, useState } from 'react';
@@ -26,6 +26,7 @@ const CourseItemDom = (props: { school: string; course: any; type: string; ind: 
   const { school, course, type, ind } = props;
   const ZT = course?.KHKCSQs?.[0].ZT;
   const [curIndex, setCurIndex] = useState<number | undefined>(0);
+  const [classList,setClassList] = useState<any>();
   let bgColor = '#58D14E';
   if (ZT === 1) {
     bgColor = '#FF9900';
@@ -39,6 +40,13 @@ const CourseItemDom = (props: { school: string; course: any; type: string; ind: 
       setCurIndex(ind);
     }
   };
+  useEffect(()=>{
+    if(course && course.KHBJSJs?.length){
+      const list = course?.KHBJSJs?.filter((item: { BJZT: string; })=>item.BJZT === '已开班');
+      setClassList(list);
+    }
+  },[course])
+
   return (
     <div className={styles.courseItem}>
       <div>
@@ -76,9 +84,9 @@ const CourseItemDom = (props: { school: string; course: any; type: string; ind: 
           </span>
         </h3>
       </div>
-      {course?.KHBJSJs?.length && ind === curIndex ? (
+      {classList?.length && ind === curIndex ? (
         <Row gutter={[24, 24]}>
-          {course.KHBJSJs.map((item: any, index: number) => {
+          {classList.map((item: any, index: number) => {
             const colorInd = Math.ceil(index / 6) < 2 ? index : Math.ceil(Math.ceil(index / 6) * 6 - index);
             return (
               <Col key={item.id} span={6}>
@@ -176,7 +184,7 @@ const CourseItemDom = (props: { school: string; course: any; type: string; ind: 
           imageStyle={{
             height: 80
           }}
-          description="暂无班级信息"
+          description="暂无已开班信息"
         />
       ) : (
         ''

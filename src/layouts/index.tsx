@@ -3,7 +3,7 @@
  * @description: 通用布局
  * @author: zpl
  * @Date: 2021-08-16 17:31:56
- * @LastEditTime: 2021-10-22 10:03:51
+ * @LastEditTime: 2021-10-30 19:33:03
  * @LastEditors: Sissle Lynn
  */
 import React, { FC, useEffect, useState } from 'react';
@@ -105,14 +105,21 @@ const CommonLayout: FC<IRouteComponentProps> = ({ children, location, route, his
               title: '',
               breadcrumbRender: (props, defaultDom) => {
                 const { breadcrumb, currentMenu } = props as PageHeaderProps & { currentMenu: any };
-                if ((breadcrumb as BreadcrumbProps)?.routes === undefined && currentMenu.name !== '首页') {
+                if ((breadcrumb as BreadcrumbProps).routes !== undefined && currentMenu.name !== '首页') {
                   return (
                     <div className="ant-breadcrumb">
-                      <span>
-                        <span className="ant-breadcrumb-link">
-                          <Link to={currentMenu?.path || '/'}>{currentMenu.name}</Link>
-                        </span>
-                      </span>
+                      {(breadcrumb as BreadcrumbProps).routes?.map((item, index) => {
+                        return (
+                          <span className="ant-breadcrumb-link">
+                            {item.breadcrumbName}
+                            {index < (breadcrumb as BreadcrumbProps).routes!.length - 1 ? (
+                              <span style={{ padding: '0 10px' }}>/</span>
+                            ) : (
+                              ''
+                            )}
+                          </span>
+                        );
+                      })}
                     </div>
                   );
                 }
