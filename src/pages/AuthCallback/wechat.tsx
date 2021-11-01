@@ -2,14 +2,14 @@
  * @description: 微信认证回调，本页面接收code后，通知后台获取登录信息
  * @author: zpl
  * @Date: 2021-09-04 09:00:38
- * @LastEditTime: 2021-10-22 16:31:30
+ * @LastEditTime: 2021-11-01 12:25:18
  * @LastEditors: zpl
  */
 import React from 'react';
 import { message } from 'antd';
 import { useModel, history } from 'umi';
 import LoadingPage from '@/components/Loading';
-import { removeOAuthToken, saveOAuthToken } from '@/utils';
+import { getPageQuery, removeOAuthToken, saveOAuthToken } from '@/utils';
 import { createWechatToken } from '@/services/after-class-pxjg/wechat';
 
 const WechatAuth = () => {
@@ -17,11 +17,12 @@ const WechatAuth = () => {
 
   const goto = async () => {
     // 通知后台产生token
-    const search = new URLSearchParams(location.search);
-    const params = { plat: 'agency', suiteID: clientId };
-    for (const p of search.entries()) {
-      params[p[0]] = p[1];
-    }
+    const query = getPageQuery();
+    const params: Record<string, string> = {
+      ...query,
+      plat: 'agency',
+    };
+    params.suiteID = params.SuiteID || params.suiteID || '';
     const tokenRes = await createWechatToken({ params });
     if (tokenRes.status === 'ok') {
       await saveOAuthToken({

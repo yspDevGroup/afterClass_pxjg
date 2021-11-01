@@ -3,17 +3,17 @@
  * @description: 通用布局
  * @author: zpl
  * @Date: 2021-08-16 17:31:56
- * @LastEditTime: 2021-10-30 19:33:03
- * @LastEditors: Sissle Lynn
+ * @LastEditTime: 2021-11-01 12:19:35
+ * @LastEditors: zpl
  */
 import React, { FC, useEffect, useState } from 'react';
-import { IRouteComponentProps, Link, useAccess, history } from 'umi';
+import { IRouteComponentProps, Link, useAccess, history, useModel } from 'umi';
 import ProLayout, { MenuDataItem, PageContainer } from '@ant-design/pro-layout';
 import Footer from '@/components/Footer';
 
 import customMenu from './cusMenu';
 import headerTop from '@/assets/headerTop.png';
-import headerTopSmall from '@/assets/headerTopSmall.png'
+import headerTopSmall from '@/assets/headerTopSmall.png';
 import styles from './index.less';
 import { BreadcrumbProps, PageHeaderProps } from 'antd';
 import RightContent from '@/components/RightContent';
@@ -37,6 +37,7 @@ const menuRender = (
   );
 };
 const CommonLayout: FC<IRouteComponentProps> = ({ children, location, route, history, match }) => {
+  const { initialState } = useModel('@@initialState');
   const { isLogin } = useAccess();
   const path = location.pathname.toLowerCase();
   const [hiddenHeader, setHiddenHeader] = useState<boolean>(true);
@@ -47,8 +48,8 @@ const CommonLayout: FC<IRouteComponentProps> = ({ children, location, route, his
     setHiddenHeader(isLoginPage || idGraphic);
   }, [location.pathname]);
 
-  if(location.pathname.indexOf("mobile") != -1 ){
-    return <div>{children}</div>
+  if (location.pathname.indexOf('mobile') !== -1) {
+    return <div>{children}</div>;
   }
 
   return (
@@ -62,7 +63,7 @@ const CommonLayout: FC<IRouteComponentProps> = ({ children, location, route, his
         <div>{children}</div>
       ) : (
         <ProLayout
-          {...(customMenu as unknown as Route[])}
+          {...((customMenu as unknown) as Route[])}
           layout="side"
           headerRender={false}
           collapsedButtonRender={false}
@@ -76,13 +77,18 @@ const CommonLayout: FC<IRouteComponentProps> = ({ children, location, route, his
             pathname: path
           }}
           menuHeaderRender={(logo, title, props) => {
-            if(props?.collapsed){
-              return <div className={styles.headerLogoSmall}>
-              <Link to="/">
-                <img src={headerTopSmall} />
-              </Link>
-              <span>机构<br/>端</span>
-            </div>
+            if (props?.collapsed) {
+              return (
+                <div className={styles.headerLogoSmall}>
+                  <Link to="/">
+                    <img src={headerTopSmall} />
+                  </Link>
+                  <span>
+                    机构
+                    <br />端
+                  </span>
+                </div>
+              );
             }
             return (
               <div className={styles.headerLogo}>
@@ -96,7 +102,7 @@ const CommonLayout: FC<IRouteComponentProps> = ({ children, location, route, his
           menuItemRender={(item: MenuDataItem & { isUrl: boolean; onClick: () => void }, dom: React.ReactNode) =>
             menuRender(item, dom)
           }
-          footerRender={() => <Footer />}
+          footerRender={() => <Footer copyRight={initialState?.buildOptions.ENV_copyRight} />}
         >
           <PageContainer
             style={{ minWidth: '990px' }}
@@ -110,7 +116,7 @@ const CommonLayout: FC<IRouteComponentProps> = ({ children, location, route, his
                     <div className="ant-breadcrumb">
                       {(breadcrumb as BreadcrumbProps).routes?.map((item, index) => {
                         return (
-                          <span className="ant-breadcrumb-link">
+                          <span className="ant-breadcrumb-link" key={item.path}>
                             {item.breadcrumbName}
                             {index < (breadcrumb as BreadcrumbProps).routes!.length - 1 ? (
                               <span style={{ padding: '0 10px' }}>/</span>

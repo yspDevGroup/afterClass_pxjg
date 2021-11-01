@@ -2,10 +2,84 @@
  * @description: 工具类
  * @author: zpl
  * @Date: 2021-08-09 10:36:53
- * @LastEditTime: 2021-10-18 14:33:19
+ * @LastEditTime: 2021-11-01 12:23:21
  * @LastEditors: zpl
  */
 import { history } from 'umi';
+import { parse } from 'querystring';
+import { getEnv } from '@/services/after-class-pxjg/other'
+
+/**
+ * 实时获取部署环境信息
+ *
+ * @return {*}  {Promise<BuildOptions>}
+ */
+export const getBuildOptions = async (): Promise<BuildOptions> => {
+  const { data = {} } = ENV_debug ? {} : await getEnv();
+  const { yspAppEnv = 'local', nodeEnv } = data;
+  console.log('nodeEnv: ', nodeEnv);
+
+  switch (yspAppEnv) {
+    case 'production':
+      // 生产环境
+      return {
+        ENV_type: 'prod',
+        ENV_copyRight: '2021 版权所有：陕西五育汇智信息技术有限公司',
+        ENV_host: 'http://afterclassPxjg.prod.xianyunshipei.com',
+        ssoHost: 'http://sso.prod.xianyunshipei.com',
+        authType: 'wechat',
+        clientId: 'wwa3e7ccaca504ab3d',
+        clientSecret: 'z-DxOlOgLADZ_4MtEHIoYX0WrUFHwoXVDbOyzPiVtF4'
+      };
+    case 'chanming':
+      // 禅鸣环境
+      return {
+        ENV_type: 'chanming',
+        ENV_copyRight: '2021 版权所有：蝉鸣科技（西安）有限公司',
+        ENV_host: 'http://afterclassPxjg.wuyu.imzhiliao.com',
+        ssoHost: 'http://sso.wuyu.imzhiliao.com',
+        authType: 'wechat',
+        clientId: 'ww47296cadbd4de507',
+        clientSecret: 'Do9LvJl3Xnf8Tj0rt9iy-wvcT-shBvdzsQZqp4IKkJc'
+      };
+    case '9dy':
+      // 9朵云环境
+      return {
+        ENV_type: '9dy',
+        ENV_copyRight: '2021 版权所有：广东九朵云科技有限公司',
+        ENV_host: 'http://afterclassPxjg.9cloudstech.com',
+        ssoHost: 'http://sso.9cloudstech.com',
+        authType: 'wechat',
+        clientId: 'ww201fdc0b014dbbf5',
+        clientSecret: '2apZaZvNHwzqcukXc54bzN6pmjel3U76Vgk15ecL3CY'
+      };
+    case 'development':
+      // 开发测试环境
+      return {
+        ENV_type: 'dev',
+        ENV_copyRight: '2021 版权所有：陕西五育汇智信息技术有限公司',
+        ENV_host: 'http://afterclassPxjg.test.xianyunshipei.com',
+        ssoHost: 'http://sso.test.xianyunshipei.com',
+        authType: 'wechat',
+        clientId: 'ww73f350f785b450ab',
+        clientSecret: 'GioaHZFINvGOlb3e6rW2BBgjVEpHi-CUYBxGpC0NI9c'
+      };
+    default:
+      // 默认为local，本地开发模式下请在此处修改配置，但不要提交此处修改
+      return {
+        ENV_type: 'dev',
+        ENV_copyRight: '2021 版权所有：陕西五育汇智信息技术有限公司',
+        ENV_host: 'http://localhost:8080',
+        ssoHost: 'http://platform.test.xianyunshipei.com',
+        // ssoHost: 'http://192.168.0.17:1000',
+        authType: 'password',
+        clientId: 'ww73f350f785b450ab',
+        clientSecret: 'KtRSw8E256TEb-x5JwQ5'
+      };
+  }
+};
+
+export const getPageQuery = () => parse(window.location.href.split('?')[1]);
 
 /**
  * 根据路径search拼接参数获取参数对应的值
@@ -54,25 +128,9 @@ export const envjudge = (): PlatType => {
  *
  * @return {*}
  */
-export const getLoginPath = (): string => {
+export const getLoginPath = (buildOptions?: BuildOptions): string => {
+  const { authType = 'none', ssoHost, ENV_host, clientId, clientSecret } = buildOptions || {};
   let loginPath: string;
-  // switch (envjudge()) {
-  //   case 'com-wx-pc': // PC端企业微信
-  //     loginPath = `${ENV_backUrl}/wechat/platAuth?plat=qywx&isMobile=false`;
-  //     break;
-  //   case 'com-wx-mobile': // 手机端企业微信
-  //     loginPath = `${ENV_backUrl}/wechat/platAuth?plat=qywx&isMobile=true`;
-  //     break;
-  //   case 'wx-pc': // PC端微信
-  //     loginPath = `${ENV_backUrl}/wechat/platAuth?plat=wx&isMobile=false`;
-  //     break;
-  //   case 'wx-mobile': // 手机端微信
-  //     loginPath = `${ENV_backUrl}/wechat/platAuth?plat=wx&isMobile=true`;
-  //     break;
-  //   case 'mobile': // 手机
-  //   case 'pc': // PC
-  //   default:
-  //     {
   switch (authType) {
     case 'wechat':
       // 前提是本应该已经注册为微信认证，且正确配置认证回调地址为 ${ENV_host}/AuthCallback/wechat
@@ -91,9 +149,6 @@ export const getLoginPath = (): string => {
       }
       break;
   }
-  // }
-  // break;
-  // }
   return loginPath;
 };
 
