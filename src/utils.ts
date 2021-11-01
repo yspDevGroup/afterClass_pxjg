@@ -2,7 +2,7 @@
  * @description: 工具类
  * @author: zpl
  * @Date: 2021-08-09 10:36:53
- * @LastEditTime: 2021-11-01 12:23:21
+ * @LastEditTime: 2021-11-01 13:57:27
  * @LastEditors: zpl
  */
 import { history } from 'umi';
@@ -126,6 +126,7 @@ export const envjudge = (): PlatType => {
 /**
  * 根据运行环境获取登录地址
  *
+ * @param {BuildOptions} [buildOptions]
  * @return {*}
  */
 export const getLoginPath = (buildOptions?: BuildOptions): string => {

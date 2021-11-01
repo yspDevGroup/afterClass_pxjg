@@ -3,7 +3,7 @@
  * @description: 运行时配置
  * @author: zpl
  * @Date: 2021-08-09 10:44:42
- * @LastEditTime: 2021-11-01 13:50:12
+ * @LastEditTime: 2021-11-01 15:04:04
  * @LastEditors: zpl
  */
 import { notification, message } from 'antd';
@@ -147,17 +147,18 @@ export const request: RequestConfig = {
         ...ctx.req.options.headers
       };
       await next();
+      const path = window.location.pathname.toLowerCase();
       if (
         ctx.res.status !== 'ok' &&
-        window.location.pathname !== '/' &&
-        !window.location.pathname.startsWith('/authcallback') &&
-        !window.location.pathname.startsWith('/40') &&
+        path !== '/' &&
+        !path.startsWith('/authcallback') &&
+        !path.startsWith('/40') &&
         (
           ctx.res.message?.includes('Authorization token is invalid') ||
           ctx.res.message?.includes('Invalid Token')
         )
       ) {
-        history.replace('/auth_callback/OverDue');
+        history.replace('/403?title=认证信息已失效，请重新登录');
       }
     }
   ]
