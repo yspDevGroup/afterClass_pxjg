@@ -33,8 +33,8 @@ export async function getKHXSTK(
         WechatUserId?: string;
         BJSJ?: { id?: string; BJ?: string; NJSJ?: { id?: string; NJMC?: string; XD?: string } };
       };
-      JZGJBSJ?: { id?: string; XM?: string; WechatUserId?: string };
-      KHBJSJ?: { BJMC?: string; KHKCSJ?: { KCMC?: string } };
+      JZGJBSJ?: { id?: string; XM?: string; WechatUserId?: string } | any;
+      KHBJSJ?: { BJMC?: string; KHKCSJ?: { KCMC?: string } } | any;
       KHXXZZFW?:
         | { id?: string; FWMC?: string; KHZZFW?: { id?: string; FWMC?: string; FWJGMC?: string } }
         | any;
@@ -123,8 +123,8 @@ export async function createKHXSTK(body: API.CreateKHXSTK, options?: { [key: str
         WechatUserId?: string;
         BJSJ?: { id?: string; BJ?: string; NJSJ?: { id?: string; NJMC?: string; XD?: string } };
       };
-      JZGJBSJ?: { id?: string; XM?: string; WechatUserId?: string };
-      KHBJSJ?: { BJMC?: string; KHKCSJ?: { KCMC?: string } };
+      JZGJBSJ?: { id?: string; XM?: string; WechatUserId?: string } | any;
+      KHBJSJ?: { BJMC?: string; KHKCSJ?: { KCMC?: string } } | any;
       KHXXZZFW?:
         | { id?: string; FWMC?: string; KHZZFW?: { id?: string; FWMC?: string; FWJGMC?: string } }
         | any;
@@ -157,6 +157,38 @@ export async function updateKHXSTK(
       'Content-Type': 'application/json',
     },
     params: { ...queryParams },
+    data: body,
+    ...(options || {}),
+  });
+}
+
+/** 导出退款记录 POST /khxstk/exportTKJL */
+export async function exportTKJL(
+  body: {
+    /** 退款状态 */
+    TKZT?: number[];
+    /** 退款类型,0:退款;1:停餐 */
+    LX?: number;
+    /** 学生ID */
+    XSJBSJId?: string;
+    /** 学年学期ID */
+    XNXQId?: string;
+    /** 班级ID */
+    KHBJSJId?: string;
+    /** 学校ID */
+    XXJBSJId?: string;
+    /** 页数 */
+    page?: number;
+    /** 每页记录数 */
+    pageSize?: number;
+  },
+  options?: { [key: string]: any },
+) {
+  return request<any>('/khxstk/exportTKJL', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
     data: body,
     ...(options || {}),
   });

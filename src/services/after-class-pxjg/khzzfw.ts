@@ -93,3 +93,29 @@ export async function updateKHZZFW(
     ...(options || {}),
   });
 }
+
+/** 通过学校id筛选课后增值服务 POST /khzzfw/getAllFWByschooId */
+export async function getAllFWByschooId(
+  body: {
+    /** 学校ID */
+    XXJBSJId?: string;
+    /** 状态 */
+    FWZT?: number;
+    /** 服务名称 */
+    FWMC?: string;
+    /** 页数 */
+    page?: number;
+    /** 每页记录数 */
+    pageSize?: number;
+  },
+  options?: { [key: string]: any },
+) {
+  return request<any>('/khzzfw/getAllFWByschooId', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data: body,
+    ...(options || {}),
+  });
+}

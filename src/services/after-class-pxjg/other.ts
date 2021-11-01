@@ -9,3 +9,14 @@ export async function getStatus(options?: { [key: string]: any }) {
     ...(options || {}),
   });
 }
+
+/** 实时获取后台环境变量 GET /_app/env */
+export async function getEnv(options?: { [key: string]: any }) {
+  return request<{ status?: 'ok' | 'error'; data?: { yspAppEnv?: string; nodeEnv?: string } }>(
+    '/_app/env',
+    {
+      method: 'GET',
+      ...(options || {}),
+    },
+  );
+}

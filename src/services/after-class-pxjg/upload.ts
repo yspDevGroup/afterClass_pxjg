@@ -57,22 +57,52 @@ export async function importWechatTeachers(
 }
 
 /** 企业微信教师同步 POST /upload/syncWechatTeachers */
-export async function syncWechatTeachers(options?: { [key: string]: any }) {
+export async function syncWechatTeachers(
+  body: {
+    /** 应用ID */
+    suiteID?: string;
+    /** 企业ID */
+    CorpId?: string;
+    /** 学校ID */
+    xxId?: string;
+    /** 机构ID */
+    jgId?: string;
+  },
+  options?: { [key: string]: any },
+) {
   return request<{ status?: 'ok' | 'error'; data?: string; message?: string }>(
     '/upload/syncWechatTeachers',
     {
       method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      data: body,
       ...(options || {}),
     },
   );
 }
 
 /** 企业微信学生同步 POST /upload/syncWechatStudents */
-export async function syncWechatStudents(options?: { [key: string]: any }) {
+export async function syncWechatStudents(
+  body: {
+    /** 应用ID */
+    suiteID?: string;
+    /** 企业ID */
+    CorpId?: string;
+    /** 学校ID */
+    xxId?: string;
+  },
+  options?: { [key: string]: any },
+) {
   return request<{ status?: 'ok' | 'error'; data?: string; message?: string }>(
     '/upload/syncWechatStudents',
     {
       method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      data: body,
       ...(options || {}),
     },
   );
