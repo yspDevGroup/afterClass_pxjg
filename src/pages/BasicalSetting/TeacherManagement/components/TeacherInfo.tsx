@@ -2,7 +2,7 @@
  * @description:
  * @author: Sissle Lynn
  * @Date: 2021-08-26 16:24:39
- * @LastEditTime: 2021-11-01 10:05:43
+ * @LastEditTime: 2021-11-01 12:06:45
  * @LastEditors: Sissle Lynn
  */
 import React, { useEffect, useState } from 'react';
@@ -11,6 +11,7 @@ import moment from 'moment';
 import { FormInstance, message } from 'antd';
 import CustomForm from '@/components/CustomForm';
 import { FormItemType } from '@/components/CustomForm/interfice';
+
 import 'antd/es/modal/style';
 import styles from './components.less';
 import { createJZG, updateJZGJBSJ } from '@/services/after-class-pxjg/jzgjbsj';
@@ -37,27 +38,28 @@ const SchoolInfo = (props: PropsType) => {
   const [zpUrl, setZPUrl] = useState('');
   const [zgzsUrl, setZGZSUrl] = useState('');
   const [mzlist, setMzlist] = useState<itemType>([]);
-  const [bzlist, setBzlist] = useState<itemType>([]);
-  const [gwlist, setGwlist] = useState<itemType>([]);
   const [xllist, setXllist] = useState<itemType>([]);
   useEffect(() => {
     async function fetchData() {
-      const gwzy = await getHashData('GWZY');
       const mz = await getHashData('B.9');
-      const bz = await getHashData('ZXXBZLB');
       const xl = await getHashData('B.12');
-      setGwlist(gwzy);
       setMzlist(mz);
-      setBzlist(bz);
       setXllist(xl)
     };
     fetchData();
   }, []);
   useEffect(() => {
     if (values) {
-      setZPUrl(values.ZP ? values.ZP : '');
-      setZGZSUrl(values.ZGZS ? values.ZGZS : '');
-      setInfo(values);
+      const { ZP, ZGZS, CSRQ, XBM, ...rest } = values;
+      setZPUrl(ZP || '');
+      setZGZSUrl(ZGZS || '');
+      const XBLX = XBM ? XBM : '男性';
+      const newData =  {
+        CSRQ: CSRQ ? moment(CSRQ) : '',
+        XBM: readonly ? XBLX?.substring(0, 1) : XBLX,
+        ...rest
+      };
+      setInfo(newData);
     }
   }, [values]);
   // 文件状态改变的回调
@@ -183,9 +185,10 @@ const SchoolInfo = (props: PropsType) => {
         },
         {
           type: 'select',
+          label: '学历',
+          span: 12,
           key: 'XLM',
           name: 'XLM',
-          label: '学历',
           items: xllist
         },
       ]
@@ -206,7 +209,7 @@ const SchoolInfo = (props: PropsType) => {
           label: '毕业院校',
           name: 'BYYX',
           key: 'BYYX',
-          rules: [ { type: 'string', max: 255 },],
+          rules: [{ type: 'string', max: 255 },],
           placeholder: readonly ? '-' : ''
         }
       ]
@@ -228,7 +231,7 @@ const SchoolInfo = (props: PropsType) => {
           label: '专业',
           name: 'SXZY',
           key: 'ZY',
-          rules: [ { type: 'string', max: 255 },],
+          rules: [{ type: 'string', max: 255 },],
           placeholder: readonly ? '-' : ''
         }
       ]
@@ -299,7 +302,7 @@ const SchoolInfo = (props: PropsType) => {
           label: '教授科目',
           name: 'JSKM',
           key: 'JSKM',
-          rules: [ { type: 'string', max: 255 },],
+          rules: [{ type: 'string', max: 255 },],
           placeholder: readonly ? '-' : ''
         }
       ]
@@ -313,7 +316,7 @@ const SchoolInfo = (props: PropsType) => {
           key: 'SFZJH',
           name: 'SFZJH',
           label: '证件号码',
-          rules: [ { type: 'string', max: 20 },],
+          rules: [{ type: 'string', max: 20 },],
           placeholder: readonly ? '-' : ''
         },
         {
@@ -342,7 +345,7 @@ const SchoolInfo = (props: PropsType) => {
           label: '个人简介',
           name: 'BZ',
           key: 'BZ',
-          rules: [ { type: 'string', max: 255 },],
+          rules: [{ type: 'string', max: 255 },],
           placeholder: readonly ? '-' : ''
         }
       ]
@@ -361,6 +364,7 @@ const SchoolInfo = (props: PropsType) => {
         values
       );
     } else {
+      values.KHJYJGId = currentUser?.jgId;
       res = await createJZG(values);
     }
     if (res.status === 'ok') {
@@ -375,21 +379,7 @@ const SchoolInfo = (props: PropsType) => {
     <div className={styles.teacherWrapper}>
       <div className={styles.teacherInfoBody}>
         <CustomForm
-          values={(() => {
-            if (info) {
-              const { CSRQ, XBM, ...rest } = info;
-              const XBLX = XBM ? XBM : '男性';
-              return {
-                CSRQ: CSRQ ? moment(CSRQ) : '',
-                XBM: readonly ? XBLX?.substring(0, 1) : XBLX,
-                ...rest
-              };
-            }
-            return {
-              XBM: '男性',
-              KHJYJGId: currentUser?.jgId
-            };
-          })()}
+          values={info}
           formDisabled={readonly}
           setForm={setForm}
           formItems={basicForm}
