@@ -24,7 +24,7 @@ const Home = () => {
                 )}老师，您好！</p>
             <div>
             <Avatar size={18} style={{height: 0}} src={<Image src={currentUser?.avatar} fallback={defUserImg} />} />
-              <span className={styles.school}>未来之星国际学校</span>
+              <span className={styles.school}>{ currentUser?.QYMC ? currentUser?.QYMC : '' }</span>
             </div>
           </Col>
           <Col span={2}>
