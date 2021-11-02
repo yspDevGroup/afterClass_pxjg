@@ -250,7 +250,7 @@ const SchoolInfo = (props: PropsType) => {
             { required: true, message: '请输入联系电话' },
             { type: 'string', max: 32 },
             {
-              pattern: new RegExp(/^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\d{8}$/),
+              pattern: new RegExp(/^(13[0-9]|14[01456879]|15[0-35-9]|16[2567]|17[0-8]|18[0-9]|19[0-35-9])\d{8}$/),
               message: '填写的电话格式有误',
             },
           ]
