@@ -29,9 +29,9 @@ const Home = () => {
           </Col>
           <Col span={2}>
             <a onClick={() => {
-              setInitialState({ ...initialState, currentUser: null });
+              setInitialState({ ...initialState!, currentUser: null });
               removeOAuthToken();
-              history.replace('/authCallback/overDue');
+              history.replace(initialState?.buildOptions.authType === 'wechat' ? '/authCallback/overDue' : '/');
             }}>
               <IconFont type="icon-tuichu" className={styles.signOut} />
             </a>
@@ -39,7 +39,7 @@ const Home = () => {
         </Row>
       </div>
     <div className={styles.pageContent}>
-        <div className={`${styles.noticeArea} ${styles[ENV_type]}`} />
+        <div className={`${styles.noticeArea} ${styles[initialState?.buildOptions.ENV_type || 'dev']}`} />
         {/* <Things/> */}
         <Overview/>
         <Notice/>

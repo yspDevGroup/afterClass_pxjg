@@ -267,3 +267,38 @@ export async function getStudentOrders(
     },
   );
 }
+
+/** 导出课后服务订单记录 POST /khxsdd/exportStudentOrders */
+export async function exportStudentOrders(
+  body: {
+    /** 订单类型 */
+    DDLX?: number;
+    /** 学生ID */
+    XSJBSJId?: string;
+    /** 学生姓名 */
+    XSXM?: string;
+    /** 学年学期ID */
+    XNXQId?: string;
+    /** 学校ID */
+    XXJBSJId?: string;
+    /** 班级名称 */
+    bjmc?: string;
+    /** 课程名称 */
+    kcmc?: string;
+    /** 课后服务订单状态 */
+    DDZT?: string;
+  },
+  options?: { [key: string]: any },
+) {
+  return request<{ status?: 'ok' | 'error'; data?: string; message?: string }>(
+    '/khxsdd/exportStudentOrders',
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      data: body,
+      ...(options || {}),
+    },
+  );
+}

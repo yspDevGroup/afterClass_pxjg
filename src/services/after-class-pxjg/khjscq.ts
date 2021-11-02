@@ -16,8 +16,9 @@ export async function getKHJSCQ(
     status?: 'ok' | 'error';
     data?: {
       id?: string;
-      CQZT?: '出勤' | '请假' | '缺席';
+      CQZT?: '出勤' | '请假' | '缺席' | '代课';
       CQRQ?: string;
+      XXSJPZId?: string;
       JZGJBSJId?: string;
       KHBJSJId?: string;
     };
@@ -79,8 +80,9 @@ export async function createKHJSCQ(body: API.CreateKHJSCQ[], options?: { [key: s
     status?: 'ok' | 'error';
     data?: {
       id?: string;
-      CQZT?: '出勤' | '请假' | '缺席';
+      CQZT?: '出勤' | '请假' | '缺席' | '代课';
       CQRQ?: string;
+      XXSJPZId?: string;
       JZGJBSJId?: string;
       KHBJSJId?: string;
     };
@@ -112,6 +114,59 @@ export async function updateKHJSCQ(
       'Content-Type': 'application/json',
     },
     params: { ...queryParams },
+    data: body,
+    ...(options || {}),
+  });
+}
+
+/** 教师出勤记录统计 POST /khjscq/statistical */
+export async function countKHJSCQ(
+  body: {
+    /** 教师ID */
+    JZGJBSJId?: string;
+    /** 学年学期ID */
+    XNXQId?: string;
+  },
+  options?: { [key: string]: any },
+) {
+  return request<{
+    status?: 'ok' | 'error';
+    data?: {
+      KHBJSJId?: string;
+      KSS?: number;
+      KCMC?: string;
+      BJMC?: string;
+      attendance?: number;
+      absenteeism?: number;
+      leave?: number;
+      substitute?: number;
+    }[];
+    message?: string;
+  }>('/khjscq/statistical', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data: body,
+    ...(options || {}),
+  });
+}
+
+/** 教师代课统计 POST /khjscq/statisSubstitute */
+export async function statisSubstitute(
+  body: {
+    /** 教师ID */
+    JZGJBSJId?: string;
+    /** 学年学期ID */
+    XNXQId?: string;
+  },
+  options?: { [key: string]: any },
+) {
+  return request<any>('/khjscq/statisSubstitute', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
     data: body,
     ...(options || {}),
   });

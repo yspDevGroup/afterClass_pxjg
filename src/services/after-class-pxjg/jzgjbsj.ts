@@ -372,3 +372,22 @@ export async function getPortrait(
     ...(options || {}),
   });
 }
+
+/** 按日期查询教师的请假，调代课信息 POST /jzgjbsj/getTeachersApplication */
+export async function getTeachersApplication(
+  body: {
+    JZGJBSJId?: string;
+    startDate?: string;
+    endDate?: string;
+  },
+  options?: { [key: string]: any },
+) {
+  return request<any>('/jzgjbsj/getTeachersApplication', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data: body,
+    ...(options || {}),
+  });
+}

@@ -314,3 +314,47 @@ export async function getClassStudents(
     ...(options || {}),
   });
 }
+
+/** 取消开班 POST /khbjsj/cancleClass */
+export async function cancleClass(
+  body: {
+    /** 班级ID */
+    KHBJSJId?: string;
+    /** 班级ID */
+    JZGJBSJId?: string;
+    /** 备注信息 */
+    BZ?: string;
+    /** 设备IP */
+    deviceIp?: string;
+    /** 通知内容 */
+    MSG?: string;
+  },
+  options?: { [key: string]: any },
+) {
+  return request<any>('/khbjsj/cancleClass', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data: body,
+    ...(options || {}),
+  });
+}
+
+/** 根据课后班级Id查询授课教师 POST /khbjsj/getTeachersByBJId */
+export async function getTeachersByBJId(
+  body: {
+    /** 班级ID */
+    KHBJSJId?: string;
+  },
+  options?: { [key: string]: any },
+) {
+  return request<any>('/khbjsj/getTeachersByBJId', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data: body,
+    ...(options || {}),
+  });
+}

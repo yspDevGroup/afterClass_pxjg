@@ -145,6 +145,8 @@ export async function updateKHXXZZFW(
 /** 获取学生报名的增值服务 POST /khxxzzfw/getStudent */
 export async function getStudent(
   body: {
+    /** 状态 */
+    ZT?: number[];
     /** 学生ID */
     XSJBSJId?: string;
     /** 学生姓名 */

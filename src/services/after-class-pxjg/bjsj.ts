@@ -276,6 +276,8 @@ export async function getClassStudents(
     XM?: string;
     /** 课程名称 */
     KCMC?: string;
+    /** 服务名称 */
+    FWMC?: string;
     /** 页数 */
     page?: number;
     /** 每页记录数 */

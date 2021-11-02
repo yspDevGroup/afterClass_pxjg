@@ -14,5 +14,5 @@ sidemenu: true
 import React from 'react';
 import Footer from '@/components/Footer';
 
-export default () => <Footer />;
+export default () => <Footer copyRight="版权信息" />;
 ```

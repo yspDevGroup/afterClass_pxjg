@@ -275,3 +275,29 @@ export async function statisClasses(
     ...(options || {}),
   });
 }
+
+/** 导出课后服务教师考勤统计报表 POST /reports/exportTeachers */
+export async function exportTeachers(
+  body: {
+    /** 姓名 */
+    XM?: string;
+    /** 学年学期ID */
+    XNXQId?: string;
+    /** 教师ID */
+    JZGJBSJId?: string;
+    /** 页数 */
+    page?: number;
+    /** 每页记录数 */
+    pageSize?: number;
+  },
+  options?: { [key: string]: any },
+) {
+  return request<any>('/reports/exportTeachers', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data: body,
+    ...(options || {}),
+  });
+}

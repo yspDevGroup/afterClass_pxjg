@@ -1,10 +1,9 @@
 /*
- * @Author: your name
- * @Date: 2021-09-24 16:43:37
- * @LastEditTime: 2021-10-30 12:53:46
+ * @description: 默认配置
+ * @author: zpl
+ * @Date: 2021-08-24 10:53:03
+ * @LastEditTime: 2021-11-01 12:34:04
  * @LastEditors: zpl
- * @Description: In User Settings Edit
- * @FilePath: \afterClass_pxjg\.umirc.ts
  */
 import { defineConfig } from 'umi';
 import CompressionWebpackPlugin from 'compression-webpack-plugin';
@@ -20,16 +19,10 @@ export default defineConfig({
   },
   fastRefresh: {},
   define: {
-    ENV_type: 'prod',
     ENV_title: '课后帮',
     ENV_subTitle: '课后服务平台',
     ENV_copyRight: '2021 版权所有：陕西五育汇智信息技术有限公司',
-    ENV_host: 'http://afterclassPxjg.prod.xianyunshipei.com',
-    ENV_backUrl: 'http://api.prod.xianyunshipei.com',
-    ssoHost: 'http://sso.prod.xianyunshipei.com',
-    authType: 'wechat',
-    clientId: 'wwa3e7ccaca504ab3d',
-    clientSecret: 'z-DxOlOgLADZ_4MtEHIoYX0WrUFHwoXVDbOyzPiVtF4'
+    ENV_debug: false,
   },
   links: [{ rel: 'icon', href: './title.png' }],
   dynamicImport: {
@@ -53,8 +46,8 @@ export default defineConfig({
   },
   proxy: {
     '/api': {
-      // target: 'http://api.test.xianyunshipei.com',
-      target: 'http://192.168.0.113:3000',
+      target: 'http://api.test.xianyunshipei.com',
+      // target: 'http://192.168.0.113:3000',
       changeOrigin: true,
       pathRewrite: { '^/api': '' }
     }
@@ -62,8 +55,8 @@ export default defineConfig({
   openAPI: [
     {
       requestLibPath: "import { request } from 'umi'",
-      // schemaPath: 'http://api.prod.xianyunshipei.com/documentation/json',
-      schemaPath: 'http://192.168.0.113:3000/documentation/json',
+      schemaPath: 'http://api.test.xianyunshipei.com/documentation/json',
+      // schemaPath: 'http://192.168.0.113:3000/documentation/json',
       mock: false
     }
   ]

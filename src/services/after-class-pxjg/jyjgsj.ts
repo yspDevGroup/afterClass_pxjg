@@ -571,3 +571,49 @@ export async function getSchoolsTK(
     ...(options || {}),
   });
 }
+
+/** 获取学校的课程列表2 POST /jyjgsj/getCoursesBySchool2 */
+export async function getCoursesBySchool2(
+  body: {
+    XXJBSJId?: string;
+    KCMC?: string;
+  },
+  options?: { [key: string]: any },
+) {
+  return request<any>('/jyjgsj/getCoursesBySchool2', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data: body,
+    ...(options || {}),
+  });
+}
+
+/** 获取教育机构下的所有本区课程信息(已备案课程) POST /jyjgsj/getAllCourses2 */
+export async function getAllCourses2(
+  body: {
+    /** 课程名称 */
+    KCMC?: string;
+    /** 课程来源 */
+    KCLY?: string;
+    /** 课程类型ID */
+    KHKCLXId?: string;
+    /** 行政区划码 */
+    XZQHM?: string;
+    /** 页数 */
+    page?: number;
+    /** 每页记录数 */
+    pageSize?: number;
+  },
+  options?: { [key: string]: any },
+) {
+  return request<any>('/jyjgsj/getAllCourses2', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data: body,
+    ...(options || {}),
+  });
+}
