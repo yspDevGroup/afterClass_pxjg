@@ -47,8 +47,8 @@ const SchoolInfo = (props: PropsType) => {
       const mz = await getHashData('B.9');
       const xl = await getHashData('B.12');
       setMzlist(mz);
-      setXllist(xl)
-    };
+      setXllist(xl);
+    }
     fetchData();
   }, []);
   useEffect(() => {
@@ -58,7 +58,7 @@ const SchoolInfo = (props: PropsType) => {
       setZGZSUrl(ZGZS || '');
       const XBLX = XBM ? XBM : '男性';
       const newData = {
-        CSRQ: CSRQ ? moment(CSRQ) : (birthDate ? moment(birthDate) : ''),
+        CSRQ: CSRQ ? moment(CSRQ) : birthDate ? moment(birthDate) : '',
         XBM: readonly ? XBLX?.substring(0, 1) : XBLX,
         ...rest
       };
@@ -68,7 +68,7 @@ const SchoolInfo = (props: PropsType) => {
   useEffect(() => {
     if (birthDate) {
       setInfo({
-        CSRQ: moment(birthDate),
+        CSRQ: moment(birthDate)
       });
     }
   }, [birthDate]);
@@ -129,8 +129,8 @@ const SchoolInfo = (props: PropsType) => {
           label: '资格证书',
           name: 'ZGZS',
           key: 'ZGZS',
-          imgWidth: 100,
-          imgHeight: 100,
+          imgWidth: 250,
+          imgHeight: 150,
           imageurl: zgzsUrl,
           upurl: '/api/upload/uploadFile?type=badge&plat=agency',
           accept: '.jpg, .jpeg, .png',
@@ -150,16 +150,13 @@ const SchoolInfo = (props: PropsType) => {
           label: '姓名',
           name: 'XM',
           key: 'XM',
-          rules: [{ required: true, message: '请输入姓名' }, { type: 'string', max: 60 },],
+          rules: [
+            { required: true, message: '请输入姓名' },
+            { type: 'string', max: 60 }
+          ],
           placeholder: readonly ? '-' : ''
         },
-        {
-          type: 'input',
-          label: '资格证书编号',
-          name: 'ZGZSBH',
-          key: 'ZGZSBH',
-          placeholder: readonly ? '-' : ''
-        }
+        {}
       ]
     },
     {
@@ -200,7 +197,7 @@ const SchoolInfo = (props: PropsType) => {
           key: 'XLM',
           name: 'XLM',
           items: xllist
-        },
+        }
       ]
     },
     {
@@ -219,7 +216,7 @@ const SchoolInfo = (props: PropsType) => {
           label: '毕业院校',
           name: 'BYYX',
           key: 'BYYX',
-          rules: [{ type: 'string', max: 255 },],
+          rules: [{ type: 'string', max: 255 }],
           placeholder: readonly ? '-' : ''
         }
       ]
@@ -234,14 +231,14 @@ const SchoolInfo = (props: PropsType) => {
           label: '出生日期',
           name: 'CSRQ',
           key: 'CSRQ',
-          placeholder: readonly ? '-' : '',
+          placeholder: readonly ? '-' : ''
         },
         {
           type: 'input',
           label: '专业',
           name: 'SXZY',
           key: 'ZY',
-          rules: [{ type: 'string', max: 255 },],
+          rules: [{ type: 'string', max: 255 }],
           placeholder: readonly ? '-' : ''
         }
       ]
@@ -261,8 +258,8 @@ const SchoolInfo = (props: PropsType) => {
             { type: 'string', max: 32 },
             {
               pattern: new RegExp(/^(13[0-9]|14[01456879]|15[0-35-9]|16[2567]|17[0-8]|18[0-9]|19[0-35-9])\d{8}$/),
-              message: '填写的电话格式有误',
-            },
+              message: '填写的电话格式有误'
+            }
           ]
         },
         {
@@ -309,7 +306,7 @@ const SchoolInfo = (props: PropsType) => {
           normalize: (value) => {
             setIdType(value);
             setInfo({
-              SFZJH: '',
+              SFZJH: ''
             });
             switch (value) {
               case '居民身份证':
@@ -332,9 +329,9 @@ const SchoolInfo = (props: PropsType) => {
           label: '教授科目',
           name: 'JSKM',
           key: 'JSKM',
-          rules: [{ type: 'string', max: 255 },],
+          rules: [{ type: 'string', max: 255 }],
           placeholder: readonly ? '-' : ''
-        },
+        }
       ]
     },
     {
@@ -352,40 +349,43 @@ const SchoolInfo = (props: PropsType) => {
             { type: 'string', max: 20 },
             {
               pattern: new RegExp(idReg),
-              message: '填写的证件格式有误',
+              message: '填写的证件格式有误'
             }
           ],
           normalize: (num) => {
             console.log(idReg);
-            num = num.toUpperCase()
+            num = num.toUpperCase();
             const len = num.length;
 
             if (idType == '居民身份证' && len == 18) {
               if (idReg.test(num) === false) {
-                return '（身份证号有误）'
+                return '（身份证号有误）';
               }
-              let arrSplit = num.match(idReg)
-              //检查生日日期是否正确
-              let dtmBirth = new Date(arrSplit[2] + '-' + arrSplit[3] + '-' + arrSplit[4])
+              let arrSplit = num.match(idReg);
+              // 检查生日日期是否正确
+              let dtmBirth = new Date(arrSplit[2] + '-' + arrSplit[3] + '-' + arrSplit[4]);
               setBirthDate(dtmBirth);
-              let bCorrectDay
-              bCorrectDay = dtmBirth.getFullYear() == Number(arrSplit[2]) && dtmBirth.getMonth() + 1 == Number(arrSplit[3]) && dtmBirth.getDate() == Number(arrSplit[4])
+              let bCorrectDay;
+              bCorrectDay =
+                dtmBirth.getFullYear() == Number(arrSplit[2]) &&
+                dtmBirth.getMonth() + 1 == Number(arrSplit[3]) &&
+                dtmBirth.getDate() == Number(arrSplit[4]);
               if (!bCorrectDay) {
-                return '（出生日期有误）'
+                return '（出生日期有误）';
               } else {
-                //检验18位身份证的校验码是否正确。
-                //校验位按照ISO 7064:1983.MOD 11-2的规定生成，X可以认为是数字10。
-                let valnum
-                let arrInt = new Array(7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2)
-                let arrCh = new Array('1', '0', 'X', '9', '8', '7', '6', '5', '4', '3', '2')
-                let nTemp = 0,
-                  i
+                // 检验18位身份证的校验码是否正确。
+                // 校验位按照ISO 7064:1983.MOD 11-2的规定生成，X可以认为是数字10。
+                let valnum;
+                let arrInt = new Array(7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2);
+                let arrCh = new Array('1', '0', 'X', '9', '8', '7', '6', '5', '4', '3', '2');
+                let nTemp = 0;
+                let i;
                 for (i = 0; i < 17; i++) {
-                  nTemp += num.substr(i, 1) * arrInt[i]
+                  nTemp += num.substr(i, 1) * arrInt[i];
                 }
-                valnum = arrCh[nTemp % 11]
+                valnum = arrCh[nTemp % 11];
                 if (valnum != num.substr(17, 1)) {
-                  return '（校验码有误）'
+                  return '（校验码有误）';
                 }
               }
             } else if (idType == '护照' && len >= 9) {
@@ -397,8 +397,8 @@ const SchoolInfo = (props: PropsType) => {
                 return '（户口簿号码有误）';
               }
             }
-            return num
-          },
+            return num;
+          }
         },
         {
           type: 'input',
@@ -409,9 +409,9 @@ const SchoolInfo = (props: PropsType) => {
           rules: [
             {
               type: 'email',
-              message: '填写的邮箱格式有误',
+              message: '填写的邮箱格式有误'
             },
-            { type: 'string', max: 32 },
+            { type: 'string', max: 32 }
           ]
         }
       ]
@@ -420,13 +420,25 @@ const SchoolInfo = (props: PropsType) => {
       type: 'group',
       key: 'group10',
       groupItems: [
-        {},
+        {
+          type: 'input',
+          label: '资格证书编号',
+          name: 'ZGZSBH',
+          key: 'ZGZSBH',
+          placeholder: readonly ? '-' : ''
+        }
+      ]
+    },
+    {
+      type: 'group',
+      key: 'group11',
+      groupItems: [
         {
           type: 'textArea',
           label: '个人简介',
           name: 'BZ',
           key: 'BZ',
-          rules: [{ type: 'string', max: 255 },],
+          rules: [{ type: 'string', max: 255 }],
           placeholder: readonly ? '-' : ''
         }
       ]
