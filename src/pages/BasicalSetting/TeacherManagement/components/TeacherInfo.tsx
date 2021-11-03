@@ -426,7 +426,8 @@ const SchoolInfo = (props: PropsType) => {
           name: 'ZGZSBH',
           key: 'ZGZSBH',
           placeholder: readonly ? '-' : ''
-        }
+        },
+        {}
       ]
     },
     {
