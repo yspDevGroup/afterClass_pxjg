@@ -188,9 +188,6 @@ const ClassOrder = (props: any) => {
       align: 'center',
       ellipsis: true,
       width: 150,
-      render: (_text: any, record: any) => {
-        return record.ZFFS;
-      }
     }
   ];
   return (
