@@ -77,7 +77,7 @@ const course = () => {
 
   return (
   <div className={styles.course}>
-    <div className={styles.container} style={{height: '282px'}}>
+    <div className={styles.container} style={{height: '355px'}}>
       <ModuleTitle data='课程类型分布'/>
       <div className={styles.chartsContainer}>
       {

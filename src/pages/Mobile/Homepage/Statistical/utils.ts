@@ -41,10 +41,12 @@ export const studentConfig: any = {
 
 export const pieConfig: any = {
   appendPadding: 20,
+  autoFit: false,
+  height: 264,
   legend: {
     flipPage: false,
     position: 'bottom',
-    itemWidth: 100,
+    itemWidth: 80,
   },
   data: [],
   angleField: 'value',
