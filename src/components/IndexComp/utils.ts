@@ -41,15 +41,15 @@ export const topNum = [
     type: 'zrkc_count',
   },
   {
-    title: '本学期服务班级数',
+    title: '服务班级数',
     type: 'bj_count'
   },
   {
-    title: '机构教师数',
+    title: '参与教师数',
     type: 'js_count'
   },
   {
-    title: '本学期参加学生数',
+    title: '参与学生数',
     type: 'xs_count'
   },
   {
