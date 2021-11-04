@@ -9,6 +9,7 @@ import WWOpenDataCom from '@/components/WWOpenDataCom';
 import { getAllXNXQ } from '@/services/after-class-pxjg/xnxq';
 import { getCurrentXQ } from '@/utils';
 import { cooperateSchoolOrderList } from '@/services/after-class-pxjg/khjyjg';
+import { getAllKHKCLX } from '@/services/after-class-pxjg/khkclx';
 
 const { Search } = Input;
 const { Option } = Select;
@@ -18,6 +19,8 @@ const ClassOrder = (props: any) => {
   const [dataSource, setDataSource] = useState<API.KHXSDD[] | undefined>([]);
   const [studentName, setStudentName] = useState<any>();
   const [coursName, setcoursName] = useState<any>();
+  const [kclxOptions, setKCLXOptions] = useState<any>();
+  const [kclx, setKCLX] = useState<any>();
   const [courseList, setcourseList] = useState<any>([]);
   // 选择学年学期
   const [term, setTerm] = useState<string>();
@@ -31,11 +34,22 @@ const ClassOrder = (props: any) => {
       KCId: coursName,
       XSMC: studentName,
       page: 0,
-      pageSize: 0
+      pageSize: 0,
+      KCTAGId: kclx
     });
     if (res.status === 'ok') {
       setDataSource(res.data?.rows);
     }
+    const kclxRes = await getAllKHKCLX({ name: '' });
+      if (kclxRes.status === 'ok') {
+        const data = kclxRes.data?.map((item: any) => {
+          return {
+            value: item.id,
+            text: item.KCTAG
+          };
+        });
+        setKCLXOptions(data);
+      }
   };
   const getXNXQ = async (xxdm: string) => {
     const res = await getAllXNXQ({
@@ -70,7 +84,7 @@ const ClassOrder = (props: any) => {
   }, []);
   useEffect(() => {
     getData();
-  }, [studentName, coursName]);
+  }, [studentName, coursName, kclx]);
   const columns: ProColumns<API.KHXSDD>[] | undefined = [
     {
       title: '序号',
@@ -128,6 +142,17 @@ const ClassOrder = (props: any) => {
       ellipsis: true,
       render: (_text: any, record: any) => {
         return <div>{record?.KHBJSJ?.BJMC}</div>;
+      }
+    },
+    {
+      title: '课程类型',
+      dataIndex: 'KCTAG',
+      key: 'KCTAG',
+      align: 'center',
+      width: 160,
+      ellipsis: true,
+      render: (_text: any, record: any) => {
+        return <div>{record?.KHBJSJ?.KHKCSJ?.KHKCLX?.KCTAG}</div>;
       }
     },
     {
@@ -234,6 +259,24 @@ const ClassOrder = (props: any) => {
               setStudentName(value);
             }}
           />
+        </span>
+        <span style={{ marginLeft: '24px' }}>
+          课程类型：
+          <Select
+            style={{ width: 200 }}
+            allowClear
+            onChange={(value: string) => {
+              setKCLX(value);
+            }}
+          >
+            {kclxOptions?.map((item: any) => {
+              return (
+                <Option key={item.value} value={item.value}>
+                  {item.text}
+                </Option>
+              );
+            })}
+          </Select>
         </span>
         <span style={{ marginLeft: '24px' }}>
           课程名称：
