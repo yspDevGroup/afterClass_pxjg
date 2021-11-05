@@ -7,6 +7,8 @@ import WWOpenDataCom from '@/components/WWOpenDataCom';
 import IconFont from '@/components/CustomIcon';
 import { defUserImg } from '@/constant';
 import { removeOAuthToken } from '@/utils';
+import TopBgImg from '@/assets/topInfoBG.png';
+
 
 const Home = () => {
   const { initialState, setInitialState } = useModel('@@initialState');
@@ -15,7 +17,7 @@ const Home = () => {
   return (
   <div className={styles.indexPage}>
     <div className={styles.topInfo}>
-        <Row style={{ height: '74px' }} className={styles.teacherInfo} >
+        <Row className={styles.teacherInfo}  style={{height: '74px', backgroundImage : "url(" + TopBgImg + ")"}}>
           <Col span={22}>
             <p>{currentUser?.UserId === '未知' && currentUser.wechatUserId ? (
                   <WWOpenDataCom type="userName" openid={currentUser.wechatUserId} />
