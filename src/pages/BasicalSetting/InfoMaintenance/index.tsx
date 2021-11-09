@@ -3,7 +3,7 @@ import React, { FC, useEffect, useState } from 'react';
 import { Button, Form, Input, Image, Divider, Row, Col, Alert, message, Popconfirm, Tooltip, Select } from 'antd';
 import { useModel } from 'umi';
 import { createKHJYJG, KHJYJG, updateKHJYJG } from '@/services/after-class-pxjg/khjyjg';
-import { createKHJGRZSQ } from '@/services/after-class-pxjg/khjgrzsq';
+import { createKHJGRZSQ, deleteKHJGRZSQ} from '@/services/after-class-pxjg/khjgrzsq';
 import { QuestionCircleOutlined } from '@ant-design/icons';
 import UploadImage from '@/components/CustomForm/components/UploadImage';
 import $ from 'jquery';
@@ -34,15 +34,21 @@ const InfoMaintenance = (props: any) => {
   const [cityVal, setCityVal] = useState<any>();
   const [countyVal, setCountyVal] = useState<any>();
   const [Datas, setDatas] = useState<any>();
+  const [applyState, setApplyState] = useState<boolean>(false);
+  const [applyId, setApplyId] = useState<any>();
 
   const onKHJYJG = async () => {
     const res = await KHJYJG({ id: currentUser!.jgId! });
     if (res.status === 'ok') {
-      const { XD, ...info } = res.data;
+      console.log('res: ', res);
+      const { XD, ZT, ...info } = res.data;
       const newData = {
         ...info,
         XD: XD === '' ? [] : XD?.split(',')
       };
+      if(ZT === 1){
+        setApplyState(true);
+      }
       form.setFieldsValue(newData);
       setXZQHM(res.data.XZQHM);
       setKHJYJGId(res.data.id);
@@ -104,10 +110,24 @@ const InfoMaintenance = (props: any) => {
       KHJYJGId: KHJYJGId
     });
     if (rescreateKHJGRZSQ.status === 'ok') {
+      setApplyId(rescreateKHJGRZSQ.data.id);
       onKHJYJG();
+      setApplyState(true);
       message.success('准入申请提交成功');
     } else {
       message.error('申请失败');
+    }
+  };
+  const unconfirm = async () => {
+    const rescreateKHJGRZSQ = await deleteKHJGRZSQ({
+      id: applyId,
+    });
+    if (rescreateKHJGRZSQ.status === 'ok') {
+      onKHJYJG();
+      setApplyState(false);
+      message.success('撤销申请成功');
+    } else {
+      message.error('撤销失败');
     }
   };
 
@@ -123,13 +143,13 @@ const InfoMaintenance = (props: any) => {
           message.success(`上传成功`);
           if (type === 'YYZZTP') {
             setYYZZImageUrl(res.data);
-            form.setFieldsValue({YYZZ: res.data})
+            form.setFieldsValue({ YYZZ: res.data })
           } else if (type === 'QYTBTP') {
             setQYTBImageUrl(res.data);
-            form.setFieldsValue({QYTB: res.data})
+            form.setFieldsValue({ QYTB: res.data })
           } else {
             setBXXKZImageUrl(res.data);
-            form.setFieldsValue({BXXKZ: res.data})
+            form.setFieldsValue({ BXXKZ: res.data })
           }
         }
       }
@@ -147,9 +167,8 @@ const InfoMaintenance = (props: any) => {
       BXXKZ: BXXKZImageUrl,
       YYZZ: YYZZImageUrl,
       XZQHM: cityAdcode || Datas?.XZQHM,
-      XZQ: `${provinceVal?.label}${cityVal?.label ? `/${cityVal?.label}` : ''}${
-        countyVal?.label ? `/${countyVal?.label}` : ''
-      }`,
+      XZQ: `${provinceVal?.label}${cityVal?.label ? `/${cityVal?.label}` : ''}${countyVal?.label ? `/${countyVal?.label}` : ''
+        }`,
       XD: XD?.toString()
     };
     if (typeof params.id === 'undefined') {
@@ -278,7 +297,18 @@ const InfoMaintenance = (props: any) => {
               {SQDatas?.[0].LX === 0 ? (
                 SQDatas?.[0].ZT === 0 ? (
                   <>
-                    <Alert message="申请中" type="warning" style={{ height: 33 }} />
+                    <Alert message="申请中" type="warning" style={{ height: 33, marginRight: 10 }} />
+                    <Popconfirm
+                      placement="topRight"
+                      title="确定撤销本机构此次申请吗，点击“确定”取消。"
+                      onConfirm={unconfirm}
+                      okText="确定"
+                      cancelText="取消"
+                    >
+                      <Button type="primary" className={styles.RZbtn} disabled={currentUser?.jgId ? false : true}>
+                        撤销申请
+                      </Button>
+                    </Popconfirm>
                   </>
                 ) : SQDatas?.[0].ZT === 1 ? (
                   <>
@@ -634,7 +664,7 @@ const InfoMaintenance = (props: any) => {
                   imagename="image"
                   imgHeight={150}
                   imgWidth={225}
-                  handleImageChange={(value: any) => {                    
+                  handleImageChange={(value: any) => {
                     imageChange('YYZZTP', value);
                   }}
                 />
@@ -670,7 +700,7 @@ const InfoMaintenance = (props: any) => {
           <Form.Item name="JGJJ" key="JGJJ" label="机构简介：">
             <Input.TextArea placeholder={disabled === false ? '请输入' : '——'} rows={4} disabled={disabled} />
           </Form.Item>
-          <Form.Item className={styles.bottomBtnCon}>
+          <Form.Item className={styles.bottomBtnCon} style={{ display: applyState ? 'none' : 'block' }}>
             {disabled === true ? (
               <button onClick={onEditor} className={styles.btn}>
                 更改准入信息
