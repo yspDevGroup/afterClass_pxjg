@@ -8,7 +8,7 @@ const { allDataSource , type } = props.location.state
 
   return (
     <div>
-      <TopNav />
+      <TopNav title='全部公告' state={true}/>
       <div className={styles.allNotice}>
 
       <div style={{marginTop: 50}}>

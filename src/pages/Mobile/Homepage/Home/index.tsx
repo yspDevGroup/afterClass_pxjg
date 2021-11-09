@@ -16,8 +16,8 @@ const Home = () => {
 
   return (
   <div className={styles.indexPage}>
-    <div className={styles.topInfo}>
-        <Row className={styles.teacherInfo}  style={{height: '74px', backgroundImage : "url(" + TopBgImg + ")"}}>
+    <div className={styles.topInfo} style={{height: '74px', backgroundImage : "url(" + TopBgImg + ")"}}>
+        <Row className={styles.teacherInfo}>
           <Col span={22}>
             <p>{currentUser?.UserId === '未知' && currentUser.wechatUserId ? (
                   <WWOpenDataCom type="userName" openid={currentUser.wechatUserId} />
