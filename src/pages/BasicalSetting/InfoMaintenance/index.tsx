@@ -3,7 +3,7 @@ import React, { FC, useEffect, useState } from 'react';
 import { Button, Form, Input, Image, Divider, Row, Col, Alert, message, Popconfirm, Tooltip, Select } from 'antd';
 import { useModel } from 'umi';
 import { createKHJYJG, KHJYJG, updateKHJYJG } from '@/services/after-class-pxjg/khjyjg';
-import { createKHJGRZSQ, deleteKHJGRZSQ} from '@/services/after-class-pxjg/khjgrzsq';
+import { createKHJGRZSQ, deleteKHJGRZSQ } from '@/services/after-class-pxjg/khjgrzsq';
 import { QuestionCircleOutlined } from '@ant-design/icons';
 import UploadImage from '@/components/CustomForm/components/UploadImage';
 import $ from 'jquery';
@@ -46,7 +46,7 @@ const InfoMaintenance = (props: any) => {
         ...info,
         XD: XD === '' ? [] : XD?.split(',')
       };
-      if(ZT === 1){
+      if (ZT === 1) {
         setApplyState(true);
       }
       form.setFieldsValue(newData);
@@ -120,7 +120,7 @@ const InfoMaintenance = (props: any) => {
   };
   const unconfirm = async () => {
     const rescreateKHJGRZSQ = await deleteKHJGRZSQ({
-      id: applyId,
+      id: applyId
     });
     if (rescreateKHJGRZSQ.status === 'ok') {
       onKHJYJG();
@@ -143,13 +143,13 @@ const InfoMaintenance = (props: any) => {
           message.success(`上传成功`);
           if (type === 'YYZZTP') {
             setYYZZImageUrl(res.data);
-            form.setFieldsValue({ YYZZ: res.data })
+            form.setFieldsValue({ YYZZ: res.data });
           } else if (type === 'QYTBTP') {
             setQYTBImageUrl(res.data);
-            form.setFieldsValue({ QYTB: res.data })
+            form.setFieldsValue({ QYTB: res.data });
           } else {
             setBXXKZImageUrl(res.data);
-            form.setFieldsValue({ BXXKZ: res.data })
+            form.setFieldsValue({ BXXKZ: res.data });
           }
         }
       }
@@ -167,8 +167,9 @@ const InfoMaintenance = (props: any) => {
       BXXKZ: BXXKZImageUrl,
       YYZZ: YYZZImageUrl,
       XZQHM: cityAdcode || Datas?.XZQHM,
-      XZQ: `${provinceVal?.label}${cityVal?.label ? `/${cityVal?.label}` : ''}${countyVal?.label ? `/${countyVal?.label}` : ''
-        }`,
+      XZQ: `${provinceVal?.label}${cityVal?.label ? `/${cityVal?.label}` : ''}${
+        countyVal?.label ? `/${countyVal?.label}` : ''
+      }`,
       XD: XD?.toString()
     };
     if (typeof params.id === 'undefined') {
@@ -469,11 +470,15 @@ const InfoMaintenance = (props: any) => {
               <Form.Item
                 name="ZZJGDM"
                 key="ZZJGDM"
-                label="组织机构代码："
+                label="统一社会信用代码："
                 rules={[
                   {
                     required: true,
-                    message: '请输入组织机构代码'
+                    message: '请输入统一社会信用代码'
+                  },
+                  {
+                    pattern: new RegExp(/^[^_IOZSVa-z\W]{2}\d{6}[^_IOZSVa-z\W]{10}$/g),
+                    message: '请输入正确的统一社会信用代码'
                   }
                 ]}
               >
