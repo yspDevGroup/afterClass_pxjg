@@ -1,6 +1,6 @@
 {
   "parser": "@typescript-eslint/parser",
-  "plugins": ["@typescript-eslint/eslint-plugin"],
+  "plugins": ["@typescript-eslint/eslint-plugin", "prettier"],
   "extends": ["alloy", "alloy/react", "alloy/typescript"],
   "settings": {
     "react": {
@@ -35,6 +35,7 @@
     "WWOpenData": true
   },
   "rules": {
+    "prettier/prettier": "error",
     // 自定义您的规则
     // Customize your rules
     // "import/no-extraneous-dependencies": 0
