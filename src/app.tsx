@@ -3,11 +3,11 @@
  * @description: 运行时配置
  * @author: zpl
  * @Date: 2021-08-09 10:44:42
- * @LastEditTime: 2021-11-01 15:04:04
+ * @LastEditTime: 2021-11-09 16:01:37
  * @LastEditors: zpl
  */
 import { notification, message } from 'antd';
-import { history } from 'umi'
+import { history } from 'umi';
 import type { RequestConfig } from 'umi';
 import type { ResponseError } from 'umi-request';
 import LoadingPage from '@/components/Loading';
@@ -32,7 +32,10 @@ export async function getInitialState(): Promise<InitialState> {
   const buildOptions = await getBuildOptions();
   debugger;
   const fetchUserInfo = async (): Promise<UserInfo | null> => {
-    const res = buildOptions.authType === 'wechat' ? await currentWechatUser({ plat: 'agency' }) : await getCurrentUser({ plat: 'agency' });
+    const res =
+      buildOptions.authType === 'wechat'
+        ? await currentWechatUser({ plat: 'agency' })
+        : await getCurrentUser({ plat: 'agency' });
     const { status, data } = res;
     if (status === 'ok' && data?.info) {
       return data.info;
@@ -153,10 +156,7 @@ export const request: RequestConfig = {
         path !== '/' &&
         !path.startsWith('/authcallback') &&
         !path.startsWith('/40') &&
-        (
-          ctx.res.message?.includes('Authorization token is invalid') ||
-          ctx.res.message?.includes('Invalid Token')
-        )
+        (ctx.res.message?.includes('Authorization token is invalid') || ctx.res.message?.includes('Invalid Token'))
       ) {
         history.replace('/403?title=认证信息已失效，请重新登录');
       }

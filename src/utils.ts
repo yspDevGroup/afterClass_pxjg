@@ -2,12 +2,12 @@
  * @description: 工具类
  * @author: zpl
  * @Date: 2021-08-09 10:36:53
- * @LastEditTime: 2021-11-01 13:57:27
+ * @LastEditTime: 2021-11-09 11:55:21
  * @LastEditors: zpl
  */
 import { history } from 'umi';
 import { parse } from 'querystring';
-import { getEnv } from '@/services/after-class-pxjg/other'
+import { getEnv } from '@/services/after-class-pxjg/other';
 
 /**
  * 实时获取部署环境信息
