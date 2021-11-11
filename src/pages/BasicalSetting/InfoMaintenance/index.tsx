@@ -45,7 +45,7 @@ const InfoMaintenance = (props: any) => {
         ...info,
         XD: XD === '' ? [] : XD?.split(',')
       };
-      if (ZT === 5) {
+      if (ZT === 5 || res.data.KHJGRZSQs?.[0].ZT === 1) {
         setApplyState(true);
       }
       form.setFieldsValue(newData);
@@ -182,9 +182,8 @@ const InfoMaintenance = (props: any) => {
       BXXKZ: BXXKZImageUrl,
       YYZZ: YYZZImageUrl,
       XZQHM: cityAdcode || Datas?.XZQHM,
-      XZQ: `${provinceVal?.label}${cityVal?.label ? `/${cityVal?.label}` : ''}${
-        countyVal?.label ? `/${countyVal?.label}` : ''
-      }`,
+      XZQ: `${provinceVal?.label}${cityVal?.label ? `/${cityVal?.label}` : ''}${countyVal?.label ? `/${countyVal?.label}` : ''
+        }`,
       XD: XD?.toString()
     };
     if (typeof params.id === 'undefined') {
@@ -313,6 +312,7 @@ const InfoMaintenance = (props: any) => {
               {SQDatas?.[0].LX === 0 ? (
                 SQDatas?.[0].ZT === 0 ? (
                   <>
+                    <Alert message="申请中" type="warning" style={{ height: 33 }} />
                     <Popconfirm
                       placement="topRight"
                       title="确定撤销本机构此次申请吗，点击“确定”取消。"
@@ -324,7 +324,6 @@ const InfoMaintenance = (props: any) => {
                         撤销申请
                       </Button>
                     </Popconfirm>
-                    <Alert message="申请中" type="warning" style={{ height: 33, marginLeft: 20 }} />
                   </>
                 ) : SQDatas?.[0].ZT === 1 ? (
                   <>
