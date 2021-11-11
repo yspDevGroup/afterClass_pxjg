@@ -39,7 +39,7 @@ const Notice = () => {
       ellipsis: true,
       align: 'center',
       fixed: 'left',
-      width: 180,
+      width: 180
     },
     {
       title: '作者',
@@ -68,8 +68,8 @@ const Notice = () => {
       align: 'center',
       valueEnum: {
         草稿: { text: '草稿', status: 'Default' },
-        已发布: { text: '已发布', status: 'Success' },
-      },
+        已发布: { text: '已发布', status: 'Success' }
+      }
     },
     {
       title: '头条',
@@ -85,11 +85,8 @@ const Notice = () => {
             key="SFTT"
             defaultChecked={!!text}
             size="small"
-            disabled={record.ZT === '已发布' ? true : false}
             onChange={async (checked: boolean) => {
               const data = {
-                ...record,
-                RQ: moment(record.RQ).format(),
                 SFTT: checked === true ? 1 : 0
               };
               try {
@@ -143,7 +140,7 @@ const Notice = () => {
         pagination={{
           showQuickJumper: true,
           pageSize: 10,
-          defaultCurrent: 1,
+          defaultCurrent: 1
         }}
         scroll={{ x: 1000 }}
         toolBarRender={(_action) => [
