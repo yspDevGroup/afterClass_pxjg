@@ -1571,7 +1571,7 @@ declare namespace API {
     /** 班级描述 */
     BJMS?: string;
     /** 班级状态 */
-    BJZT: '待开班' | '已开班' | '已结课';
+    BJZT: '未开班' | '已开班' | '已结课';
     /** 主教ID */
     ZJS?: string;
     /** 副教ID */
@@ -1630,7 +1630,7 @@ declare namespace API {
     /** 班级描述 */
     BJMS?: string;
     /** 班级状态 */
-    BJZT: '待开班' | '已开班' | '已结课';
+    BJZT: '未开班' | '已开班' | '已结课';
     /** 班级人数 */
     BJRS?: number;
     /** 课时数 */
@@ -1666,7 +1666,7 @@ declare namespace API {
     /** 班级描述 */
     BJMS?: string;
     /** 班级状态 */
-    BJZT?: '待开班' | '已开班' | '已结课';
+    BJZT?: '未开班' | '已开班' | '已结课';
     /** 班级人数 */
     BJRS?: number;
     /** 课时数 */
@@ -1851,7 +1851,10 @@ declare namespace API {
     QJYY?: string;
     /** 请假状态 */
     QJZT?: number;
+    /** 备注信息 */
+    BZ?: string;
     JZGJBSJ?: { id?: string; XM?: string; WechatUserId?: string };
+    SPJS?: { id?: string; XM?: string; WechatUserId?: string };
     KHJSQJKCs?: {
       QJRQ?: string;
       KCMC?: string;
@@ -1871,6 +1874,8 @@ declare namespace API {
     QJYY: string;
     /** 请假状态 */
     QJZT: number;
+    /** 备注信息 */
+    BZ?: string;
     /** 教师ID */
     JZGJBSJId: string;
     /** 班级ID */
@@ -1882,6 +1887,10 @@ declare namespace API {
     QJYY?: string;
     /** 请假状态 */
     QJZT?: number;
+    /** 备注信息 */
+    BZ?: string;
+    /** 审批教师ID */
+    SPJSId?: string;
   };
 
   type KHJSSJ = {
@@ -2029,7 +2038,12 @@ declare namespace API {
     SKFJ?: { id?: string; BH?: string; FJMC?: string } | any;
     TKFJ?: { id?: string; BH?: string; FJMC?: string } | any;
     XXSJPZ?: { id?: string; KSSJ?: string; JSSJ?: string; TITLE?: string };
-    KHBJSJ?: { id?: string; BJMC?: string; KHKCSJ?: { id?: string; KCMC?: string } };
+    KHBJSJ?: {
+      id?: string;
+      BJMC?: string;
+      KCTP?: string;
+      KHKCSJ?: { id?: string; KCMC?: string; KCTP?: string };
+    };
     SPJS?: { id?: string; XM?: string; WechatUserId?: string } | any;
     createdAt?: string;
     updatedAt?: string;
@@ -2225,6 +2239,57 @@ declare namespace API {
     XD?: string;
   };
 
+  type KHJYJSPJL = {
+    id: string;
+    /** 申请状态 */
+    ZT: number;
+    /** 备注信息 */
+    BZ?: string;
+    /** 审批人 */
+    SPR?: string;
+    /** 审批人ID */
+    SPRId?: string;
+    KHJYJG?: {
+      id?: string;
+      QYMC?: string;
+      QYTB?: string;
+      ZZJGDM?: string;
+      FRDBXM?: string;
+      FRDBSFZH?: string;
+      QYJGDZ?: string;
+      XZQHM?: string;
+      XZQ?: string;
+      LXRXM?: string;
+      LXDH?: string;
+      JGFWFW?: string;
+      YYZZ?: string;
+      BXXKZ?: string;
+      JGJJ?: string;
+      ZT?: number;
+      CorpID?: string;
+      XD?: string;
+    };
+    /** 创建日期 */
+    createdAt?: string;
+    /** 修改日期 */
+    updatedAt?: string;
+  };
+
+  type CreateKHJYJSPJL = {
+    /** 申请状态 */
+    ZT?: number;
+    /** 备注信息 */
+    BZ?: string;
+    /** 审批人 */
+    SPR?: string;
+    /** 审批人ID */
+    SPRId?: string;
+    /** 课后服务机构ID */
+    KHJYJGId?: string;
+    /** 教育局ID */
+    JYJGSJId?: string;
+  };
+
   type KHJYTZGG = {
     id: string;
     /** 标题 */
@@ -2390,7 +2455,7 @@ declare namespace API {
       id?: string;
       BJMC?: string;
       BJMS?: string;
-      BJZT?: '待开班' | '已开班' | '已结课';
+      BJZT?: '未开班' | '已开班' | '已结课';
       ZJS?: string;
       FJS?: string;
       BJRS?: number;
@@ -2559,7 +2624,7 @@ declare namespace API {
       id?: string;
       BJMC?: string;
       BJMS?: string;
-      BJZT?: '待开班' | '已开班' | '已结课';
+      BJZT?: '未开班' | '已开班' | '已结课';
       ZJS?: string;
       FJS?: string;
       BJRS?: number;
@@ -2690,7 +2755,7 @@ declare namespace API {
           KHZZFW?: { id?: string; FWMC?: string; FWNR?: string; FWJGMC?: string; FWZT?: number };
         }
       | any;
-    KHXSTKs?: { id?: string; BZ?: string; TKZT?: string; TKJE?: number }[];
+    KHXSTKs?: { id?: string; BZ?: string; TKZT?: string; TKSJ?: string; TKJE?: number }[];
   };
 
   type CreateKHTKSJ = {
@@ -2855,7 +2920,7 @@ declare namespace API {
       id?: string;
       BJMC?: string;
       BJMS?: string;
-      BJZT?: '待开班' | '已开班' | '已结课';
+      BJZT?: '未开班' | '已开班' | '已结课';
       BJRS?: number;
       KSS?: number;
       FY?: number;
@@ -3002,7 +3067,7 @@ declare namespace API {
       id?: string;
       BJMC?: string;
       BJMS?: string;
-      BJZT?: '待开班' | '已开班' | '已结课';
+      BJZT?: '未开班' | '已开班' | '已结课';
       BJRS?: number;
       KSS?: number;
       FY?: number;
@@ -3063,11 +3128,12 @@ declare namespace API {
     KHQJKCs?: {
       QJRQ?: string;
       KCMC?: string;
+      XXSJPZId?: string;
       KHBJSJ?: {
         id?: string;
         BJMC?: string;
         BJMS?: string;
-        BJZT?: '待开班' | '已开班' | '已结课';
+        BJZT?: '未开班' | '已开班' | '已结课';
         BJRS?: number;
         KSS?: number;
         FY?: number;
@@ -3147,9 +3213,7 @@ declare namespace API {
     };
     JZGJBSJ?: { id?: string; XM?: string; WechatUserId?: string } | any;
     KHBJSJ?: { BJMC?: string; KHKCSJ?: { KCMC?: string } } | any;
-    KHXXZZFW?:
-      | { id?: string; FWMC?: string; KHZZFW?: { id?: string; FWMC?: string; FWJGMC?: string } }
-      | any;
+    KHXXZZFW?: { id?: string; FWMC?: string; KHZZFW?: { id?: string; FWMC?: string; FWJGMC?: string } } | any;
   };
 
   type CreateKHXSTK = {
@@ -3188,6 +3252,8 @@ declare namespace API {
     TKSJ?: string;
     /** 审批时间 */
     SPSJ?: string;
+    /** 审批人ID */
+    JZGJBSJId?: string;
     /** 设备IP */
     deviceIp?: string;
   };
@@ -4325,6 +4391,34 @@ declare namespace API {
     SJHM?: string;
     /** 学生ID */
     XSJBSJId?: string;
+  };
+
+  type XSJZXX = {
+    id: string;
+    /** 姓名 */
+    XM?: string;
+    /** 联系电话 */
+    LXDH?: string;
+    /** 性别 */
+    XB?: string;
+  };
+
+  type CreateXSJZXX = {
+    /** 姓名 */
+    XM: string;
+    /** 联系电话 */
+    LXDH: string;
+    /** 性别 */
+    XB?: string;
+  };
+
+  type UpdateXSJZXX = {
+    /** 姓名 */
+    XM?: string;
+    /** 联系电话 */
+    LXDH?: string;
+    /** 性别 */
+    XB?: string;
   };
 
   type XSXXJL = {

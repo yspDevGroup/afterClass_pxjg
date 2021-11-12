@@ -194,7 +194,7 @@ export default {
       {
         path: '/graphic',
         name: '数据大屏',
-        icon: <PieChartOutlined />,
+        icon: <PieChartOutlined />
       }
     ]
   }

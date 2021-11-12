@@ -34,15 +34,24 @@ const Edit = (props: any) => {
   const { currentUser } = initialState || {};
   const [formValues, setFormValues] = useState({});
   const [teacherData, setTeacherData] = useState<any>([]);
+  console.log(state, '========');
+  const getData = async () => {
+    const res = await getKHKCSJ({ kcId: state.id });
+    if (res?.status === 'ok') {
+      const { data } = res;
+      // 老师表格数据
+      const thData: any[] = [];
+      data?.KHKCJs?.forEach((item: any) => {
+        thData.push(item.JZGJBSJ);
+      });
+      setTeacherData(thData);
+    }
+  };
   useEffect(() => {
     if (state?.type === 'info') {
       setDisabled(true);
       // 老师表格数据
-      const thData: any[] = [];
-      state.KHKCJs.forEach((item: any) => {
-        thData.push(item?.JZGJBSJ);
-      });
-      setTeacherData(thData);
+      getData();
     }
     if (state?.id) {
       // form详情
@@ -59,6 +68,7 @@ const Edit = (props: any) => {
       setFormValues(params);
     }
   }, []);
+  console.log(teacherData, 'teacherData');
   useEffect(() => {
     (async () => {
       // 课程类型

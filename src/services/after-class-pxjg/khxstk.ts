@@ -9,7 +9,7 @@ export async function getKHXSTK(
     /** 退款记录ID */
     id: string;
   },
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{
@@ -35,15 +35,13 @@ export async function getKHXSTK(
       };
       JZGJBSJ?: { id?: string; XM?: string; WechatUserId?: string } | any;
       KHBJSJ?: { BJMC?: string; KHKCSJ?: { KCMC?: string } } | any;
-      KHXXZZFW?:
-        | { id?: string; FWMC?: string; KHZZFW?: { id?: string; FWMC?: string; FWJGMC?: string } }
-        | any;
+      KHXXZZFW?: { id?: string; FWMC?: string; KHZZFW?: { id?: string; FWMC?: string; FWJGMC?: string } } | any;
     };
     message?: string;
   }>(`/khxstk/${param0}`, {
     method: 'GET',
     params: { ...queryParams },
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
@@ -54,13 +52,13 @@ export async function deleteKHXSTK(
     /** 类型ID */
     id: string;
   },
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{ status?: 'ok' | 'error'; message?: string }>(`/khxstk/${param0}`, {
     method: 'DELETE',
     params: { ...queryParams },
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
@@ -75,8 +73,14 @@ export async function getAllKHXSTK(
     XSJBSJId?: string;
     /** 学年学期ID */
     XNXQId?: string;
+    /** 课程数据Id */
+    KHKCSJId?: string;
     /** 班级ID */
     KHBJSJId?: string;
+    /** 课后服务类型Id */
+    KHFWLXId?: string;
+    /** 课后服务名称 */
+    KHFWMC?: string;
     /** 学校ID */
     XXJBSJId?: string;
     /** 页数 */
@@ -84,7 +88,7 @@ export async function getAllKHXSTK(
     /** 每页记录数 */
     pageSize?: number;
   },
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
   return request<{
     status?: 'ok' | 'error';
@@ -93,10 +97,10 @@ export async function getAllKHXSTK(
   }>('/khxstk/', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     data: body,
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
@@ -125,18 +129,16 @@ export async function createKHXSTK(body: API.CreateKHXSTK, options?: { [key: str
       };
       JZGJBSJ?: { id?: string; XM?: string; WechatUserId?: string } | any;
       KHBJSJ?: { BJMC?: string; KHKCSJ?: { KCMC?: string } } | any;
-      KHXXZZFW?:
-        | { id?: string; FWMC?: string; KHZZFW?: { id?: string; FWMC?: string; FWJGMC?: string } }
-        | any;
+      KHXXZZFW?: { id?: string; FWMC?: string; KHZZFW?: { id?: string; FWMC?: string; FWJGMC?: string } } | any;
     };
     message?: string;
   }>('/khxstk/create', {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     data: body,
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
@@ -148,17 +150,17 @@ export async function updateKHXSTK(
     id: string;
   },
   body: API.UpdateKHXSTK,
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{ status?: 'ok' | 'error'; message?: string }>(`/khxstk/update/${param0}`, {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     params: { ...queryParams },
     data: body,
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
@@ -173,8 +175,14 @@ export async function exportTKJL(
     XSJBSJId?: string;
     /** 学年学期ID */
     XNXQId?: string;
+    /** 课程数据Id */
+    KHKCSJId?: string;
     /** 班级ID */
     KHBJSJId?: string;
+    /** 课后服务类型Id */
+    KHFWLXId?: string;
+    /** 课后服务名称 */
+    KHFWMC?: string;
     /** 学校ID */
     XXJBSJId?: string;
     /** 页数 */
@@ -182,14 +190,14 @@ export async function exportTKJL(
     /** 每页记录数 */
     pageSize?: number;
   },
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
   return request<any>('/khxstk/exportTKJL', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     data: body,
-    ...(options || {}),
+    ...(options || {})
   });
 }

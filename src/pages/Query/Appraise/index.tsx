@@ -60,10 +60,14 @@ const Course = () => {
             width="100%"
             text={teacher?.map((item: any) => {
               const showWXName = item.JZGJBSJ.XM === '未知' && item.JZGJBSJ.WechatUserId;
-              return <Tag key={item.JZGJBSJId}>{showWXName ? (<WWOpenDataCom type="userName" openid={item.JZGJBSJ.WechatUserId} />) : (item.JZGJBSJ.XM)}</Tag>;
+              return (
+                <Tag key={item.JZGJBSJId}>
+                  {showWXName ? <WWOpenDataCom type="userName" openid={item.JZGJBSJ.WechatUserId} /> : item.JZGJBSJ.XM}
+                </Tag>
+              );
             })}
           />
-        )
+        );
       }
     },
     {
@@ -72,9 +76,9 @@ const Course = () => {
       key: 'PJFS',
       align: 'center',
       width: 180,
-      render: (_: any,record: any) => {
-        const fs = Number(record.PJFS).toFixed(0) || 0;
-        return <Rate count={5} value={fs as unknown as number} disabled={true} />
+      render: (_: any, record: any) => {
+        const fs = Number(Number(record.PJFS).toFixed(1)) || 0;
+        return <Rate allowHalf defaultValue={fs} disabled={true} />;
       }
     },
     {
@@ -83,7 +87,7 @@ const Course = () => {
       key: 'operation',
       align: 'center',
       width: 120,
-      fixed:'right',
+      fixed: 'right',
       ellipsis: true,
       render: (_, record) => (
         <>
@@ -106,12 +110,11 @@ const Course = () => {
     (async () => {
       const res = await getCourses({
         JGId: currentUser?.jgId
-      })
+      });
       if (res.status === 'ok') {
-        setcourseList(res.data?.rows)
+        setcourseList(res.data?.rows);
       }
-    })()
-
+    })();
   }, []);
   useEffect(() => {
     (async () => {
@@ -131,11 +134,15 @@ const Course = () => {
             allowClear
             style={{ width: 200 }}
             onChange={(value: string) => {
-              setcourse(value)
+              setcourse(value);
             }}
           >
             {courseList?.map((item: any) => {
-              return <Option key={item.id} value={item.KCMC}>{item.KCMC}</Option>;
+              return (
+                <Option key={item.id} value={item.KCMC}>
+                  {item.KCMC}
+                </Option>
+              );
             })}
           </Select>
         </span>
@@ -147,7 +154,7 @@ const Course = () => {
         pagination={{
           showQuickJumper: true,
           pageSize: 10,
-          defaultCurrent: 1,
+          defaultCurrent: 1
         }}
         scroll={{ x: 900 }}
         search={false}

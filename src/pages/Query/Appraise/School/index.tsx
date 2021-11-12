@@ -3,7 +3,7 @@ import { Space, Button, message, Tag, Input, Rate } from 'antd';
 import { useEffect, useState } from 'react';
 import { Link } from 'umi';
 import { getCourseSchools } from '@/services/after-class-pxjg/khjyjg';
-import { LeftOutlined, } from '@ant-design/icons';
+import { LeftOutlined } from '@ant-design/icons';
 import styles from '../index.less';
 import EllipsisHint from '@/components/EllipsisHint';
 
@@ -20,7 +20,7 @@ const Appraise = (props: any) => {
       dataIndex: 'index',
       valueType: 'index',
       width: 58,
-      fixed: 'left',
+      fixed: 'left'
     },
     {
       title: '学校名称',
@@ -42,13 +42,16 @@ const Appraise = (props: any) => {
         return (
           <EllipsisHint
             width="100%"
-            text={text?.length && text.map((item: any) => {
-              return (
-                <Tag key={item} style={{ margin: '4px' }}>
-                  {item}
-                </Tag>
-              );
-            })}
+            text={
+              text?.length &&
+              text.map((item: any) => {
+                return (
+                  <Tag key={item} style={{ margin: '4px' }}>
+                    {item}
+                  </Tag>
+                );
+              })
+            }
           />
         );
       }
@@ -75,9 +78,9 @@ const Appraise = (props: any) => {
       key: 'PJFS',
       align: 'center',
       width: 180,
-      render: (_: any,record: any) => {
-        const fs = Number(record.PJFS).toFixed(0) || 0;
-        return <Rate count={5} value={fs as unknown as number} disabled={true} />
+      render: (_: any, record: any) => {
+        const fs = Number(Number(record.PJFS).toFixed(1)) || 0;
+        return <Rate allowHalf defaultValue={fs} disabled={true} />;
       }
     },
     // {
@@ -101,7 +104,7 @@ const Appraise = (props: any) => {
             <Link
               to={{
                 pathname: '/query/Appraise/class',
-                state: { KCMC, KHKCSJId: id, XXMC: record?.XXMC },
+                state: { KCMC, KHKCSJId: id, XXMC: record?.XXMC }
               }}
             >
               查看课程班
@@ -118,12 +121,12 @@ const Appraise = (props: any) => {
         XXMC: school
       });
       if (res.status === 'ok') {
-        setDataSource(res.data?.rows)
+        setDataSource(res.data?.rows);
       } else {
         message.error(res?.message || '数据获取失败，请联系系统管理员或稍后再试');
       }
-    })()
-  }, [school])
+    })();
+  }, [school]);
   return (
     <div>
       <Button
@@ -132,7 +135,7 @@ const Appraise = (props: any) => {
           history.go(-1);
         }}
         style={{
-          marginBottom: '24px',
+          marginBottom: '24px'
         }}
       >
         <LeftOutlined />
@@ -146,7 +149,7 @@ const Appraise = (props: any) => {
               allowClear
               style={{ width: 200 }}
               onSearch={(val) => {
-                setSchool(val)
+                setSchool(val);
               }}
             />
           </span>
@@ -157,7 +160,7 @@ const Appraise = (props: any) => {
           pagination={{
             showQuickJumper: true,
             pageSize: 10,
-            defaultCurrent: 1,
+            defaultCurrent: 1
           }}
           scroll={{ x: 900 }}
           columns={columns}
@@ -165,20 +168,13 @@ const Appraise = (props: any) => {
             setting: false,
             fullScreen: false,
             density: false,
-            reload: false,
+            reload: false
           }}
           search={false}
         />
-
       </div>
-
-
-
-
-
     </div>
-
-  )
-}
+  );
+};
 Appraise.wrappers = ['@/wrappers/auth'];
-export default Appraise
+export default Appraise;

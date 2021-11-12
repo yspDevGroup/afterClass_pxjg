@@ -9,7 +9,7 @@ export async function getKHXSPJ(
     /** 学生评价记录ID */
     id: string;
   },
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{
@@ -33,7 +33,7 @@ export async function getKHXSPJ(
         id?: string;
         BJMC?: string;
         BJMS?: string;
-        BJZT?: '待开班' | '已开班' | '已结课';
+        BJZT?: '未开班' | '已开班' | '已结课';
         BJRS?: number;
         KSS?: number;
         FY?: number;
@@ -49,7 +49,7 @@ export async function getKHXSPJ(
   }>(`/khxspj/${param0}`, {
     method: 'GET',
     params: { ...queryParams },
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
@@ -60,13 +60,13 @@ export async function deleteKHXSPJ(
     /** 类型ID */
     id: string;
   },
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{ status?: 'ok' | 'error'; message?: string }>(`/khxspj/${param0}`, {
     method: 'DELETE',
     params: { ...queryParams },
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
@@ -86,7 +86,7 @@ export async function getAllKHXSPJ(
     /** 每页记录数 */
     pageSize?: number;
   },
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
   return request<{
     status?: 'ok' | 'error';
@@ -95,10 +95,10 @@ export async function getAllKHXSPJ(
   }>('/khxspj/', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     data: body,
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
@@ -125,7 +125,7 @@ export async function createKHXSPJ(body: API.CreateKHXSPJ, options?: { [key: str
         id?: string;
         BJMC?: string;
         BJMS?: string;
-        BJZT?: '待开班' | '已开班' | '已结课';
+        BJZT?: '未开班' | '已开班' | '已结课';
         BJRS?: number;
         KSS?: number;
         FY?: number;
@@ -141,10 +141,10 @@ export async function createKHXSPJ(body: API.CreateKHXSPJ, options?: { [key: str
   }>('/khxspj/create', {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     data: body,
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
@@ -156,16 +156,16 @@ export async function updateKHXSPJ(
     id: string;
   },
   body: API.UpdateKHXSPJ,
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{ status?: 'ok' | 'error'; message?: string }>(`/khxspj/update/${param0}`, {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     params: { ...queryParams },
     data: body,
-    ...(options || {}),
+    ...(options || {})
   });
 }

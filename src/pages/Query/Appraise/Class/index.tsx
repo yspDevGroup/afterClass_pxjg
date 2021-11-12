@@ -27,7 +27,7 @@ const Class = (props: any) => {
       align: 'center',
       fixed: 'left',
       width: 130,
-      ellipsis: true,
+      ellipsis: true
     },
     {
       title: '主班',
@@ -43,10 +43,14 @@ const Class = (props: any) => {
             width="100%"
             text={teacher?.map((item: any) => {
               const showWXName = item.JZGJBSJ.XM === '未知' && item.JZGJBSJ.WechatUserId;
-              return <Tag key={item.JZGJBSJId}>{showWXName ? (<WWOpenDataCom type="userName" openid={item.JZGJBSJ?.WechatUserId} />) : (item.JZGJBSJ.XM)}</Tag>;
+              return (
+                <Tag key={item.JZGJBSJId}>
+                  {showWXName ? <WWOpenDataCom type="userName" openid={item.JZGJBSJ?.WechatUserId} /> : item.JZGJBSJ.XM}
+                </Tag>
+              );
             })}
           />
-        )
+        );
       }
     },
     {
@@ -55,7 +59,7 @@ const Class = (props: any) => {
       key: ' pj_count',
       align: 'center',
       width: 110,
-      ellipsis: true,
+      ellipsis: true
     },
     {
       title: '班级人数',
@@ -63,7 +67,7 @@ const Class = (props: any) => {
       key: 'xs_count ',
       align: 'center',
       width: 110,
-      ellipsis: true,
+      ellipsis: true
     },
     {
       title: '班级评分',
@@ -72,7 +76,10 @@ const Class = (props: any) => {
       align: 'center',
       width: 180,
       ellipsis: true,
-      render: (_: any, record: any) => <Rate count={5} defaultValue={record?.pj_avg} disabled={true} />
+      render: (text: any, record: any) => {
+        const fs = Number(Number(record.pj_avg).toFixed(1)) || 0;
+        return <Rate allowHalf defaultValue={fs} disabled={true} />;
+      }
     },
     {
       title: '操作',
@@ -89,7 +96,7 @@ const Class = (props: any) => {
                 type: 'detail',
                 KCMC,
                 XXMC,
-                BJId: record?.id,
+                BJId: record?.id
               }
             }}
           >
@@ -135,7 +142,7 @@ const Class = (props: any) => {
           pagination={{
             showQuickJumper: true,
             pageSize: 10,
-            defaultCurrent: 1,
+            defaultCurrent: 1
           }}
           scroll={{ x: 900 }}
           search={false}
