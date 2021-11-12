@@ -115,30 +115,34 @@ const Edit = (props: any) => {
 
   // 提交的回调
   const onFinish = async (values: any) => {
-    const params = {
-      ...values,
-      KCTP: imageUrl || '',
-      KCZT: 0,
-      KHJYJGId: currentUser?.jgId,
-      SSJGLX: '机构课程'
-      // KHKCLXId: KCLXOptions?.find((item: any) => item.text === '标准课程').value
-    };
-    if (state) {
-      const res = await updateKHKCSJ({ id: state?.id }, { ...params });
-      if (res.status === 'ok') {
-        message.success('保存成功');
-        history.push('/courseManagement');
+    if (imageUrl) {
+      const params = {
+        ...values,
+        KCTP: imageUrl || '',
+        KCZT: 0,
+        KHJYJGId: currentUser?.jgId,
+        SSJGLX: '机构课程'
+        // KHKCLXId: KCLXOptions?.find((item: any) => item.text === '标准课程').value
+      };
+      if (state) {
+        const res = await updateKHKCSJ({ id: state?.id }, { ...params });
+        if (res.status === 'ok') {
+          message.success('保存成功');
+          history.push('/courseManagement');
+        } else {
+          message.error(res.message);
+        }
       } else {
-        message.error(res.message);
+        const res = await createKHKCSJ(params);
+        if (res.status === 'ok') {
+          message.success('保存成功');
+          history.push('/courseManagement');
+        } else {
+          message.error(res.message);
+        }
       }
     } else {
-      const res = await createKHKCSJ(params);
-      if (res.status === 'ok') {
-        message.success('保存成功');
-        history.push('/courseManagement');
-      } else {
-        message.error(res.message);
-      }
+      message.warning('请上传课程封面');
     }
   };
   // 文件状态改变的回调
