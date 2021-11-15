@@ -66,7 +66,7 @@ const TeacherManagement = () => {
         if (code.status === 'ok') {
           message.success(`上传成功`);
         } else {
-          message.error(`${code.message}`);
+          message.error(`上传出错`);
         }
       } else if (info.file.status === 'error') {
         const code = info.file.response;
