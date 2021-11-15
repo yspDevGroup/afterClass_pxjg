@@ -23,6 +23,7 @@ const StudentList = (props: any) => {
     (async () => {
       const res = await getClassStudents({
         KHBJSJId: state.bjId,
+        ZT: [0, 1],
         page: 0,
         pageSize: 0
       });
