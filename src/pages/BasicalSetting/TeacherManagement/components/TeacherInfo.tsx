@@ -191,12 +191,12 @@ const SchoolInfo = (props: PropsType) => {
           placeholder: readonly ? '-' : ''
         },
         {
-          type: 'select',
-          label: '学历',
+          type: 'input',
+          label: '资格证书编号',
           span: 12,
-          key: 'XLM',
-          name: 'XLM',
-          items: xllist
+          name: 'ZGZSBH',
+          key: 'ZGZSBH',
+          placeholder: readonly ? '-' : ''
         }
       ]
     },
@@ -212,12 +212,11 @@ const SchoolInfo = (props: PropsType) => {
           items: mzlist
         },
         {
-          type: 'input',
-          label: '毕业院校',
-          name: 'BYYX',
-          key: 'BYYX',
-          rules: [{ type: 'string', max: 255 }],
-          placeholder: readonly ? '-' : ''
+          type: 'select',
+          label: '学历',
+          key: 'XLM',
+          name: 'XLM',
+          items: xllist
         }
       ]
     },
@@ -235,9 +234,9 @@ const SchoolInfo = (props: PropsType) => {
         },
         {
           type: 'input',
-          label: '专业',
-          name: 'SXZY',
-          key: 'ZY',
+          label: '毕业院校',
+          name: 'BYYX',
+          key: 'BYYX',
           rules: [{ type: 'string', max: 255 }],
           placeholder: readonly ? '-' : ''
         }
@@ -263,15 +262,12 @@ const SchoolInfo = (props: PropsType) => {
           ]
         },
         {
-          type: 'inputNumber',
-          label: '教龄（年）',
-          name: 'JL',
-          key: 'JL',
-          max: 100,
-          min: 1,
-          placeholder: readonly ? '-' : '',
-          formatter: (value) => `${Math.round(value)}`,
-          tooltip: '注意：教龄四舍五入，只能填写整数'
+          type: 'input',
+          label: '专业',
+          name: 'SXZY',
+          key: 'ZY',
+          rules: [{ type: 'string', max: 255 }],
+          placeholder: readonly ? '-' : ''
         }
       ]
     },
@@ -325,12 +321,15 @@ const SchoolInfo = (props: PropsType) => {
           }
         },
         {
-          type: 'input',
-          label: '教授科目',
-          name: 'JSKM',
-          key: 'JSKM',
-          rules: [{ type: 'string', max: 255 }],
-          placeholder: readonly ? '-' : ''
+          type: 'inputNumber',
+          label: '教龄（年）',
+          name: 'JL',
+          key: 'JL',
+          max: 100,
+          min: 1,
+          placeholder: readonly ? '-' : '',
+          formatter: (value) => `${Math.round(value)}`,
+          tooltip: '注意：教龄四舍五入，只能填写整数'
         }
       ]
     },
@@ -372,21 +371,6 @@ const SchoolInfo = (props: PropsType) => {
                 dtmBirth.getDate() == Number(arrSplit[4]);
               if (!bCorrectDay) {
                 return '（出生日期有误）';
-              } else {
-                // 检验18位身份证的校验码是否正确。
-                // 校验位按照ISO 7064:1983.MOD 11-2的规定生成，X可以认为是数字10。
-                let valnum;
-                let arrInt = new Array(7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2);
-                let arrCh = new Array('1', '0', 'X', '9', '8', '7', '6', '5', '4', '3', '2');
-                let nTemp = 0;
-                let i;
-                for (i = 0; i < 17; i++) {
-                  nTemp += num.substr(i, 1) * arrInt[i];
-                }
-                valnum = arrCh[nTemp % 11];
-                if (valnum != num.substr(17, 1)) {
-                  return '（校验码有误）';
-                }
               }
             } else if (idType == '护照' && len >= 9) {
               if (idReg.test(num) === false) {
@@ -402,6 +386,20 @@ const SchoolInfo = (props: PropsType) => {
         },
         {
           type: 'input',
+          label: '教授科目',
+          name: 'JSKM',
+          key: 'JSKM',
+          rules: [{ type: 'string', max: 255 }],
+          placeholder: readonly ? '-' : ''
+        }
+      ]
+    },
+    {
+      type: 'group',
+      key: 'group10',
+      groupItems: [
+        {
+          type: 'input',
           label: '电子邮箱',
           name: 'DZXX',
           key: 'DZXX',
@@ -413,19 +411,6 @@ const SchoolInfo = (props: PropsType) => {
             },
             { type: 'string', max: 32 }
           ]
-        }
-      ]
-    },
-    {
-      type: 'group',
-      key: 'group10',
-      groupItems: [
-        {
-          type: 'input',
-          label: '资格证书编号',
-          name: 'ZGZSBH',
-          key: 'ZGZSBH',
-          placeholder: readonly ? '-' : ''
         },
         {}
       ]
