@@ -91,6 +91,7 @@ export type FormTimeProps = {
   disabled?: boolean;
   subtype?: string;
   onChange?: (value: any, dateString: string) => void;
+  placeholder?: string;
 } & FormItemProps;
 
 export type FormTimeRangeProps = {

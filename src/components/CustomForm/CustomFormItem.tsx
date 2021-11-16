@@ -203,7 +203,7 @@ export const FormRadio = (props: FormRadioProps) => {
  * @return {*}
  */
 export const FormTime = (props: FormTimeProps) => {
-  const { disabled, subtype = 'dateTime', onChange, ...formProps } = props;
+  const { disabled, subtype = 'dateTime', placeholder, onChange, ...formProps } = props;
   return (
     <Form.Item {...formProps}>
       {subtype === 'time' ? (
@@ -211,13 +211,14 @@ export const FormTime = (props: FormTimeProps) => {
           disabled={disabled}
           minuteStep={15}
           format="HH:mm"
+          placeholder={placeholder}
           onChange={onChange}
           style={{ width: '100%' }}
         />
       ) : subtype === 'date' ? (
-        <DatePicker disabled={disabled} onChange={onChange} format="YYYY-MM-DD" />
+        <DatePicker disabled={disabled} placeholder={placeholder} onChange={onChange} format="YYYY-MM-DD" />
       ) : (
-        <DatePicker disabled={disabled} showTime onChange={onChange} format="YYYY-MM-DD HH:mm" />
+        <DatePicker disabled={disabled} placeholder={placeholder} showTime onChange={onChange} format="YYYY-MM-DD HH:mm" />
       )}
     </Form.Item>
   );
