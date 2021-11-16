@@ -1002,6 +1002,10 @@ declare namespace API {
     BYYX?: string;
     /** 所学专业 */
     SXZY?: string;
+    /** 企业名称 */
+    QYMC?: string;
+    /** 学校名称 */
+    XXMC?: string;
     /** 教授科目 */
     JSKM?: string;
     /** 企业微信用户ID */

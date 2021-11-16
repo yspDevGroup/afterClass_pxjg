@@ -93,10 +93,16 @@ export async function getAllKHXSDD(
     XSJBSJId?: string;
     /** 学生姓名 */
     XSXM?: string;
+    /** 课后服务名称 */
+    FWMC?: string;
+    /** 课后服务类型 */
+    FWLX?: string;
     /** 学年学期ID */
     XNXQId?: string;
     /** 学校ID */
     XXJBSJId?: string;
+    /** 班级ID */
+    KHBJSJId?: string;
     /** 班级名称 */
     bjmc?: string;
     /** 课程名称 */

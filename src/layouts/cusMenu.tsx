@@ -152,6 +152,17 @@ export default {
             ]
           },
           {
+            path: '/query/refundInquiry',
+            name: '退款查询',
+            routes: [
+              {
+                path: '/query/refundInquiry/details',
+                name: '退款详情',
+                hideInMenu: 'true'
+              }
+            ]
+          },
+          {
             path: '/query/appraise',
             name: '评价查询',
             routes: [

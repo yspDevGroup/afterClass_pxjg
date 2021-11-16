@@ -103,12 +103,15 @@ const Details = (props: any) => {
       }
     },
     {
-      title: '退课课时数',
-      dataIndex: 'KSS',
-      key: 'KSS',
+      title: '退款金额',
+      dataIndex: 'KHXSTKs',
+      key: 'KHXSTKs',
       align: 'center',
       width: 110,
-      search: false
+      search: false,
+      render: (_, record: any) => {
+        return record.KHXSTKs?.[0].TKJE;
+      }
     },
     {
       title: '状态',

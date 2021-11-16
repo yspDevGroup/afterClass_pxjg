@@ -165,26 +165,8 @@ export async function createKHPKSJ(
 }
 
 /** 添加课后排课数据 PUT /khpksj/addKHPKSJ */
-export async function addKHPKSJ(
-  body: {
-    /** 班级id */
-    bjIds?: string;
-    data?: API.CreateKHPKSJ[];
-  },
-  options?: { [key: string]: any }
-) {
-  return request<{
-    status?: 'ok' | 'error';
-    data?: {
-      id?: string;
-      WEEKDAY?: string;
-      XXSJPZId?: string;
-      KHBJSJId?: string;
-      FJSJId?: string;
-      XNXQId?: string;
-    }[];
-    message?: string;
-  }>('/khpksj/addKHPKSJ', {
+export async function addKHPKSJ(body: API.CreateKHPKSJ, options?: { [key: string]: any }) {
+  return request<{ status?: 'ok' | 'error'; data?: { id?: string }; message?: string }>('/khpksj/addKHPKSJ', {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json'
