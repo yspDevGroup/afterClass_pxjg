@@ -8,28 +8,28 @@
 export const bgColor = [
   {
     begin: '#FFA178',
-    end: '#FF6756',
+    end: '#FF6756'
   },
   {
     begin: '#36D1DC',
-    end: '#85ABFF',
+    end: '#85ABFF'
   },
   {
     begin: '#FFE466',
-    end: '#FF9B1E',
+    end: '#FF9B1E'
   },
   {
     begin: '#6FEE7C',
-    end: '#4DC6B7',
+    end: '#4DC6B7'
   },
   {
     begin: '#86A8E7',
-    end: '#7F7FD5',
+    end: '#7F7FD5'
   },
   {
     begin: '#4BF3D5',
-    end: '#1CC6C6',
-  },
+    end: '#1CC6C6'
+  }
 ];
 export const topNum = [
   {
@@ -38,7 +38,7 @@ export const topNum = [
   },
   {
     title: '准入课程数',
-    type: 'zrkc_count',
+    type: 'zrkc_count'
   },
   {
     title: '服务班级数',
@@ -54,7 +54,7 @@ export const topNum = [
   },
   {
     title: '待处理申请数',
-    type: 'amount',
+    type: 'dcl_count',
     link: '/businessManagement/courseManagement'
   }
 ];
@@ -73,8 +73,7 @@ export const chartConfig: any = {
     minInterval: 1,
     splitNumber: 1
   },
-  columnStyle: {
-  },
+  columnStyle: {},
   maxColumnWidth: 30,
   meta: {
     type: { alias: '课程名称' },
