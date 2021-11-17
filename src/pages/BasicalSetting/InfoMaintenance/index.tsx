@@ -3,7 +3,7 @@ import React, { FC, useEffect, useState } from 'react';
 import { Button, Form, Input, Image, Divider, Row, Col, Alert, message, Popconfirm, Tooltip, Select } from 'antd';
 import { useModel } from 'umi';
 import { createKHJYJG, KHJYJG, updateKHJYJG } from '@/services/after-class-pxjg/khjyjg';
-import { createKHJGRZSQ, deleteKHJGRZSQ, getKHJGRZSQ } from '@/services/after-class-pxjg/khjgrzsq';
+import { createKHJGRZSQ, deleteKHJGRZSQ, getKHJGRZSQ, updateKHJGRZSQ } from '@/services/after-class-pxjg/khjgrzsq';
 import { QuestionCircleOutlined } from '@ant-design/icons';
 import UploadImage from '@/components/CustomForm/components/UploadImage';
 import $ from 'jquery';
@@ -35,7 +35,6 @@ const InfoMaintenance = (props: any) => {
   const [countyVal, setCountyVal] = useState<any>();
   const [Datas, setDatas] = useState<any>();
   const [applyState, setApplyState] = useState<boolean>(false);
-  const [applyId, setApplyId] = useState<any>();
 
   const onKHJYJG = async () => {
     const res = await KHJYJG({ id: currentUser!.jgId! });
@@ -45,7 +44,7 @@ const InfoMaintenance = (props: any) => {
         ...info,
         XD: XD === '' ? [] : XD?.split(',')
       };
-      if (ZT === 5 || res.data.KHJGRZSQs?.[0].ZT === 1) {
+      if (res.data.ZT === 0) {
         setApplyState(true);
       }
       form.setFieldsValue(newData);
@@ -109,12 +108,6 @@ const InfoMaintenance = (props: any) => {
       KHJYJGId: KHJYJGId,
     });
     if (rescreateKHJGRZSQ.status === 'ok') {
-      await updateKHJYJG({
-        id: currentUser!.jgId!
-      }, {
-        ZT: 5
-      });
-      setApplyId(rescreateKHJGRZSQ.data.id);
       onKHJYJG();
       setApplyState(true);
       message.success('准入申请提交成功');
@@ -123,7 +116,6 @@ const InfoMaintenance = (props: any) => {
     }
   };
   const unconfirm = async () => {
-
     const resKHJGRZSQ = await getKHJGRZSQ({
       KHJYJGId: currentUser!.jgId!,
       page: 0,
@@ -132,12 +124,12 @@ const InfoMaintenance = (props: any) => {
     const rescreateKHJGRZSQ = await deleteKHJGRZSQ({
       id: resKHJGRZSQ.data.rows[0].id
     });
+    await updateKHJGRZSQ({
+      id: resKHJGRZSQ.data.rows[1].id
+    },{
+      ZT: 5
+    });
     if (rescreateKHJGRZSQ.status === 'ok') {
-      await updateKHJYJG({
-        id: currentUser!.jgId!
-      }, {
-        ZT: 0
-      });
       onKHJYJG();
       setApplyState(false);
       message.success('撤销申请成功');
@@ -294,7 +286,7 @@ const InfoMaintenance = (props: any) => {
     <div className={styles.InfoMaintenance}>
       <div>
         <div className={styles.header}>
-          {SQDatas?.length === 0 ? (
+          {SQDatas?.[0].ZT === 5 ? (
             <Popconfirm
               placement="topRight"
               title="确定本机构信息填写完整且无误后，点击“确定”申请准入资格"
@@ -310,7 +302,7 @@ const InfoMaintenance = (props: any) => {
           ) : (
             <>
               {SQDatas?.[0].LX === 0 ? (
-                SQDatas?.[0].ZT === 0 ? (
+                SQDatas?.[0].ZT === 0 && applyState ? (
                   <>
                     <Alert message="申请中" type="warning" style={{ height: 33 }} />
                     <Popconfirm
@@ -719,7 +711,7 @@ const InfoMaintenance = (props: any) => {
           <Form.Item name="JGJJ" key="JGJJ" label="机构简介：">
             <Input.TextArea placeholder={disabled === false ? '请输入' : '——'} rows={4} disabled={disabled} />
           </Form.Item>
-          <Form.Item className={styles.bottomBtnCon} style={{ display: applyState && SQDatas?.[0].ZT !== 2 ? 'none' : 'block' }}>
+          <Form.Item className={styles.bottomBtnCon} style={{ display: SQDatas?.[0].ZT === 0 || SQDatas?.[0].ZT === 1 || SQDatas?.[0].ZT === 4 ? 'none' : 'block' }}>
             {disabled === true ? (
               <button onClick={onEditor} className={styles.btn}>
                 更改准入信息

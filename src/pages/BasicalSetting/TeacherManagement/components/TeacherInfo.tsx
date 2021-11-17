@@ -209,14 +209,16 @@ const SchoolInfo = (props: PropsType) => {
           key: 'MZM',
           name: 'MZM',
           label: '民族',
-          items: mzlist
+          items: mzlist,
+          placeholder: readonly ? '-' : ''
         },
         {
           type: 'select',
           label: '学历',
           key: 'XLM',
           name: 'XLM',
-          items: xllist
+          items: xllist,
+          placeholder: readonly ? '-' : ''
         }
       ]
     },
