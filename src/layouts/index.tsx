@@ -3,7 +3,7 @@
  * @description: 通用布局
  * @author: zpl
  * @Date: 2021-08-16 17:31:56
- * @LastEditTime: 2021-11-01 12:19:35
+ * @LastEditTime: 2021-11-17 09:13:34
  * @LastEditors: zpl
  */
 import React, { FC, useEffect, useState } from 'react';
@@ -18,6 +18,7 @@ import styles from './index.less';
 import { BreadcrumbProps, PageHeaderProps } from 'antd';
 import RightContent from '@/components/RightContent';
 import { Route } from '@ant-design/pro-layout/lib/typings';
+import Version from '@/components/Version';
 
 const menuRender = (
   item: MenuDataItem & {
@@ -63,7 +64,7 @@ const CommonLayout: FC<IRouteComponentProps> = ({ children, location, route, his
         <div>{children}</div>
       ) : (
         <ProLayout
-          {...((customMenu as unknown) as Route[])}
+          {...(customMenu as unknown as Route[])}
           layout="side"
           headerRender={false}
           collapsedButtonRender={false}
@@ -102,6 +103,12 @@ const CommonLayout: FC<IRouteComponentProps> = ({ children, location, route, his
           menuItemRender={(item: MenuDataItem & { isUrl: boolean; onClick: () => void }, dom: React.ReactNode) =>
             menuRender(item, dom)
           }
+          links={[
+            <Version
+              key="version"
+              style={{ color: 'rgba(255, 255, 255, 0.2)', textAlign: 'center', fontSize: '10px' }}
+            />
+          ]}
           footerRender={() => <Footer copyRight={initialState?.buildOptions.ENV_copyRight} />}
         >
           <PageContainer
