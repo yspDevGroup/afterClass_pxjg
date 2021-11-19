@@ -2,31 +2,30 @@
  * @description:
  * @author: Sissle Lynn
  * @Date: 2021-08-26 19:54:41
- * @LastEditTime: 2021-10-30 19:24:03
+ * @LastEditTime: 2021-11-19 16:54:31
  * @LastEditors: Sissle Lynn
  */
 import React, { useEffect, useState } from 'react';
 import { Link } from 'umi';
-import { Input, Empty, Row, Col, message, Tag, Select, Button, Divider } from 'antd';
+import { Empty, Row, Col, message, Tag, Select, Button, Divider } from 'antd';
 import { UpOutlined, LeftOutlined, RightOutlined, DownOutlined } from '@ant-design/icons';
-import { copCourseStatus, colorTagDisk } from '@/constant';
+import { colorTagDisk, courseStatus } from '@/constant';
 
 import styles from './components.less';
 import noCourse from '@/assets/noCourse.png';
 import noClass from '@/assets/noClass.png';
-import { getAllCourses, getAllSemester } from '@/services/after-class-pxjg/khjyjg';
+import { getAllSemester } from '@/services/after-class-pxjg/khjyjg';
 import { getCurrentXQ } from '@/utils';
 import { getKHKCSJ } from '@/services/after-class-pxjg/khkcsj';
 import moment from 'moment';
 import WWOpenDataCom from '@/components/WWOpenDataCom';
 
-const { Search } = Input;
 const { Option } = Select;
 const CourseItemDom = (props: { school: string; course: any; type: string; ind: number }) => {
   const { school, course, type, ind } = props;
-  const ZT = course?.KHKCSQs?.[0].ZT;
+  const ZT = course?.KCZT;
   const [curIndex, setCurIndex] = useState<number | undefined>(0);
-  const [classList,setClassList] = useState<any>();
+  const [classList, setClassList] = useState<any>();
   let bgColor = '#58D14E';
   if (ZT === 1) {
     bgColor = '#FF9900';
@@ -40,36 +39,27 @@ const CourseItemDom = (props: { school: string; course: any; type: string; ind: 
       setCurIndex(ind);
     }
   };
-  useEffect(()=>{
-    if(course && course.KHBJSJs?.length){
-      const list = course?.KHBJSJs?.filter((item: { BJZT: string; })=>item.BJZT === '已开班');
+  useEffect(() => {
+    if (course?.KHBJSJs?.length) {
+      const list = course?.KHBJSJs?.filter((item: { BJZT: string; }) => item.BJZT === '已开班');
       setClassList(list);
     }
-  },[course])
-
+  }, [course]);
   return (
     <div className={styles.courseItem}>
       <div>
         <h3>
           {course.KCMC}
           <span className={styles.extraInfo}>
-            <span style={{ backgroundColor: bgColor }}>{copCourseStatus[ZT]}</span>
+            <span style={{ backgroundColor: bgColor }}>{courseStatus[ZT]}</span>
             <div className={styles.synj}>
               适用年级：
-              {course.NJSJs?.map((item: any, index: number) => {
+              {course.NJSJs?.map((item: any) => {
                 return (
                   <span key={item.id}>
-                    {index > 4 ? (
-                      ''
-                    ) : index === 4 ? (
-                      <Tag key="more" color="#EFEFEF" style={{ color: '#333' }}>
-                        ...
-                      </Tag>
-                    ) : (
-                      <Tag color="#EFEFEF" style={{ color: '#333' }}>
-                        {item.NJMC}
-                      </Tag>
-                    )}
+                    <Tag color="#EFEFEF" style={{ color: '#333' }}>
+                      {item.NJMC}
+                    </Tag>
                   </span>
                 );
               })}
