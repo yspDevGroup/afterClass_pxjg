@@ -148,7 +148,8 @@ const Details = (props: any) => {
   useEffect(() => {
     if (currentUser?.jgId) {
       // 获取学年学期
-      getXNXQ(id, currentUser?.jgId),
+      // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+      getXNXQ(id, currentUser?.jgId);
         (async () => {
           const res = await getCourses({
             JGId: currentUser?.jgId

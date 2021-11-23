@@ -24,6 +24,17 @@ export async function importTeachers(options?: { [key: string]: any }) {
   );
 }
 
+/** 导入场地信息 POST /upload/importSites */
+export async function importSites(options?: { [key: string]: any }) {
+  return request<{ status?: 'ok' | 'error'; data?: string; message?: string }>(
+    '/upload/importSites',
+    {
+      method: 'POST',
+      ...(options || {}),
+    },
+  );
+}
+
 /** 导入学生信息 POST /upload/importStudents */
 export async function importStudents(options?: { [key: string]: any }) {
   return request<{ status?: 'ok' | 'error'; data?: string; message?: string }>(

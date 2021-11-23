@@ -54,6 +54,7 @@ import * as pksj from './pksj';
 import * as redis from './redis';
 import * as reports from './reports';
 import * as sso from './sso';
+import * as statistic from './statistic';
 import * as upload from './upload';
 import * as wechat from './wechat';
 import * as xksj from './xksj';
@@ -128,6 +129,7 @@ export default {
   redis,
   reports,
   sso,
+  statistic,
   upload,
   wechat,
   xksj,
@@ -148,5 +150,5 @@ export default {
   xxsjpz,
   xxtzgg,
   zxfa,
-  zxsj
+  zxsj,
 };

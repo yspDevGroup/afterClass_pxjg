@@ -91,3 +91,95 @@ export async function getSchools(options?: { [key: string]: any }) {
     ...(options || {}),
   });
 }
+
+/** 批量创建/更新区县教育局统计数据 POST /sso/bulkCreateEducation */
+export async function bulkCreateEducation(
+  body: {
+    JYJMC?: string;
+    XZQHM?: string;
+    XXS?: number;
+    JGS?: number;
+    JSS?: number;
+    XSS?: number;
+    KCS?: number;
+    BJS?: number;
+    TKXSS?: number;
+    SFZE?: number;
+    TFZE?: number;
+    XN?: string;
+    XQ?: string;
+    JYJId?: string;
+  }[],
+  options?: { [key: string]: any },
+) {
+  return request<any>('/sso/bulkCreateEducation', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data: body,
+    ...(options || {}),
+  });
+}
+
+/** 批量创建/更新学校统计数据 POST /sso/bulkCreateSchool */
+export async function bulkCreateSchool(
+  body: {
+    XXMC?: string;
+    XQMC?: string;
+    XZQHM?: string;
+    JSS?: number;
+    JGS?: number;
+    XSS?: number;
+    TKXSS?: number;
+    KCS?: number;
+    JGKCS?: number;
+    BJS?: number;
+    SFZE?: number;
+    TFZE?: number;
+    XN?: string;
+    XQ?: string;
+    XXId?: string;
+    XQId?: string;
+  }[],
+  options?: { [key: string]: any },
+) {
+  return request<any>('/sso/bulkCreateSchool', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data: body,
+    ...(options || {}),
+  });
+}
+
+/** 批量创建/更新机构统计数据 POST /sso/bulkCreateAgency */
+export async function bulkCreateAgency(
+  body: {
+    JGMC?: string;
+    XZQHM?: string;
+    JSS?: number;
+    XXS?: number;
+    XXKCS?: number;
+    KCS?: number;
+    BJS?: number;
+    XSS?: number;
+    TKXSS?: number;
+    SFZE?: number;
+    TFZE?: number;
+    XN?: string;
+    XQ?: string;
+    JGId?: string;
+  }[],
+  options?: { [key: string]: any },
+) {
+  return request<any>('/sso/bulkCreateAgency', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data: body,
+    ...(options || {}),
+  });
+}
