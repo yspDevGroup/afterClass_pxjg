@@ -145,7 +145,7 @@ const Order = () => {
             pageSize: 10,
             defaultCurrent: 1,
           }}
-          scroll={{ x: 1000 }}
+          scroll={{ x: getTableWidth(columns) }}
           columns={columns}
           options={{
             setting: false,
@@ -165,7 +165,6 @@ const Order = () => {
             </SearchLayout>
           }
         />
-
       </div>
 
     </div>

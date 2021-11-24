@@ -5,7 +5,7 @@
  * @LastEditTime: 2021-10-20 11:19:36
  * @LastEditors: Sissle Lynn
  */
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Link, useModel } from 'umi';
 import { Button, Divider, Input, FormInstance, message, Modal, Tag } from 'antd';
 import ProTable, { RequestData } from '@ant-design/pro-table';
@@ -17,7 +17,9 @@ import styles from './index.less';
 import { KHKCSQSJ } from '../data';
 import { getKHKCSQ, updateKHKCSQ } from '@/services/after-class-pxjg/khkcsq';
 import EllipsisHint from '@/components/EllipsisHint';
-import WWOpenDataCom from '@/components/WWOpenDataCom';
+import WWOpenDataCom from '@/components/WWOpenDataCom'; 3
+import { getTableWidth } from '@/utils';
+import SearchLayout from '@/components/Search/Layout';
 
 const { Search } = Input;
 const CourseManagement = () => {
@@ -30,6 +32,7 @@ const CourseManagement = () => {
   // 模态框的新增或编辑form定义
   const [form, setForm] = useState<FormInstance<any>>();
   const [recordId, setRecordId] = useState<string>();
+  const [dataSource, setDataSource] = useState<any>();
   const [activeKey, setActiveKey] = useState<string>('audit');
   const [courseName, setCourseName] = useState<string>('');
   const [schoolName, setSchoolName] = useState<string>('');
@@ -41,7 +44,6 @@ const CourseManagement = () => {
       if (result.status === 'ok') {
         message.success('审核操作成功');
         setModalVisible(false);
-        actionRef.current?.reload();
       } else {
         message.error(result.message);
       }
@@ -51,7 +53,6 @@ const CourseManagement = () => {
   };
   const changeList = (type: string, val: string) => {
     type === 'kc' ? setCourseName(val) : setSchoolName(val);
-    actionRef.current?.reload();
   };
   const columns: ProColumns<KHKCSQSJ>[] = [
     {
@@ -59,7 +60,7 @@ const CourseManagement = () => {
       dataIndex: 'index',
       valueType: 'index',
       width: 58,
-      fixed:'left',
+      fixed: 'left',
       align: 'center'
     },
     {
@@ -68,7 +69,7 @@ const CourseManagement = () => {
       key: 'KHKCSJ',
       align: 'center',
       width: 150,
-      fixed:'left',
+      fixed: 'left',
       ellipsis: true,
       render: (_, record) => record.KHKCSJ?.KCMC
     },
@@ -197,7 +198,7 @@ const CourseManagement = () => {
       title: '操作',
       valueType: 'option',
       width: 200,
-      fixed:'right',
+      fixed: 'right',
       align: 'center',
       render: (_, record) => {
         return (
@@ -264,10 +265,23 @@ const CourseManagement = () => {
     }
   ];
 
+  const getData = async () => {
+    let status = activeKey === 'audit' ? [0] : activeKey === 'duration' ? [1] : [2, 3];
+    const res = await getKHKCSQ({ JGId: currentUser?.jgId, ZT: status, KCMC: courseName, XXMC: schoolName, page: 0, pageSize: 0 },);
+    if (res.status === 'ok') {
+      setDataSource(res.data?.rows);
+    }
+  };
+
+  useEffect(() => {
+    getData();
+  }, [courseName, schoolName])
+
   return (
     <div>
       <ProTable<KHKCSQSJ>
         columns={columns}
+        dataSource={dataSource}
         className={styles.courseTable}
         actionRef={actionRef}
         search={false}
@@ -276,36 +290,7 @@ const CourseManagement = () => {
           pageSize: 10,
           defaultCurrent: 1,
         }}
-        scroll={{ x: 1200 }}
-        request={async (
-          params: KHKCSQSJ & {
-            pageSize?: number;
-            current?: number;
-            keyword?: string;
-          },
-          sort,
-          filter
-        ): Promise<Partial<RequestData<KHKCSQSJ>>> => {
-          // 表单搜索项会从 params 传入，传递给后端接口。
-          const opts: TableListParams = {
-            ...params,
-            sorter: sort && Object.keys(sort).length ? sort : undefined,
-            filter
-          };
-          let status = activeKey === 'audit' ? [0] : activeKey === 'duration' ? [1] : [2, 3];
-          const res = await getKHKCSQ(
-            { JGId: currentUser?.jgId, ZT: status, KCMC: courseName, XXMC: schoolName, page: 0, pageSize: 0 },
-            opts
-          );
-          if (res.status === 'ok') {
-            return {
-              data: res.data?.rows,
-              total: res.data.count,
-              success: true
-            };
-          }
-          return {};
-        }}
+        scroll={{ x: getTableWidth(columns) }}
         toolbar={{
           menu: {
             type: 'tab',
@@ -335,25 +320,23 @@ const CourseManagement = () => {
           fullScreen: false,
           density: false,
           reload: false,
-          search: (
-            <div>
-              <Search
-                name="KCMC"
-                style={{ width: 200, marginRight: '16px' }}
-                allowClear
-                placeholder="课程名称"
-                onSearch={(value: string) => changeList('kc', value)}
-              />
-              <Search
-                name="XXMC"
-                style={{ width: 200 }}
-                allowClear
-                placeholder="学校名称"
-                onSearch={(value: string) => changeList('xx', value)}
-              />
-            </div>
-          )
         }}
+        headerTitle={
+          <SearchLayout>
+            <div>
+              <label htmlFor='kcname'>课程名称：</label>
+              <Search placeholder="请输入" allowClear onSearch={(value: string) => {
+                changeList('kc', value)}
+              } />
+            </div>
+            <div>
+              <label htmlFor='kcname'>学校名称：</label>
+              <Search placeholder="请输入" allowClear onSearch={(value: string) => {
+                changeList('xx', value)
+              }} />
+            </div>
+          </SearchLayout>
+        }
         rowKey="id"
         dateFormatter="string"
       />

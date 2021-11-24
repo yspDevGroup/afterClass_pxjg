@@ -8,6 +8,8 @@ import { getCourses } from '@/services/after-class-pxjg/jyjgsj';
 
 import styles from './index.less';
 import WWOpenDataCom from '@/components/WWOpenDataCom';
+import SearchLayout from '@/components/Search/Layout';
+import { getTableWidth } from '@/utils';
 
 const Course = () => {
   const [dataSource, setDataSource] = useState<any>([]);
@@ -127,26 +129,6 @@ const Course = () => {
   }, [course]);
   return (
     <div className={styles.Tables}>
-      <div style={{ padding: '24px 24px 0', backgroundColor: '#fff' }}>
-        <span>
-          课程名称：
-          <Select
-            allowClear
-            style={{ width: 200 }}
-            onChange={(value: string) => {
-              setcourse(value);
-            }}
-          >
-            {courseList?.map((item: any) => {
-              return (
-                <Option key={item.id} value={item.KCMC}>
-                  {item.KCMC}
-                </Option>
-              );
-            })}
-          </Select>
-        </span>
-      </div>
       <ProTable
         columns={columns}
         dataSource={dataSource}
@@ -156,7 +138,7 @@ const Course = () => {
           pageSize: 10,
           defaultCurrent: 1
         }}
-        scroll={{ x: 900 }}
+        scroll={{ x: getTableWidth(columns) }}
         search={false}
         options={{
           setting: false,
@@ -164,6 +146,27 @@ const Course = () => {
           density: false,
           reload: false
         }}
+        headerTitle={
+          <SearchLayout>
+            <div>
+              <label htmlFor='kcname'>课程名称：</label>
+              <Select
+                allowClear
+                onChange={(value: string) => {
+                  setcourse(value);
+                }}
+              >
+                {courseList?.map((item: any) => {
+                  return (
+                    <Option key={item.id} value={item.KCMC}>
+                      {item.KCMC}
+                    </Option>
+                  );
+                })}
+              </Select>
+            </div>
+          </SearchLayout>
+        }
       />
     </div>
   );

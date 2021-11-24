@@ -21,6 +21,7 @@ declare const WWOpenData: any;
 declare const wxInfo: {
   xqList: (WXDepType & { njList?: WXDepType[] })[];
 };
+declare const xnxqInfo: any;
 /** 运行环境类型 */
 type PlatType = 'com-wx-mobile' | 'wx-mobile' | 'mobile' | 'com-wx-pc' | 'wx-pc' | 'pc';
 

@@ -6,6 +6,8 @@ import { getCourseSchools } from '@/services/after-class-pxjg/khjyjg';
 import { LeftOutlined } from '@ant-design/icons';
 import styles from '../index.less';
 import EllipsisHint from '@/components/EllipsisHint';
+import SearchLayout from '@/components/Search/Layout';
+import { getTableWidth } from '@/utils';
 
 const { Search } = Input;
 const Appraise = (props: any) => {
@@ -142,27 +144,14 @@ const Appraise = (props: any) => {
         返回上一页
       </Button>
       <div className={styles.Tables}>
-        <div className={styles.searchs}>
-          <span>
-            学校名称：
-            <Search
-              allowClear
-              style={{ width: 200 }}
-              onSearch={(val) => {
-                setSchool(val);
-              }}
-            />
-          </span>
-        </div>
         <ProTable
-          headerTitle={KCMC}
           dataSource={dataSource}
           pagination={{
             showQuickJumper: true,
             pageSize: 10,
             defaultCurrent: 1
           }}
-          scroll={{ x: 900 }}
+          scroll={{ x: getTableWidth(columns) }}
           columns={columns}
           options={{
             setting: false,
@@ -171,6 +160,19 @@ const Appraise = (props: any) => {
             reload: false
           }}
           search={false}
+          headerTitle={
+            <SearchLayout>
+              <div>
+                <label htmlFor='kcname'>学校名称：</label>
+                <Search
+                  allowClear
+                  onSearch={(val) => {
+                    setSchool(val);
+                  }}
+                />
+              </div>
+            </SearchLayout>
+          }
         />
       </div>
     </div>
