@@ -7,21 +7,55 @@
  */
 import React, { useState, useRef, useEffect } from 'react';
 import { PlusOutlined } from '@ant-design/icons';
-import { Button, Switch, message } from 'antd';
+import { Button, Switch, message, Input, Select } from 'antd';
 import type { ProColumns, ActionType } from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
 import { history, useModel } from 'umi';
-import Option from '../components/Option';
+import COption from '../components/Option';
 import type { TableListItem } from '../data';
 import styles from '../index.module.less';
 import moment from 'moment';
 import { getKHJYTZGG, updateKHJYTZGG } from '@/services/after-class-pxjg/khjytzgg';
+import { getTableWidth } from '@/utils';
+import SearchLayout from '@/components/Search/Layout';
 
+const { Search } = Input;
+const { Option } = Select;
 const Notice = () => {
   const [dataSource, setDataSource] = useState<API.JYJGTZGG[]>();
   const actionRef = useRef<ActionType>();
   const { initialState } = useModel('@@initialState');
   const { currentUser } = initialState || {};
+  const [title, setTitle] = useState<string>();
+  const [FBZT, setFBZT] = useState<any>();
+
+  const getData = async () => {
+    if (title || FBZT) {
+      const resgetXXTZGG = await getKHJYTZGG({
+        KHJYJGId: currentUser?.jgId,
+        BT: title,
+        ZT: FBZT ? [FBZT] : ['已发布', '草稿'],
+        LX: 0,
+        page: 0,
+        pageSize: 0
+      });
+      if (resgetXXTZGG.status === 'ok') {
+        setDataSource(resgetXXTZGG.data?.rows);
+      }
+    } else {
+      const resgetXXTZGG = await getKHJYTZGG({
+        KHJYJGId: currentUser?.jgId,
+        BT: '',
+        ZT: ['已发布', '草稿'],
+        LX: 0,
+        page: 0,
+        pageSize: 0
+      });
+      if (resgetXXTZGG.status === 'ok') {
+        setDataSource(resgetXXTZGG.data?.rows);
+      }
+    }
+  };
 
   const columns: ProColumns<TableListItem>[] = [
     {
@@ -114,7 +148,7 @@ const Notice = () => {
       fixed: 'right',
       render: (_, record) => (
         <div className={styles.optionCol}>
-          <Option
+          <COption
             id={record.id}
             ZT={record.ZT}
             record={record}
@@ -130,10 +164,13 @@ const Notice = () => {
     }
   ];
 
+  useEffect(()=>{
+    getData();
+  },[title,FBZT])
+
   return (
     <>
       <ProTable<any>
-        headerTitle={<div style={{ fontWeight: 'bold' }}>通知列表</div>}
         actionRef={actionRef}
         className={styles.proTableStyles}
         rowKey="id"
@@ -142,7 +179,7 @@ const Notice = () => {
           pageSize: 10,
           defaultCurrent: 1
         }}
-        scroll={{ x: 1000 }}
+        scroll={{ x: getTableWidth(columns) }}
         toolBarRender={(_action) => [
           <Button
             key="xinjian"
@@ -154,35 +191,35 @@ const Notice = () => {
             <PlusOutlined /> 新建
           </Button>
         ]}
-        request={async (params, sorter, filter) => {
-          if (params.ZT || params.BT) {
-            const resgetXXTZGG = await getKHJYTZGG({
-              KHJYJGId: currentUser?.jgId,
-              BT: params.BT,
-              ZT: params.ZT ? [params.ZT] : ['已发布', '草稿'],
-              LX: 0,
-              page: 0,
-              pageSize: 0
-            });
-            if (resgetXXTZGG.status === 'ok') {
-              setDataSource(resgetXXTZGG.data?.rows);
-            }
-          } else {
-            const resgetXXTZGG = await getKHJYTZGG({
-              KHJYJGId: currentUser?.jgId,
-              BT: '',
-              ZT: ['已发布', '草稿'],
-              LX: 0,
-              page: 0,
-              pageSize: 0
-            });
-            if (resgetXXTZGG.status === 'ok') {
-              setDataSource(resgetXXTZGG.data?.rows);
-            }
-          }
-
-          return '';
-        }}
+        search={false}
+        headerTitle={
+          <SearchLayout>
+              <div>
+                <label htmlFor='kcname'>标题：</label>
+                <Search placeholder="请输入" allowClear onSearch={(value: string) => {
+                  setTitle(value);
+                }} />
+              </div>
+              <div>
+                <label htmlFor='FBZT'>发布状态：</label>
+                <Select
+                  allowClear
+                  placeholder="请选择"
+                  onChange={(value) => {
+                    setFBZT(value);
+                  }}
+                  value={FBZT}
+                >
+                  <Option value='草稿' key='草稿' >
+                    草稿
+                  </Option>
+                  <Option value='已发布' key='已发布'>
+                    已发布
+                  </Option>
+                </Select>
+              </div>
+            </SearchLayout>
+        }
         dataSource={dataSource}
         columns={columns}
       />

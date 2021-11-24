@@ -12,7 +12,7 @@
  * @LastEditTime: 2021-08-27 09:44:07
  * @LastEditors: Sissle Lynn
  */
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import ProTable, { RequestData } from '@ant-design/pro-table';
 import type { ActionType, ProColumns } from '@ant-design/pro-table';
 import { UploadOutlined, VerticalAlignBottomOutlined } from '@ant-design/icons';
@@ -20,11 +20,14 @@ import { Link, useModel } from 'umi';
 
 import styles from './index.less';
 import { TableListParams } from '@/constant';
-import { Button, Divider, message, Modal, Popconfirm, Upload } from 'antd';
+import { Button, Divider, Input, message, Modal, Popconfirm, Upload } from 'antd';
 import { getAuthorization } from '@/utils';
 import { getAllJZGJBSJ, deleteJZGJBSJ } from '@/services/after-class-pxjg/jzgjbsj';
 import WWOpenDataCom from '@/components/WWOpenDataCom';
+import SearchLayout from '@/components/Search/Layout';
+import { getTableWidth } from '@/utils';
 
+const { Search } = Input;
 const TeacherManagement = () => {
   const { initialState } = useModel('@@initialState');
   const { currentUser } = initialState || {};
@@ -32,6 +35,15 @@ const TeacherManagement = () => {
   const actionRef = useRef<ActionType>();
   // 设置模态框显示状态
   const [modalVisible, setModalVisible] = useState<boolean>(false);
+  const [dataSource, setDataSourse] = useState<any>();
+  const [text, setText] = useState<any>();
+
+  const getData = async () => {
+    const res = await getAllJZGJBSJ({ KHJYJGId: currentUser?.jgId, keyWord: text, page: 0, pageSize: 0 });
+    if (res.status === 'ok') {
+      setDataSourse(res.data?.rows);
+    }
+  };
 
   const handleConfirm = async (id: any) => {
     const res = await deleteJZGJBSJ({ id });
@@ -80,7 +92,7 @@ const TeacherManagement = () => {
       dataIndex: 'index',
       valueType: 'index',
       width: 58,
-      fixed:'left',
+      fixed: 'left',
       align: 'center'
     },
     {
@@ -89,7 +101,7 @@ const TeacherManagement = () => {
       key: 'XM',
       align: 'center',
       width: 100,
-      fixed:'left',
+      fixed: 'left',
       render: (_, record) => {
         const showWXName = record.XM === '未知' && record.WechatUserId;
         if (showWXName) {
@@ -134,7 +146,7 @@ const TeacherManagement = () => {
       valueType: 'option',
       width: 150,
       align: 'center',
-      fixed:'right',
+      fixed: 'right',
       render: (_, record) => (
         <>
           <Link
@@ -168,11 +180,14 @@ const TeacherManagement = () => {
       )
     }
   ];
-
+  useEffect(() => {
+    getData();
+  }, [text]);
   return (
     <>
       <ProTable<any>
         columns={columns}
+        dataSource={dataSource}
         className={styles.schoolTable}
         actionRef={actionRef}
         search={false}
@@ -181,42 +196,23 @@ const TeacherManagement = () => {
           pageSize: 10,
           defaultCurrent: 1,
         }}
-        scroll={{ x: 1000 }}
-        request={async (
-          params: any & {
-            pageSize?: number;
-            current?: number;
-            keyword?: string;
-          },
-          sort,
-          filter
-        ): Promise<Partial<RequestData<any>>> => {
-          // 表单搜索项会从 params 传入，传递给后端接口。
-          const opts: TableListParams = {
-            ...params,
-            sorter: sort && Object.keys(sort).length ? sort : undefined,
-            filter
-          };
-          const res = await getAllJZGJBSJ({ KHJYJGId: currentUser?.jgId, keyWord: opts.keyword, page: 0, pageSize: 0 });
-          if (res.status === 'ok') {
-            return {
-              data: res.data?.rows,
-              total: res.data?.count,
-              success: true
-            };
-          }
-          return {};
-        }}
+        scroll={{ x: getTableWidth(columns) }}
         options={{
           setting: false,
           fullScreen: false,
           density: false,
           reload: false,
-          search: {
-            placeholder: '教师名称/联系电话',
-            allowClear: true
-          }
         }}
+        headerTitle={
+          <SearchLayout>
+            <div>
+              <label htmlFor='type'>教师名称/联系电话：</label>
+              <Search placeholder="请输入" allowClear onSearch={(value: string) => {
+                setText(value);
+              }} />
+            </div>
+          </SearchLayout>
+        }
         // eslint-disable-next-line react/no-unstable-nested-components
         toolBarRender={() => [
           <Button key="button" type="primary" onClick={() => setModalVisible(true)}>

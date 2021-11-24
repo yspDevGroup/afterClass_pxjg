@@ -5,24 +5,39 @@
  * @LastEditTime: 2021-10-20 09:34:56
  * @LastEditors: Sissle Lynn
  */
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import ProTable, { RequestData } from '@ant-design/pro-table';
 import type { ActionType, ProColumns } from '@ant-design/pro-table';
 import { Link, useModel } from 'umi';
 
 import styles from './index.less';
-import { Divider, Tag } from 'antd';
+import { Divider, Input, Tag } from 'antd';
 import { TableListParams } from '@/constant';
 import { cooperateSchool } from '@/services/after-class-pxjg/khjyjg';
 import { KHHZXYSJ } from '../data';
 import EllipsisHint from '@/components/EllipsisHint';
+import { getTableWidth } from '@/utils';
+import SearchLayout from '@/components/Search/Layout';
 
+const { Search } = Input;
 const SchoolManagement = () => {
   const { initialState } = useModel('@@initialState');
   const { currentUser } = initialState || {};
   // 列表对象引用，可主动执行刷新等操作
   const actionRef = useRef<ActionType>();
   const [activeKey, setActiveKey] = useState<string>('duration');
+  const [curSchool, setCurSchool] = useState<string>();
+  const [dataSource, setDataSource] = useState<any>();
+
+  const getData = async () => {
+    let status = activeKey === 'duration' ? 0 : 1;
+    const res = await cooperateSchool(
+      { JGId: currentUser?.jgId, name: curSchool|| '', type: status, page: 0, pageSize: 0 }
+    );
+    if (res.status === 'ok') {
+      setDataSource(res.data.rows)
+    }
+  };
 
   const columns: ProColumns<KHHZXYSJ>[] = [
     {
@@ -30,7 +45,7 @@ const SchoolManagement = () => {
       dataIndex: 'index',
       valueType: 'index',
       width: 58,
-      fixed:'left',
+      fixed: 'left',
       align: 'center'
     },
     {
@@ -39,7 +54,7 @@ const SchoolManagement = () => {
       key: 'XXMC',
       align: 'center',
       width: 160,
-      fixed:'left',
+      fixed: 'left',
       ellipsis: true
     },
     // {
@@ -101,7 +116,7 @@ const SchoolManagement = () => {
       title: '操作',
       valueType: 'option',
       width: 180,
-      fixed:'right',
+      fixed: 'right',
       align: 'center',
       render: (_, record) => (
         <>
@@ -138,47 +153,23 @@ const SchoolManagement = () => {
     }
   ];
 
+  useEffect(() => {
+    getData();
+  }, [curSchool]);
+
   return (
     <ProTable<KHHZXYSJ>
       columns={columns}
       className={styles.schoolTable}
       actionRef={actionRef}
+      dataSource={dataSource}
       search={false}
       pagination={{
         showQuickJumper: true,
         pageSize: 10,
         defaultCurrent: 1,
       }}
-      scroll={{ x: 1000 }}
-      request={async (
-        params: KHHZXYSJ & {
-          pageSize?: number;
-          current?: number;
-          keyword?: string;
-        },
-        sort,
-        filter
-      ): Promise<Partial<RequestData<KHHZXYSJ>>> => {
-        // 表单搜索项会从 params 传入，传递给后端接口。
-        const opts: TableListParams = {
-          ...params,
-          sorter: sort && Object.keys(sort).length ? sort : undefined,
-          filter
-        };
-        let status = activeKey === 'duration' ? 0 : 1;
-        const res = await cooperateSchool(
-          { JGId: currentUser?.jgId, name: opts.keyword || '', type: status, page: 0, pageSize: 0 },
-          opts
-        );
-        if (res.status === 'ok') {
-          return {
-            data: res.data?.rows,
-            total: res.data.count,
-            success: true
-          };
-        }
-        return {};
-      }}
+      scroll={{ x: getTableWidth(columns) }}
       toolbar={{
         menu: {
           type: 'tab',
@@ -199,15 +190,21 @@ const SchoolManagement = () => {
           }
         }
       }}
+      headerTitle={
+        <SearchLayout>
+          <div>
+            <label htmlFor='type'>学校名称：</label>
+            <Search placeholder="搜索学校名称：" allowClear onSearch={(value: string) => {
+              setCurSchool(value);
+            }} />
+          </div>
+        </SearchLayout>
+      }
       options={{
         setting: false,
         fullScreen: false,
         density: false,
         reload: false,
-        search: {
-          placeholder: '学校名称',
-          allowClear: true
-        }
       }}
       rowKey="id"
       dateFormatter="string"

@@ -1,14 +1,18 @@
 import ProTable, { ProColumns } from '@ant-design/pro-table';
-import { Space, Tag, } from 'antd';
+import { Input, Space, Tag, } from 'antd';
 import { useEffect, useState } from 'react';
 import { Link, useModel } from 'umi';
 import { cooperateSchoolOrder } from '@/services/after-class-pxjg/khjyjg';
 import EllipsisHint from '@/components/EllipsisHint';
+import { getTableWidth } from '@/utils';
+import SearchLayout from '@/components/Search/Layout';
 
+const { Search } = Input;
 const Order = () => {
   const [dataSource, setDataSource] = useState<any>([]);
   const { initialState } = useModel('@@initialState');
   const { currentUser } = initialState || {};
+  const [school, setSchool] = useState<string>();
 
   const columns: ProColumns<any>[] | undefined = [
     {
@@ -118,8 +122,8 @@ const Order = () => {
     }
   ];
   useEffect(() => {
-    getSchool()
-  }, [])
+    getSchool(school)
+  }, [school])
   const getSchool = async (name?: string) => {
     const res = await cooperateSchoolOrder({
       JGId: currentUser?.jgId,
@@ -135,11 +139,6 @@ const Order = () => {
     <div>
       <div>
         <ProTable
-          toolbar={{
-            onSearch: (value: string) => {
-              getSchool(value)
-            }
-          }}
           dataSource={dataSource}
           pagination={{
             showQuickJumper: true,
@@ -153,12 +152,18 @@ const Order = () => {
             fullScreen: false,
             density: false,
             reload: false,
-            search: {
-              placeholder: '学校名称',
-              allowClear: true
-            }
           }}
           search={false}
+          headerTitle={
+            <SearchLayout>
+              <div>
+                <label htmlFor='kcname'>学校名称：</label>
+                <Search placeholder="请输入" allowClear onSearch={(value: string) => {
+                  setSchool(value);
+                }} />
+              </div>
+            </SearchLayout>
+          }
         />
 
       </div>

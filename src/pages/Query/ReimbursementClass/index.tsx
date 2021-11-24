@@ -1,12 +1,14 @@
 import ProTable, { ProColumns } from '@ant-design/pro-table';
-import { Select, Popconfirm, Divider, message, Space, Tag } from 'antd';
+import { Select, Popconfirm, Divider, message, Space, Tag, Input } from 'antd';
 import { useEffect, useRef, useState } from 'react';
 import { Link, useModel } from 'umi';
 import { cooperateSchool } from '@/services/after-class-pxjg/khjyjg';
 import styles from './index.less';
 import EllipsisHint from '@/components/EllipsisHint';
+import { getTableWidth } from '@/utils';
+import SearchLayout from '@/components/Search/Layout';
 
-const { Option } = Select;
+const { Search } = Input;
 const ReimbursementClass = () => {
   const [school, setSchool] = useState<string>();
   const [dataSource, setDataSource] = useState<any>([]);
@@ -119,17 +121,12 @@ const ReimbursementClass = () => {
   return (
     <div className={styles.Tables}>
       <ProTable
-        toolbar={{
-          onSearch: (value: string) => {
-            setSchool(value)
-          }
-        }}
         pagination={{
           showQuickJumper: true,
           pageSize: 10,
           defaultCurrent: 1,
         }}
-        scroll={{ x: 1000 }}
+        scroll={{ x: getTableWidth(columns) }}
         dataSource={dataSource}
         columns={columns}
         options={{
@@ -137,12 +134,18 @@ const ReimbursementClass = () => {
           fullScreen: false,
           density: false,
           reload: false,
-          search: {
-            placeholder: '学校名称',
-            allowClear: true
-          }
         }}
         search={false}
+        headerTitle={
+          <SearchLayout>
+            <div>
+              <label htmlFor='kcname'>学校名称：</label>
+              <Search placeholder="请输入" allowClear onSearch={(value: string) => {
+                setSchool(value);
+              }} />
+            </div>
+          </SearchLayout>
+        }
       />
     </div>
   )

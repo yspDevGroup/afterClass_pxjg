@@ -5,21 +5,52 @@
  * @LastEditTime: 2021-09-08 19:01:46
  * @LastEditors: wsl
  */
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import type { ProColumns, ActionType } from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
 import { Link, useModel } from 'umi';
 import type { TableListItem } from '../data';
 import styles from '../index.module.less';
-import { getJYJGTZGG, updateJYJGTZGG } from '@/services/after-class-pxjg/jyjgtzgg';
-import { KHJYJG } from '@/services/after-class-pxjg/khjyjg';
+import { getJYJGTZGG } from '@/services/after-class-pxjg/jyjgtzgg';
+import { getTableWidth } from '@/utils';
+import SearchLayout from '@/components/Search/Layout';
+import { Input } from 'antd';
 
+const { Search } = Input;
 const TableList = () => {
   const [dataSource, setDataSource] = useState<API.JYJGTZGG[]>();
   const actionRef = useRef<ActionType>();
   const { initialState } = useModel('@@initialState');
   const { currentUser } = initialState || {};
-  const { jgId } = currentUser!;
+  const [title, setTitle] = useState<string>();
+
+  const getData = async () => {
+    if (title) {
+      const resgetXXTZGG = await getJYJGTZGG({
+        BT: title,
+        LX: 1,
+        XZQHM: currentUser?.XZQHM,
+        ZT: ['已发布'],
+        page: 0,
+        pageSize: 0
+      });
+      if (resgetXXTZGG.status === 'ok') {
+        setDataSource(resgetXXTZGG.data?.rows);
+      }
+    } else {
+      const resgetXXTZGG = await getJYJGTZGG({
+        BT: '',
+        LX: 1,
+        ZT: ['已发布'],
+        XZQHM: currentUser?.XZQHM,
+        page: 0,
+        pageSize: 0
+      });
+      if (resgetXXTZGG.status === 'ok') {
+        setDataSource(resgetXXTZGG.data?.rows);
+      }
+    }
+  };
 
   const columns: ProColumns<TableListItem>[] = [
     {
@@ -112,10 +143,13 @@ const TableList = () => {
     }
   ];
 
+  useEffect(()=>{
+    getData();
+  },[title])
+
   return (
     <>
       <ProTable<any>
-        headerTitle={<div style={{ fontWeight: 'bold' }}>政策列表</div>}
         actionRef={actionRef}
         className={styles.proTableStyles}
         rowKey="id"
@@ -124,36 +158,18 @@ const TableList = () => {
           pageSize: 10,
           defaultCurrent: 1,
         }}
-        scroll={{ x: 1000 }}
-        request={async (params, sorter, filter) => {
-          if (params.ZT || params.BT) {
-            const resgetXXTZGG = await getJYJGTZGG({
-              BT: params.BT,
-              LX: 1,
-              XZQHM: currentUser?.XZQHM,
-              ZT: params.ZT ? [params.ZT] : ['已发布'],
-              page: 0,
-              pageSize: 0
-            });
-            if (resgetXXTZGG.status === 'ok') {
-              setDataSource(resgetXXTZGG.data?.rows);
-            }
-          } else {
-            const resgetXXTZGG = await getJYJGTZGG({
-              BT: '',
-              LX: 1,
-              ZT: ['已发布'],
-              XZQHM: currentUser?.XZQHM,
-              page: 0,
-              pageSize: 0
-            });
-            if (resgetXXTZGG.status === 'ok') {
-              setDataSource(resgetXXTZGG.data?.rows);
-            }
-          }
-
-          return '';
-        }}
+        scroll={{ x: getTableWidth(columns) }}
+        search={false}
+        headerTitle={
+          <SearchLayout>
+            <div>
+                <label htmlFor='kcname'>标题：</label>
+                <Search placeholder="请输入" allowClear onSearch={(value: string) => {
+                  setTitle(value);
+                }} />
+              </div>
+          </SearchLayout>
+        }
         dataSource={dataSource}
         columns={columns}
       />

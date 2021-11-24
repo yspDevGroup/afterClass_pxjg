@@ -1,6 +1,6 @@
 /* eslint-disable max-params */
 import React, { useEffect, useRef, useState } from 'react';
-import { Space, Button, Tag, message, Popconfirm } from 'antd';
+import { Space, Button, Tag, message, Popconfirm, Input } from 'antd';
 import { history, useModel } from 'umi';
 import { PlusOutlined } from '@ant-design/icons';
 import ProTable, { ActionType } from '@ant-design/pro-table';
@@ -9,15 +9,33 @@ import { getCourses } from '@/services/after-class-pxjg/khjyjg';
 import EllipsisHint from '@/components/EllipsisHint';
 import { deleteKHKCSJ, updateKHKCSJ } from '@/services/after-class-pxjg/khkcsj';
 import WWOpenDataCom from '@/components/WWOpenDataCom';
+import { getTableWidth } from '@/utils';
+import SearchLayout from '@/components/Search/Layout';
 
 /**
  * 机构端-课程列表
  * @returns
  */
+const { Search } = Input;
 const MechanismCourse = () => {
   const { initialState } = useModel('@@initialState');
   const { currentUser } = initialState || {};
+  const [curCourse, setCurCourse] = useState<string>();
+  const [dataSource, setDataSource] = useState<any>();
   const actionRef = useRef<ActionType>();
+
+  const getData = async () => {
+    const res = await getCourses({
+      JGId: currentUser?.jgId,
+      KCMC: curCourse,
+      page: 0,
+      pageSize: 0
+    });
+    if (res.status === 'ok') {
+      setDataSource(res.data.rows)
+    }
+  };
+
   const confirm = async (id: any) => {
     const res = await deleteKHKCSJ({ id });
     if (res.status === 'ok') {
@@ -207,11 +225,17 @@ const MechanismCourse = () => {
       )
     }
   ];
+
+  useEffect(() => {
+    getData();
+  }, [curCourse]);
+
   return (
     <div className={classes.proTable}>
       <ProTable
         actionRef={actionRef}
         columns={columns}
+        dataSource={dataSource}
         search={false}
         rowKey="id"
         dateFormatter="string"
@@ -220,31 +244,17 @@ const MechanismCourse = () => {
           pageSize: 10,
           defaultCurrent: 1
         }}
-        scroll={{ x: 1000 }}
-        request={async (param = {}, sort, filter) => {
-          const params = {
-            ...sort,
-            ...filter,
-            page: param.current,
-            pageSize: param.pageSize,
-            JGId: currentUser?.jgId,
-            KCMC: param.keyword
-          };
-          const res = await getCourses(params);
-          if (res.status === 'ok') {
-            return {
-              data: res.data.rows,
-              success: true,
-              total: res.data.count
-            };
-          } else {
-            return {
-              data: [],
-              success: false,
-              total: 0
-            };
-          }
-        }}
+        scroll={{ x: getTableWidth(columns) }}
+        headerTitle={
+          <SearchLayout>
+            <div>
+              <label htmlFor='type'>课程名称：</label>
+              <Search placeholder="搜索课程名称：" allowClear onSearch={(value: string) => {
+                setCurCourse(value);
+              }} />
+            </div>
+          </SearchLayout>
+        }
         // eslint-disable-next-line react/no-unstable-nested-components
         toolBarRender={() => [
           <Button
@@ -261,10 +271,7 @@ const MechanismCourse = () => {
           setting: false,
           fullScreen: false,
           density: false,
-          reload: false,
-          search: {
-            placeholder: '课程名称'
-          }
+          reload: false
         }}
       />
     </div>

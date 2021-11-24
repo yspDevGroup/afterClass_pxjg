@@ -1,0 +1,85 @@
+@import '~antd/es/style/themes/default.less';
+
+.Header {
+  height: 32px;
+
+  .HeaderLable {
+    float: left;
+    height: 32px;
+    color: #666;
+    font-size: 14px;
+    line-height: 32px;
+  }
+  .HeaderSelect {
+    float: left;
+
+    .HeaderSelectOne {
+      margin-right: 8px;
+    }
+
+    .HeaderSelectTwo {
+      margin-right: 40px;
+    }
+  }
+
+  .HeaderSearch {
+    float: left;
+  }
+
+  :global {
+    .ant-input:hover,
+    .ant-input:focus {
+      border-color: @input-hover-border-color;
+      border-right: 0;
+      box-shadow: none;
+
+      & + .ant-input-group-addon .ant-btn {
+        border-color: @input-hover-border-color;
+
+        &::after {
+          display: none;
+        }
+      }
+    }
+
+    .ant-input {
+      border-right: 0;
+
+      & + .ant-input-group-addon .ant-btn {
+        border-color: @border-color-base;
+        border-left: 0;
+
+        &::after {
+          display: none;
+        }
+      }
+    }
+    .ant-btn > span {
+      color: #c1c1c1;
+    }
+    .ant-select {
+      font-weight: 400;
+    }
+  }
+}
+
+.searchLayout {
+  :global(.ant-space-item) {
+    >div {
+      label {
+        display: inline-block;
+        font-size: 14px;
+        line-height: 32px;
+        vertical-align: middle;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+
+        &+* {
+          width: 160px;
+        }
+      }
+    }
+  }
+}
+
