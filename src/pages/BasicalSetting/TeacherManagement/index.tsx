@@ -233,12 +233,12 @@ const TeacherManagement = () => {
         visible={modalVisible}
         onCancel={() => setModalVisible(false)}
         footer={[
+          <Button key="submit" type="primary" onClick={onClose}>
+            确定
+          </Button>,
           <Button key="back" onClick={() => setModalVisible(false)}>
             取消
           </Button>,
-          <Button key="submit" type="primary" onClick={onClose}>
-            确定
-          </Button>
         ]}
         centered
         maskClosable={false}
