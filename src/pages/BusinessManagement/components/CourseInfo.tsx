@@ -51,7 +51,7 @@ const CourseItemDom = (props: { school: string; course: any; type: string; ind: 
         <h3>
           {course.KCMC}
           <span className={styles.extraInfo}>
-            <span style={{ backgroundColor: bgColor }}>{courseStatus[ZT]}</span>
+            {/* <span style={{ backgroundColor: bgColor }}>{courseStatus[ZT]}</span> */}
             <div className={styles.synj}>
               适用年级：
               {course.NJSJs?.map((item: any) => {
@@ -90,26 +90,29 @@ const CourseItemDom = (props: { school: string; course: any; type: string; ind: 
                   <p>
                     任课教师：
                     {item.KHBJJs?.map((val: any, index: number) => {
-                      const showWXName = val.JZGJBSJ?.XM === '未知' && val.JZGJBSJ?.WechatUserId;
-                      return (
-                        <Link
-                          key={val.id}
-                          to={{
-                            pathname: '/basicalSetting/teacherManagement/detail',
-                            state: {
-                              type: 'detail',
-                              data: val.JZGJBSJ
-                            }
-                          }}
-                        >
-                          {showWXName ? (
-                            <WWOpenDataCom type="userName" openid={val.JZGJBSJ?.WechatUserId} />
-                          ) : (
-                            val.JZGJBSJ?.XM
-                          )}
-                          {index < item.KHBJJs.length - 1 ? <Divider type="vertical" /> : ''}
-                        </Link>
-                      );
+                      if(val.JSLX === '主教师'){
+                        const showWXName = val.JZGJBSJ?.XM === '未知' && val.JZGJBSJ?.WechatUserId;
+                        return (
+                          <Link
+                            key={val.id}
+                            to={{
+                              pathname: '/basicalSetting/teacherManagement/detail',
+                              state: {
+                                type: 'detail',
+                                data: val.JZGJBSJ
+                              }
+                            }}
+                          >
+                            {showWXName ? (
+                              <WWOpenDataCom type="userName" openid={val.JZGJBSJ?.WechatUserId} />
+                            ) : (
+                              val.JZGJBSJ?.XM
+                            )}
+                            {index < item.KHBJJs.length - 1 ? <Divider type="vertical" /> : ''}
+                          </Link>
+                        );
+                      }
+                      return ''
                     })}
                   </p>
                   <p>
