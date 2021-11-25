@@ -59,7 +59,7 @@ const CourseManagement = () => {
       dataIndex: 'index',
       valueType: 'index',
       width: 58,
-      fixed:'left',
+      fixed: 'left',
       align: 'center'
     },
     {
@@ -68,7 +68,7 @@ const CourseManagement = () => {
       key: 'KHKCSJ',
       align: 'center',
       width: 150,
-      fixed:'left',
+      fixed: 'left',
       ellipsis: true,
       render: (_, record) => record.KHKCSJ?.KCMC
     },
@@ -197,7 +197,7 @@ const CourseManagement = () => {
       title: '操作',
       valueType: 'option',
       width: 200,
-      fixed:'right',
+      fixed: 'right',
       align: 'center',
       render: (_, record) => {
         return (
@@ -364,12 +364,12 @@ const CourseManagement = () => {
         visible={modalVisible}
         onCancel={() => setModalVisible(false)}
         footer={[
+          <Button key="submit" type="primary" onClick={handleSubmit}>
+            确定
+          </Button>,
           <Button key="back" onClick={() => setModalVisible(false)}>
             取消
           </Button>,
-          <Button key="submit" type="primary" onClick={handleSubmit}>
-            确定
-          </Button>
         ]}
         style={{ maxHeight: '430px' }}
         centered
