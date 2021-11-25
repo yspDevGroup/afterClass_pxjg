@@ -2,7 +2,7 @@
  * @description:
  * @author: Sissle Lynn
  * @Date: 2021-08-26 16:24:39
- * @LastEditTime: 2021-11-01 12:06:45
+ * @LastEditTime: 2021-11-25 14:24:21
  * @LastEditors: Sissle Lynn
  */
 import React, { useEffect, useState } from 'react';
@@ -352,39 +352,7 @@ const SchoolInfo = (props: PropsType) => {
               pattern: new RegExp(idReg),
               message: '填写的证件格式有误'
             }
-          ],
-          normalize: (num) => {
-            console.log(idReg);
-            num = num.toUpperCase();
-            const len = num.length;
-
-            if (idType == '居民身份证' && len == 18) {
-              if (idReg.test(num) === false) {
-                return '（身份证号有误）';
-              }
-              let arrSplit = num.match(idReg);
-              // 检查生日日期是否正确
-              let dtmBirth = new Date(arrSplit[2] + '-' + arrSplit[3] + '-' + arrSplit[4]);
-              setBirthDate(dtmBirth);
-              let bCorrectDay;
-              bCorrectDay =
-                dtmBirth.getFullYear() == Number(arrSplit[2]) &&
-                dtmBirth.getMonth() + 1 == Number(arrSplit[3]) &&
-                dtmBirth.getDate() == Number(arrSplit[4]);
-              if (!bCorrectDay) {
-                return '（出生日期有误）';
-              }
-            } else if (idType == '护照' && len >= 9) {
-              if (idReg.test(num) === false) {
-                return '（护照号码有误）';
-              }
-            } else if (idType == '户口簿' && len >= 9) {
-              if (idReg.test(num) === false) {
-                return '（户口簿号码有误）';
-              }
-            }
-            return num;
-          }
+          ]
         },
         {
           type: 'input',
