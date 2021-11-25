@@ -170,7 +170,9 @@ const SchoolManagement = () => {
         defaultCurrent: 1,
       }}
       scroll={{ x: getTableWidth(columns) }}
+
       toolbar={{
+        multipleLine: true,
         menu: {
           type: 'tab',
           activeKey,
@@ -188,10 +190,9 @@ const SchoolManagement = () => {
             setActiveKey(key as string);
             actionRef.current?.reload();
           }
-        }
-      }}
-      headerTitle={
-        <SearchLayout>
+        },
+        filter: (
+          <SearchLayout>
           <div>
             <label htmlFor='type'>学校名称：</label>
             <Search placeholder="搜索学校名称：" allowClear onSearch={(value: string) => {
@@ -199,7 +200,8 @@ const SchoolManagement = () => {
             }} />
           </div>
         </SearchLayout>
-      }
+        ),
+      }}
       options={{
         setting: false,
         fullScreen: false,

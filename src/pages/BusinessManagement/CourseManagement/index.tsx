@@ -292,6 +292,7 @@ const CourseManagement = () => {
         }}
         scroll={{ x: getTableWidth(columns) }}
         toolbar={{
+          multipleLine: true,
           menu: {
             type: 'tab',
             activeKey,
@@ -313,16 +314,9 @@ const CourseManagement = () => {
               setActiveKey(key as string);
               actionRef.current?.reload();
             }
-          }
-        }}
-        options={{
-          setting: false,
-          fullScreen: false,
-          density: false,
-          reload: false,
-        }}
-        headerTitle={
-          <SearchLayout>
+          },
+          filter: (
+            <SearchLayout>
             <div>
               <label htmlFor='kcname'>课程名称：</label>
               <Search placeholder="请输入" allowClear onSearch={(value: string) => {
@@ -336,7 +330,14 @@ const CourseManagement = () => {
               }} />
             </div>
           </SearchLayout>
-        }
+          ),
+        }}
+        options={{
+          setting: false,
+          fullScreen: false,
+          density: false,
+          reload: false,
+        }}
         rowKey="id"
         dateFormatter="string"
       />
