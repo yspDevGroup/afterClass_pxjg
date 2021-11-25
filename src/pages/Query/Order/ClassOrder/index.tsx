@@ -1,13 +1,15 @@
 import ProTable, { ProColumns, ActionType } from '@ant-design/pro-table';
 import { useState, useEffect, useRef } from 'react';
-import { Button, Input, Select } from 'antd';
+import { Button, Input, message, Select } from 'antd';
+import { useModel } from 'umi';
+import { getAllKHXSDD } from '@/services/after-class-pxjg/khxsdd';
 import { LeftOutlined } from '@ant-design/icons';
 import { getCourses } from '@/services/after-class-pxjg/jyjgsj';
 import WWOpenDataCom from '@/components/WWOpenDataCom';
+import { getAllXNXQ } from '@/services/after-class-pxjg/xnxq';
+import { getCurrentXQ } from '@/utils';
 import { cooperateSchoolOrderList } from '@/services/after-class-pxjg/khjyjg';
 import { getAllKHKCLX } from '@/services/after-class-pxjg/khkclx';
-import SemesterSelect from '@/components/Search/SemesterSelect';
-import SearchLayout from '@/components/Search/Layout';
 import { getTableWidth } from '@/utils';
 
 const { Search } = Input;
@@ -23,6 +25,8 @@ const ClassOrder = (props: any) => {
   const [courseList, setcourseList] = useState<any>([]);
   // 选择学年学期
   const [term, setTerm] = useState<string>();
+  // 学年学期列表数据
+  const [termList, setTermList] = useState<any>();
   const getData = async (XQId?: string) => {
     const res = await cooperateSchoolOrderList({
       KHJYJGId: jgId,
@@ -38,17 +42,36 @@ const ClassOrder = (props: any) => {
       setDataSource(res.data?.rows);
     }
     const kclxRes = await getAllKHKCLX({ name: '' });
-    if (kclxRes.status === 'ok') {
-      const data = kclxRes.data?.map((item: any) => {
+      if (kclxRes.status === 'ok') {
+        const data = kclxRes.data?.map((item: any) => {
+          return {
+            value: item.id,
+            text: item.KCTAG
+          };
+        });
+        setKCLXOptions(data);
+      }
+  };
+  const getXNXQ = async (xxdm: string) => {
+    const res = await getAllXNXQ({
+      XXJBSJId: xxdm
+    });
+    if (res?.status === 'ok') {
+      const { data = [] } = res;
+      const currentXQ = getCurrentXQ(data);
+      const term = [].map.call(data, (item: any) => {
         return {
           value: item.id,
-          text: item.KCTAG
+          text: `${item.XN} ${item.XQ}`
         };
       });
-      setKCLXOptions(data);
+      setTermList(term);
+      setTerm(currentXQ?.id || data?.[0]?.id);
+      getData(currentXQ?.id || data?.[0]?.id);
+    } else {
+      message.error(res.message);
     }
   };
-
   useEffect(() => {
     (async () => {
       const res = await getCourses({
@@ -58,8 +81,8 @@ const ClassOrder = (props: any) => {
         setcourseList(res.data?.rows);
       }
     })();
+    getXNXQ(xxId);
   }, []);
-
   useEffect(() => {
     getData();
   }, [studentName, coursName, kclx]);
@@ -207,6 +230,74 @@ const ClassOrder = (props: any) => {
         <LeftOutlined />
         返回上一页
       </Button>
+      <div style={{ padding: '24px', backgroundColor: '#fff' }}>
+        <span>
+          所属学年学期：
+          <Select
+            value={term}
+            style={{ width: 200 }}
+            onChange={(value: string) => {
+              getData(value);
+              setTerm(value);
+            }}
+          >
+            {termList?.map((item: any) => {
+              return (
+                <Option key={item.value} value={item.value}>
+                  {item.text}
+                </Option>
+              );
+            })}
+          </Select>
+        </span>
+        <span style={{ marginLeft: '24px' }}>
+          学生姓名：
+          <Search
+            style={{ width: 200 }}
+            placeholder="请输入学生姓名"
+            allowClear
+            onSearch={(value) => {
+              setStudentName(value);
+            }}
+          />
+        </span>
+        <span style={{ marginLeft: '24px' }}>
+          课程类型：
+          <Select
+            style={{ width: 200 }}
+            allowClear
+            onChange={(value: string) => {
+              setKCLX(value);
+            }}
+          >
+            {kclxOptions?.map((item: any) => {
+              return (
+                <Option key={item.value} value={item.value}>
+                  {item.text}
+                </Option>
+              );
+            })}
+          </Select>
+        </span>
+        <span style={{ marginLeft: '24px' }}>
+          课程名称：
+          <Select
+            style={{ width: 200 }}
+            allowClear
+            onChange={(value: string) => {
+              setcoursName(value);
+            }}
+          >
+            {courseList?.map((item: any) => {
+              return (
+                <Option key={item.id} value={item.id}>
+                  {item.KCMC}
+                </Option>
+              );
+            })}
+          </Select>
+        </span>
+      </div>
       <ProTable
         dataSource={dataSource}
         columns={columns}
@@ -224,58 +315,6 @@ const ClassOrder = (props: any) => {
         }}
         search={false}
         actionRef={actionRef}
-        headerTitle={
-          <SearchLayout>
-            <SemesterSelect XXJBSJId={xxId} onChange={(value: string) => {
-              getData(value);
-              setTerm(value);
-            }} />
-            <div>
-              <label htmlFor='kcname'>学生姓名：</label>
-              <Search
-                placeholder="请输入学生姓名"
-                allowClear
-                onSearch={(value) => {
-                  setStudentName(value);
-                }}
-              />
-            </div>
-            <div>
-              <label htmlFor='kcname'>课程类型：</label>
-              <Select
-                allowClear
-                onChange={(value: string) => {
-                  setKCLX(value);
-                }}
-              >
-                {kclxOptions?.map((item: any) => {
-                  return (
-                    <Option key={item.value} value={item.value}>
-                      {item.text}
-                    </Option>
-                  );
-                })}
-              </Select>
-            </div>
-            <div>
-              <label htmlFor='kcname'>课程名称：</label>
-              <Select
-                allowClear
-                onChange={(value: string) => {
-                  setcoursName(value);
-                }}
-              >
-                {courseList?.map((item: any) => {
-                  return (
-                    <Option key={item.id} value={item.id}>
-                      {item.KCMC}
-                    </Option>
-                  );
-                })}
-              </Select>
-            </div>
-          </SearchLayout>
-        }
       />
     </>
   );

@@ -118,3 +118,24 @@ export async function syncWechatStudents(
     },
   );
 }
+
+/** 导入行政班学生列表进行报名 POST /upload/importStudentSignUp */
+export async function importStudentSignUp(
+  params: {
+    // query
+    /** 课后班级id */
+    KHBJSJId: string;
+  },
+  options?: { [key: string]: any },
+) {
+  return request<{ status?: 'ok' | 'error'; data?: any[]; message?: string }>(
+    '/upload/importStudentSignUp',
+    {
+      method: 'POST',
+      params: {
+        ...params,
+      },
+      ...(options || {}),
+    },
+  );
+}

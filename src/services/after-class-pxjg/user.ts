@@ -209,6 +209,8 @@ export async function homePageInfo(
   body: {
     /** 年级ID */
     njId?: string;
+    /** 年级ID */
+    bjId?: string;
     /** 学年学期ID */
     XNXQId?: string;
     /** 学校ID */
@@ -320,6 +322,7 @@ export async function homePageInfo(
         ZJSName?: string;
         FJSName?: string;
         KHKCSJId?: string;
+        KHXSBJs?: { id?: string; ZT?: number }[];
         KHKCSJ?: {
           id?: string;
           KCMC?: string;

@@ -87,6 +87,8 @@ export async function createKHBJSJ(body: API.CreateKHBJSJ, options?: { [key: str
       BMKSSJ?: string;
       BMJSSJ?: string;
       KCTP?: string;
+      BMLX?: number;
+      BJLX?: number;
       NJS?: string;
       XQ?: string;
       NJSName?: string;
@@ -416,6 +418,25 @@ export async function getMainTeacher(
   options?: { [key: string]: any },
 ) {
   return request<any>('/khbjsj/getMainTeacher', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data: body,
+    ...(options || {}),
+  });
+}
+
+/** 课程班-学生报名 POST /khbjsj/studentRegistration */
+export async function studentRegistration(
+  body: {
+    ZT?: number;
+    XSJBSJIds?: string[];
+    KHBJSJId?: string;
+  },
+  options?: { [key: string]: any },
+) {
+  return request<any>('/khbjsj/studentRegistration', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

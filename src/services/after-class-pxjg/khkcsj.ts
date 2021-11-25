@@ -76,6 +76,7 @@ export async function createKHKCSJ(body: API.CreateKHKCSJ, options?: { [key: str
       KCMS?: string;
       SSJGLX?: string;
       KBYS?: string;
+      KCFW?: boolean;
       KHKCLX?: { id?: string; KCLX?: string };
       KHBJSJs?: {
         id?: string;
@@ -348,8 +349,8 @@ export async function getSchoolCoursesTJ(
     KCLY?: string;
     /** 学校ID */
     XXJBSJId?: string;
-    /** 学年学期 */
-    XNXQ?: string;
+    /** 学年学期ID */
+    XNXQId?: string;
     /** 页数 */
     page?: number;
     /** 每页记录数 */

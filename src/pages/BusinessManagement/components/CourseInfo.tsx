@@ -2,7 +2,7 @@
  * @description:
  * @author: Sissle Lynn
  * @Date: 2021-08-26 19:54:41
- * @LastEditTime: 2021-11-19 16:54:31
+ * @LastEditTime: 2021-11-25 15:34:33
  * @LastEditors: Sissle Lynn
  */
 import React, { useEffect, useState } from 'react';
@@ -145,7 +145,7 @@ const CourseItemDom = (props: { school: string; course: any; type: string; ind: 
                     报名时段：{moment(item?.BMKSSJ).format('YYYY.MM.DD')}~{moment(item?.BMJSSJ).format('YYYY.MM.DD')}
                   </p>
                   <p>
-                    学生总数：{item.KHXSBJs?.length || 0}人{' '}
+                    学生总数：{item.xs_count || 0}人{' '}
                     <Link
                       style={{ marginLeft: '16px' }}
                       to={{

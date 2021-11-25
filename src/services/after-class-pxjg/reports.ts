@@ -525,3 +525,11 @@ export async function exportStudentAttendanceDetailByDate(
     ...(options || {}),
   });
 }
+
+/** 重新统计课程报表基本信息 POST /reports/recalculateKCTJInfo */
+export async function recalculateKCTJInfo(options?: { [key: string]: any }) {
+  return request<any>('/reports/recalculateKCTJInfo', {
+    method: 'POST',
+    ...(options || {}),
+  });
+}

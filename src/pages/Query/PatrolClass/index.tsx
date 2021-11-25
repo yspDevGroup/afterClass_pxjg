@@ -1,14 +1,12 @@
 import ProTable, { ProColumns } from '@ant-design/pro-table';
-import { Input, Space, Tag, } from 'antd';
+import { Space, Tag, } from 'antd';
 import { useEffect, useState } from 'react';
 import { Link, useModel } from 'umi';
 import { cooperateSchool } from '@/services/after-class-pxjg/khjyjg';
 import styles from './index.less';
 import EllipsisHint from '@/components/EllipsisHint';
 import { getTableWidth } from '@/utils';
-import SearchLayout from '@/components/Search/Layout';
 
-const { Search } = Input;
 const PatrolClass = () => {
   const [school, setSchool] = useState<string>();
   const [dataSource, setDataSource] = useState<any>([]);
@@ -20,7 +18,7 @@ const PatrolClass = () => {
       align: 'center',
       dataIndex: 'index',
       valueType: 'index',
-      fixed: 'left',
+      fixed:'left',
       width: 58
     },
     {
@@ -28,7 +26,7 @@ const PatrolClass = () => {
       dataIndex: 'XXMC',
       key: 'XXMC',
       align: 'center',
-      fixed: 'left',
+      fixed:'left',
       width: 130
     },
     {
@@ -38,7 +36,7 @@ const PatrolClass = () => {
       align: 'center',
       search: false,
       width: 120,
-      render: (_: any, record: any) => {
+      render: (_: any,record: any) => {
         const text = record?.XD?.split(/,/g);
         return (
           <EllipsisHint
@@ -77,7 +75,7 @@ const PatrolClass = () => {
       align: 'center',
       width: 100,
       search: false,
-      render: (_: any, record: any) => {
+      render: (_: any,record: any) =>{
         return record?.KHKCSQs?.length
       }
     },
@@ -86,7 +84,7 @@ const PatrolClass = () => {
       align: 'center',
       search: false,
       width: 100,
-      fixed: 'right',
+      fixed:'right',
       render: (_, record) => {
         return (
           <Space>
@@ -122,6 +120,11 @@ const PatrolClass = () => {
     <div>
       <div>
         <ProTable
+          toolbar={{
+            onSearch: (value: string) => {
+              setSchool(value)
+            }
+          }}
           pagination={{
             showQuickJumper: true,
             pageSize: 10,
@@ -135,18 +138,12 @@ const PatrolClass = () => {
             fullScreen: false,
             density: false,
             reload: false,
+            search: {
+              placeholder: '学校名称',
+              allowClear: true,
+            }
           }}
           search={false}
-          headerTitle={
-            <SearchLayout>
-              <div>
-                <label htmlFor='kcname'>学校名称：</label>
-                <Search placeholder="请输入" allowClear onSearch={(value: string) => {
-                  setSchool(value);
-                }} />
-              </div>
-            </SearchLayout>
-          }
         />
       </div>
     </div>

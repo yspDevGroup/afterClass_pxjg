@@ -466,6 +466,8 @@ export async function getAllCoursesInfo(
     XXMC?: string;
     /** 课程来源 */
     KCLY?: string;
+    /** 学年学期 */
+    XNXQ?: string;
     /** 页数 */
     page?: number;
     /** 每页记录数 */

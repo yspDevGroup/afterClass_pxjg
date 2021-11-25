@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-expressions */
 import ProTable, { ProColumns } from '@ant-design/pro-table';
 import { Select, Button, Input, message } from 'antd';
 import { LeftOutlined } from '@ant-design/icons';
@@ -10,14 +11,12 @@ import styles from '../index.less';
 import { getCurrentXQ } from '@/utils';
 import { getAllTKByAgency } from '@/services/after-class-pxjg/khtksj';
 import WWOpenDataCom from '@/components/WWOpenDataCom';
-import SemesterSelect from '@/components/Search/SemesterSelect';
-import SearchLayout from '@/components/Search/Layout';
 import { getTableWidth } from '@/utils';
-
 const { Search } = Input;
 const { Option } = Select;
 const Details = (props: any) => {
   const { id } = props.location.state;
+  const [termList, setTermList] = useState<any>();
   const [dataSource, setDataSource] = useState<any>([]);
   const [StudentName, SetStudentName] = useState<any>('');
   const [coursName, setcoursName] = useState<any>();
@@ -25,6 +24,27 @@ const Details = (props: any) => {
   const [term, setTerm] = useState<string>();
   const { initialState } = useModel('@@initialState');
   const { currentUser } = initialState || {};
+  const getXNXQ = async (xxdm: string, jgdm: string) => {
+    const res = await getAllSemester({
+      KHJYJGId: jgdm,
+      XXJBSJId: xxdm
+    });
+    if (res?.status === 'ok') {
+      const { data = [] } = res;
+      const currentXQ = getCurrentXQ(data);
+      const term = [].map.call(data, (item: any) => {
+        return {
+          value: item.id,
+          text: `${item.XN} ${item.XQ}`
+        };
+      });
+
+      setTermList(term);
+      setTerm(currentXQ?.id || data[0].id);
+    } else {
+      message.error(res.message);
+    }
+  };
   // table表格数据
   const columns: ProColumns<any>[] = [
     {
@@ -124,7 +144,20 @@ const Details = (props: any) => {
       ellipsis: true
     }
   ];
-
+  useEffect(() => {
+    if (currentUser?.jgId) {
+      // 获取学年学期
+      getXNXQ(id, currentUser?.jgId);
+      (async () => {
+        const res = await getCourses({
+          JGId: currentUser?.jgId
+        });
+        if (res.status === 'ok') {
+          setcourseList(res.data?.rows);
+        }
+      })();
+    }
+  }, [currentUser]);
   useEffect(() => {
     (async () => {
       const res = await getAllTKByAgency({
@@ -156,6 +189,49 @@ const Details = (props: any) => {
         <LeftOutlined />
         返回上一页
       </Button>
+      <div className={styles.TabTop}>
+        <span>
+          所属学年学期：
+          <Select
+            allowClear={true}
+            value={term}
+            style={{ width: 200 }}
+            onChange={(value: string) => {
+              setTerm(value);
+            }}
+          >
+            {termList?.map((item: any) => {
+              return (
+                <Option key={item.value} value={item.value}>
+                  {item.text}
+                </Option>
+              );
+            })}
+          </Select>
+        </span>
+        <span>
+          学生姓名：
+          <Search
+            style={{ width: 200 }}
+            placeholder="请输入学生姓名"
+            allowClear
+            onSearch={(value) => {
+              SetStudentName(value);
+            }}
+          />
+        </span>
+        <span>
+          课程名称：
+          <Search
+            placeholder="请输入课程名称"
+            allowClear
+            onSearch={(value) => {
+              setcoursName(value);
+            }}
+            style={{ width: 200 }}
+          />
+        </span>
+      </div>
       <div className={styles.Tables}>
         <ProTable
           dataSource={dataSource}

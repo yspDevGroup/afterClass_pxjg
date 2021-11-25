@@ -34,7 +34,6 @@ const Edit = (props: any) => {
   const { currentUser } = initialState || {};
   const [formValues, setFormValues] = useState({});
   const [teacherData, setTeacherData] = useState<any>([]);
-  console.log(state, '========');
   const getData = async () => {
     const res = await getKHKCSJ({ kcId: state.id });
     if (res?.status === 'ok') {
@@ -68,7 +67,6 @@ const Edit = (props: any) => {
       setFormValues(params);
     }
   }, []);
-  console.log(teacherData, 'teacherData');
   useEffect(() => {
     (async () => {
       // 课程类型

@@ -73,6 +73,7 @@ import * as xxjbpz from './xxjbpz';
 import * as xxjbsj from './xxjbsj';
 import * as xxpz from './xxpz';
 import * as xxsjpz from './xxsjpz';
+import * as xxsppz from './xxsppz';
 import * as xxtzgg from './xxtzgg';
 import * as zxfa from './zxfa';
 import * as zxsj from './zxsj';
@@ -148,6 +149,7 @@ export default {
   xxjbsj,
   xxpz,
   xxsjpz,
+  xxsppz,
   xxtzgg,
   zxfa,
   zxsj,

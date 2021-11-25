@@ -25,7 +25,8 @@ export async function getCityJYJTJSJ(
       JGS?: number;
       JSS?: number;
       XSS?: number;
-      KCS?: number;
+      XXKCS?: number;
+      JGKCS?: number;
       BJS?: number;
       TKXSS?: number;
       SFZE?: number;

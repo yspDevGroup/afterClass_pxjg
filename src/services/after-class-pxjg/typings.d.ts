@@ -1596,6 +1596,10 @@ declare namespace API {
     BMJSSJ?: string;
     /** 课程图片 */
     KCTP?: string;
+    /** 报名类型 */
+    BMLX?: number;
+    /** 班级类型 */
+    BJLX?: number;
     /** 年级ID */
     NJS?: string;
     /** 校区ID */
@@ -1651,8 +1655,14 @@ declare namespace API {
     BMJSSJ?: string;
     /** 课程图片 */
     KCTP?: string;
+    /** 报名类型 */
+    BMLX?: number;
+    /** 班级类型 */
+    BJLX?: number;
     /** 试用年级 */
     NJIds?: string[];
+    /** 适用行政班 */
+    BJIds?: string[];
     /** 课后课程ID */
     KHKCSJId: string;
     /** 校区ID */
@@ -1687,6 +1697,10 @@ declare namespace API {
     BMJSSJ?: string;
     /** 课程图片 */
     KCTP?: string;
+    /** 报名类型 */
+    BMLX?: number;
+    /** 班级类型 */
+    BJLX?: number;
     /** 试用年级 */
     NJIds?: string[];
     /** 课后课程ID */
@@ -1882,6 +1896,8 @@ declare namespace API {
     BZ?: string;
     /** 教师ID */
     JZGJBSJId: string;
+    /** 学校ID */
+    XXJBSJId: string;
     /** 班级ID */
     bjIds?: { KHBJSJId?: string; XXSJPZId?: string; KCMC?: string; QJRQ?: string }[];
   };
@@ -2082,6 +2098,8 @@ declare namespace API {
     KHBJSJId: string;
     /** 节次ID */
     XXSJPZId: string;
+    /** 学校ID */
+    XXJBSJId: string;
     /** 审批教师ID */
     SPJSId?: string | any;
   };
@@ -2115,6 +2133,8 @@ declare namespace API {
     TKFJId?: string | any;
     /** 审批教师ID */
     SPJSId?: string | any;
+    /** 学校ID */
+    XXJBSJId: string;
   };
 
   type KHJYJG = {
@@ -2454,6 +2474,8 @@ declare namespace API {
     SSJGLX?: string;
     /** 课表颜色 */
     KBYS?: string;
+    /** 课程范围 */
+    KCFW?: boolean;
     KHKCLX?: { id?: string; KCLX?: string };
     KHBJSJs?: {
       id?: string;
@@ -2497,6 +2519,8 @@ declare namespace API {
     SSJGLX?: string;
     /** 课表颜色 */
     KBYS?: string;
+    /** 课程范围 */
+    KCFW?: boolean;
     /** 学校ID */
     XXJBSJId?: string;
     /** 课后教育机构ID */
@@ -2516,6 +2540,8 @@ declare namespace API {
     KCMS?: string;
     /** 课表颜色 */
     KBYS?: string;
+    /** 课程范围 */
+    KCFW?: boolean;
     /** 课程适用年级 */
     njIds?: string[];
     /** 课程授课教师 */
@@ -4893,6 +4919,39 @@ declare namespace API {
     XXJBSJId?: string;
     /** 学年学期ID */
     XNXQId?: string;
+  };
+
+  type XXSPPZ = {
+    id: string;
+    /** 教师请假是否审批 */
+    JSQJ: boolean;
+    /** 学生请假是否审批 */
+    XSQJ: boolean;
+    /** 教师调课是否审批 */
+    JSTK: boolean;
+    /** 教师代课是否审批 */
+    JSDK: boolean;
+    /** 学生退课是否审批 */
+    XSTK: boolean;
+    /** 学生退款是否审批 */
+    XSTF: boolean;
+  };
+
+  type CreateXXSPPZ = {
+    /** 教师请假是否审批 */
+    JSQJ: boolean;
+    /** 学生请假是否审批 */
+    XSQJ: boolean;
+    /** 教师调课是否审批 */
+    JSTK: boolean;
+    /** 教师代课是否审批 */
+    JSDK: boolean;
+    /** 学生退课是否审批 */
+    XSTK: boolean;
+    /** 学生退款是否审批 */
+    XSTF: boolean;
+    /** 学校ID */
+    XXJBSJId: string;
   };
 
   type XXTZGG = {
