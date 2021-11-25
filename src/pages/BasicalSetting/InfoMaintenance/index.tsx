@@ -105,7 +105,7 @@ const InfoMaintenance = (props: any) => {
       XZQHM: XZQHM,
       SQR: username,
       SQRId: id,
-      KHJYJGId: KHJYJGId,
+      KHJYJGId: KHJYJGId
     });
     if (rescreateKHJGRZSQ.status === 'ok') {
       onKHJYJG();
@@ -119,16 +119,19 @@ const InfoMaintenance = (props: any) => {
     const resKHJGRZSQ = await getKHJGRZSQ({
       KHJYJGId: currentUser!.jgId!,
       page: 0,
-      pageSize: 0,
+      pageSize: 0
     });
     const rescreateKHJGRZSQ = await deleteKHJGRZSQ({
       id: resKHJGRZSQ.data.rows[0].id
     });
-    await updateKHJGRZSQ({
-      id: resKHJGRZSQ.data.rows[1].id
-    },{
-      ZT: 5
-    });
+    await updateKHJGRZSQ(
+      {
+        id: resKHJGRZSQ.data.rows[1].id
+      },
+      {
+        ZT: 5
+      }
+    );
     if (rescreateKHJGRZSQ.status === 'ok') {
       onKHJYJG();
       setApplyState(false);
@@ -174,8 +177,9 @@ const InfoMaintenance = (props: any) => {
       BXXKZ: BXXKZImageUrl,
       YYZZ: YYZZImageUrl,
       XZQHM: cityAdcode || Datas?.XZQHM,
-      XZQ: `${provinceVal?.label}${cityVal?.label ? `/${cityVal?.label}` : ''}${countyVal?.label ? `/${countyVal?.label}` : ''
-        }`,
+      XZQ: `${provinceVal?.label}${cityVal?.label ? `/${cityVal?.label}` : ''}${
+        countyVal?.label ? `/${countyVal?.label}` : ''
+      }`,
       XD: XD?.toString()
     };
     if (typeof params.id === 'undefined') {
@@ -214,19 +218,20 @@ const InfoMaintenance = (props: any) => {
   };
   const onEditor = () => {
     setDisabled(false);
+    const zxq = Datas?.XZQ || '';
     setProvinceVal({
       value: `${XZQHM?.substring(0, 2)}0000`,
-      label: Datas?.XZQ?.split('/')[0],
+      label: zxq.split('/')?.[0],
       key: `${XZQHM?.substring(0, 2)}0000`
     });
     setCityVal({
       value: `${XZQHM?.substring(0, 4)}00`,
-      label: Datas?.XZQ?.split('/')[1],
+      label: zxq.split('/')?.[1],
       key: `${XZQHM?.substring(0, 4)}00`
     });
     setCountyVal({
       value: XZQHM,
-      label: Datas?.XZQ?.split('/')[2],
+      label: zxq.split('/')?.[2],
       key: XZQHM
     });
   };
@@ -286,7 +291,7 @@ const InfoMaintenance = (props: any) => {
     <div className={styles.InfoMaintenance}>
       <div>
         <div className={styles.header}>
-          {SQDatas?.[0].ZT === 5 ? (
+          {SQDatas?.[0]?.ZT === 5 ? (
             <Popconfirm
               placement="topRight"
               title="确定本机构信息填写完整且无误后，点击“确定”申请准入资格"
@@ -301,8 +306,8 @@ const InfoMaintenance = (props: any) => {
             </Popconfirm>
           ) : (
             <>
-              {SQDatas?.[0].LX === 0 ? (
-                SQDatas?.[0].ZT === 0 && applyState ? (
+              {SQDatas?.[0]?.LX === 0 ? (
+                SQDatas?.[0]?.ZT === 0 && applyState ? (
                   <>
                     <Alert message="申请中" type="warning" style={{ height: 33 }} />
                     <Popconfirm
@@ -317,13 +322,13 @@ const InfoMaintenance = (props: any) => {
                       </Button>
                     </Popconfirm>
                   </>
-                ) : SQDatas?.[0].ZT === 1 ? (
+                ) : SQDatas?.[0]?.ZT === 1 ? (
                   <>
                     <Alert message="恭喜您已成功准入" type="success" style={{ height: 33 }} />
                   </>
-                ) : SQDatas?.[0].ZT === 2 ? (
+                ) : SQDatas?.[0]?.ZT === 2 ? (
                   <>
-                    <Tooltip title={SQDatas?.[0].BZ}>
+                    <Tooltip title={SQDatas?.[0]?.BZ}>
                       <Alert
                         message={
                           <>
@@ -347,9 +352,9 @@ const InfoMaintenance = (props: any) => {
                       </Button>
                     </Popconfirm>
                   </>
-                ) : SQDatas?.[0].ZT === 3 ? (
+                ) : SQDatas?.[0]?.ZT === 3 ? (
                   <>
-                    <Tooltip title={SQDatas?.[0].BZ}>
+                    <Tooltip title={SQDatas?.[0]?.BZ}>
                       <Alert message={<>合作已结束</>} type="info" style={{ height: 33 }} />
                     </Tooltip>
                     <Popconfirm
@@ -364,9 +369,9 @@ const InfoMaintenance = (props: any) => {
                       </Button>
                     </Popconfirm>
                   </>
-                ) : SQDatas?.[0].ZT === 4 ? (
+                ) : SQDatas?.[0]?.ZT === 4 ? (
                   <>
-                    <Tooltip title={SQDatas?.[0].BZ}>
+                    <Tooltip title={SQDatas?.[0]?.BZ}>
                       <Alert
                         message={
                           <>
@@ -393,9 +398,9 @@ const InfoMaintenance = (props: any) => {
                 ) : (
                   <></>
                 )
-              ) : SQDatas?.[0].ZT === 1 ? (
+              ) : SQDatas?.[0]?.ZT === 1 ? (
                 <>
-                  <Tooltip title={SQDatas?.[0].BZ}>
+                  <Tooltip title={SQDatas?.[0]?.BZ}>
                     <Alert
                       message={
                         <>
@@ -410,7 +415,7 @@ const InfoMaintenance = (props: any) => {
                 </>
               ) : (
                 <>
-                  <Tooltip title={SQDatas?.[0].BZ}>
+                  <Tooltip title={SQDatas?.[0]?.BZ}>
                     <Alert
                       message={
                         <>
@@ -711,7 +716,12 @@ const InfoMaintenance = (props: any) => {
           <Form.Item name="JGJJ" key="JGJJ" label="机构简介：">
             <Input.TextArea placeholder={disabled === false ? '请输入' : '——'} rows={4} disabled={disabled} />
           </Form.Item>
-          <Form.Item className={styles.bottomBtnCon} style={{ display: SQDatas?.[0].ZT === 0 || SQDatas?.[0].ZT === 1 || SQDatas?.[0].ZT === 4 ? 'none' : 'block' }}>
+          <Form.Item
+            className={styles.bottomBtnCon}
+            style={{
+              display: SQDatas?.[0]?.ZT === 0 || SQDatas?.[0]?.ZT === 1 || SQDatas?.[0]?.ZT === 4 ? 'none' : 'block'
+            }}
+          >
             {disabled === true ? (
               <button onClick={onEditor} className={styles.btn}>
                 更改准入信息
