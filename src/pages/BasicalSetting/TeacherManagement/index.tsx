@@ -80,7 +80,7 @@ const TeacherManagement = () => {
       dataIndex: 'index',
       valueType: 'index',
       width: 58,
-      fixed: 'left',
+      fixed:'left',
       align: 'center'
     },
     {
@@ -89,7 +89,7 @@ const TeacherManagement = () => {
       key: 'XM',
       align: 'center',
       width: 100,
-      fixed: 'left',
+      fixed:'left',
       render: (_, record) => {
         const showWXName = record.XM === '未知' && record.WechatUserId;
         if (showWXName) {
@@ -134,7 +134,7 @@ const TeacherManagement = () => {
       valueType: 'option',
       width: 150,
       align: 'center',
-      fixed: 'right',
+      fixed:'right',
       render: (_, record) => (
         <>
           <Link
@@ -233,12 +233,12 @@ const TeacherManagement = () => {
         visible={modalVisible}
         onCancel={() => setModalVisible(false)}
         footer={[
-          <Button key="submit" type="primary" onClick={onClose}>
-            确定
-          </Button>,
           <Button key="back" onClick={() => setModalVisible(false)}>
             取消
           </Button>,
+          <Button key="submit" type="primary" onClick={onClose}>
+            确定
+          </Button>
         ]}
         centered
         maskClosable={false}
