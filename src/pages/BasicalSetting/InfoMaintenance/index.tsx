@@ -6,7 +6,6 @@ import { createKHJYJG, KHJYJG, updateKHJYJG } from '@/services/after-class-pxjg/
 import { createKHJGRZSQ, deleteKHJGRZSQ, getKHJGRZSQ, updateKHJGRZSQ } from '@/services/after-class-pxjg/khjgrzsq';
 import { QuestionCircleOutlined } from '@ant-design/icons';
 import UploadImage from '@/components/CustomForm/components/UploadImage';
-import $ from 'jquery';
 
 import 'antd/es/modal/style';
 import styles from './index.less';
@@ -62,14 +61,10 @@ const InfoMaintenance = (props: any) => {
   useEffect(() => {
     onKHJYJG();
   }, []);
-  const requestData = () => {
-    $.ajax({
-      url: '//datavmap-public.oss-cn-hangzhou.aliyuncs.com/areas/csv/100000_province.json',
-      data: {},
-      success: function (data: { rows: any }) {
-        setCities(data.rows);
-      }
-    });
+  const requestData = async () => {
+    const response = await fetch('https://datavmap-public.oss-cn-hangzhou.aliyuncs.com/areas/csv/100000_province.json');
+    const provinceData = await response.json();
+    setCities(provinceData.rows);
   };
   useEffect(() => {
     requestData();
@@ -77,26 +72,24 @@ const InfoMaintenance = (props: any) => {
       setCityAdcode(XZQHM);
     }
     if (typeof XZQHM !== 'undefined') {
-      $.ajax({
-        url: `//datavmap-public.oss-cn-hangzhou.aliyuncs.com/areas/csv/${XZQHM?.substring(0, 2)}0000_city.json`,
-        data: {},
-        success: function (data: { rows: any }) {
-          setSecondCity(data.rows);
-        }
-      });
-      $.ajax({
-        url: `//datavmap-public.oss-cn-hangzhou.aliyuncs.com/areas/csv/${XZQHM?.substring(0, 4)}00_district.json`,
-        data: {},
-        success: function (data: { rows: any[] }) {
-          let newArr: any[] = [];
-          data.rows.forEach((item: any) => {
-            if (item.adcode.substring(0, 4) === XZQHM?.substring(0, 4)) {
-              newArr.push(item);
-            }
-          });
-          setCounty(newArr);
-        }
-      });
+      (async () => {
+        const response = await fetch(
+          `https://datavmap-public.oss-cn-hangzhou.aliyuncs.com/areas/csv/${XZQHM?.substring(0, 2)}0000_city.json`
+        );
+        const provinceData = await response.json();
+        setSecondCity(provinceData.rows);
+        const res = await fetch(
+          `https://datavmap-public.oss-cn-hangzhou.aliyuncs.com/areas/csv/${XZQHM?.substring(0, 4)}00_district.json`
+        );
+        const resData = await res.json();
+        let newArr: any[] = [];
+        resData.rows.forEach((item: any) => {
+          if (item.adcode.substring(0, 4) === XZQHM?.substring(0, 4)) {
+            newArr.push(item);
+          }
+        });
+        setCounty(newArr);
+      })();
     }
   }, [XZQHM]);
 
