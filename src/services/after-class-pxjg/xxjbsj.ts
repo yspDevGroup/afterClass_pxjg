@@ -243,3 +243,21 @@ export async function getRefund(
     ...(options || {}),
   });
 }
+
+/** 获取学校代办事项 POST /xxjbsj/getAllUnfinish */
+export async function getAllUnfinish(
+  body: {
+    XXJBSJId?: string;
+    XNXQId?: string;
+  },
+  options?: { [key: string]: any },
+) {
+  return request<any>('/xxjbsj/getAllUnfinish', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data: body,
+    ...(options || {}),
+  });
+}

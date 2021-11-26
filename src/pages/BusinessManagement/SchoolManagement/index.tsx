@@ -16,6 +16,7 @@ import { TableListParams } from '@/constant';
 import { cooperateSchool } from '@/services/after-class-pxjg/khjyjg';
 import { KHHZXYSJ } from '../data';
 import EllipsisHint from '@/components/EllipsisHint';
+import { getTableWidth } from '@/utils';
 
 const SchoolManagement = () => {
   const { initialState } = useModel('@@initialState');
@@ -149,7 +150,7 @@ const SchoolManagement = () => {
         pageSize: 10,
         defaultCurrent: 1,
       }}
-      scroll={{ x: 1000 }}
+      scroll={{ x: getTableWidth(columns) }}
       request={async (
         params: KHHZXYSJ & {
           pageSize?: number;

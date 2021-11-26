@@ -2,7 +2,7 @@
  * @description:
  * @author: Sissle Lynn
  * @Date: 2021-08-26 19:54:41
- * @LastEditTime: 2021-11-19 16:54:31
+ * @LastEditTime: 2021-11-25 15:34:33
  * @LastEditors: Sissle Lynn
  */
 import React, { useEffect, useState } from 'react';
@@ -51,7 +51,7 @@ const CourseItemDom = (props: { school: string; course: any; type: string; ind: 
         <h3>
           {course.KCMC}
           <span className={styles.extraInfo}>
-            <span style={{ backgroundColor: bgColor }}>{courseStatus[ZT]}</span>
+            {/* <span style={{ backgroundColor: bgColor }}>{courseStatus[ZT]}</span> */}
             <div className={styles.synj}>
               适用年级：
               {course.NJSJs?.map((item: any) => {
@@ -90,26 +90,29 @@ const CourseItemDom = (props: { school: string; course: any; type: string; ind: 
                   <p>
                     任课教师：
                     {item.KHBJJs?.map((val: any, index: number) => {
-                      const showWXName = val.JZGJBSJ?.XM === '未知' && val.JZGJBSJ?.WechatUserId;
-                      return (
-                        <Link
-                          key={val.id}
-                          to={{
-                            pathname: '/basicalSetting/teacherManagement/detail',
-                            state: {
-                              type: 'detail',
-                              data: val.JZGJBSJ
-                            }
-                          }}
-                        >
-                          {showWXName ? (
-                            <WWOpenDataCom type="userName" openid={val.JZGJBSJ?.WechatUserId} />
-                          ) : (
-                            val.JZGJBSJ?.XM
-                          )}
-                          {index < item.KHBJJs.length - 1 ? <Divider type="vertical" /> : ''}
-                        </Link>
-                      );
+                      if(val.JSLX === '主教师'){
+                        const showWXName = val.JZGJBSJ?.XM === '未知' && val.JZGJBSJ?.WechatUserId;
+                        return (
+                          <Link
+                            key={val.id}
+                            to={{
+                              pathname: '/basicalSetting/teacherManagement/detail',
+                              state: {
+                                type: 'detail',
+                                data: val.JZGJBSJ
+                              }
+                            }}
+                          >
+                            {showWXName ? (
+                              <WWOpenDataCom type="userName" openid={val.JZGJBSJ?.WechatUserId} />
+                            ) : (
+                              val.JZGJBSJ?.XM
+                            )}
+                            {index < item.KHBJJs.length - 1 ? <Divider type="vertical" /> : ''}
+                          </Link>
+                        );
+                      }
+                      return ''
                     })}
                   </p>
                   <p>
@@ -145,7 +148,7 @@ const CourseItemDom = (props: { school: string; course: any; type: string; ind: 
                     报名时段：{moment(item?.BMKSSJ).format('YYYY.MM.DD')}~{moment(item?.BMJSSJ).format('YYYY.MM.DD')}
                   </p>
                   <p>
-                    学生总数：{item.KHXSBJs?.length || 0}人{' '}
+                    学生总数：{item.xs_count || 0}人{' '}
                     <Link
                       style={{ marginLeft: '16px' }}
                       to={{

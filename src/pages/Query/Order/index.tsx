@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { Link, useModel } from 'umi';
 import { cooperateSchoolOrder } from '@/services/after-class-pxjg/khjyjg';
 import EllipsisHint from '@/components/EllipsisHint';
+import { getTableWidth } from '@/utils';
 
 const Order = () => {
   const [dataSource, setDataSource] = useState<any>([]);
@@ -146,7 +147,7 @@ const Order = () => {
             pageSize: 10,
             defaultCurrent: 1,
           }}
-          scroll={{ x: 1000 }}
+          scroll={{ x: getTableWidth(columns) }}
           columns={columns}
           options={{
             setting: false,

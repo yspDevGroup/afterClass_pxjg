@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-expressions */
 import ProTable, { ProColumns } from '@ant-design/pro-table';
 import { Select, Button, Input, message } from 'antd';
 import { LeftOutlined } from '@ant-design/icons';
@@ -10,6 +11,7 @@ import styles from '../index.less';
 import { getCurrentXQ } from '@/utils';
 import { getAllTKByAgency } from '@/services/after-class-pxjg/khtksj';
 import WWOpenDataCom from '@/components/WWOpenDataCom';
+import { getTableWidth } from '@/utils';
 const { Search } = Input;
 const { Option } = Select;
 const Details = (props: any) => {
@@ -145,15 +147,15 @@ const Details = (props: any) => {
   useEffect(() => {
     if (currentUser?.jgId) {
       // 获取学年学期
-      getXNXQ(id, currentUser?.jgId),
-        (async () => {
-          const res = await getCourses({
-            JGId: currentUser?.jgId
-          });
-          if (res.status === 'ok') {
-            setcourseList(res.data?.rows);
-          }
-        })();
+      getXNXQ(id, currentUser?.jgId);
+      (async () => {
+        const res = await getCourses({
+          JGId: currentUser?.jgId
+        });
+        if (res.status === 'ok') {
+          setcourseList(res.data?.rows);
+        }
+      })();
     }
   }, [currentUser]);
   useEffect(() => {
@@ -238,7 +240,7 @@ const Details = (props: any) => {
             pageSize: 10,
             defaultCurrent: 1
           }}
-          scroll={{ x: 1000 }}
+          scroll={{ x: getTableWidth(columns) }}
           columns={columns}
           options={{
             setting: false,

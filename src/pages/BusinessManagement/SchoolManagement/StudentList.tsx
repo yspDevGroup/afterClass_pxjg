@@ -2,8 +2,8 @@
  * @description:
  * @author: Sissle Lynn
  * @Date: 2021-09-07 08:30:40
- * @LastEditTime: 2021-10-15 18:07:16
- * @LastEditors: Sissle Lynn
+ * @LastEditTime: 2021-11-25 16:23:00
+ * @LastEditors: zpl
  */
 import React, { useEffect, useState } from 'react';
 import { LeftOutlined } from '@ant-design/icons';
@@ -23,7 +23,7 @@ const StudentList = (props: any) => {
     (async () => {
       const res = await getClassStudents({
         KHBJSJId: state.bjId,
-        ZT: [0, 1],
+        ZT: [0, 1, 3],
         page: 0,
         pageSize: 0
       });

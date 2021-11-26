@@ -4,6 +4,7 @@ import ImgCrop from 'antd-img-crop';
 import 'antd/es/modal/style';
 import styles from './UploadImage.less';
 import { getAuthorization } from '@/utils';
+import IconFont from '@/components/CustomIcon';
 
 type UploadImageProps = {
   imageurl?: string; // 回显地址
@@ -62,7 +63,7 @@ const UploadImage = (props: UploadImageProps) => {
           className={styles.defImgStyles}
           style={{ width: `${imgWidth}px`, height: `${imgHeight}px` }}
         >
-          <div className={styles.icon} />
+          <IconFont className={styles.icon} type="icon-wutupian" />
         </div>
       )}
       {readonly ? (

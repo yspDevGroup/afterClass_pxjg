@@ -10,6 +10,7 @@ import styles from '../index.less';
 import { getCurrentXQ } from '@/utils';
 import { getAllTKByAgency } from '@/services/after-class-pxjg/khtksj';
 import WWOpenDataCom from '@/components/WWOpenDataCom';
+import { getTableWidth } from '@/utils';
 const { Search } = Input;
 const { Option } = Select;
 const Details = (props: any) => {
@@ -148,7 +149,8 @@ const Details = (props: any) => {
   useEffect(() => {
     if (currentUser?.jgId) {
       // 获取学年学期
-      getXNXQ(id, currentUser?.jgId),
+      // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+      getXNXQ(id, currentUser?.jgId);
         (async () => {
           const res = await getCourses({
             JGId: currentUser?.jgId
@@ -241,7 +243,7 @@ const Details = (props: any) => {
             pageSize: 10,
             defaultCurrent: 1
           }}
-          scroll={{ x: 1000 }}
+          scroll={{ x: getTableWidth(columns) }}
           columns={columns}
           options={{
             setting: false,

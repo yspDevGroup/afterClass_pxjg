@@ -10,6 +10,7 @@ import { getAllXNXQ } from '@/services/after-class-pxjg/xnxq';
 import { getCurrentXQ } from '@/utils';
 import { cooperateSchoolOrderList } from '@/services/after-class-pxjg/khjyjg';
 import { getAllKHKCLX } from '@/services/after-class-pxjg/khkclx';
+import { getTableWidth } from '@/utils';
 
 const { Search } = Input;
 const { Option } = Select;
@@ -305,7 +306,7 @@ const ClassOrder = (props: any) => {
           pageSize: 10,
           defaultCurrent: 1
         }}
-        scroll={{ x: 1000 }}
+        scroll={{ x: getTableWidth(columns) }}
         options={{
           setting: false,
           fullScreen: false,

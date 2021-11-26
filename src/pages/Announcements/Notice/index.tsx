@@ -16,6 +16,7 @@ import type { TableListItem } from '../data';
 import styles from '../index.module.less';
 import moment from 'moment';
 import { getKHJYTZGG, updateKHJYTZGG } from '@/services/after-class-pxjg/khjytzgg';
+import { getTableWidth } from '@/utils';
 
 const Notice = () => {
   const [dataSource, setDataSource] = useState<API.JYJGTZGG[]>();
@@ -142,7 +143,7 @@ const Notice = () => {
           pageSize: 10,
           defaultCurrent: 1
         }}
-        scroll={{ x: 1000 }}
+        scroll={{ x: getTableWidth(columns) }}
         toolBarRender={(_action) => [
           <Button
             key="xinjian"

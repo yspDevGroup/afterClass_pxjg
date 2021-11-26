@@ -6,6 +6,7 @@ import { getCourseSchools } from '@/services/after-class-pxjg/khjyjg';
 import { LeftOutlined } from '@ant-design/icons';
 import styles from '../index.less';
 import EllipsisHint from '@/components/EllipsisHint';
+import { getTableWidth } from '@/utils';
 
 const { Search } = Input;
 const Appraise = (props: any) => {
@@ -162,7 +163,7 @@ const Appraise = (props: any) => {
             pageSize: 10,
             defaultCurrent: 1
           }}
-          scroll={{ x: 900 }}
+          scroll={{ x: getTableWidth(columns) }}
           columns={columns}
           options={{
             setting: false,

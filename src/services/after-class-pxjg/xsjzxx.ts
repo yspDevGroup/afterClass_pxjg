@@ -11,10 +11,10 @@ export async function createXSJZXX(body: API.CreateXSJZXX, options?: { [key: str
   }>('/xsjzxx/create', {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -25,7 +25,7 @@ export async function getXSJZXX(
     /** 学生家长ID */
     id: string;
   },
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{
@@ -35,7 +35,7 @@ export async function getXSJZXX(
   }>(`/xsjzxx/${param0}`, {
     method: 'GET',
     params: { ...queryParams },
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -46,13 +46,13 @@ export async function deleteXSJZXX(
     /** 学生家长信息ID */
     id: string;
   },
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{ status?: 'ok' | 'error'; message?: string }>(`/xsjzxx/${param0}`, {
     method: 'DELETE',
     params: { ...queryParams },
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -64,17 +64,17 @@ export async function updateXSJZXX(
     id: string;
   },
   body: API.UpdateXSJZXX,
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{ status?: 'ok' | 'error'; message?: string }>(`/xsjzxx/update/${param0}`, {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     params: { ...queryParams },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -90,7 +90,7 @@ export async function createRelation(
     /** 家长ID */
     XSJZGXId?: string;
   },
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   return request<{
     status?: 'ok' | 'error';
@@ -99,10 +99,10 @@ export async function createRelation(
   }>('/xsjzxx/createRelation', {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -123,16 +123,19 @@ export async function updateRelation(
     /** 家长ID */
     XSJZGXId?: string;
   },
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   const { id: param0, ...queryParams } = params;
-  return request<{ status?: 'ok' | 'error'; message?: string }>(`/xsjzxx/updateRelation/${param0}`, {
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json'
+  return request<{ status?: 'ok' | 'error'; message?: string }>(
+    `/xsjzxx/updateRelation/${param0}`,
+    {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      params: { ...queryParams },
+      data: body,
+      ...(options || {}),
     },
-    params: { ...queryParams },
-    data: body,
-    ...(options || {})
-  });
+  );
 }

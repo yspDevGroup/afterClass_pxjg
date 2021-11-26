@@ -2,7 +2,7 @@
  * @description:
  * @author: Sissle Lynn
  * @Date: 2021-08-28 09:22:33
- * @LastEditTime: 2021-10-20 09:33:07
+ * @LastEditTime: 2021-11-25 15:21:18
  * @LastEditors: Sissle Lynn
  */
 /*
@@ -21,7 +21,7 @@ import { Link, useModel } from 'umi';
 import styles from './index.less';
 import { TableListParams } from '@/constant';
 import { Button, Divider, message, Modal, Popconfirm, Upload } from 'antd';
-import { getAuthorization } from '@/utils';
+import { getAuthorization, getTableWidth } from '@/utils';
 import { getAllJZGJBSJ, deleteJZGJBSJ } from '@/services/after-class-pxjg/jzgjbsj';
 import WWOpenDataCom from '@/components/WWOpenDataCom';
 
@@ -181,7 +181,7 @@ const TeacherManagement = () => {
           pageSize: 10,
           defaultCurrent: 1,
         }}
-        scroll={{ x: 1000 }}
+        scroll={{ x: getTableWidth(columns) }}
         request={async (
           params: any & {
             pageSize?: number;
@@ -233,12 +233,12 @@ const TeacherManagement = () => {
         visible={modalVisible}
         onCancel={() => setModalVisible(false)}
         footer={[
+          <Button key="submit" type="primary" onClick={onClose}>
+            确定
+          </Button>,
           <Button key="back" onClick={() => setModalVisible(false)}>
             取消
           </Button>,
-          <Button key="submit" type="primary" onClick={onClose}>
-            确定
-          </Button>
         ]}
         centered
         maskClosable={false}

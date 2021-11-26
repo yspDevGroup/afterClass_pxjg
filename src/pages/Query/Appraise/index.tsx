@@ -8,6 +8,7 @@ import { getCourses } from '@/services/after-class-pxjg/jyjgsj';
 
 import styles from './index.less';
 import WWOpenDataCom from '@/components/WWOpenDataCom';
+import { getTableWidth } from '@/utils';
 
 const Course = () => {
   const [dataSource, setDataSource] = useState<any>([]);
@@ -156,7 +157,7 @@ const Course = () => {
           pageSize: 10,
           defaultCurrent: 1
         }}
-        scroll={{ x: 900 }}
+        scroll={{ x: getTableWidth(columns) }}
         search={false}
         options={{
           setting: false,

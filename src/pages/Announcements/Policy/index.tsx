@@ -12,6 +12,7 @@ import { Link, useModel } from 'umi';
 import type { TableListItem } from '../data';
 import styles from '../index.module.less';
 import { getJYJGTZGG, updateJYJGTZGG } from '@/services/after-class-pxjg/jyjgtzgg';
+import { getTableWidth } from '@/utils';
 import { KHJYJG } from '@/services/after-class-pxjg/khjyjg';
 
 const TableList = () => {
@@ -124,7 +125,7 @@ const TableList = () => {
           pageSize: 10,
           defaultCurrent: 1,
         }}
-        scroll={{ x: 1000 }}
+        scroll={{ x: getTableWidth(columns) }}
         request={async (params, sorter, filter) => {
           if (params.ZT || params.BT) {
             const resgetXXTZGG = await getJYJGTZGG({

@@ -9,7 +9,7 @@ export async function getKHJSQJ(
     /** 教师请假记录ID */
     id: string;
   },
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{
@@ -35,7 +35,7 @@ export async function getKHJSQJ(
   }>(`/khjsqj/${param0}`, {
     method: 'GET',
     params: { ...queryParams },
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -46,13 +46,13 @@ export async function deleteKHJSQJ(
     /** 类型ID */
     id: string;
   },
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{ status?: 'ok' | 'error'; message?: string }>(`/khjsqj/${param0}`, {
     method: 'DELETE',
     params: { ...queryParams },
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -78,15 +78,15 @@ export async function getAllKHJSQJ(
     /** 每页记录数 */
     pageSize?: number;
   },
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   return request<any>('/khjsqj/getAll', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -115,10 +115,10 @@ export async function createKHJSQJ(body: API.CreateKHJSQJ, options?: { [key: str
   }>('/khjsqj/create', {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -130,16 +130,16 @@ export async function updateKHJSQJ(
     id: string;
   },
   body: API.UpdateKHJSQJ,
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{ status?: 'ok' | 'error'; message?: string }>(`/khjsqj/update/${param0}`, {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     params: { ...queryParams },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }

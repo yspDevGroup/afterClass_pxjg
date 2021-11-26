@@ -24,6 +24,17 @@ export async function importTeachers(options?: { [key: string]: any }) {
   );
 }
 
+/** 导入场地信息 POST /upload/importSites */
+export async function importSites(options?: { [key: string]: any }) {
+  return request<{ status?: 'ok' | 'error'; data?: string; message?: string }>(
+    '/upload/importSites',
+    {
+      method: 'POST',
+      ...(options || {}),
+    },
+  );
+}
+
 /** 导入学生信息 POST /upload/importStudents */
 export async function importStudents(options?: { [key: string]: any }) {
   return request<{ status?: 'ok' | 'error'; data?: string; message?: string }>(
@@ -103,6 +114,27 @@ export async function syncWechatStudents(
         'Content-Type': 'application/json',
       },
       data: body,
+      ...(options || {}),
+    },
+  );
+}
+
+/** 导入行政班学生列表进行报名 POST /upload/importStudentSignUp */
+export async function importStudentSignUp(
+  params: {
+    // query
+    /** 课后班级id */
+    KHBJSJId: string;
+  },
+  options?: { [key: string]: any },
+) {
+  return request<{ status?: 'ok' | 'error'; data?: any[]; message?: string }>(
+    '/upload/importStudentSignUp',
+    {
+      method: 'POST',
+      params: {
+        ...params,
+      },
       ...(options || {}),
     },
   );

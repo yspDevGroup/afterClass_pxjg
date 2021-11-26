@@ -9,6 +9,7 @@ import { getCourses } from '@/services/after-class-pxjg/khjyjg';
 import EllipsisHint from '@/components/EllipsisHint';
 import { deleteKHKCSJ, updateKHKCSJ } from '@/services/after-class-pxjg/khkcsj';
 import WWOpenDataCom from '@/components/WWOpenDataCom';
+import { getTableWidth } from '@/utils';
 
 /**
  * 机构端-课程列表
@@ -220,7 +221,7 @@ const MechanismCourse = () => {
           pageSize: 10,
           defaultCurrent: 1
         }}
-        scroll={{ x: 1000 }}
+        scroll={{ x: getTableWidth(columns) }}
         request={async (param = {}, sort, filter) => {
           const params = {
             ...sort,

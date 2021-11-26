@@ -3,8 +3,8 @@
  * @description: 运行时配置
  * @author: zpl
  * @Date: 2021-08-09 10:44:42
- * @LastEditTime: 2021-11-17 09:10:51
- * @LastEditors: zpl
+ * @LastEditTime: 2021-11-25 15:15:02
+ * @LastEditors: Sissle Lynn
  */
 import { notification, message } from 'antd';
 import { history } from 'umi';
@@ -30,7 +30,6 @@ export const initialStateConfig = {
 export async function getInitialState(): Promise<InitialState> {
   console.log('process.env.REACT_APP_ENV: ', process.env.REACT_APP_ENV);
   const buildOptions = await getBuildOptions();
-  debugger;
   const fetchUserInfo = async (): Promise<UserInfo | null> => {
     const res =
       buildOptions.authType === 'wechat'

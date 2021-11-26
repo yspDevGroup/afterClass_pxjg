@@ -14,7 +14,7 @@ export async function getAllSPJL(
     /** 每页记录数 */
     pageSize?: number;
   },
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   return request<{
     status?: 'ok' | 'error';
@@ -23,10 +23,10 @@ export async function getAllSPJL(
   }>('/khjyjspjl/getAllSPJL', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -67,9 +67,9 @@ export async function CreateKHJYJSPJL(body: API.CreateKHJYJSPJL, options?: { [ke
   }>('/khjyjspjl/createKHJYJSPJL', {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }

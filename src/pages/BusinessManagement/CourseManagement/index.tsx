@@ -18,6 +18,7 @@ import { KHKCSQSJ } from '../data';
 import { getKHKCSQ, updateKHKCSQ } from '@/services/after-class-pxjg/khkcsq';
 import EllipsisHint from '@/components/EllipsisHint';
 import WWOpenDataCom from '@/components/WWOpenDataCom';
+import { getTableWidth } from '@/utils';
 
 const { Search } = Input;
 const CourseManagement = () => {
@@ -276,7 +277,7 @@ const CourseManagement = () => {
           pageSize: 10,
           defaultCurrent: 1,
         }}
-        scroll={{ x: 1200 }}
+        scroll={{ x: getTableWidth(columns) }}
         request={async (
           params: KHKCSQSJ & {
             pageSize?: number;
@@ -364,12 +365,12 @@ const CourseManagement = () => {
         visible={modalVisible}
         onCancel={() => setModalVisible(false)}
         footer={[
+          <Button key="submit" type="primary" onClick={handleSubmit}>
+            确定
+          </Button>,
           <Button key="back" onClick={() => setModalVisible(false)}>
             取消
           </Button>,
-          <Button key="submit" type="primary" onClick={handleSubmit}>
-            确定
-          </Button>
         ]}
         style={{ maxHeight: '430px' }}
         centered

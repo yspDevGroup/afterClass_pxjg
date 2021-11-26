@@ -5,6 +5,7 @@ import { Link, useModel } from 'umi';
 import { cooperateSchool } from '@/services/after-class-pxjg/khjyjg';
 import styles from './index.less';
 import EllipsisHint from '@/components/EllipsisHint';
+import { getTableWidth } from '@/utils';
 
 const PatrolClass = () => {
   const [school, setSchool] = useState<string>();
@@ -129,7 +130,7 @@ const PatrolClass = () => {
             pageSize: 10,
             defaultCurrent: 1,
           }}
-          scroll={{ x: 1000 }}
+          scroll={{ x: getTableWidth(columns) }}
           dataSource={dataSource}
           columns={columns}
           options={{
