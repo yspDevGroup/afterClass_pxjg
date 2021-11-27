@@ -4,7 +4,7 @@ import TopNav from './../components/TopNav';
 import { KHJYTZGG } from '@/services/after-class-pxjg/khjytzgg';
 import styles from './index.less';
 import Footer from '@/components/Footer';
-import { useModel } from '@/.umi/plugin-model/useModel';
+import { useModel } from 'umi';
 
 const NoticeDetails = (props: any) => {
   const { allDataSource, index, infoType } = props.location.state;
