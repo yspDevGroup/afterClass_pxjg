@@ -1,10 +1,10 @@
+import { useModel } from 'umi';
 import { JYJGTZGG } from '@/services/after-class-pxjg/jyjgtzgg';
 import { useEffect, useState } from 'react';
 import TopNav from './../components/TopNav';
 import { KHJYTZGG } from '@/services/after-class-pxjg/khjytzgg';
-import styles from './index.less';
 import Footer from '@/components/Footer';
-import { useModel } from '@/.umi/plugin-model/useModel';
+import styles from './index.less';
 
 const NoticeDetails = (props: any) => {
   const { allDataSource, index, infoType } = props.location.state;
