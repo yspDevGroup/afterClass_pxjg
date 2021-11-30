@@ -53,15 +53,30 @@ const SchoolInfo = (props: PropsType) => {
   }, []);
   useEffect(() => {
     if (values) {
-      const { ZP, ZGZS, CSRQ, XBM, ...rest } = values;
+      const { ZP, ZGZS, CSRQ, XBM, SFZJLXM, MZM, XLM, ...rest } = values;
       setZPUrl(ZP || '');
       setZGZSUrl(ZGZS || '');
-      const XBLX = XBM ? XBM : '男性';
-      const newData = {
-        CSRQ: CSRQ ? moment(CSRQ) : birthDate ? moment(birthDate) : '',
-        XBM: readonly ? XBLX?.substring(0, 1) : XBLX,
-        ...rest
-      };
+      const XBLX = XBM || '男性';
+      let newData: any = {};
+      if (readonly === true) {
+        newData = {
+          CSRQ: CSRQ ? moment(CSRQ) : '',
+          MZM: MZM || '—',
+          XLM: XLM || '—',
+          SFZJLXM: SFZJLXM || '—',
+          XBM: readonly ? XBLX?.substring(0, 1) : XBLX,
+          ...rest
+        };
+      } else {
+        newData = {
+          CSRQ: CSRQ ? moment(CSRQ) : '',
+          MZM: MZM || '',
+          XLM: XLM || '',
+          SFZJLXM: SFZJLXM || '',
+          XBM: readonly ? XBLX?.substring(0, 1) : XBLX,
+          ...rest
+        };
+      }
       setInfo(newData);
     }
   }, [values]);
@@ -154,7 +169,7 @@ const SchoolInfo = (props: PropsType) => {
             { required: true, message: '请输入姓名' },
             { type: 'string', max: 60 }
           ],
-          placeholder: readonly ? '-' : ''
+          placeholder: readonly ? '—' : ''
         },
         {}
       ]
@@ -188,7 +203,7 @@ const SchoolInfo = (props: PropsType) => {
           name: 'XBM',
           key: 'XBM',
           hidden: !readonly,
-          placeholder: readonly ? '-' : ''
+          placeholder: readonly ? '—' : ''
         },
         {
           type: 'input',
@@ -196,7 +211,7 @@ const SchoolInfo = (props: PropsType) => {
           span: 12,
           name: 'ZGZSBH',
           key: 'ZGZSBH',
-          placeholder: readonly ? '-' : ''
+          placeholder: readonly ? '—' : ''
         }
       ]
     },
@@ -210,15 +225,14 @@ const SchoolInfo = (props: PropsType) => {
           name: 'MZM',
           label: '民族',
           items: mzlist,
-          placeholder: readonly ? '-' : ''
+          placeholder: readonly ? '—' : ''
         },
         {
           type: 'select',
           label: '学历',
           key: 'XLM',
           name: 'XLM',
-          items: xllist,
-          placeholder: readonly ? '-' : ''
+          items: xllist
         }
       ]
     },
@@ -232,7 +246,7 @@ const SchoolInfo = (props: PropsType) => {
           label: '出生日期',
           name: 'CSRQ',
           key: 'CSRQ',
-          placeholder: readonly ? '-' : ''
+          placeholder: readonly ? '—' : ''
         },
         {
           type: 'input',
@@ -240,7 +254,7 @@ const SchoolInfo = (props: PropsType) => {
           name: 'BYYX',
           key: 'BYYX',
           rules: [{ type: 'string', max: 255 }],
-          placeholder: readonly ? '-' : ''
+          placeholder: readonly ? '—' : ''
         }
       ]
     },
@@ -253,7 +267,7 @@ const SchoolInfo = (props: PropsType) => {
           label: '联系电话',
           name: 'LXDH',
           key: 'LXDH',
-          placeholder: readonly ? '-' : '',
+          placeholder: readonly ? '—' : '',
           rules: [
             { required: true, message: '请输入联系电话' },
             { type: 'string', max: 32 },
@@ -269,7 +283,7 @@ const SchoolInfo = (props: PropsType) => {
           name: 'SXZY',
           key: 'ZY',
           rules: [{ type: 'string', max: 255 }],
-          placeholder: readonly ? '-' : ''
+          placeholder: readonly ? '—' : ''
         }
       ]
     },
@@ -282,7 +296,7 @@ const SchoolInfo = (props: PropsType) => {
           key: 'SFZJLXM',
           name: 'SFZJLXM',
           label: '证件类型',
-          placeholder: readonly ? '-' : '',
+          defaultValue: '—',
           items: [
             {
               value: '居民身份证',
@@ -329,7 +343,7 @@ const SchoolInfo = (props: PropsType) => {
           key: 'JL',
           max: 100,
           min: 1,
-          placeholder: readonly ? '-' : '',
+          placeholder: readonly ? '—' : '',
           formatter: (value) => `${Math.round(value)}`,
           tooltip: '注意：教龄四舍五入，只能填写整数'
         }
@@ -344,7 +358,7 @@ const SchoolInfo = (props: PropsType) => {
           key: 'SFZJH',
           name: 'SFZJH',
           label: '证件号码',
-          placeholder: readonly ? '-' : '',
+          placeholder: readonly ? '—' : '',
           rules: [
             { required: true, message: '请输入证件号码' },
             { type: 'string', max: 20 },
@@ -352,7 +366,30 @@ const SchoolInfo = (props: PropsType) => {
               pattern: new RegExp(idReg),
               message: '填写的证件格式有误'
             }
-          ]
+          ],
+          normalize: (num) => {
+            // eslint-disable-next-line no-param-reassign
+            num = num.toUpperCase();
+            const len = num.length;
+            if (idType === '居民身份证' && len === 18) {
+              if (idReg.test(num) === false) {
+                return '（身份证号有误）';
+              }
+              const arrSplit = num.match(idReg);
+              // 检查生日日期是否正确
+              const dtmBirth = new Date(`${arrSplit[2]}-${arrSplit[3]}-${arrSplit[4]}`);
+              setBirthDate(dtmBirth);
+            } else if (idType === '护照' && len >= 9) {
+              if (idReg.test(num) === false) {
+                return '（护照号码有误）';
+              }
+            } else if (idType === '户口簿' && len >= 9) {
+              if (idReg.test(num) === false) {
+                return '（户口簿号码有误）';
+              }
+            }
+            return num;
+          }
         },
         {
           type: 'input',
@@ -360,7 +397,7 @@ const SchoolInfo = (props: PropsType) => {
           name: 'JSKM',
           key: 'JSKM',
           rules: [{ type: 'string', max: 255 }],
-          placeholder: readonly ? '-' : ''
+          placeholder: readonly ? '—' : ''
         }
       ]
     },
@@ -373,7 +410,7 @@ const SchoolInfo = (props: PropsType) => {
           label: '电子邮箱',
           name: 'DZXX',
           key: 'DZXX',
-          placeholder: readonly ? '-' : '',
+          placeholder: readonly ? '—' : '',
           rules: [
             {
               type: 'email',
@@ -395,7 +432,7 @@ const SchoolInfo = (props: PropsType) => {
           name: 'BZ',
           key: 'BZ',
           rules: [{ type: 'string', max: 255 }],
-          placeholder: readonly ? '-' : ''
+          placeholder: readonly ? '—' : ''
         }
       ]
     }
