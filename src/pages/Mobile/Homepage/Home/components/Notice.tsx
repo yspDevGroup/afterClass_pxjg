@@ -1,3 +1,5 @@
+/* eslint-disable react/jsx-curly-brace-presence */
+/* eslint-disable prettier/prettier */
 import { useEffect, useState } from 'react';
 import noData from '@/assets/noCourse.png';
 import styles from '../index.less';
@@ -38,7 +40,7 @@ const Notice = () => {
 
   useEffect(() => {
     async function fetchData() {
-      //通知公告
+      // 通知公告
       const resgetXXTZGG = await getKHJYTZGG({
         KHJYJGId: currentUser?.jgId,
         BT: '',
@@ -48,7 +50,7 @@ const Notice = () => {
         pageSize: 0
       });
       if (resgetXXTZGG.status === 'ok') {
-        let newData = {
+        const newData = {
           type: 'azeList',
           cls: 'azeList',
           list: resgetXXTZGG.data?.rows?.slice(0, 3) || [],
@@ -56,20 +58,27 @@ const Notice = () => {
           noDataImg: noData,
         };
         setZCGGData(newData);
-        newData.list = resgetXXTZGG.data?.rows || [];
-        setAllZCDataSource(newData)
+        const newAllData = {
+          type: 'azeList',
+          cls: 'azeList',
+          list: resgetXXTZGG.data?.rows || [],
+          noDataText: '暂无待办',
+          noDataImg: noData,
+        }
+        setAllZCDataSource(newAllData)
       }
 
-      //政策公告
+      // 政策公告
       const resgetXXZCGG = await getJYJGTZGG({
         BT: '',
         LX: 1,
         ZT: ['已发布'],
+        XZQHM: currentUser?.XZQHM,
         page: 0,
         pageSize: 0
       });
       if (resgetXXZCGG.status === 'ok') {
-        let newData = {
+        const newData = {
           type: 'azeList',
           cls: 'azeList',
           list: resgetXXZCGG.data?.rows?.slice(0, 3) || [],
@@ -77,8 +86,14 @@ const Notice = () => {
           noDataImg: noData,
         };
         setTZGGData(newData);
-        newData.list = resgetXXZCGG.data?.rows || [];
-        setAllTZDataSource(newData);
+        const newAllData = {
+          type: 'azeList',
+          cls: 'azeList',
+          list: resgetXXZCGG.data?.rows || [],
+          noDataText: '暂无待办',
+          noDataImg: noData,
+        }
+        setAllTZDataSource(newAllData);
       }
     }
 
