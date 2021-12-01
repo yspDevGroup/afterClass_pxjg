@@ -186,7 +186,7 @@ const Details = (props: any) => {
           history.go(-1);
         }}
         style={{
-          marginBottom: '24px'
+          marginBottom: '8px'
         }}
       >
         <LeftOutlined />

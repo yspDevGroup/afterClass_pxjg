@@ -6,6 +6,7 @@ import { useState } from 'react';
 import { getClassesEvaluation } from '@/services/after-class-pxjg/khbjsj';
 import EllipsisHint from '@/components/EllipsisHint';
 import styles from '../index.less';
+// eslint-disable-next-line @typescript-eslint/no-duplicate-imports
 import { useEffect } from 'react';
 import WWOpenDataCom from '@/components/WWOpenDataCom';
 const { Option } = Select;

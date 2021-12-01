@@ -10,6 +10,7 @@ import { getTableWidth } from '@/utils';
 
 const { Search } = Input;
 const Appraise = (props: any) => {
+  // eslint-disable-next-line no-unsafe-optional-chaining
   const { id, KCMC } = props.location?.state?.data;
   const [dataSource, setDataSource] = useState<any>([]);
   const [school, setSchool] = useState<string>();

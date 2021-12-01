@@ -128,7 +128,7 @@ const Course = () => {
   }, [course]);
   return (
     <div className={styles.Tables}>
-      <div style={{ padding: '24px 24px 0', backgroundColor: '#fff' }}>
+      <div className={styles.searchs}>
         <span>
           课程名称：
           <Select
