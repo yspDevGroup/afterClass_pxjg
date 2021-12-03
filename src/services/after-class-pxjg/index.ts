@@ -22,6 +22,7 @@ import * as jzglwsj from './jzglwsj';
 import * as jzgrysj from './jzgrysj';
 import * as jzgxxjl from './jzgxxjl';
 import * as kcsj from './kcsj';
+import * as khbjjsrl from './khbjjsrl';
 import * as khbjpj from './khbjpj';
 import * as khbjsj from './khbjsj';
 import * as khjgrzsq from './khjgrzsq';
@@ -98,6 +99,7 @@ export default {
   jzgrysj,
   jzgxxjl,
   kcsj,
+  khbjjsrl,
   khbjpj,
   khbjsj,
   khjgrzsq,
@@ -152,5 +154,5 @@ export default {
   xxsppz,
   xxtzgg,
   zxfa,
-  zxsj,
+  zxsj
 };

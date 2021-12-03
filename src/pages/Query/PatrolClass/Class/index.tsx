@@ -1,15 +1,15 @@
 import ProTable, { ProColumns } from '@ant-design/pro-table';
 import { Space, Tag, Button } from 'antd';
 import { Link, useModel } from 'umi';
-import { getKHKCSQ, } from '@/services/after-class-pxjg/khkcsq';
-import { Key, ReactChild, ReactFragment, ReactPortal, useEffect, useState } from 'react'
+import { getKHKCSQ } from '@/services/after-class-pxjg/khkcsq';
+import { Key, ReactChild, ReactFragment, ReactPortal, useEffect, useState } from 'react';
 import EllipsisHint from '@/components/EllipsisHint';
-import { LeftOutlined, } from '@ant-design/icons';
-import styles from '../index.less'
+import { LeftOutlined } from '@ant-design/icons';
+import styles from '../index.less';
 import WWOpenDataCom from '@/components/WWOpenDataCom';
 
 const PatrolClass = (props: any) => {
-  const { id } = props.location.state
+  const { id } = props.location.state;
   const { initialState } = useModel('@@initialState');
   const { currentUser } = initialState || {};
   const [dataSource, setDataSource] = useState<any>([]);
@@ -22,15 +22,12 @@ const PatrolClass = (props: any) => {
         ZT: [1],
         page: 0,
         pageSize: 0
-      })
+      });
       if (res.status === 'ok') {
-        setDataSource(res.data.rows)
+        setDataSource(res.data.rows);
       }
-
-
-    })()
-
-  }, [])
+    })();
+  }, []);
   const columns: ProColumns<any>[] | undefined = [
     {
       title: '序号',
@@ -38,7 +35,7 @@ const PatrolClass = (props: any) => {
       dataIndex: 'index',
       valueType: 'index',
       width: 58,
-      fixed:'left',
+      fixed: 'left'
     },
     {
       title: '课程名称',
@@ -46,18 +43,9 @@ const PatrolClass = (props: any) => {
       key: 'KHKCSJ',
       align: 'center',
       width: 150,
-      fixed:'left',
+      fixed: 'left',
       ellipsis: true,
       render: (_, record) => record.KHKCSJ?.KCMC
-    },
-    {
-      title: '学校名称',
-      key: 'XXJBSJ',
-      dataIndex: 'XXJBSJ',
-      align: 'center',
-      width: 150,
-      ellipsis: true,
-      render: (_, record) => record.XXJBSJ?.XXMC
     },
     {
       title: '课程类型',
@@ -72,6 +60,15 @@ const PatrolClass = (props: any) => {
       }
     },
     {
+      title: '学校名称',
+      key: 'XXJBSJ',
+      dataIndex: 'XXJBSJ',
+      align: 'center',
+      width: 150,
+      ellipsis: true,
+      render: (_, record) => record.XXJBSJ?.XXMC
+    },
+    {
       title: '适用年级',
       key: 'SYNJ',
       dataIndex: 'SYNJ',
@@ -82,7 +79,7 @@ const PatrolClass = (props: any) => {
         return (
           <EllipsisHint
             width="100%"
-            text={grade?.map((item: { id: string; NJMC: string; }) => {
+            text={grade?.map((item: { id: string; NJMC: string }) => {
               return (
                 <Tag key={item.id} color="#EFEFEF" style={{ color: '#333' }}>
                   {item.NJMC}
@@ -106,7 +103,11 @@ const PatrolClass = (props: any) => {
             width="100%"
             text={teacher?.map((item: any) => {
               const showWXName = item.JZGJBSJ?.XM === '未知' && item.JZGJBSJ?.WechatUserId;
-              return <Tag key={item.JZGJBSJId}>{showWXName ? (<WWOpenDataCom type="userName" openid={item.JZGJBSJ.WechatUserId} />) : (item.JZGJBSJ.XM)}</Tag>;
+              return (
+                <Tag key={item.JZGJBSJId}>
+                  {showWXName ? <WWOpenDataCom type="userName" openid={item.JZGJBSJ.WechatUserId} /> : item.JZGJBSJ.XM}
+                </Tag>
+              );
             })}
           />
         );
@@ -119,7 +120,7 @@ const PatrolClass = (props: any) => {
       key: 'operation',
       align: 'center',
       width: 120,
-      fixed:'right',
+      fixed: 'right',
       render: (_, record) => {
         return (
           <Space>
@@ -134,8 +135,8 @@ const PatrolClass = (props: any) => {
           </Space>
         );
       }
-    },
-  ]
+    }
+  ];
   return (
     <>
       <Button
@@ -144,7 +145,7 @@ const PatrolClass = (props: any) => {
           history.go(-1);
         }}
         style={{
-          marginBottom: '24px',
+          marginBottom: '24px'
         }}
       >
         <LeftOutlined />
@@ -156,7 +157,7 @@ const PatrolClass = (props: any) => {
           pagination={{
             showQuickJumper: true,
             pageSize: 10,
-            defaultCurrent: 1,
+            defaultCurrent: 1
           }}
           scroll={{ x: 1000 }}
           columns={columns}
@@ -164,16 +165,13 @@ const PatrolClass = (props: any) => {
             setting: false,
             fullScreen: false,
             density: false,
-            reload: false,
+            reload: false
           }}
           search={false}
         />
-
       </div>
-
-
     </>
-  )
-}
+  );
+};
 PatrolClass.wrappers = ['@/wrappers/auth'];
-export default PatrolClass
+export default PatrolClass;

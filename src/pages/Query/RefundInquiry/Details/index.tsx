@@ -8,7 +8,7 @@ import { getCourses } from '@/services/after-class-pxjg/jyjgsj';
 import { Link, useModel } from 'umi';
 import styles from '../index.less';
 import { getCurrentXQ } from '@/utils';
-import { getAllTKByAgency } from '@/services/after-class-pxjg/khtksj';
+import { getAllTKByAgency, getAllTKByJGid } from '@/services/after-class-pxjg/khtksj';
 import WWOpenDataCom from '@/components/WWOpenDataCom';
 import { getTableWidth } from '@/utils';
 const { Search } = Input;
@@ -105,19 +105,16 @@ const Details = (props: any) => {
     },
     {
       title: '退款金额',
-      dataIndex: 'KHXSTKs',
-      key: 'KHXSTKs',
+      dataIndex: 'TKJE',
+      key: 'TKJE',
       align: 'center',
       width: 110,
-      search: false,
-      render: (_, record: any) => {
-        return record.KHXSTKs?.[0].TKJE;
-      }
+      search: false
     },
     {
       title: '状态',
-      dataIndex: 'ZT',
-      key: 'ZT',
+      dataIndex: 'TKZT',
+      key: 'TKZT',
       width: 100,
       align: 'center',
       search: false,
@@ -132,6 +129,14 @@ const Details = (props: any) => {
         },
         2: {
           text: '已驳回',
+          status: 'Error'
+        },
+        3: {
+          text: '退款成功',
+          status: 'Success'
+        },
+        4: {
+          text: '退款失败',
           status: 'Error'
         }
       }
@@ -151,19 +156,19 @@ const Details = (props: any) => {
       // 获取学年学期
       // eslint-disable-next-line @typescript-eslint/no-unused-expressions
       getXNXQ(id, currentUser?.jgId);
-        (async () => {
-          const res = await getCourses({
-            JGId: currentUser?.jgId
-          });
-          if (res.status === 'ok') {
-            setcourseList(res.data?.rows);
-          }
-        })();
+      (async () => {
+        const res = await getCourses({
+          JGId: currentUser?.jgId
+        });
+        if (res.status === 'ok') {
+          setcourseList(res.data?.rows);
+        }
+      })();
     }
   }, [currentUser]);
   useEffect(() => {
     (async () => {
-      const res = await getAllTKByAgency({
+      const res = await getAllTKByJGid({
         XXJBSJId: id,
         KHJYJGId: currentUser?.jgId,
         XNXQId: term,

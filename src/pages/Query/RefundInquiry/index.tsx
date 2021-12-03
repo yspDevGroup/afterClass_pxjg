@@ -6,6 +6,7 @@ import { cooperateSchool } from '@/services/after-class-pxjg/khjyjg';
 import styles from './index.less';
 import EllipsisHint from '@/components/EllipsisHint';
 import { getTableWidth } from '@/utils';
+import { computedDataOfSchool } from '@/services/after-class-pxjg/khjyjg';
 
 const { Option } = Select;
 const ReimbursementClass = () => {
@@ -73,15 +74,20 @@ const ReimbursementClass = () => {
       search: false
     },
     {
-      title: '合作课程数量',
-      key: 'KHKCSQs',
-      dataIndex: 'KHKCSQs',
+      title: '退款人次',
+      key: 'tk_count',
+      dataIndex: 'tk_count',
       align: 'center',
       width: 100,
-      search: false,
-      render: (_: any, record: any) => {
-        return record?.KHKCSQs?.length;
-      }
+      search: false
+    },
+    {
+      title: '退款总金额',
+      key: 'tk_all_Price',
+      dataIndex: 'tk_all_Price',
+      align: 'center',
+      width: 100,
+      search: false
     },
     {
       title: '操作',
@@ -106,8 +112,7 @@ const ReimbursementClass = () => {
     }
   ];
   const getSchool = async () => {
-    const res = await cooperateSchool({
-      type: 0,
+    const res = await computedDataOfSchool({
       JGId: currentUser?.jgId,
       page: 0,
       pageSize: 0,

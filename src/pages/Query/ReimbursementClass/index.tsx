@@ -2,7 +2,7 @@ import ProTable, { ProColumns } from '@ant-design/pro-table';
 import { Select, Popconfirm, Divider, message, Space, Tag } from 'antd';
 import { useEffect, useRef, useState } from 'react';
 import { Link, useModel } from 'umi';
-import { cooperateSchool } from '@/services/after-class-pxjg/khjyjg';
+import { computedDataOfSchool, cooperateSchool } from '@/services/after-class-pxjg/khjyjg';
 import styles from './index.less';
 import EllipsisHint from '@/components/EllipsisHint';
 import { getTableWidth } from '@/utils';
@@ -42,13 +42,16 @@ const ReimbursementClass = () => {
         return (
           <EllipsisHint
             width="100%"
-            text={text?.length && text.map((item: any) => {
-              return (
-                <Tag key={item} style={{ margin: '4px' }}>
-                  {item}
-                </Tag>
-              );
-            })}
+            text={
+              text?.length &&
+              text.map((item: any) => {
+                return (
+                  <Tag key={item} style={{ margin: '4px' }}>
+                    {item}
+                  </Tag>
+                );
+              })
+            }
           />
         );
       }
@@ -70,15 +73,20 @@ const ReimbursementClass = () => {
       search: false
     },
     {
-      title: '合作课程数量',
-      key: 'KHKCSQs',
-      dataIndex: 'KHKCSQs',
+      title: '退课人次',
+      key: 'td_count',
+      dataIndex: 'td_count',
       align: 'center',
       width: 100,
-      search: false,
-      render: (_: any, record: any) => {
-        return record?.KHKCSQs?.length
-      }
+      search: false
+    },
+    {
+      title: '退课总课时',
+      key: 'td_all_KSS',
+      dataIndex: 'td_all_KSS',
+      align: 'center',
+      width: 100,
+      search: false
     },
     {
       title: '操作',
@@ -103,32 +111,31 @@ const ReimbursementClass = () => {
     }
   ];
   const getSchool = async () => {
-    const res = await cooperateSchool({
-      type: 0,
+    const res = await computedDataOfSchool({
       JGId: currentUser?.jgId,
       page: 0,
       pageSize: 0,
       name: school
-    })
+    });
     if (res.status === 'ok') {
-      setDataSource(res.data?.rows)
+      setDataSource(res.data?.rows);
     }
   };
   useEffect(() => {
-    getSchool()
-  }, [school])
+    getSchool();
+  }, [school]);
   return (
     <div className={styles.Tables}>
       <ProTable
         toolbar={{
           onSearch: (value: string) => {
-            setSchool(value)
+            setSchool(value);
           }
         }}
         pagination={{
           showQuickJumper: true,
           pageSize: 10,
-          defaultCurrent: 1,
+          defaultCurrent: 1
         }}
         scroll={{ x: getTableWidth(columns) }}
         dataSource={dataSource}
@@ -146,7 +153,7 @@ const ReimbursementClass = () => {
         search={false}
       />
     </div>
-  )
-}
+  );
+};
 ReimbursementClass.wrappers = ['@/wrappers/auth'];
-export default ReimbursementClass
+export default ReimbursementClass;

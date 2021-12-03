@@ -1535,6 +1535,37 @@ declare namespace API {
     CKSM?: string;
   };
 
+  type KHBJJSRL = {
+    id: string;
+    /** 日期 */
+    RQ?: string;
+    /** 教师类型 */
+    JSLX?: number;
+    KHBJSJ?: { id?: string; BJMC?: string };
+    JZGJBSJ?: { id?: string; XM?: string; GH?: string; LXDH?: string; WechatUserId?: string };
+    XXSJPZ?: {
+      id?: string;
+      KSSJ?: string;
+      JSSJ?: string;
+      KJS?: string;
+      TITLE?: string;
+      BZXX?: string;
+    };
+  };
+
+  type CreateKHBJJSRL = {
+    /** 日期 */
+    RQ: string;
+    /** 班级ID */
+    KHBJSJId: string;
+    /** 主班教师ID */
+    BZRId?: string;
+    /** 副班教师ID数组 */
+    FBZRIds: string[];
+    /** 节次ID */
+    XXSJPZId: string;
+  };
+
   type KHBJPJ = {
     id: string;
     /** 评价分数 */
@@ -3243,9 +3274,7 @@ declare namespace API {
     };
     JZGJBSJ?: { id?: string; XM?: string; WechatUserId?: string } | any;
     KHBJSJ?: { BJMC?: string; KHKCSJ?: { KCMC?: string } } | any;
-    KHXXZZFW?:
-      | { id?: string; FWMC?: string; KHZZFW?: { id?: string; FWMC?: string; FWJGMC?: string } }
-      | any;
+    KHXXZZFW?: { id?: string; FWMC?: string; KHZZFW?: { id?: string; FWMC?: string; FWJGMC?: string } } | any;
   };
 
   type CreateKHXSTK = {
@@ -3300,6 +3329,8 @@ declare namespace API {
     FWZT?: number;
     /** 费用 */
     FY?: number;
+    /** 报名学生人数 */
+    xs_count?: number;
     /** 开始日期 */
     KSRQ?: string | any;
     /** 结束日期 */
