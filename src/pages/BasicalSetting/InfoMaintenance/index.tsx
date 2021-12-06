@@ -228,49 +228,47 @@ const InfoMaintenance = (props: any) => {
       key: XZQHM
     });
   };
-  const handleChange = (type: string, value: any) => {
+  const handleChange = async (type: string, value: any) => {
+    console.log(value);
     if (type === 'cities') {
-      $.ajax({
-        url: `//datavmap-public.oss-cn-hangzhou.aliyuncs.com/areas/csv/${value.value}_city.json`,
-        data: {},
-        success: function (data: { rows: any }) {
-          if (value.value === '810000' || value.value === '820000' || value.value === '710000') {
-            setCityAdcode(value.value);
-          } else {
-            setCityAdcode(undefined);
-          }
-          setSecondCity(data.rows);
-          setProvinceVal({
-            value: value.value,
-            label: value.label,
-            key: value.value
-          });
-          setCityVal({});
-          setCountyVal({});
-          setCounty([]);
-        }
+      const response = await fetch(
+        `https://datavmap-public.oss-cn-hangzhou.aliyuncs.com/areas/csv/${value.value}_city.json`
+      );
+      const provinceData = await response.json();
+      if (value.value === '810000' || value.value === '820000' || value.value === '710000') {
+        setCityAdcode(value.value);
+      } else {
+        setCityAdcode(undefined);
+      }
+      setSecondCity(provinceData.rows);
+      setProvinceVal({
+        value: value.value,
+        label: value.label,
+        key: value.value
       });
+      setCityVal({});
+      setCountyVal({});
+      setCounty([]);
+      setSecondCity(provinceData.rows);
     } else if (type === 'secondCity') {
-      $.ajax({
-        url: `//datavmap-public.oss-cn-hangzhou.aliyuncs.com/areas/csv/${value.value}_district.json`,
-        data: {},
-        success: function (data: { rows: any[] }) {
-          let newArr: any[] = [];
-          data.rows.forEach((item: any) => {
-            if (item.adcode.substring(0, 4) === value.value.substring(0, 4)) {
-              newArr.push(item);
-            }
-          });
-          setCounty(newArr);
-          setCityVal({
-            value: value.value,
-            label: value.label,
-            key: value.value
-          });
-          setCountyVal({});
-          setCityAdcode(undefined);
+      const res = await fetch(
+        `https://datavmap-public.oss-cn-hangzhou.aliyuncs.com/areas/csv/${value.value}_district.json`
+      );
+      const resData = await res.json();
+      let newArr: any[] = [];
+      resData.rows.forEach((item: any) => {
+        if (item.adcode.substring(0, 4) === value.value.substring(0, 4)) {
+          newArr.push(item);
         }
       });
+      setCounty(newArr);
+      setCityVal({
+        value: value.value,
+        label: value.label,
+        key: value.value
+      });
+      setCountyVal({});
+      setCityAdcode(undefined);
     } else if (type === 'county') {
       setCityAdcode(value.value);
       setCountyVal({
