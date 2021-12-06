@@ -1,5 +1,5 @@
 import ProTable, { ProColumns } from '@ant-design/pro-table';
-import { Space, Tag, } from 'antd';
+import { Space, Tag } from 'antd';
 import { useEffect, useState } from 'react';
 import { Link, useModel } from 'umi';
 import { cooperateSchoolOrder } from '@/services/after-class-pxjg/khjyjg';
@@ -40,13 +40,16 @@ const Order = () => {
         return (
           <EllipsisHint
             width="100%"
-            text={text?.length && text.map((item: any) => {
-              return (
-                <Tag key={item} style={{ margin: '4px' }}>
-                  {item}
-                </Tag>
-              );
-            })}
+            text={
+              text?.length &&
+              text.map((item: any) => {
+                return (
+                  <Tag key={item} style={{ margin: '4px' }}>
+                    {item}
+                  </Tag>
+                );
+              })
+            }
           />
         );
       }
@@ -68,20 +71,12 @@ const Order = () => {
       search: false
     },
     {
-      title: '合作课程数量',
-      key: 'kcCount',
-      dataIndex: 'kcCount',
-      align: 'center',
-      width: 100,
-      search: false,
-    },
-    {
       title: '课程订单数量',
       key: 'ddCount',
       dataIndex: 'ddCount',
       align: 'center',
       width: 100,
-      search: false,
+      search: false
     },
     {
       title: '操作',
@@ -112,40 +107,39 @@ const Order = () => {
                 >
                   服务订单
                 </Link> */}
-
           </Space>
         );
       }
     }
   ];
   useEffect(() => {
-    getSchool()
-  }, [])
+    getSchool();
+  }, []);
   const getSchool = async (name?: string) => {
     const res = await cooperateSchoolOrder({
       JGId: currentUser?.jgId,
       page: 0,
       pageSize: 0,
       name
-    })
+    });
     if (res.status === 'ok') {
-      setDataSource(res.data?.rows)
+      setDataSource(res.data?.rows);
     }
-  }
+  };
   return (
     <div>
       <div>
         <ProTable
           toolbar={{
             onSearch: (value: string) => {
-              getSchool(value)
+              getSchool(value);
             }
           }}
           dataSource={dataSource}
           pagination={{
             showQuickJumper: true,
             pageSize: 10,
-            defaultCurrent: 1,
+            defaultCurrent: 1
           }}
           scroll={{ x: getTableWidth(columns) }}
           columns={columns}
@@ -161,12 +155,9 @@ const Order = () => {
           }}
           search={false}
         />
-
       </div>
-
     </div>
-
-  )
-}
+  );
+};
 Order.wrappers = ['@/wrappers/auth'];
-export default Order
+export default Order;
