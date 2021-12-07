@@ -2,8 +2,8 @@
  * @description: 工具类
  * @author: zpl
  * @Date: 2021-08-09 10:36:53
- * @LastEditTime: 2021-11-09 11:55:21
- * @LastEditors: zpl
+ * @LastEditTime: 2021-12-03 11:18:38
+ * @LastEditors: Sissle Lynn
  */
 import { history } from 'umi';
 import { parse } from 'querystring';
@@ -126,10 +126,11 @@ export const envjudge = (): PlatType => {
 /**
  * 根据运行环境获取登录地址
  *
- * @param {BuildOptions} [buildOptions]
- * @return {*}
+ * @param {BuildOptions} [buildOptions] 环境配置信息
+ * @param {boolean} [reLogin] 是否强制重登录
+ * @return {*}  {string}
  */
-export const getLoginPath = (buildOptions?: BuildOptions): string => {
+export const getLoginPath = (buildOptions?: BuildOptions, reLogin?: boolean): string => {
   const { authType = 'none', ssoHost, ENV_host, clientId, clientSecret } = buildOptions || {};
   let loginPath: string;
   switch (authType) {
@@ -146,7 +147,9 @@ export const getLoginPath = (buildOptions?: BuildOptions): string => {
       {
         // 为方便本地调试登录，认证回调地址通过参数传递给后台
         const callback = encodeURIComponent(`${ENV_host}/AuthCallback/password`);
-        loginPath = `${ssoHost}/oauth2/password?response_type=${authType}&client_id=${clientId}&client_secret=${clientSecret}&redirect_uri=${callback}`;
+        loginPath = `${ssoHost}/oauth2/password?response_type=${authType}&client_id=${clientId}&client_secret=${clientSecret}&redirect_uri=${callback}&reLogin=${
+          reLogin || 'false'
+        }`;
       }
       break;
   }
@@ -156,12 +159,14 @@ export const getLoginPath = (buildOptions?: BuildOptions): string => {
 /**
  * 跳转到指定URL连接
  *
- * @param {string} url
+ * @param {string} url 跳转链接
+ * @param {boolean} onTop 是否在top上跳转
  */
-export const gotoLink = (url: string) => {
+export const gotoLink = (url: string, onTop?: boolean) => {
   if (url.startsWith('http')) {
     // 外部连接
-    window.location.href = url;
+    const win = onTop ? window.top || window : window;
+    win.location.href = url;
   } else {
     // 本系统内跳转
     history.push(url);
@@ -316,7 +321,7 @@ export const getCurrentXQ = (list: API.XNXQ[]): API.XNXQ | null => {
 
 export const getTableWidth = (columns: any[]) => {
   if (columns.length > 0) {
-    let sum: number = 0;
+    let sum = 0;
     columns.forEach(({ width }) => {
       if (Number.isFinite(width)) {
         sum += width;
@@ -330,4 +335,3 @@ export const getTableWidth = (columns: any[]) => {
   }
   return 1300;
 };
-

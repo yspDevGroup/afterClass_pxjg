@@ -3,7 +3,7 @@
  * @description: 运行时配置
  * @author: zpl
  * @Date: 2021-08-09 10:44:42
- * @LastEditTime: 2021-11-25 15:15:02
+ * @LastEditTime: 2021-12-03 11:25:07
  * @LastEditors: Sissle Lynn
  */
 import { notification, message } from 'antd';
@@ -11,7 +11,7 @@ import { history } from 'umi';
 import type { RequestConfig } from 'umi';
 import type { ResponseError } from 'umi-request';
 import LoadingPage from '@/components/Loading';
-import { getAuthorization, getBuildOptions, getCookie } from './utils';
+import { getAuthorization, getBuildOptions, getCookie, removeOAuthToken } from './utils';
 
 import { currentUser as getCurrentUser } from '@/services/after-class-pxjg/user';
 import { currentWechatUser } from '@/services/after-class-pxjg/wechat';
@@ -118,8 +118,14 @@ const errorHandler = (error: ResponseError) => {
         }
         break;
       case 401:
-        if (!location.pathname.startsWith('/user/login') && location.pathname !== '/') {
-          message.error(errorText);
+        {
+          removeOAuthToken();
+          const path = location.pathname.toLowerCase();
+          const isAuthPage = path.startsWith('/authcallback');
+          if (!isAuthPage) {
+            history.push(`/403`);
+            return;
+          }
         }
         break;
       default:
