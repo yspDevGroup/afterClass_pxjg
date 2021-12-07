@@ -8,10 +8,10 @@ import { getCourses } from '@/services/after-class-pxjg/jyjgsj';
 
 import { Link, useModel } from 'umi';
 import styles from '../index.less';
-import { getCurrentXQ } from '@/utils';
+import { getCurrentXQ, getTableWidth } from '@/utils';
 import { getAllTKByAgency } from '@/services/after-class-pxjg/khtksj';
 import WWOpenDataCom from '@/components/WWOpenDataCom';
-import { getTableWidth } from '@/utils';
+
 const { Search } = Input;
 const { Option } = Select;
 const Details = (props: any) => {
@@ -183,74 +183,76 @@ const Details = (props: any) => {
           history.go(-1);
         }}
         style={{
+          marginLeft: '24px',
           marginBottom: '24px'
         }}
       >
         <LeftOutlined />
         返回上一页
       </Button>
-      <div className={styles.TabTop}>
-        <span>
-          所属学年学期：
-          <Select
-            allowClear={true}
-            value={term}
-            style={{ width: 200 }}
-            onChange={(value: string) => {
-              setTerm(value);
-            }}
-          >
-            {termList?.map((item: any) => {
-              return (
-                <Option key={item.value} value={item.value}>
-                  {item.text}
-                </Option>
-              );
-            })}
-          </Select>
-        </span>
-        <span>
-          学生姓名：
-          <Search
-            style={{ width: 200 }}
-            placeholder="请输入学生姓名"
-            allowClear
-            onSearch={(value) => {
-              SetStudentName(value);
-            }}
-          />
-        </span>
-        <span>
-          课程名称：
-          <Search
-            placeholder="请输入课程名称"
-            allowClear
-            onSearch={(value) => {
-              setcoursName(value);
-            }}
-            style={{ width: 200 }}
-          />
-        </span>
-      </div>
-      <div className={styles.Tables}>
-        <ProTable
-          dataSource={dataSource}
-          pagination={{
-            showQuickJumper: true,
-            pageSize: 10,
-            defaultCurrent: 1
-          }}
-          scroll={{ x: getTableWidth(columns) }}
-          columns={columns}
-          options={{
-            setting: false,
-            fullScreen: false,
-            density: false,
-            reload: false
-          }}
-          search={false}
-        />
-      </div>
+
+      <ProTable
+        headerTitle={
+          <div className={styles.TabTop}>
+            <div>
+              所属学年学期：
+              <Select
+                allowClear={true}
+                value={term}
+                style={{ width: 200 }}
+                onChange={(value: string) => {
+                  setTerm(value);
+                }}
+              >
+                {termList?.map((item: any) => {
+                  return (
+                    <Option key={item.value} value={item.value}>
+                      {item.text}
+                    </Option>
+                  );
+                })}
+              </Select>
+            </div>
+            <div>
+              学生姓名：
+              <Search
+                style={{ width: 200 }}
+                placeholder="请输入学生姓名"
+                allowClear
+                onSearch={(value) => {
+                  SetStudentName(value);
+                }}
+              />
+            </div>
+            <div>
+              课程名称：
+              <Search
+                placeholder="请输入课程名称"
+                allowClear
+                onSearch={(value) => {
+                  setcoursName(value);
+                }}
+                style={{ width: 200 }}
+              />
+            </div>
+          </div>
+        }
+        dataSource={dataSource}
+        pagination={{
+          showQuickJumper: true,
+          pageSize: 10,
+          defaultCurrent: 1
+        }}
+        scroll={{ x: getTableWidth(columns) }}
+        columns={columns}
+        options={{
+          setting: false,
+          fullScreen: false,
+          density: false,
+          reload: false
+        }}
+        search={false}
+      />
     </>
   );
 };
