@@ -11,6 +11,7 @@ import * as fjlx from './fjlx';
 import * as fjsj from './fjsj';
 import * as jcsj from './jcsj';
 import * as jcxx from './jcxx';
+import * as jscqbq from './jscqbq';
 import * as jxjhsj from './jxjhsj';
 import * as jyjgsj from './jyjgsj';
 import * as jyjgtzgg from './jyjgtzgg';
@@ -21,6 +22,7 @@ import * as jzgktyj from './jzgktyj';
 import * as jzglwsj from './jzglwsj';
 import * as jzgrysj from './jzgrysj';
 import * as jzgxxjl from './jzgxxjl';
+import * as kcbsksj from './kcbsksj';
 import * as kcsj from './kcsj';
 import * as khbjjsrl from './khbjjsrl';
 import * as khbjpj from './khbjpj';
@@ -88,6 +90,7 @@ export default {
   fjsj,
   jcsj,
   jcxx,
+  jscqbq,
   jxjhsj,
   jyjgsj,
   jyjgtzgg,
@@ -98,6 +101,7 @@ export default {
   jzglwsj,
   jzgrysj,
   jzgxxjl,
+  kcbsksj,
   kcsj,
   khbjjsrl,
   khbjpj,

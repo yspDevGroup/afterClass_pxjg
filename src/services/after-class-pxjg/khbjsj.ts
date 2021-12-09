@@ -469,3 +469,21 @@ export async function getNoTeacherClasses(
     ...(options || {})
   });
 }
+
+/** 查询按行政班开设的课程班可交换的课程班 POST /khbjsj/getExchengeableClasses */
+export async function getExchengeableClasses(
+  body: {
+    XNXQId?: string;
+    KHBJSJId?: string;
+  },
+  options?: { [key: string]: any }
+) {
+  return request<any>('/khbjsj/getExchengeableClasses', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    data: body,
+    ...(options || {})
+  });
+}

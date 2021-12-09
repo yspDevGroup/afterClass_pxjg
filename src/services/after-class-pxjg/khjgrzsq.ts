@@ -9,7 +9,7 @@ export async function KHJGRZSQ(
     /** 机构入驻申请记录ID */
     id: string;
   },
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{
@@ -32,7 +32,7 @@ export async function KHJGRZSQ(
   }>(`/khjgrzsq/${param0}`, {
     method: 'GET',
     params: { ...queryParams },
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
@@ -43,13 +43,13 @@ export async function deleteKHJGRZSQ(
     /** 机构入驻申请记录ID */
     id: string;
   },
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{ status?: 'ok' | 'error'; message?: string }>(`/khjgrzsq/${param0}`, {
     method: 'DELETE',
     params: { ...queryParams },
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
@@ -75,10 +75,10 @@ export async function createKHJGRZSQ(body: API.CreateKHJGRZSQ, options?: { [key:
   }>('/khjgrzsq/create', {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     data: body,
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
@@ -93,6 +93,8 @@ export async function getKHJGRZSQ(
     XZQHM?: string;
     /** 课后教育机构ID */
     KHJYJGId?: string;
+    /** 教育局id */
+    JYJId?: string;
     /** 机构名称 */
     name?: string;
     /** 页数 */
@@ -100,15 +102,15 @@ export async function getKHJGRZSQ(
     /** 每页记录数 */
     pageSize?: number;
   },
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
   return request<any>('/khjgrzsq/getAll', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     data: body,
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
@@ -120,17 +122,17 @@ export async function updateKHJGRZSQ(
     id: string;
   },
   body: API.UpdateKHJGRZSQ,
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{ status?: 'ok' | 'error'; message?: string }>(`/khjgrzsq/update/${param0}`, {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     params: { ...queryParams },
     data: body,
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
@@ -151,14 +153,14 @@ export async function blockKHJGRZSQ(
     /** 审批人ID */
     SPRId?: string;
   },
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
   return request<{ status?: 'ok' | 'error'; data?: string; message?: string }>('/khjgrzsq/block', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     data: body,
-    ...(options || {}),
+    ...(options || {})
   });
 }

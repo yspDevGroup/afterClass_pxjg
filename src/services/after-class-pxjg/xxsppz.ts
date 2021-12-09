@@ -9,7 +9,7 @@ export async function getXXSPPZ(
     /** 学校ID */
     xxId: string;
   },
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
   const { xxId: param0, ...queryParams } = params;
   return request<{
@@ -21,13 +21,15 @@ export async function getXXSPPZ(
       JSTK?: boolean;
       JSDK?: boolean;
       XSTK?: boolean;
-      XSTF?: boolean;
+      JSBQ?: boolean;
+      JSBQ_KSRQ?: string;
+      JSBQ_JSRQ?: string;
     };
     message?: string;
   }>(`/xxsppz/${param0}`, {
     method: 'GET',
     params: { ...queryParams },
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
@@ -42,16 +44,18 @@ export async function createXXSPPZ(body: API.CreateXXSPPZ, options?: { [key: str
       JSTK?: boolean;
       JSDK?: boolean;
       XSTK?: boolean;
-      XSTF?: boolean;
+      JSBQ?: boolean;
+      JSBQ_KSRQ?: string;
+      JSBQ_JSRQ?: string;
     };
     message?: string;
   }>('/xxsppz/create', {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     data: body,
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
@@ -62,12 +66,12 @@ export async function deleteXXSPPZ(
     /** 学校审批配置ID */
     id: string;
   },
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{ status?: 'ok' | 'error'; message?: string }>(`/xxsppz/${param0}`, {
     method: 'DELETE',
     params: { ...queryParams },
-    ...(options || {}),
+    ...(options || {})
   });
 }

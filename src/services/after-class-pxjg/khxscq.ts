@@ -9,7 +9,7 @@ export async function getKHXSCQ(
     /** 出勤记录ID */
     id: string;
   },
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{
@@ -18,7 +18,7 @@ export async function getKHXSCQ(
       id?: string;
       CQZT?: '出勤' | '请假' | '缺席';
       CQRQ?: string | any;
-      KHPKSJId?: string;
+      XXSJPZId?: string;
       XSJBSJ?: { id?: string; XH?: string; XM?: string; WechatUserId?: string };
       KHBJSJ?: {
         id?: string;
@@ -39,7 +39,7 @@ export async function getKHXSCQ(
   }>(`/khxscq/${param0}`, {
     method: 'GET',
     params: { ...queryParams },
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
@@ -50,13 +50,13 @@ export async function deleteKHXSCQ(
     /** 出勤记录ID */
     id: string;
   },
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{ status?: 'ok' | 'error'; message?: string }>(`/khxscq/${param0}`, {
     method: 'DELETE',
     params: { ...queryParams },
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
@@ -71,22 +71,22 @@ export async function getAllKHXSCQ(
     CQZT?: string[];
     /** 出勤日期 */
     CQRQ?: string;
-    /** 课程排课ID */
-    pkId?: string;
+    /** 节次ID */
+    XXSJPZId?: string;
     /** 开始日期 */
     startDate?: string;
     /** 结束日期 */
     endDate?: string;
   },
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
   return request<{ status?: 'ok' | 'error'; data?: API.KHXSCQ[]; message?: string }>('/khxscq/', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     data: body,
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
@@ -98,7 +98,7 @@ export async function createKHXSCQ(body: API.CreateKHXSCQ[], options?: { [key: s
       id?: string;
       CQZT?: '出勤' | '请假' | '缺席';
       CQRQ?: string | any;
-      KHPKSJId?: string;
+      XXSJPZId?: string;
       XSJBSJ?: { id?: string; XH?: string; XM?: string; WechatUserId?: string };
       KHBJSJ?: {
         id?: string;
@@ -119,10 +119,10 @@ export async function createKHXSCQ(body: API.CreateKHXSCQ[], options?: { [key: s
   }>('/khxscq/create', {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     data: body,
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
@@ -134,17 +134,17 @@ export async function updateKHXSCQ(
     id: string;
   },
   body: API.UpdateKHXSCQ,
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{ status?: 'ok' | 'error'; message?: string }>(`/khxscq/update/${param0}`, {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     params: { ...queryParams },
     data: body,
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
@@ -158,7 +158,7 @@ export async function countKHXSCQ(
     /** 学年学期ID */
     XNXQId?: string;
   },
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
   return request<{
     status?: 'ok' | 'error';
@@ -175,10 +175,10 @@ export async function countKHXSCQ(
   }>('/khxscq/statistical', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     data: body,
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
@@ -192,15 +192,15 @@ export async function getArrangement(
     /** 节次ID */
     XXSJPZId?: string;
   },
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
   return request<any>('/khxscq/getArrangement', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     data: body,
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
@@ -214,14 +214,14 @@ export async function getStudentArrangement(
     /** 学生ID */
     XSJBSJId?: string;
   },
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
   return request<any>('/khxscq/getStudentArrangement', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     data: body,
-    ...(options || {}),
+    ...(options || {})
   });
 }

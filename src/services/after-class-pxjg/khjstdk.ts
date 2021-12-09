@@ -9,7 +9,7 @@ export async function getKHJSTDK(
     /** 课后服务教师调代课ID */
     id: string;
   },
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{
@@ -20,8 +20,6 @@ export async function getKHJSTDK(
       ZT?: number;
       BZ?: string;
       DKBZ?: string;
-      KSSJ?: string;
-      JSSJ?: string;
       SKRQ?: string | any;
       TKRQ?: string | any;
       DKSPSJ?: string;
@@ -29,7 +27,8 @@ export async function getKHJSTDK(
       DKJS?: { id?: string; XM?: string; WechatUserId?: string } | any;
       SKFJ?: { id?: string; BH?: string; FJMC?: string } | any;
       TKFJ?: { id?: string; BH?: string; FJMC?: string } | any;
-      XXSJPZ?: { id?: string; KSSJ?: string; JSSJ?: string; TITLE?: string };
+      SKJC?: { id?: string; KSSJ?: string; JSSJ?: string; TITLE?: string } | any;
+      TKJC?: { id?: string; KSSJ?: string; JSSJ?: string; TITLE?: string } | any;
       KHBJSJ?: {
         id?: string;
         BJMC?: string;
@@ -44,7 +43,7 @@ export async function getKHJSTDK(
   }>(`/khjstdk/${param0}`, {
     method: 'GET',
     params: { ...queryParams },
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
@@ -55,13 +54,13 @@ export async function deleteKHJSTDK(
     /** 类型ID */
     id: string;
   },
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{ status?: 'ok' | 'error'; message?: string }>(`/khjstdk/${param0}`, {
     method: 'DELETE',
     params: { ...queryParams },
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
@@ -87,7 +86,7 @@ export async function getAllKHJSTDK(
     /** 每页记录数 */
     pageSize?: number;
   },
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
   return request<{
     status?: 'ok' | 'error';
@@ -96,10 +95,10 @@ export async function getAllKHJSTDK(
   }>('/khjstdk/getAll', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     data: body,
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
@@ -113,8 +112,6 @@ export async function createKHJSTDK(body: API.CreateKHJSTDK, options?: { [key: s
       ZT?: number;
       BZ?: string;
       DKBZ?: string;
-      KSSJ?: string;
-      JSSJ?: string;
       SKRQ?: string | any;
       TKRQ?: string | any;
       DKSPSJ?: string;
@@ -122,7 +119,8 @@ export async function createKHJSTDK(body: API.CreateKHJSTDK, options?: { [key: s
       DKJS?: { id?: string; XM?: string; WechatUserId?: string } | any;
       SKFJ?: { id?: string; BH?: string; FJMC?: string } | any;
       TKFJ?: { id?: string; BH?: string; FJMC?: string } | any;
-      XXSJPZ?: { id?: string; KSSJ?: string; JSSJ?: string; TITLE?: string };
+      SKJC?: { id?: string; KSSJ?: string; JSSJ?: string; TITLE?: string } | any;
+      TKJC?: { id?: string; KSSJ?: string; JSSJ?: string; TITLE?: string } | any;
       KHBJSJ?: {
         id?: string;
         BJMC?: string;
@@ -137,10 +135,10 @@ export async function createKHJSTDK(body: API.CreateKHJSTDK, options?: { [key: s
   }>('/khjstdk/create', {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     data: body,
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
@@ -152,17 +150,17 @@ export async function updateKHJSTDK(
     id: string;
   },
   body: API.UpdateKHJSTDK,
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{ status?: 'ok' | 'error'; message?: string }>(`/khjstdk/update/${param0}`, {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     params: { ...queryParams },
     data: body,
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
@@ -176,7 +174,7 @@ export async function getTodaySubstitute(
     /** 每页记录数 */
     pageSize?: number;
   },
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
   return request<{
     status?: 'ok' | 'error';
@@ -185,9 +183,9 @@ export async function getTodaySubstitute(
   }>('/khjstdk/getTodaySubstitute', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     data: body,
-    ...(options || {}),
+    ...(options || {})
   });
 }

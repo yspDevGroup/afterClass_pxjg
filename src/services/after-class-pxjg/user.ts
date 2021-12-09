@@ -316,10 +316,8 @@ export async function homePageInfo(
         KCTP?: string;
         NJS?: string;
         XQ?: string;
-        NJSName?: string;
-        XQName?: string;
-        ZJSName?: string;
-        FJSName?: string;
+        BMLX?: number;
+        BJLX?: number;
         KHKCSJId?: string;
         KHXSBJs?: { id?: string; ZT?: number }[];
         KHKCSJ?: {
