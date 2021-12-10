@@ -191,57 +191,61 @@ const Details = (props: any) => {
           history.go(-1);
         }}
         style={{
-          marginBottom: '8px'
+          marginLeft: '24px',
+          marginBottom: '24px'
         }}
       >
         <LeftOutlined />
         返回上一页
       </Button>
-      <div className={styles.TabTop}>
-        <span>
-          所属学年学期：
-          <Select
-            allowClear={true}
-            value={term}
-            style={{ width: 200 }}
-            onChange={(value: string) => {
-              setTerm(value);
-            }}
-          >
-            {termList?.map((item: any) => {
-              return (
-                <Option key={item.value} value={item.value}>
-                  {item.text}
-                </Option>
-              );
-            })}
-          </Select>
-        </span>
-        <span>
-          学生姓名：
-          <Search
-            style={{ width: 200 }}
-            placeholder="请输入学生姓名"
-            allowClear
-            onSearch={(value) => {
-              SetStudentName(value);
-            }}
-          />
-        </span>
-        <span>
-          课程名称：
-          <Search
-            placeholder="请输入课程名称"
-            allowClear
-            onSearch={(value) => {
-              setcoursName(value);
-            }}
-            style={{ width: 200 }}
-          />
-        </span>
-      </div>
+
       <div className={styles.Tables}>
         <ProTable
+          headerTitle={
+            <div className={styles.TabTop}>
+              <div>
+                所属学年学期：
+                <Select
+                  allowClear={true}
+                  value={term}
+                  style={{ width: 200 }}
+                  onChange={(value: string) => {
+                    setTerm(value);
+                  }}
+                >
+                  {termList?.map((item: any) => {
+                    return (
+                      <Option key={item.value} value={item.value}>
+                        {item.text}
+                      </Option>
+                    );
+                  })}
+                </Select>
+              </div>
+              <div>
+                学生姓名：
+                <Search
+                  style={{ width: 200 }}
+                  placeholder="请输入学生姓名"
+                  allowClear
+                  onSearch={(value) => {
+                    SetStudentName(value);
+                  }}
+                />
+              </div>
+              <div>
+                课程名称：
+                <Search
+                  placeholder="请输入课程名称"
+                  allowClear
+                  onSearch={(value) => {
+                    setcoursName(value);
+                  }}
+                  style={{ width: 200 }}
+                />
+              </div>
+            </div>
+          }
           dataSource={dataSource}
           pagination={{
             showQuickJumper: true,
