@@ -3,8 +3,8 @@
  * @description: 运行时配置
  * @author: zpl
  * @Date: 2021-08-09 10:44:42
- * @LastEditTime: 2021-12-03 11:25:07
- * @LastEditors: Sissle Lynn
+ * @LastEditTime: 2021-12-09 15:57:59
+ * @LastEditors: Wu Zhan
  */
 import { notification, message } from 'antd';
 import { history } from 'umi';
@@ -98,7 +98,6 @@ const codeMessage = {
  */
 const errorHandler = (error: ResponseError) => {
   const { response, data } = error;
-
   if (response?.status) {
     const errorText = codeMessage[response.status] || response.statusText;
     switch (response.status) {
@@ -163,6 +162,7 @@ export const request: RequestConfig = {
         !path.startsWith('/40') &&
         (ctx.res.message?.includes('Authorization token is invalid') || ctx.res.message?.includes('Invalid Token'))
       ) {
+        removeOAuthToken();
         history.replace('/403?title=认证信息已失效，请重新登录');
       }
     }
