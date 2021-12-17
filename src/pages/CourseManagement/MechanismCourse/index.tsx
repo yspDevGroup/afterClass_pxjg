@@ -139,7 +139,7 @@ const MechanismCourse = () => {
       title: '操作',
       key: 'action',
       align: 'center',
-      width: 150,
+      width: 180,
       fixed: 'right',
       render: (text: any, record: any, index: any, action: any) => (
         <Space size="middle">
@@ -221,7 +221,7 @@ const MechanismCourse = () => {
           pageSize: 10,
           defaultCurrent: 1
         }}
-        scroll={{ x: getTableWidth(columns) }}
+        scroll={{ 1300: 1500 }}
         request={async (param = {}, sort, filter) => {
           const params = {
             ...sort,
