@@ -44,7 +44,7 @@ const MechanismCourse = () => {
       align: 'center',
       search: false,
       fixed: 'left',
-      width: 160,
+      width: 150,
       ellipsis: true
     },
     {
@@ -52,7 +52,7 @@ const MechanismCourse = () => {
       dataIndex: 'KHKCLX',
       key: 'KHKCLX',
       align: 'center',
-      width: 120,
+      width: 100,
       search: false,
       ellipsis: true,
       render: (_: any, record: any) => {
@@ -91,7 +91,7 @@ const MechanismCourse = () => {
       key: 'KHKCJs',
       dataIndex: 'KHKCJs',
       align: 'center',
-      width: 130,
+      width: 120,
       ellipsis: true,
       render: (_: any, record: any) => {
         const text = record?.KHKCJs;
@@ -122,7 +122,7 @@ const MechanismCourse = () => {
       key: 'KCZT',
       dataIndex: 'KCZT',
       align: 'center',
-      width: 120,
+      width: 80,
       ellipsis: true,
       render: (_: any, record: any) => {
         switch (record?.KCZT) {
@@ -221,7 +221,7 @@ const MechanismCourse = () => {
           pageSize: 10,
           defaultCurrent: 1
         }}
-        scroll={{ 1300: 1500 }}
+        scroll={{ x: getTableWidth(columns) }}
         request={async (param = {}, sort, filter) => {
           const params = {
             ...sort,
