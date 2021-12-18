@@ -1,7 +1,7 @@
 /* eslint-disable max-nested-callbacks */
 import React, { useEffect, useState } from 'react';
 import { history, useModel } from 'umi';
-import { Button, FormInstance, message, Table } from 'antd';
+import { Button, FormInstance, message, Table, Input } from 'antd';
 import { LeftOutlined } from '@ant-design/icons';
 
 import CustomForm from '@/components/CustomForm';
@@ -14,6 +14,7 @@ import { courseColorType } from '@/theme-default';
 import { getAllJZGJBSJ } from '@/services/after-class-pxjg/jzgjbsj';
 import WWOpenDataCom from '@/components/WWOpenDataCom';
 
+const { TextArea } = Input;
 /**
  * 机构端-课程列表-编辑页
  * @returns
@@ -24,6 +25,7 @@ const formItemLayout = {
 };
 const Edit = (props: any) => {
   const { state } = props.location;
+
   const [disabled, setDisabled] = useState(false);
   const [imageUrl, setImageUrl] = useState('');
   const [forms, setForm] = useState<FormInstance<any>>();
@@ -34,6 +36,7 @@ const Edit = (props: any) => {
   const { currentUser } = initialState || {};
   const [formValues, setFormValues] = useState({});
   const [teacherData, setTeacherData] = useState<any>([]);
+  const [Introduction, setIntroduction] = useState<any>([]);
   const getData = async () => {
     const res = await getKHKCSJ({ kcId: state.id });
     if (res?.status === 'ok') {
@@ -47,10 +50,14 @@ const Edit = (props: any) => {
     }
   };
   useEffect(() => {
-    if (state?.type === 'info') {
-      setDisabled(true);
-      // 老师表格数据
-      getData();
+    if (state) {
+      if (state?.type === 'info') {
+        setDisabled(true);
+        // 老师表格数据
+        getData();
+      }
+    } else {
+      setIntroduction('');
     }
     if (state?.id) {
       // form详情
@@ -64,6 +71,7 @@ const Edit = (props: any) => {
         KBYS: state?.KBYS || '-'
       };
       setImageUrl(state?.KCTP);
+      setIntroduction(state?.KCMS || '-');
       setFormValues(params);
     }
   }, []);
@@ -119,7 +127,8 @@ const Edit = (props: any) => {
         KCTP: imageUrl || '',
         KCZT: 0,
         KHJYJGId: currentUser?.jgId,
-        SSJGLX: '机构课程'
+        SSJGLX: '机构课程',
+        KCMS: Introduction || ''
         // KHKCLXId: KCLXOptions?.find((item: any) => item.text === '标准课程').value
       };
       if (state) {
@@ -268,15 +277,15 @@ const Edit = (props: any) => {
       imagename: 'image',
       handleImageChange
       // rules: [{ required: true, message: '请上传课程封面' }]
-    },
-    {
-      type: 'textArea',
-      label: '课程简介',
-      placeholder: '请输入',
-      name: 'KCMS',
-      disabled,
-      key: 'KCMS'
     }
+    // {
+    //   type: 'textArea',
+    //   label: '课程简介',
+    //   placeholder: '请输入',
+    //   name: 'KCMS',
+    //   disabled,
+    //   key: 'KCMS',
+    // }
   ];
   const columns: any = [
     {
@@ -328,6 +337,10 @@ const Edit = (props: any) => {
       }
     }
   ];
+  const onChange = (e: any) => {
+    setIntroduction(e.target.value);
+  };
+
   return (
     <>
       {state?.type === 'info' ? (
@@ -361,6 +374,17 @@ const Edit = (props: any) => {
               setForm(formValue);
             }}
           />
+          <div className={classes.introduction}>
+            <span>课程简介</span>
+            <span>:</span>
+            <TextArea
+              disabled={disabled}
+              value={Introduction}
+              style={{ height: 100, width: 450 }}
+              onChange={onChange}
+            />
+          </div>
+
           <Table
             style={{ display: state?.type === 'info' ? 'initial' : 'none' }}
             title={() => '任课教师列表'}
