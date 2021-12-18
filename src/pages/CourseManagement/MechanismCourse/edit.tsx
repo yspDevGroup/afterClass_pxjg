@@ -377,12 +377,16 @@ const Edit = (props: any) => {
           <div className={classes.introduction}>
             <span>课程简介</span>
             <span>:</span>
-            <TextArea
-              disabled={disabled}
-              value={Introduction}
-              style={{ height: 100, width: 450 }}
-              onChange={onChange}
-            />
+            {state && state?.type === 'info' ? (
+              <div className={classes.box}>{Introduction}</div>
+            ) : (
+              <TextArea
+                disabled={disabled}
+                value={Introduction}
+                style={{ height: 100, width: 450 }}
+                onChange={onChange}
+              />
+            )}
           </div>
 
           <Table
