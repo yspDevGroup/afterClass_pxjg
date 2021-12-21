@@ -482,14 +482,8 @@ const InfoMaintenance = (props: any) => {
                 name="QYMC"
                 key="QYMC"
                 label="企业名称："
-                rules={[
-                  {
-                    required: true,
-                    message: '请输入企业名称'
-                  }
-                ]}
               >
-                <Input placeholder={disabled === false ? '请输入' : '——'} disabled={disabled} />
+                <Input placeholder={'——'} disabled={true} />
               </Form.Item>
               <Form.Item
                 name="ZZJGDM"
