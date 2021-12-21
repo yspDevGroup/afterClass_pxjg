@@ -3,7 +3,7 @@
  * @description: 通用布局
  * @author: zpl
  * @Date: 2021-08-16 17:31:56
- * @LastEditTime: 2021-11-17 09:13:34
+ * @LastEditTime: 2021-12-21 12:22:51
  * @LastEditors: zpl
  */
 import React, { FC, useEffect, useState } from 'react';
@@ -39,7 +39,7 @@ const menuRender = (
 };
 const CommonLayout: FC<IRouteComponentProps> = ({ children, location, route, history, match }) => {
   const { initialState } = useModel('@@initialState');
-  const { isLogin } = useAccess();
+  const { isLogin, auth } = useAccess();
   const path = location.pathname.toLowerCase();
   const [hiddenHeader, setHiddenHeader] = useState<boolean>(true);
   useEffect(() => {
@@ -60,7 +60,7 @@ const CommonLayout: FC<IRouteComponentProps> = ({ children, location, route, his
         height: '100vh'
       }}
     >
-      {!isLogin || hiddenHeader ? (
+      {!isLogin || hiddenHeader || auth === '其他' ? (
         <div>{children}</div>
       ) : (
         <ProLayout

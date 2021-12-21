@@ -2,8 +2,8 @@
  * @description: 工具类
  * @author: zpl
  * @Date: 2021-08-09 10:36:53
- * @LastEditTime: 2021-12-03 11:18:38
- * @LastEditors: Sissle Lynn
+ * @LastEditTime: 2021-12-21 12:23:46
+ * @LastEditors: zpl
  */
 import { history } from 'umi';
 import { parse } from 'querystring';
@@ -128,7 +128,7 @@ export const envjudge = (): PlatType => {
  *
  * @param {BuildOptions} [buildOptions] 环境配置信息
  * @param {boolean} [reLogin] 是否强制重登录
- * @return {*}  {string}
+ * @return {*} {string}
  */
 export const getLoginPath = (buildOptions?: BuildOptions, reLogin?: boolean): string => {
   const { authType = 'none', ssoHost, ENV_host, clientId, clientSecret } = buildOptions || {};

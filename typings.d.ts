@@ -24,6 +24,26 @@ declare const wxInfo: {
 /** 运行环境类型 */
 type PlatType = 'com-wx-mobile' | 'wx-mobile' | 'mobile' | 'com-wx-pc' | 'wx-pc' | 'pc';
 
+type Enterprise = {
+  id?: string;
+  /** 企业编码 */
+  code: string;
+  /** 企业名称 */
+  name: string;
+  /** 企业全称 */
+  full_name?: string;
+  /** 企业logo */
+  logo_url?: string;
+  /** 注册形式 */
+  reg_type: 'default' | 'wechat' | 'dingding';
+  /** 是否内置应用 */
+  isBuiltIn: boolean;
+  /** 状态 */
+  status: 'enabled' | 'disabled' | 'pending';
+  /** 备注 */
+  remark: string;
+};
+
 type UserInfo = {
   id?: string;
   /** 微信用户id */
@@ -46,6 +66,7 @@ type UserInfo = {
   departmentId?: string;
   /** 状态，0无效1有效，其他可由业务自行定义 */
   status?: number;
+  type?: '管理员' | '老师' | '学生' | '家长' | '其他';
   userType?: string;
   auth?: '老师' | '家长' | '管理员' | { authType?: string; appName?: string }[];
   adminAuth?: string[];
@@ -61,6 +82,8 @@ type UserInfo = {
     remark?: string;
     children?: { njId?: string; department?: string[]; student_userid?: string; name?: string }[];
   };
+  /** 所属企业 */
+  enterprise?: Enterprise;
 };
 
 type AuthType = 'wechat' | 'password' | 'authorization_code';
@@ -92,6 +115,7 @@ type InitialState = {
 type AccessInfo = {
   isLogin: boolean;
   isAdmin?: boolean;
+  auth: '管理员' | '老师' | '学生' | '家长' | '其他';
 };
 
 /** oAuth认证token */
