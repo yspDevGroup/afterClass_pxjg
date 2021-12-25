@@ -4,17 +4,14 @@ import { request } from 'umi';
 
 /** 获取作息时间数据 GET /zxsj/${param0} */
 export async function getZXSJ(
-  params: {
-    // path
-    /** 作息时间ID */
-    id: string;
-  },
-  options?: { [key: string]: any },
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: API.getZXSJParams,
+  options?: { [key: string]: any }
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{
-    status?: 'ok' | 'error';
-    data: {
+    status: 'ok' | 'error';
+    data?: {
       id?: string;
       MC?: string;
       SD?: string;
@@ -28,49 +25,46 @@ export async function getZXSJ(
   }>(`/zxsj/${param0}`, {
     method: 'GET',
     params: { ...queryParams },
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
 /** 删除作息时间数据 DELETE /zxsj/${param0} */
 export async function deleteZXSJ(
-  params: {
-    // path
-    /** 作息时间ID */
-    id: string;
-  },
-  options?: { [key: string]: any },
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: API.deleteZXSJParams,
+  options?: { [key: string]: any }
 ) {
   const { id: param0, ...queryParams } = params;
-  return request<{ status?: 'ok' | 'error'; message?: string }>(`/zxsj/${param0}`, {
+  return request<{ status: 'ok' | 'error'; message?: string }>(`/zxsj/${param0}`, {
     method: 'DELETE',
     params: { ...queryParams },
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
 /** 查询所有作息时间数据 POST /zxsj/ */
 export async function getAllZXSJ(
   body: {
-    ZXFAId?: string;
+    ZXFAId: string;
   },
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
-  return request<{ status?: 'ok' | 'error'; data?: API.ZXSJ[]; message?: string }>('/zxsj/', {
+  return request<{ status: 'ok' | 'error'; data?: API.ZXSJ[]; message?: string }>('/zxsj/', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     data: body,
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
 /** 创建作息时间数据 PUT /zxsj/create */
 export async function createZXSJ(body: API.CreateZXSJ, options?: { [key: string]: any }) {
   return request<{
-    status?: 'ok' | 'error';
-    data: {
+    status: 'ok' | 'error';
+    data?: {
       id?: string;
       MC?: string;
       SD?: string;
@@ -84,31 +78,28 @@ export async function createZXSJ(body: API.CreateZXSJ, options?: { [key: string]
   }>('/zxsj/create', {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     data: body,
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
 /** 更新作息时间数据 PUT /zxsj/update/${param0} */
 export async function updateZXSJ(
-  params: {
-    // path
-    /** 作息时间ID */
-    id: string;
-  },
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: API.updateZXSJParams,
   body: API.UpdateZXSJ,
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
   const { id: param0, ...queryParams } = params;
-  return request<{ status?: 'ok' | 'error'; message?: string }>(`/zxsj/update/${param0}`, {
+  return request<{ status: 'ok' | 'error'; message?: string }>(`/zxsj/update/${param0}`, {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     params: { ...queryParams },
     data: body,
-    ...(options || {}),
+    ...(options || {})
   });
 }

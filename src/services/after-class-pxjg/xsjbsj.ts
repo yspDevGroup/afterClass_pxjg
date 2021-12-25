@@ -4,17 +4,14 @@ import { request } from 'umi';
 
 /** 获取学生数据 GET /xsjbsj/${param0} */
 export async function getXSJBSJ(
-  params: {
-    // path
-    /** 学生ID */
-    id: string;
-  },
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: API.getXSJBSJParams,
   options?: { [key: string]: any }
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{
-    status?: 'ok' | 'error';
-    data: {
+    status: 'ok' | 'error';
+    data?: {
       id?: string;
       XH?: string;
       XM?: string;
@@ -71,15 +68,12 @@ export async function getXSJBSJ(
 
 /** 删除学生数据 DELETE /xsjbsj/${param0} */
 export async function deleteXSJBSJ(
-  params: {
-    // path
-    /** 学生ID */
-    id: string;
-  },
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: API.deleteXSJBSJParams,
   options?: { [key: string]: any }
 ) {
   const { id: param0, ...queryParams } = params;
-  return request<{ status?: 'ok' | 'error'; message?: string }>(`/xsjbsj/${param0}`, {
+  return request<{ status: 'ok' | 'error'; message?: string }>(`/xsjbsj/${param0}`, {
     method: 'DELETE',
     params: { ...queryParams },
     ...(options || {})
@@ -100,14 +94,14 @@ export async function getAllXSJBSJ(
     /** 年级ID */
     NJId?: any[];
     /** 页数 */
-    page?: number;
+    page: number;
     /** 每页记录数 */
-    pageSize?: number;
+    pageSize: number;
   },
   options?: { [key: string]: any }
 ) {
   return request<{
-    status?: 'ok' | 'error';
+    status: 'ok' | 'error';
     data?: { count?: number; rows?: API.XSJBSJ[] };
     message?: string;
   }>('/xsjbsj/', {
@@ -123,8 +117,8 @@ export async function getAllXSJBSJ(
 /** 创建学生数据 PUT /xsjbsj/create */
 export async function createXSJBSJ(body: API.CreateXSJBSJ, options?: { [key: string]: any }) {
   return request<{
-    status?: 'ok' | 'error';
-    data: {
+    status: 'ok' | 'error';
+    data?: {
       id?: string;
       XH?: string;
       XM?: string;
@@ -184,16 +178,13 @@ export async function createXSJBSJ(body: API.CreateXSJBSJ, options?: { [key: str
 
 /** 更新学生数据 PUT /xsjbsj/update/${param0} */
 export async function updateXSJBSJ(
-  params: {
-    // path
-    /** 学生ID */
-    id: string;
-  },
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: API.updateXSJBSJParams,
   body: API.UpdateXSJBSJ,
   options?: { [key: string]: any }
 ) {
   const { id: param0, ...queryParams } = params;
-  return request<{ status?: 'ok' | 'error'; message?: string }>(`/xsjbsj/update/${param0}`, {
+  return request<{ status: 'ok' | 'error'; message?: string }>(`/xsjbsj/update/${param0}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json'
@@ -206,17 +197,14 @@ export async function updateXSJBSJ(
 
 /** 获取学生画像 GET /xsjbsj/portrait/${param0} */
 export async function getPortrait(
-  params: {
-    // path
-    /** 学生ID */
-    id: string;
-  },
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: API.getPortraitParams,
   options?: { [key: string]: any }
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{
-    status?: 'ok' | 'error';
-    data: {
+    status: 'ok' | 'error';
+    data?: {
       id?: string;
       XH?: string;
       XM?: string;
@@ -301,6 +289,24 @@ export async function getPortrait(
   }>(`/xsjbsj/portrait/${param0}`, {
     method: 'GET',
     params: { ...queryParams },
+    ...(options || {})
+  });
+}
+
+/** 获取学生待办事项 POST /xsjbsj/studentTodo */
+export async function studentTodo(
+  body: {
+    XSJBSJId?: string;
+    XNXQId?: string;
+  },
+  options?: { [key: string]: any }
+) {
+  return request<any>('/xsjbsj/studentTodo', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    data: body,
     ...(options || {})
   });
 }

@@ -20,7 +20,7 @@ export async function getUserRefresh(options?: { [key: string]: any }) {
 
 /** 查询所有用户 GET /user/ */
 export async function getAllUser(options?: { [key: string]: any }) {
-  return request<{ status?: 'ok' | 'error'; data?: API.CurrentUser[]; message?: string }>('/user/', {
+  return request<{ status: 'ok' | 'error'; data?: API.CurrentUser[]; message?: string }>('/user/', {
     method: 'GET',
     ...(options || {})
   });
@@ -28,15 +28,12 @@ export async function getAllUser(options?: { [key: string]: any }) {
 
 /** 获取当前用户 GET /user/currentUser */
 export async function currentUser(
-  params: {
-    // query
-    /** 登录平台类型 */
-    plat?: string;
-  },
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: API.currentUserParams,
   options?: { [key: string]: any }
 ) {
   return request<{
-    status?: 'ok' | 'error';
+    status: 'ok' | 'error';
     data?: {
       info?: {
         id?: string;
@@ -105,7 +102,7 @@ export async function currentUser(
 
 /** 更新当前用户信息 PUT /user/currentUser */
 export async function updateUser(body: API.CreateUser, options?: { [key: string]: any }) {
-  return request<{ status?: 'ok' | 'error'; message?: string }>('/user/currentUser', {
+  return request<{ status: 'ok' | 'error'; message?: string }>('/user/currentUser', {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json'
@@ -118,7 +115,7 @@ export async function updateUser(body: API.CreateUser, options?: { [key: string]
 /** 创建用户 PUT /user/create */
 export async function createUser(body: API.CreateUser, options?: { [key: string]: any }) {
   return request<{
-    status?: 'ok' | 'error';
+    status: 'ok' | 'error';
     data?: {
       id?: string;
       jgId?: string | any;
@@ -186,15 +183,12 @@ export async function createUser(body: API.CreateUser, options?: { [key: string]
 
 /** 删除用户数据 DELETE /user/${param0} */
 export async function deleteUser(
-  params: {
-    // path
-    /** 用户ID */
-    id: string;
-  },
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: API.deleteUserParams,
   options?: { [key: string]: any }
 ) {
   const { id: param0, ...queryParams } = params;
-  return request<{ status?: 'ok' | 'error'; message?: string }>(`/user/${param0}`, {
+  return request<{ status: 'ok' | 'error'; message?: string }>(`/user/${param0}`, {
     method: 'DELETE',
     params: { ...queryParams },
     ...(options || {})
@@ -211,9 +205,9 @@ export async function homePageInfo(
     /** 校区ID */
     XQSJId?: string;
     /** 学年学期ID */
-    XNXQId?: string;
+    XNXQId: string;
     /** 学校ID */
-    XXJBSJId?: string;
+    XXJBSJId: string;
     /** 学生ID */
     XSId?: string;
     /** 教师ID */
@@ -222,7 +216,7 @@ export async function homePageInfo(
   options?: { [key: string]: any }
 ) {
   return request<{
-    status?: 'ok' | 'error';
+    status: 'ok' | 'error';
     data?: {
       bmkssj?: string;
       bmjssj?: string;
@@ -360,7 +354,7 @@ export async function homePageInfo(
 
 /** 刷新Token GET /user/refreshToken */
 export async function refreshToken(options?: { [key: string]: any }) {
-  return request<{ status?: 'ok' | 'error'; data?: string; message?: string }>('/user/refreshToken', {
+  return request<{ status: 'ok' | 'error'; data?: string; message?: string }>('/user/refreshToken', {
     method: 'GET',
     ...(options || {})
   });

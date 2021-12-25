@@ -5,8 +5,8 @@ import { request } from 'umi';
 /** 创建教师课题研究 PUT /jzgktyj/create */
 export async function createJZGKTYJ(body: API.CreateJZGKTYJ, options?: { [key: string]: any }) {
   return request<{
-    status?: 'ok' | 'error';
-    data: {
+    status: 'ok' | 'error';
+    data?: {
       id?: string;
       MC?: string;
       LXRQ?: string;
@@ -22,10 +22,10 @@ export async function createJZGKTYJ(body: API.CreateJZGKTYJ, options?: { [key: s
   }>('/jzgktyj/create', {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     data: body,
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
@@ -35,61 +35,55 @@ export async function getJZGKTYJ(
     /** 教师ID */
     JZGJBSJId?: string;
     /** 页数 */
-    page?: number;
+    page: number;
     /** 每页记录数 */
-    pageSize?: number;
+    pageSize: number;
   },
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
   return request<{
-    status?: 'ok' | 'error';
+    status: 'ok' | 'error';
     data?: { count?: number; rows?: API.JZGKTYJ[] };
     message?: string;
   }>('/jzgktyj/getAll', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     data: body,
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
 /** 删除教师课题研究 DELETE /jzgktyj/${param0} */
 export async function deleteJZGKTYJ(
-  params: {
-    // path
-    /** 教师课题研究ID */
-    id: string;
-  },
-  options?: { [key: string]: any },
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: API.deleteJZGKTYJParams,
+  options?: { [key: string]: any }
 ) {
   const { id: param0, ...queryParams } = params;
-  return request<{ status?: 'ok' | 'error'; message?: string }>(`/jzgktyj/${param0}`, {
+  return request<{ status: 'ok' | 'error'; message?: string }>(`/jzgktyj/${param0}`, {
     method: 'DELETE',
     params: { ...queryParams },
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
 /** 更新教师课题研究 PUT /jzgktyj/update/${param0} */
 export async function updateJZGKTYJ(
-  params: {
-    // path
-    /** 教师课题研究ID */
-    id: string;
-  },
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: API.updateJZGKTYJParams,
   body: API.UpdateJZGKTYJ,
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
   const { id: param0, ...queryParams } = params;
-  return request<{ status?: 'ok' | 'error'; message?: string }>(`/jzgktyj/update/${param0}`, {
+  return request<{ status: 'ok' | 'error'; message?: string }>(`/jzgktyj/update/${param0}`, {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     params: { ...queryParams },
     data: body,
-    ...(options || {}),
+    ...(options || {})
   });
 }

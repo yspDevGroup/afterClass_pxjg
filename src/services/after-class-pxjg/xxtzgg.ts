@@ -4,17 +4,14 @@ import { request } from 'umi';
 
 /** 根据ID获取学校通知公告 GET /xxtzgg/${param0} */
 export async function XXTZGG(
-  params: {
-    // path
-    /** 学校通知公告ID */
-    id: string;
-  },
-  options?: { [key: string]: any },
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: API.XXTZGGParams,
+  options?: { [key: string]: any }
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{
-    status?: 'ok' | 'error';
-    data: {
+    status: 'ok' | 'error';
+    data?: {
       id?: string;
       BT?: string;
       FBT?: string;
@@ -35,32 +32,29 @@ export async function XXTZGG(
   }>(`/xxtzgg/${param0}`, {
     method: 'GET',
     params: { ...queryParams },
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
 /** 删除学校通知公告 DELETE /xxtzgg/${param0} */
 export async function deleteXXTZGG(
-  params: {
-    // path
-    /** 学校通知公告ID */
-    id: string;
-  },
-  options?: { [key: string]: any },
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: API.deleteXXTZGGParams,
+  options?: { [key: string]: any }
 ) {
   const { id: param0, ...queryParams } = params;
-  return request<{ status?: 'ok' | 'error'; message?: string }>(`/xxtzgg/${param0}`, {
+  return request<{ status: 'ok' | 'error'; message?: string }>(`/xxtzgg/${param0}`, {
     method: 'DELETE',
     params: { ...queryParams },
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
 /** 创建学校通知公告 PUT /xxtzgg/create */
 export async function createXXTZGG(body: API.CreateXXTZGG, options?: { [key: string]: any }) {
   return request<{
-    status?: 'ok' | 'error';
-    data: {
+    status: 'ok' | 'error';
+    data?: {
       id?: string;
       BT?: string;
       FBT?: string;
@@ -81,10 +75,10 @@ export async function createXXTZGG(body: API.CreateXXTZGG, options?: { [key: str
   }>('/xxtzgg/create', {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     data: body,
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
@@ -96,48 +90,45 @@ export async function getXXTZGG(
     /** 公告类型 */
     LX?: string[];
     /** 学校ID */
-    XXJBSJId?: string;
+    XXJBSJId: string;
     /** 状态 */
-    ZT?: string[];
+    ZT: string[];
     /** 页数 */
-    page?: number;
+    page: number;
     /** 每页记录数 */
-    pageSize?: number;
+    pageSize: number;
   },
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
   return request<{
-    status?: 'ok' | 'error';
+    status: 'ok' | 'error';
     data?: { count?: number; rows?: API.XXTZGG[] };
     message?: string;
   }>('/xxtzgg/getAll', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     data: body,
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
 /** 更新学校通知公告 PUT /xxtzgg/update/${param0} */
 export async function updateXXTZGG(
-  params: {
-    // path
-    /** 学校通知公告ID */
-    id: string;
-  },
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: API.updateXXTZGGParams,
   body: API.UpdateXXTZGG,
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
   const { id: param0, ...queryParams } = params;
-  return request<{ status?: 'ok' | 'error'; message?: string }>(`/xxtzgg/update/${param0}`, {
+  return request<{ status: 'ok' | 'error'; message?: string }>(`/xxtzgg/update/${param0}`, {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     params: { ...queryParams },
     data: body,
-    ...(options || {}),
+    ...(options || {})
   });
 }

@@ -5,8 +5,8 @@ import { request } from 'umi';
 /** 创建学生处分数据 PUT /xscfsj/create */
 export async function createXSCFSJ(body: API.CreateXSCFSJ, options?: { [key: string]: any }) {
   return request<{
-    status?: 'ok' | 'error';
-    data: {
+    status: 'ok' | 'error';
+    data?: {
       id?: string;
       CFMCM?: string;
       CFYY?: string;
@@ -19,10 +19,10 @@ export async function createXSCFSJ(body: API.CreateXSCFSJ, options?: { [key: str
   }>('/xscfsj/create', {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     data: body,
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
@@ -32,61 +32,55 @@ export async function getXSCFSJ(
     /** 学生ID */
     XSJBSJId?: string;
     /** 页数 */
-    page?: number;
+    page: number;
     /** 每页记录数 */
-    pageSize?: number;
+    pageSize: number;
   },
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
   return request<{
-    status?: 'ok' | 'error';
+    status: 'ok' | 'error';
     data?: { count?: number; rows?: API.XSCFSJ[] };
     message?: string;
   }>('/xscfsj/getAll', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     data: body,
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
 /** 删除学生处分数据 DELETE /xscfsj/${param0} */
 export async function deleteXSCFSJ(
-  params: {
-    // path
-    /** 学生处分ID */
-    id: string;
-  },
-  options?: { [key: string]: any },
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: API.deleteXSCFSJParams,
+  options?: { [key: string]: any }
 ) {
   const { id: param0, ...queryParams } = params;
-  return request<{ status?: 'ok' | 'error'; message?: string }>(`/xscfsj/${param0}`, {
+  return request<{ status: 'ok' | 'error'; message?: string }>(`/xscfsj/${param0}`, {
     method: 'DELETE',
     params: { ...queryParams },
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
 /** 更新学生处分 PUT /xscfsj/update/${param0} */
 export async function updateXSCFSJ(
-  params: {
-    // path
-    /** 学生处分数据ID */
-    id: string;
-  },
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: API.updateXSCFSJParams,
   body: API.UpdateXSCFSJ,
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
   const { id: param0, ...queryParams } = params;
-  return request<{ status?: 'ok' | 'error'; message?: string }>(`/xscfsj/update/${param0}`, {
+  return request<{ status: 'ok' | 'error'; message?: string }>(`/xscfsj/update/${param0}`, {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     params: { ...queryParams },
     data: body,
-    ...(options || {}),
+    ...(options || {})
   });
 }

@@ -5,8 +5,8 @@ import { request } from 'umi';
 /** 创建教师论文信息 PUT /jzglwsj/create */
 export async function createJZGLWSJ(body: API.CreateJZGLWSJ, options?: { [key: string]: any }) {
   return request<{
-    status?: 'ok' | 'error';
-    data: {
+    status: 'ok' | 'error';
+    data?: {
       id?: string;
       MC?: string;
       BH?: string;
@@ -22,10 +22,10 @@ export async function createJZGLWSJ(body: API.CreateJZGLWSJ, options?: { [key: s
   }>('/jzglwsj/create', {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     data: body,
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
@@ -35,61 +35,55 @@ export async function getJZGLWSJ(
     /** 教师ID */
     JZGJBSJId?: string;
     /** 页数 */
-    page?: number;
+    page: number;
     /** 每页记录数 */
-    pageSize?: number;
+    pageSize: number;
   },
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
   return request<{
-    status?: 'ok' | 'error';
+    status: 'ok' | 'error';
     data?: { count?: number; rows?: API.JZGLWSJ[] };
     message?: string;
   }>('/jzglwsj/getAll', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     data: body,
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
 /** 删除教师论文信息 DELETE /jzglwsj/${param0} */
 export async function deleteJZGLWSJ(
-  params: {
-    // path
-    /** 教师论文信息ID */
-    id: string;
-  },
-  options?: { [key: string]: any },
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: API.deleteJZGLWSJParams,
+  options?: { [key: string]: any }
 ) {
   const { id: param0, ...queryParams } = params;
-  return request<{ status?: 'ok' | 'error'; message?: string }>(`/jzglwsj/${param0}`, {
+  return request<{ status: 'ok' | 'error'; message?: string }>(`/jzglwsj/${param0}`, {
     method: 'DELETE',
     params: { ...queryParams },
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
 /** 更新教师论文信息 PUT /jzglwsj/update/${param0} */
 export async function updateJZGLWSJ(
-  params: {
-    // path
-    /** 教师论文信息ID */
-    id: string;
-  },
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: API.updateJZGLWSJParams,
   body: API.UpdateJZGLWSJ,
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
   const { id: param0, ...queryParams } = params;
-  return request<{ status?: 'ok' | 'error'; message?: string }>(`/jzglwsj/update/${param0}`, {
+  return request<{ status: 'ok' | 'error'; message?: string }>(`/jzglwsj/update/${param0}`, {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     params: { ...queryParams },
     data: body,
-    ...(options || {}),
+    ...(options || {})
   });
 }

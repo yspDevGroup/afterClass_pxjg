@@ -4,7 +4,7 @@ import { request } from 'umi';
 
 /** 创建巡课安排 PUT /khxksj/create */
 export async function createKHXKSJ(body: API.CreateKHXKSJ[], options?: { [key: string]: any }) {
-  return request<{ status?: 'ok' | 'error'; data?: string; message?: string }>('/khxksj/create', {
+  return request<{ status: 'ok' | 'error'; data?: string; message?: string }>('/khxksj/create', {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json'
@@ -18,7 +18,7 @@ export async function createKHXKSJ(body: API.CreateKHXKSJ[], options?: { [key: s
 export async function getKHXKSJ(
   body: {
     /** 学校ID */
-    XXJBSJId?: string;
+    XXJBSJId: string;
     /** 日期 */
     RQ?: string;
     /** 教师ID */
@@ -31,7 +31,7 @@ export async function getKHXKSJ(
   options?: { [key: string]: any }
 ) {
   return request<{
-    status?: 'ok' | 'error';
+    status: 'ok' | 'error';
     data?: { count?: number; rows?: API.KHXKSJ[] };
     message?: string;
   }>('/khxksj/getAll', {
@@ -54,7 +54,7 @@ export async function deleteKHXKSJ(
   },
   options?: { [key: string]: any }
 ) {
-  return request<{ status?: 'ok' | 'error'; message?: string }>('/khxksj', {
+  return request<{ status: 'ok' | 'error'; message?: string }>('/khxksj', {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json'
@@ -66,7 +66,7 @@ export async function deleteKHXKSJ(
 
 /** 更新巡课安排 PUT /khxksj/update */
 export async function updateKHXKSJ(body: API.UpdateKHXKSJ[], options?: { [key: string]: any }) {
-  return request<{ status?: 'ok' | 'error'; message?: string }>('/khxksj/update', {
+  return request<{ status: 'ok' | 'error'; message?: string }>('/khxksj/update', {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json'
@@ -82,11 +82,11 @@ export async function getScheduleByDate(
     /** 教师ID */
     JZGJBSJId?: string;
     /** 日期 */
-    RQ?: string;
+    RQ: string;
     /** 周几 */
-    WEEKDAY?: string;
+    WEEKDAY: string;
     /** 学校ID */
-    XXJBSJId?: string;
+    XXJBSJId: string;
   },
   options?: { [key: string]: any }
 ) {
@@ -104,13 +104,13 @@ export async function getScheduleByDate(
 export async function getXKrecordBydate(
   body: {
     /** 教师ID */
-    JZGJBSJId?: string;
+    JZGJBSJId: string;
     /** 开始日期 */
-    StarDate?: string;
+    StarDate: string;
     /** 结束日期 */
-    EndDate?: string;
+    EndDate: string;
     /** 学校ID */
-    XXJBSJId?: string;
+    XXJBSJId: string;
   },
   options?: { [key: string]: any }
 ) {
@@ -128,13 +128,13 @@ export async function getXKrecordBydate(
 export async function getCourseSchedule(
   body: {
     /** 课程ID */
-    KHKCSJId?: string;
+    KHKCSJId: string;
     /** 日期 */
-    RQ?: string;
+    RQ: string;
     /** 周几 */
-    WEEKDAY?: string;
+    WEEKDAY: string;
     /** 学校ID */
-    XXJBSJId?: string;
+    XXJBSJId: string;
   },
   options?: { [key: string]: any }
 ) {

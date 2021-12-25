@@ -4,16 +4,13 @@ import { request } from 'umi';
 
 /** 获取课后服务出勤记录 GET /khxscq/${param0} */
 export async function getKHXSCQ(
-  params: {
-    // path
-    /** 出勤记录ID */
-    id: string;
-  },
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: API.getKHXSCQParams,
   options?: { [key: string]: any }
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{
-    status?: 'ok' | 'error';
+    status: 'ok' | 'error';
     data?: {
       id?: string;
       CQZT?: '出勤' | '请假' | '缺席';
@@ -45,15 +42,12 @@ export async function getKHXSCQ(
 
 /** 删除课后服务出勤记录 DELETE /khxscq/${param0} */
 export async function deleteKHXSCQ(
-  params: {
-    // path
-    /** 出勤记录ID */
-    id: string;
-  },
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: API.deleteKHXSCQParams,
   options?: { [key: string]: any }
 ) {
   const { id: param0, ...queryParams } = params;
-  return request<{ status?: 'ok' | 'error'; message?: string }>(`/khxscq/${param0}`, {
+  return request<{ status: 'ok' | 'error'; message?: string }>(`/khxscq/${param0}`, {
     method: 'DELETE',
     params: { ...queryParams },
     ...(options || {})
@@ -80,7 +74,7 @@ export async function getAllKHXSCQ(
   },
   options?: { [key: string]: any }
 ) {
-  return request<{ status?: 'ok' | 'error'; data?: API.KHXSCQ[]; message?: string }>('/khxscq/', {
+  return request<{ status: 'ok' | 'error'; data?: API.KHXSCQ[]; message?: string }>('/khxscq/', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -93,7 +87,7 @@ export async function getAllKHXSCQ(
 /** 创建课后服务出勤记录 PUT /khxscq/create */
 export async function createKHXSCQ(body: API.CreateKHXSCQ[], options?: { [key: string]: any }) {
   return request<{
-    status?: 'ok' | 'error';
+    status: 'ok' | 'error';
     data?: {
       id?: string;
       CQZT?: '出勤' | '请假' | '缺席';
@@ -128,16 +122,13 @@ export async function createKHXSCQ(body: API.CreateKHXSCQ[], options?: { [key: s
 
 /** 更新课后服务出勤记录 PUT /khxscq/update/${param0} */
 export async function updateKHXSCQ(
-  params: {
-    // path
-    /** 出勤记录ID */
-    id: string;
-  },
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: API.updateKHXSCQParams,
   body: API.UpdateKHXSCQ,
   options?: { [key: string]: any }
 ) {
   const { id: param0, ...queryParams } = params;
-  return request<{ status?: 'ok' | 'error'; message?: string }>(`/khxscq/update/${param0}`, {
+  return request<{ status: 'ok' | 'error'; message?: string }>(`/khxscq/update/${param0}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json'
@@ -154,14 +145,14 @@ export async function countKHXSCQ(
     /** 班级ID */
     KHBJSJId?: string;
     /** 学生ID */
-    XSJBSJId?: string;
+    XSJBSJId: string;
     /** 学年学期ID */
-    XNXQId?: string;
+    XNXQId: string;
   },
   options?: { [key: string]: any }
 ) {
   return request<{
-    status?: 'ok' | 'error';
+    status: 'ok' | 'error';
     data?: {
       id?: string;
       KSS?: number;

@@ -4,17 +4,14 @@ import { request } from 'umi';
 
 /** 获取班级数据 GET /bjsj/${param0} */
 export async function getBJSJ(
-  params: {
-    // path
-    /** 班级ID */
-    id: string;
-  },
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: API.getBJSJParams,
   options?: { [key: string]: any }
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{
-    status?: 'ok' | 'error';
-    data: {
+    status: 'ok' | 'error';
+    data?: {
       id?: string;
       BH?: number;
       BJ?: string;
@@ -44,15 +41,12 @@ export async function getBJSJ(
 
 /** 删除班级数据 DELETE /bjsj/${param0} */
 export async function deleteBJSJ(
-  params: {
-    // path
-    /** 班级ID */
-    id: string;
-  },
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: API.deleteBJSJParams,
   options?: { [key: string]: any }
 ) {
   const { id: param0, ...queryParams } = params;
-  return request<{ status?: 'ok' | 'error'; message?: string }>(`/bjsj/${param0}`, {
+  return request<{ status: 'ok' | 'error'; message?: string }>(`/bjsj/${param0}`, {
     method: 'DELETE',
     params: { ...queryParams },
     ...(options || {})
@@ -69,14 +63,14 @@ export async function getAllBJSJ(
     /** 年级ID */
     njId?: string;
     /** 页数 */
-    page?: number;
+    page: number;
     /** 每页记录数 */
-    pageSize?: number;
+    pageSize: number;
   },
   options?: { [key: string]: any }
 ) {
   return request<{
-    status?: 'ok' | 'error';
+    status: 'ok' | 'error';
     data?: { count?: number; rows?: API.BJSJ[] };
     message?: string;
   }>('/bjsj/', {
@@ -92,8 +86,8 @@ export async function getAllBJSJ(
 /** 创建班级数据 PUT /bjsj/create */
 export async function createBJSJ(body: API.CreateBJSJ, options?: { [key: string]: any }) {
   return request<{
-    status?: 'ok' | 'error';
-    data: {
+    status: 'ok' | 'error';
+    data?: {
       id?: string;
       BH?: number;
       BJ?: string;
@@ -126,16 +120,13 @@ export async function createBJSJ(body: API.CreateBJSJ, options?: { [key: string]
 
 /** 更新班级数据 PUT /bjsj/update/${param0} */
 export async function updateBJSJ(
-  params: {
-    // path
-    /** 班级ID */
-    id: string;
-  },
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: API.updateBJSJParams,
   body: API.UpdateBJSJ,
   options?: { [key: string]: any }
 ) {
   const { id: param0, ...queryParams } = params;
-  return request<{ status?: 'ok' | 'error'; message?: string }>(`/bjsj/update/${param0}`, {
+  return request<{ status: 'ok' | 'error'; message?: string }>(`/bjsj/update/${param0}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json'
@@ -150,15 +141,15 @@ export async function updateBJSJ(
 export async function addTeacher(
   body: {
     /** 班级ID */
-    BJSJId?: string;
+    BJSJId: string;
     /** 课程ID */
-    KCSJId?: string;
+    KCSJId: string;
     /** 教师ID */
-    JZGJBSJId?: string;
+    JZGJBSJId: string;
   },
   options?: { [key: string]: any }
 ) {
-  return request<{ status?: 'ok' | 'error'; message?: string }>('/bjsj/addTeacher', {
+  return request<{ status: 'ok' | 'error'; message?: string }>('/bjsj/addTeacher', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -172,12 +163,12 @@ export async function addTeacher(
 export async function classTeachers(
   body: {
     /** 班级ID */
-    bjId?: string;
+    bjId: string;
   },
   options?: { [key: string]: any }
 ) {
   return request<{
-    status?: 'ok' | 'error';
+    status: 'ok' | 'error';
     data?: {
       id?: string;
       KCSJ?: { id?: string; KCMC?: string };
@@ -196,11 +187,8 @@ export async function classTeachers(
 
 /** 修改班级任课老师信息 POST /bjsj/updateClassTeacher/${param0} */
 export async function updateClassTeacher(
-  params: {
-    // path
-    /** 班级任课老师信息ID */
-    id: string;
-  },
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: API.updateClassTeacherParams,
   body: {
     /** 班级ID */
     BJSJId?: string;
@@ -212,7 +200,7 @@ export async function updateClassTeacher(
   options?: { [key: string]: any }
 ) {
   const { id: param0, ...queryParams } = params;
-  return request<{ status?: 'ok' | 'error'; message?: string }>(`/bjsj/updateClassTeacher/${param0}`, {
+  return request<{ status: 'ok' | 'error'; message?: string }>(`/bjsj/updateClassTeacher/${param0}`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -225,15 +213,12 @@ export async function updateClassTeacher(
 
 /** 删除班级任课老师信息 DELETE /bjsj/classTeacher/${param0} */
 export async function deleteClassTeacher(
-  params: {
-    // path
-    /** 班级任课老师信息ID */
-    id: string;
-  },
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: API.deleteClassTeacherParams,
   options?: { [key: string]: any }
 ) {
   const { id: param0, ...queryParams } = params;
-  return request<{ status?: 'ok' | 'error'; message?: string }>(`/bjsj/classTeacher/${param0}`, {
+  return request<{ status: 'ok' | 'error'; message?: string }>(`/bjsj/classTeacher/${param0}`, {
     method: 'DELETE',
     params: { ...queryParams },
     ...(options || {})
@@ -244,9 +229,9 @@ export async function deleteClassTeacher(
 export async function getSchoolClasses(
   body: {
     /** 学校ID */
-    XXJBSJId?: string;
+    XXJBSJId: string;
     /** 学年学期ID */
-    XNXQId?: string;
+    XNXQId: string;
     /** 校区ID */
     XQSJId?: string;
     /** 班级ID */
@@ -274,9 +259,9 @@ export async function getSchoolClasses(
 export async function getClassStudents(
   body: {
     /** 班级ID */
-    BJSJId?: string;
+    BJSJId: string;
     /** 学年学期ID */
-    XNXQId?: string;
+    XNXQId: string;
     /** 学生姓名 */
     XM?: string;
     /** 课程名称 */

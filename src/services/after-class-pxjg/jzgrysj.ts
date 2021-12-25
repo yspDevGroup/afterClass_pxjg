@@ -5,8 +5,8 @@ import { request } from 'umi';
 /** 创建教师荣誉信息 PUT /jzgrysj/create */
 export async function createJZGRYSJ(body: API.CreateJZGRYSJ, options?: { [key: string]: any }) {
   return request<{
-    status?: 'ok' | 'error';
-    data: {
+    status: 'ok' | 'error';
+    data?: {
       id?: string;
       JB?: string;
       LX?: string;
@@ -23,10 +23,10 @@ export async function createJZGRYSJ(body: API.CreateJZGRYSJ, options?: { [key: s
   }>('/jzgrysj/create', {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     data: body,
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
@@ -42,61 +42,55 @@ export async function getJZGRYSJ(
     /** 荣誉类型 */
     LX?: string[];
     /** 页数 */
-    page?: number;
+    page: number;
     /** 每页记录数 */
-    pageSize?: number;
+    pageSize: number;
   },
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
   return request<{
-    status?: 'ok' | 'error';
+    status: 'ok' | 'error';
     data?: { count?: number; rows?: API.JZGRYSJ[] };
     message?: string;
   }>('/jzgrysj/getAll', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     data: body,
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
 /** 删除教师荣誉信息 DELETE /jzgrysj/${param0} */
 export async function deleteJZGRYSJ(
-  params: {
-    // path
-    /** 教师荣誉信息ID */
-    id: string;
-  },
-  options?: { [key: string]: any },
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: API.deleteJZGRYSJParams,
+  options?: { [key: string]: any }
 ) {
   const { id: param0, ...queryParams } = params;
-  return request<{ status?: 'ok' | 'error'; message?: string }>(`/jzgrysj/${param0}`, {
+  return request<{ status: 'ok' | 'error'; message?: string }>(`/jzgrysj/${param0}`, {
     method: 'DELETE',
     params: { ...queryParams },
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
 /** 更新教师荣誉信息 PUT /jzgrysj/update/${param0} */
 export async function updateJZGRYSJ(
-  params: {
-    // path
-    /** 教师荣誉信息ID */
-    id: string;
-  },
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: API.updateJZGRYSJParams,
   body: API.UpdateJZGRYSJ,
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
   const { id: param0, ...queryParams } = params;
-  return request<{ status?: 'ok' | 'error'; message?: string }>(`/jzgrysj/update/${param0}`, {
+  return request<{ status: 'ok' | 'error'; message?: string }>(`/jzgrysj/update/${param0}`, {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     params: { ...queryParams },
     data: body,
-    ...(options || {}),
+    ...(options || {})
   });
 }

@@ -4,17 +4,14 @@ import { request } from 'umi';
 
 /** 根据ID获取课后课程申请记录 GET /khkcsq/${param0} */
 export async function KHKCSQ(
-  params: {
-    // path
-    /** 课程申请记录ID */
-    id: string;
-  },
-  options?: { [key: string]: any },
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: API.KHKCSQParams,
+  options?: { [key: string]: any }
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{
-    status?: 'ok' | 'error';
-    data: {
+    status: 'ok' | 'error';
+    data?: {
       id?: string;
       ZT?: number;
       BZ?: string;
@@ -30,32 +27,29 @@ export async function KHKCSQ(
   }>(`/khkcsq/${param0}`, {
     method: 'GET',
     params: { ...queryParams },
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
 /** 删除课后课程申请记录 DELETE /khkcsq/${param0} */
 export async function deleteKHKCSQ(
-  params: {
-    // path
-    /** 课程申请记录ID */
-    id: string;
-  },
-  options?: { [key: string]: any },
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: API.deleteKHKCSQParams,
+  options?: { [key: string]: any }
 ) {
   const { id: param0, ...queryParams } = params;
-  return request<{ status?: 'ok' | 'error'; message?: string }>(`/khkcsq/${param0}`, {
+  return request<{ status: 'ok' | 'error'; message?: string }>(`/khkcsq/${param0}`, {
     method: 'DELETE',
     params: { ...queryParams },
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
 /** 创建课后课程申请记录 PUT /khkcsq/create */
 export async function createKHKCSQ(body: API.CreateKHKCSQ, options?: { [key: string]: any }) {
   return request<{
-    status?: 'ok' | 'error';
-    data: {
+    status: 'ok' | 'error';
+    data?: {
       id?: string;
       ZT?: number;
       BZ?: string;
@@ -71,10 +65,10 @@ export async function createKHKCSQ(body: API.CreateKHKCSQ, options?: { [key: str
   }>('/khkcsq/create', {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     data: body,
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
@@ -98,37 +92,34 @@ export async function getKHKCSQ(
     /** 每页记录数 */
     pageSize?: number;
   },
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
   return request<any>('/khkcsq/getAll', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     data: body,
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
 /** 更新课后课程申请记录 PUT /khkcsq/update/${param0} */
 export async function updateKHKCSQ(
-  params: {
-    // path
-    /** 课程申请记录ID */
-    id: string;
-  },
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: API.updateKHKCSQParams,
   body: API.UpdateKHKCSQ,
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
   const { id: param0, ...queryParams } = params;
-  return request<{ status?: 'ok' | 'error'; message?: string }>(`/khkcsq/update/${param0}`, {
+  return request<{ status: 'ok' | 'error'; message?: string }>(`/khkcsq/update/${param0}`, {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     params: { ...queryParams },
     data: body,
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
@@ -148,15 +139,15 @@ export async function getHistoriesBySchool(
     /** 每页记录数 */
     pageSize?: number;
   },
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
   return request<any>('/khkcsq/getHistoriesBySchool', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     data: body,
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
@@ -180,14 +171,14 @@ export async function getToIntroduceBySchool(
     /** 每页记录数 */
     pageSize?: number;
   },
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
   return request<any>('/khkcsq/getToIntroduceBySchool', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     data: body,
-    ...(options || {}),
+    ...(options || {})
   });
 }

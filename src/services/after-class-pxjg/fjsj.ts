@@ -4,17 +4,14 @@ import { request } from 'umi';
 
 /** 获取房间数据 GET /fjsj/${param0} */
 export async function getFJSJ(
-  params: {
-    // path
-    /** 房间ID */
-    id: string;
-  },
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: API.getFJSJParams,
   options?: { [key: string]: any }
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{
-    status?: 'ok' | 'error';
-    data: {
+    status: 'ok' | 'error';
+    data?: {
       id?: string;
       FJBH?: string;
       FJMC?: string;
@@ -47,15 +44,12 @@ export async function getFJSJ(
 
 /** 删除房间数据 DELETE /fjsj/${param0} */
 export async function deleteFJSJ(
-  params: {
-    // path
-    /** 房间ID */
-    id: string;
-  },
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: API.deleteFJSJParams,
   options?: { [key: string]: any }
 ) {
   const { id: param0, ...queryParams } = params;
-  return request<{ status?: 'ok' | 'error'; message?: string }>(`/fjsj/${param0}`, {
+  return request<{ status: 'ok' | 'error'; message?: string }>(`/fjsj/${param0}`, {
     method: 'DELETE',
     params: { ...queryParams },
     ...(options || {})
@@ -81,7 +75,7 @@ export async function getAllFJSJ(
   options?: { [key: string]: any }
 ) {
   return request<{
-    status?: 'ok' | 'error';
+    status: 'ok' | 'error';
     data?: { count?: number; rows?: API.FJSJ[] };
     message?: string;
   }>('/fjsj/', {
@@ -97,8 +91,8 @@ export async function getAllFJSJ(
 /** 创建房间数据 PUT /fjsj/create */
 export async function createFJSJ(body: API.CreateFJSJ, options?: { [key: string]: any }) {
   return request<{
-    status?: 'ok' | 'error';
-    data: {
+    status: 'ok' | 'error';
+    data?: {
       id?: string;
       FJBH?: string;
       FJMC?: string;
@@ -134,16 +128,13 @@ export async function createFJSJ(body: API.CreateFJSJ, options?: { [key: string]
 
 /** 更新房间数据 PUT /fjsj/update/${param0} */
 export async function updateFJSJ(
-  params: {
-    // path
-    /** 房间ID */
-    id: string;
-  },
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: API.updateFJSJParams,
   body: API.UpdateFJSJ,
   options?: { [key: string]: any }
 ) {
   const { id: param0, ...queryParams } = params;
-  return request<{ status?: 'ok' | 'error'; message?: string }>(`/fjsj/update/${param0}`, {
+  return request<{ status: 'ok' | 'error'; message?: string }>(`/fjsj/update/${param0}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json'
@@ -158,7 +149,7 @@ export async function updateFJSJ(
 export async function getFJPlan(
   body: {
     /** 学校ID */
-    XXJBSJId?: string;
+    XXJBSJId: string;
     /** 场地类型ID */
     lxId?: string;
     /** 场地ID */
@@ -172,9 +163,9 @@ export async function getFJPlan(
     /** 教师姓名 */
     JSXM?: string;
     /** 是否有排课 */
-    isPk?: boolean;
+    isPk: boolean;
     /** 学年 */
-    XNXQId?: string;
+    XNXQId: string;
   },
   options?: { [key: string]: any }
 ) {
@@ -192,15 +183,15 @@ export async function getFJPlan(
 export async function freeSpace(
   body: {
     /** 学校ID */
-    XXJBSJId?: string;
+    XXJBSJId: string;
     /** 学年学期ID */
-    XNXQId?: string;
+    XNXQId: string;
     /** 日期 */
-    RQ?: string;
+    RQ: string;
     /** 开始时间 */
-    KSSJ?: string;
+    KSSJ: string;
     /** 结束时间 */
-    JSSJ?: string;
+    JSSJ: string;
     /** 场地名称 */
     FJMC?: string;
     /** 页数 */
@@ -211,7 +202,7 @@ export async function freeSpace(
   options?: { [key: string]: any }
 ) {
   return request<{
-    status?: 'ok' | 'error';
+    status: 'ok' | 'error';
     data?: { count?: number; rows?: API.FJSJ[] };
     message?: string;
   }>('/fjsj/freeSpace', {

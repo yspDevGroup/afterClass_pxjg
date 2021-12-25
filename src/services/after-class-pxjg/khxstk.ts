@@ -4,17 +4,14 @@ import { request } from 'umi';
 
 /** 获取退款记录详情 GET /khxstk/${param0} */
 export async function getKHXSTK(
-  params: {
-    // path
-    /** 退款记录ID */
-    id: string;
-  },
-  options?: { [key: string]: any },
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: API.getKHXSTKParams,
+  options?: { [key: string]: any }
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{
-    status?: 'ok' | 'error';
-    data: {
+    status: 'ok' | 'error';
+    data?: {
       id?: string;
       TKBH?: string;
       TKJE?: number;
@@ -35,32 +32,28 @@ export async function getKHXSTK(
       };
       JZGJBSJ?: { id?: string; XM?: string; WechatUserId?: string } | any;
       KHBJSJ?: { BJMC?: string; KHKCSJ?: { KCMC?: string } } | any;
-      KHXXZZFW?:
-        | { id?: string; FWMC?: string; KHZZFW?: { id?: string; FWMC?: string; FWJGMC?: string } }
-        | any;
+      KHXXZZFW?: { id?: string; FWMC?: string; KHZZFW?: { id?: string; FWMC?: string; FWJGMC?: string } } | any;
+      XSFWBJ?: { ZT?: number; KHFWBJ?: { FWMC?: string; FWTP?: string; FWMS?: string } } | any;
     };
     message?: string;
   }>(`/khxstk/${param0}`, {
     method: 'GET',
     params: { ...queryParams },
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
 /** 删除退款记录 DELETE /khxstk/${param0} */
 export async function deleteKHXSTK(
-  params: {
-    // path
-    /** 类型ID */
-    id: string;
-  },
-  options?: { [key: string]: any },
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: API.deleteKHXSTKParams,
+  options?: { [key: string]: any }
 ) {
   const { id: param0, ...queryParams } = params;
-  return request<{ status?: 'ok' | 'error'; message?: string }>(`/khxstk/${param0}`, {
+  return request<{ status: 'ok' | 'error'; message?: string }>(`/khxstk/${param0}`, {
     method: 'DELETE',
     params: { ...queryParams },
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
@@ -70,7 +63,7 @@ export async function getAllKHXSTK(
     /** 退款状态 */
     TKZT?: number[];
     /** 退款类型,0:退款;1:停餐 */
-    LX?: number;
+    LX: number;
     /** 学生ID */
     XSJBSJId?: string;
     /** 学年学期ID */
@@ -86,33 +79,33 @@ export async function getAllKHXSTK(
     /** 课后服务名称 */
     KHFWMC?: string;
     /** 学校ID */
-    XXJBSJId?: string;
+    XXJBSJId: string;
     /** 页数 */
     page?: number;
     /** 每页记录数 */
     pageSize?: number;
   },
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
   return request<{
-    status?: 'ok' | 'error';
+    status: 'ok' | 'error';
     data?: { count?: number; rows?: API.KHXSTK[] };
     message?: string;
   }>('/khxstk/', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     data: body,
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
 /** 创建退款记录 PUT /khxstk/create */
 export async function createKHXSTK(body: API.CreateKHXSTK, options?: { [key: string]: any }) {
   return request<{
-    status?: 'ok' | 'error';
-    data: {
+    status: 'ok' | 'error';
+    data?: {
       id?: string;
       TKBH?: string;
       TKJE?: number;
@@ -133,40 +126,36 @@ export async function createKHXSTK(body: API.CreateKHXSTK, options?: { [key: str
       };
       JZGJBSJ?: { id?: string; XM?: string; WechatUserId?: string } | any;
       KHBJSJ?: { BJMC?: string; KHKCSJ?: { KCMC?: string } } | any;
-      KHXXZZFW?:
-        | { id?: string; FWMC?: string; KHZZFW?: { id?: string; FWMC?: string; FWJGMC?: string } }
-        | any;
+      KHXXZZFW?: { id?: string; FWMC?: string; KHZZFW?: { id?: string; FWMC?: string; FWJGMC?: string } } | any;
+      XSFWBJ?: { ZT?: number; KHFWBJ?: { FWMC?: string; FWTP?: string; FWMS?: string } } | any;
     };
     message?: string;
   }>('/khxstk/create', {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     data: body,
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
 /** 更新退款记录 PUT /khxstk/update/${param0} */
 export async function updateKHXSTK(
-  params: {
-    // path
-    /** 退款记录ID */
-    id: string;
-  },
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: API.updateKHXSTKParams,
   body: API.UpdateKHXSTK,
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
   const { id: param0, ...queryParams } = params;
-  return request<{ status?: 'ok' | 'error'; message?: string }>(`/khxstk/update/${param0}`, {
+  return request<{ status: 'ok' | 'error'; message?: string }>(`/khxstk/update/${param0}`, {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     params: { ...queryParams },
     data: body,
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
@@ -176,7 +165,7 @@ export async function exportTKJL(
     /** 退款状态 */
     TKZT?: number[];
     /** 退款类型,0:退款;1:停餐 */
-    LX?: number;
+    LX: number;
     /** 学生ID */
     XSJBSJId?: string;
     /** 学年学期ID */
@@ -196,14 +185,14 @@ export async function exportTKJL(
     /** 每页记录数 */
     pageSize?: number;
   },
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
   return request<any>('/khxstk/exportTKJL', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     data: body,
-    ...(options || {}),
+    ...(options || {})
   });
 }

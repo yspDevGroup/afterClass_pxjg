@@ -4,17 +4,14 @@ import { request } from 'umi';
 
 /** 获取学校审批配置 GET /xxsppz/${param0} */
 export async function getXXSPPZ(
-  params: {
-    // path
-    /** 学校ID */
-    xxId: string;
-  },
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: API.getXXSPPZParams,
   options?: { [key: string]: any }
 ) {
   const { xxId: param0, ...queryParams } = params;
   return request<{
-    status?: 'ok' | 'error';
-    data: {
+    status: 'ok' | 'error';
+    data?: {
       id?: string;
       JSQJ?: boolean;
       XSQJ?: boolean;
@@ -36,8 +33,8 @@ export async function getXXSPPZ(
 /** 创建/更新学校审批配置 PUT /xxsppz/create */
 export async function createXXSPPZ(body: API.CreateXXSPPZ, options?: { [key: string]: any }) {
   return request<{
-    status?: 'ok' | 'error';
-    data: {
+    status: 'ok' | 'error';
+    data?: {
       id?: string;
       JSQJ?: boolean;
       XSQJ?: boolean;
@@ -61,15 +58,12 @@ export async function createXXSPPZ(body: API.CreateXXSPPZ, options?: { [key: str
 
 /** 删除学校审批配置 DELETE /xxsppz/${param0} */
 export async function deleteXXSPPZ(
-  params: {
-    // path
-    /** 学校审批配置ID */
-    id: string;
-  },
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: API.deleteXXSPPZParams,
   options?: { [key: string]: any }
 ) {
   const { id: param0, ...queryParams } = params;
-  return request<{ status?: 'ok' | 'error'; message?: string }>(`/xxsppz/${param0}`, {
+  return request<{ status: 'ok' | 'error'; message?: string }>(`/xxsppz/${param0}`, {
     method: 'DELETE',
     params: { ...queryParams },
     ...(options || {})

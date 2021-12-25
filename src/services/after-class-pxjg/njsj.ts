@@ -4,17 +4,14 @@ import { request } from 'umi';
 
 /** 获取年级数据 GET /njsj/${param0} */
 export async function getNJSJ(
-  params: {
-    // path
-    /** 年级ID */
-    id: string;
-  },
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: API.getNJSJParams,
   options?: { [key: string]: any }
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{
-    status?: 'ok' | 'error';
-    data: {
+    status: 'ok' | 'error';
+    data?: {
       id?: string;
       NJ?: number;
       NJMC?: string;
@@ -35,15 +32,12 @@ export async function getNJSJ(
 
 /** 删除年级数据 DELETE /njsj/${param0} */
 export async function deleteNJSJ(
-  params: {
-    // path
-    /** 年级ID */
-    id: string;
-  },
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: API.deleteNJSJParams,
   options?: { [key: string]: any }
 ) {
   const { id: param0, ...queryParams } = params;
-  return request<{ status?: 'ok' | 'error'; message?: string }>(`/njsj/${param0}`, {
+  return request<{ status: 'ok' | 'error'; message?: string }>(`/njsj/${param0}`, {
     method: 'DELETE',
     params: { ...queryParams },
     ...(options || {})
@@ -71,7 +65,7 @@ export async function getAllNJSJ(
   options?: { [key: string]: any }
 ) {
   return request<{
-    status?: 'ok' | 'error';
+    status: 'ok' | 'error';
     data?: { count?: number; rows?: API.NJSJ[] };
     message?: string;
   }>('/njsj/', {
@@ -87,8 +81,8 @@ export async function getAllNJSJ(
 /** 创建年级数据 PUT /njsj/create */
 export async function createNJSJ(body: API.CreateNJSJ, options?: { [key: string]: any }) {
   return request<{
-    status?: 'ok' | 'error';
-    data: {
+    status: 'ok' | 'error';
+    data?: {
       id?: string;
       NJ?: number;
       NJMC?: string;
@@ -112,16 +106,13 @@ export async function createNJSJ(body: API.CreateNJSJ, options?: { [key: string]
 
 /** 更新年级数据 PUT /njsj/update/${param0} */
 export async function updateNJSJ(
-  params: {
-    // path
-    /** 年级ID */
-    id: string;
-  },
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: API.updateNJSJParams,
   body: API.UpdateNJSJ,
   options?: { [key: string]: any }
 ) {
   const { id: param0, ...queryParams } = params;
-  return request<{ status?: 'ok' | 'error'; message?: string }>(`/njsj/update/${param0}`, {
+  return request<{ status: 'ok' | 'error'; message?: string }>(`/njsj/update/${param0}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json'
@@ -135,14 +126,14 @@ export async function updateNJSJ(
 /** 批量创建年级数据 PUT /njsj/multiCreate */
 export async function multiCreate(
   body: {
-    XD?: string;
-    NJS?: number;
-    BJS?: number;
+    XD: string;
+    NJS: number;
+    BJS: number;
     XQSJId?: string;
   },
   options?: { [key: string]: any }
 ) {
-  return request<{ status?: 'ok' | 'error'; message?: string }>('/njsj/multiCreate', {
+  return request<{ status: 'ok' | 'error'; message?: string }>('/njsj/multiCreate', {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json'
@@ -159,7 +150,7 @@ export async function allXD(
   },
   options?: { [key: string]: any }
 ) {
-  return request<{ status?: 'ok' | 'error'; data?: string[]; message?: string }>('/njsj/getAllXD', {
+  return request<{ status: 'ok' | 'error'; data?: string[]; message?: string }>('/njsj/getAllXD', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -172,7 +163,7 @@ export async function allXD(
 /** 根据校区获取校区年级信息 POST /njsj/getGradesByCampus */
 export async function getGradesByCampus(
   body: {
-    XQSJId?: string;
+    XQSJId: string;
   },
   options?: { [key: string]: any }
 ) {

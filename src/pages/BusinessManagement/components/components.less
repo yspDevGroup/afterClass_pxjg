@@ -204,16 +204,18 @@
 
           &:nth-child(1) {
             position: relative;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
             margin: @padding-sm 0;
             padding: @padding-sm;
             color: #fff;
             font-size: @font-size-base;
-
-            span {
-              position: absolute;
-              right: @padding-sm;
-              font-weight: normal;
-            }
+            // span {
+            //   position: absolute;
+            //   right: @padding-sm;
+            //   font-weight: normal;
+            // }
           }
 
           &:nth-last-child(1) {

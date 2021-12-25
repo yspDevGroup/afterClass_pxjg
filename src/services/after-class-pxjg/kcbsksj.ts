@@ -5,7 +5,7 @@ import { request } from 'umi';
 /** 获取课后服务-课程班上课时间安排 POST /kcbsksj/getAll */
 export async function getKCBSKSJ(
   body: {
-    KHBJSJId?: string;
+    KHBJSJId?: string[];
     XNXQId?: string;
     JZGJBSJId?: string;
     startDate?: string;
@@ -18,7 +18,7 @@ export async function getKCBSKSJ(
   options?: { [key: string]: any }
 ) {
   return request<{
-    status?: 'ok' | 'error';
+    status: 'ok' | 'error';
     data?: { count?: number; rows?: API.KCBSKSJ[] };
     message?: string;
   }>('/kcbsksj/getAll', {
@@ -33,7 +33,7 @@ export async function getKCBSKSJ(
 
 /** 重新计算已有数据 GET /kcbsksj/calcAllPeriod */
 export async function calcAllPeriod(options?: { [key: string]: any }) {
-  return request<{ status?: 'ok' | 'error'; message?: string }>('/kcbsksj/calcAllPeriod', {
+  return request<{ status: 'ok' | 'error'; message?: string }>('/kcbsksj/calcAllPeriod', {
     method: 'GET',
     ...(options || {})
   });
@@ -41,7 +41,7 @@ export async function calcAllPeriod(options?: { [key: string]: any }) {
 
 /** 获取所有已开班的班级ID GET /kcbsksj/getAllClassIds */
 export async function getAllClassIds(options?: { [key: string]: any }) {
-  return request<{ status?: 'ok' | 'error'; data?: string[]; message?: string }>('/kcbsksj/getAllClassIds', {
+  return request<{ status: 'ok' | 'error'; data?: string[]; message?: string }>('/kcbsksj/getAllClassIds', {
     method: 'GET',
     ...(options || {})
   });

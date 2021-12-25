@@ -4,17 +4,14 @@ import { request } from 'umi';
 
 /** 获取学校时间配置数据 GET /xxsjpz/${param0} */
 export async function getXXSJPZ(
-  params: {
-    // path
-    /** 学校时间配置ID */
-    id: string;
-  },
-  options?: { [key: string]: any },
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: API.getXXSJPZParams,
+  options?: { [key: string]: any }
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{
-    status?: 'ok' | 'error';
-    data: {
+    status: 'ok' | 'error';
+    data?: {
       id?: string;
       KSSJ?: string;
       JSSJ?: string;
@@ -37,24 +34,21 @@ export async function getXXSJPZ(
   }>(`/xxsjpz/${param0}`, {
     method: 'GET',
     params: { ...queryParams },
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
 /** 删除学校时间配置数据 DELETE /xxsjpz/${param0} */
 export async function deleteXXSJPZ(
-  params: {
-    // path
-    /** 学校时间配置ID */
-    id: string;
-  },
-  options?: { [key: string]: any },
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: API.deleteXXSJPZParams,
+  options?: { [key: string]: any }
 ) {
   const { id: param0, ...queryParams } = params;
-  return request<{ status?: 'ok' | 'error'; message?: string }>(`/xxsjpz/${param0}`, {
+  return request<{ status: 'ok' | 'error'; message?: string }>(`/xxsjpz/${param0}`, {
     method: 'DELETE',
     params: { ...queryParams },
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
@@ -68,26 +62,23 @@ export async function getAllXXSJPZ(
     /** 类型，0:时段维护，1:报名开始/结束时间，2:开课/结课日期 */
     type?: string[];
   },
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
-  return request<{ status?: 'ok' | 'error'; data?: API.XXSJPZ[]; message?: string }>(
-    '/xxsjpz/all',
-    {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      data: body,
-      ...(options || {}),
+  return request<{ status: 'ok' | 'error'; data?: API.XXSJPZ[]; message?: string }>('/xxsjpz/all', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
     },
-  );
+    data: body,
+    ...(options || {})
+  });
 }
 
 /** 创建学校时间配置数据 PUT /xxsjpz/create */
 export async function createXXSJPZ(body: API.CreateXXSJPZ, options?: { [key: string]: any }) {
   return request<{
-    status?: 'ok' | 'error';
-    data: {
+    status: 'ok' | 'error';
+    data?: {
       id?: string;
       KSSJ?: string;
       JSSJ?: string;
@@ -110,31 +101,28 @@ export async function createXXSJPZ(body: API.CreateXXSJPZ, options?: { [key: str
   }>('/xxsjpz/create', {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     data: body,
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
 /** 更新学校时间配置数据 PUT /xxsjpz/update/${param0} */
 export async function updateXXSJPZ(
-  params: {
-    // path
-    /** 学校时间配置ID */
-    id: string;
-  },
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: API.updateXXSJPZParams,
   body: API.UpdateXXSJPZ,
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
   const { id: param0, ...queryParams } = params;
-  return request<{ status?: 'ok' | 'error'; message?: string }>(`/xxsjpz/update/${param0}`, {
+  return request<{ status: 'ok' | 'error'; message?: string }>(`/xxsjpz/update/${param0}`, {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     params: { ...queryParams },
     data: body,
-    ...(options || {}),
+    ...(options || {})
   });
 }

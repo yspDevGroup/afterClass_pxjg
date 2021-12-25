@@ -4,17 +4,14 @@ import { request } from 'umi';
 
 /** 获取校历数据 GET /xl/${param0} */
 export async function getXL(
-  params: {
-    // path
-    /** 校历ID */
-    id: string;
-  },
-  options?: { [key: string]: any },
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: API.getXLParams,
+  options?: { [key: string]: any }
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{
-    status?: 'ok' | 'error';
-    data: {
+    status: 'ok' | 'error';
+    data?: {
       id?: string;
       BT?: string;
       KSRQ?: string;
@@ -25,24 +22,21 @@ export async function getXL(
   }>(`/xl/${param0}`, {
     method: 'GET',
     params: { ...queryParams },
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
 /** 删除校历数据 DELETE /xl/${param0} */
 export async function deleteXL(
-  params: {
-    // path
-    /** 校历ID */
-    id: string;
-  },
-  options?: { [key: string]: any },
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: API.deleteXLParams,
+  options?: { [key: string]: any }
 ) {
   const { id: param0, ...queryParams } = params;
-  return request<{ status?: 'ok' | 'error'; message?: string }>(`/xl/${param0}`, {
+  return request<{ status: 'ok' | 'error'; message?: string }>(`/xl/${param0}`, {
     method: 'DELETE',
     params: { ...queryParams },
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
@@ -54,31 +48,31 @@ export async function getAllXL(
     /** 学年学期ID */
     XNXQId?: string;
     /** 页数 */
-    page?: number;
+    page: number;
     /** 每页记录数 */
-    pageSize?: number;
+    pageSize: number;
   },
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
   return request<{
-    status?: 'ok' | 'error';
+    status: 'ok' | 'error';
     data?: { count?: number; rows?: API.XL[] };
     message?: string;
   }>('/xl/getAll', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     data: body,
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
 /** 创建校历数据 PUT /xl/create */
 export async function createXL(body: API.CreateXL, options?: { [key: string]: any }) {
   return request<{
-    status?: 'ok' | 'error';
-    data: {
+    status: 'ok' | 'error';
+    data?: {
       id?: string;
       BT?: string;
       KSRQ?: string;
@@ -89,31 +83,28 @@ export async function createXL(body: API.CreateXL, options?: { [key: string]: an
   }>('/xl/create', {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     data: body,
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
 /** 更新校历数据 PUT /xl/update/${param0} */
 export async function updateXL(
-  params: {
-    // path
-    /** 校历ID */
-    id: string;
-  },
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: API.updateXLParams,
   body: API.UpdateXL,
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
   const { id: param0, ...queryParams } = params;
-  return request<{ status?: 'ok' | 'error'; message?: string }>(`/xl/update/${param0}`, {
+  return request<{ status: 'ok' | 'error'; message?: string }>(`/xl/update/${param0}`, {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     params: { ...queryParams },
     data: body,
-    ...(options || {}),
+    ...(options || {})
   });
 }

@@ -5,8 +5,8 @@ import { request } from 'umi';
 /** 创建教师学习简历 PUT /jzgxxjl/create */
 export async function createJZGXXJL(body: API.CreateJZGXXJL, options?: { [key: string]: any }) {
   return request<{
-    status?: 'ok' | 'error';
-    data: {
+    status: 'ok' | 'error';
+    data?: {
       id?: string;
       XXQSRQ?: string;
       XXZZRQ?: string;
@@ -21,10 +21,10 @@ export async function createJZGXXJL(body: API.CreateJZGXXJL, options?: { [key: s
   }>('/jzgxxjl/create', {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     data: body,
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
@@ -34,61 +34,55 @@ export async function getJZGXXJL(
     /** 教师ID */
     JZGJBSJId?: string;
     /** 页数 */
-    page?: number;
+    page: number;
     /** 每页记录数 */
-    pageSize?: number;
+    pageSize: number;
   },
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
   return request<{
-    status?: 'ok' | 'error';
+    status: 'ok' | 'error';
     data?: { count?: number; rows?: API.JZGXXJL[] };
     message?: string;
   }>('/jzgxxjl/getAll', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     data: body,
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
 /** 删除教师学习简历 DELETE /jzgxxjl/${param0} */
 export async function deleteJZGXXJL(
-  params: {
-    // path
-    /** 教师学习简历ID */
-    id: string;
-  },
-  options?: { [key: string]: any },
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: API.deleteJZGXXJLParams,
+  options?: { [key: string]: any }
 ) {
   const { id: param0, ...queryParams } = params;
-  return request<{ status?: 'ok' | 'error'; message?: string }>(`/jzgxxjl/${param0}`, {
+  return request<{ status: 'ok' | 'error'; message?: string }>(`/jzgxxjl/${param0}`, {
     method: 'DELETE',
     params: { ...queryParams },
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
 /** 更新教师学习简历 PUT /jzgxxjl/update/${param0} */
 export async function updateJZGXXJL(
-  params: {
-    // path
-    /** 教师学习简历ID */
-    id: string;
-  },
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: API.updateJZGXXJLParams,
   body: API.UpdateJZGXXJL,
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
   const { id: param0, ...queryParams } = params;
-  return request<{ status?: 'ok' | 'error'; message?: string }>(`/jzgxxjl/update/${param0}`, {
+  return request<{ status: 'ok' | 'error'; message?: string }>(`/jzgxxjl/update/${param0}`, {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     params: { ...queryParams },
     data: body,
-    ...(options || {}),
+    ...(options || {})
   });
 }

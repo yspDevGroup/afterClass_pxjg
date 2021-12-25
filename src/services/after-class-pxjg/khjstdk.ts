@@ -4,17 +4,14 @@ import { request } from 'umi';
 
 /** 获取课后服务教师调代课详情 GET /khjstdk/${param0} */
 export async function getKHJSTDK(
-  params: {
-    // path
-    /** 课后服务教师调代课ID */
-    id: string;
-  },
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: API.getKHJSTDKParams,
   options?: { [key: string]: any }
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{
-    status?: 'ok' | 'error';
-    data: {
+    status: 'ok' | 'error';
+    data?: {
       id?: string;
       LX?: number;
       ZT?: number;
@@ -35,6 +32,14 @@ export async function getKHJSTDK(
         KCTP?: string;
         KHKCSJ?: { id?: string; KCMC?: string; KCTP?: string };
       };
+      desKHBJSJ?:
+        | {
+            id?: string;
+            BJMC?: string;
+            KCTP?: string;
+            KHKCSJ?: { id?: string; KCMC?: string; KCTP?: string };
+          }
+        | any;
       SPJS?: { id?: string; XM?: string; WechatUserId?: string } | any;
       createdAt?: string;
       updatedAt?: string;
@@ -49,15 +54,12 @@ export async function getKHJSTDK(
 
 /** 删除课后服务教师调代课 DELETE /khjstdk/${param0} */
 export async function deleteKHJSTDK(
-  params: {
-    // path
-    /** 类型ID */
-    id: string;
-  },
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: API.deleteKHJSTDKParams,
   options?: { [key: string]: any }
 ) {
   const { id: param0, ...queryParams } = params;
-  return request<{ status?: 'ok' | 'error'; message?: string }>(`/khjstdk/${param0}`, {
+  return request<{ status: 'ok' | 'error'; message?: string }>(`/khjstdk/${param0}`, {
     method: 'DELETE',
     params: { ...queryParams },
     ...(options || {})
@@ -79,8 +81,10 @@ export async function getAllKHJSTDK(
     DKJSId?: string;
     /** 班级ID */
     KHBJSJId?: string;
+    /** 换课班级ID */
+    DESKHBJSJId?: string;
     /** 学校ID */
-    XXJBSJId?: string;
+    XXJBSJId: string;
     /** 页数 */
     page?: number;
     /** 每页记录数 */
@@ -89,7 +93,7 @@ export async function getAllKHJSTDK(
   options?: { [key: string]: any }
 ) {
   return request<{
-    status?: 'ok' | 'error';
+    status: 'ok' | 'error';
     data?: { count?: number; rows?: API.KHJSTDK[] };
     message?: string;
   }>('/khjstdk/getAll', {
@@ -105,8 +109,8 @@ export async function getAllKHJSTDK(
 /** 创建课后服务教师调代课 PUT /khjstdk/create */
 export async function createKHJSTDK(body: API.CreateKHJSTDK, options?: { [key: string]: any }) {
   return request<{
-    status?: 'ok' | 'error';
-    data: {
+    status: 'ok' | 'error';
+    data?: {
       id?: string;
       LX?: number;
       ZT?: number;
@@ -127,6 +131,14 @@ export async function createKHJSTDK(body: API.CreateKHJSTDK, options?: { [key: s
         KCTP?: string;
         KHKCSJ?: { id?: string; KCMC?: string; KCTP?: string };
       };
+      desKHBJSJ?:
+        | {
+            id?: string;
+            BJMC?: string;
+            KCTP?: string;
+            KHKCSJ?: { id?: string; KCMC?: string; KCTP?: string };
+          }
+        | any;
       SPJS?: { id?: string; XM?: string; WechatUserId?: string } | any;
       createdAt?: string;
       updatedAt?: string;
@@ -144,16 +156,13 @@ export async function createKHJSTDK(body: API.CreateKHJSTDK, options?: { [key: s
 
 /** 更新课后服务教师调代课 PUT /khjstdk/update/${param0} */
 export async function updateKHJSTDK(
-  params: {
-    // path
-    /** 课后服务教师调代课ID */
-    id: string;
-  },
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: API.updateKHJSTDKParams,
   body: API.UpdateKHJSTDK,
   options?: { [key: string]: any }
 ) {
   const { id: param0, ...queryParams } = params;
-  return request<{ status?: 'ok' | 'error'; message?: string }>(`/khjstdk/update/${param0}`, {
+  return request<{ status: 'ok' | 'error'; message?: string }>(`/khjstdk/update/${param0}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json'
@@ -177,7 +186,7 @@ export async function getTodaySubstitute(
   options?: { [key: string]: any }
 ) {
   return request<{
-    status?: 'ok' | 'error';
+    status: 'ok' | 'error';
     data?: { count?: number; rows?: API.KHJSTDK[] };
     message?: string;
   }>('/khjstdk/getTodaySubstitute', {

@@ -4,17 +4,14 @@ import { request } from 'umi';
 
 /** 根据ID获取课后教育机构信息 GET /khjyjg/${param0} */
 export async function KHJYJG(
-  params: {
-    // path
-    /** 课后教育机构ID */
-    id: string;
-  },
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: API.KHJYJGParams,
   options?: { [key: string]: any }
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{
-    status?: 'ok' | 'error';
-    data: {
+    status: 'ok' | 'error';
+    data?: {
       id?: string;
       QYMC?: string;
       QYTB?: string;
@@ -58,15 +55,12 @@ export async function KHJYJG(
 
 /** 删除课后教育机构信息 DELETE /khjyjg/${param0} */
 export async function deleteKHJYJG(
-  params: {
-    // path
-    /** 课后教育机构ID */
-    id: string;
-  },
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: API.deleteKHJYJGParams,
   options?: { [key: string]: any }
 ) {
   const { id: param0, ...queryParams } = params;
-  return request<{ status?: 'ok' | 'error'; message?: string }>(`/khjyjg/${param0}`, {
+  return request<{ status: 'ok' | 'error'; message?: string }>(`/khjyjg/${param0}`, {
     method: 'DELETE',
     params: { ...queryParams },
     ...(options || {})
@@ -76,8 +70,8 @@ export async function deleteKHJYJG(
 /** 创建课后教育机构信息 PUT /khjyjg/create */
 export async function createKHJYJG(body: API.CreateKHJYJG, options?: { [key: string]: any }) {
   return request<{
-    status?: 'ok' | 'error';
-    data: {
+    status: 'ok' | 'error';
+    data?: {
       id?: string;
       QYMC?: string;
       QYTB?: string;
@@ -126,14 +120,14 @@ export async function createKHJYJG(body: API.CreateKHJYJG, options?: { [key: str
 export async function getKHJYJG(
   body: {
     /** 页数 */
-    page?: number;
+    page: number;
     /** 每页记录数 */
-    pageSize?: number;
+    pageSize: number;
   },
   options?: { [key: string]: any }
 ) {
   return request<{
-    status?: 'ok' | 'error';
+    status: 'ok' | 'error';
     data?: { count?: number; rows?: API.KHJYJG[] };
     message?: string;
   }>('/khjyjg/getAll', {
@@ -148,16 +142,13 @@ export async function getKHJYJG(
 
 /** 更新课后教育机构信息 PUT /khjyjg/update/${param0} */
 export async function updateKHJYJG(
-  params: {
-    // path
-    /** 课后教育机构ID */
-    id: string;
-  },
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: API.updateKHJYJGParams,
   body: API.UpdateKHJYJG,
   options?: { [key: string]: any }
 ) {
   const { id: param0, ...queryParams } = params;
-  return request<{ status?: 'ok' | 'error'; message?: string }>(`/khjyjg/update/${param0}`, {
+  return request<{ status: 'ok' | 'error'; message?: string }>(`/khjyjg/update/${param0}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json'
@@ -179,9 +170,9 @@ export async function cooperateSchool(
     name?: string;
     JGId?: string;
     /** 页数 */
-    page?: number;
+    page: number;
     /** 每页记录数 */
-    pageSize?: number;
+    pageSize: number;
   },
   options?: { [key: string]: any }
 ) {
@@ -206,9 +197,9 @@ export async function getCourses(
     /** 课程引入状态 */
     YRZT?: number[];
     /** 页数 */
-    page?: number;
+    page: number;
     /** 每页记录数 */
-    pageSize?: number;
+    pageSize: number;
   },
   options?: { [key: string]: any }
 ) {
@@ -227,9 +218,9 @@ export async function cooperateCourse(
   body: {
     JGId?: string;
     /** 页数 */
-    page?: number;
+    page: number;
     /** 每页记录数 */
-    pageSize?: number;
+    pageSize: number;
   },
   options?: { [key: string]: any }
 ) {
@@ -250,16 +241,16 @@ export async function computedDataOfSchool(
     XD?: string[];
     /** 学校名称 */
     name?: string;
-    JGId?: string;
+    JGId: string;
     /** 页数 */
-    page?: number;
+    page: number;
     /** 每页记录数 */
-    pageSize?: number;
+    pageSize: number;
   },
   options?: { [key: string]: any }
 ) {
   return request<{
-    status?: 'ok' | 'error';
+    status: 'ok' | 'error';
     data?: {
       count?: number;
       rows?: {
@@ -293,7 +284,7 @@ export async function getAllGrades(
   options?: { [key: string]: any }
 ) {
   return request<{
-    status?: 'ok' | 'error';
+    status: 'ok' | 'error';
     data?: { id?: string; XD?: string; NJMC?: string; NJJC?: string }[];
     message?: string;
   }>('/khjyjg/getAllGrades', {
@@ -309,8 +300,8 @@ export async function getAllGrades(
 /** 获取机构与学校存在合作的学年学期数据 POST /khjyjg/getAllSemester */
 export async function getAllSemester(
   body: {
-    KHJYJGId?: string;
-    XXJBSJId?: string;
+    KHJYJGId: string;
+    XXJBSJId: string;
   },
   options?: { [key: string]: any }
 ) {
@@ -327,9 +318,9 @@ export async function getAllSemester(
 /** 获取机构与学校存在合作的课程列表 POST /khjyjg/getAllCourses */
 export async function getAllCourses(
   body: {
-    KHJYJGId?: string;
-    XNXQId?: string;
-    XXJBSJId?: string;
+    KHJYJGId: string;
+    XNXQId: string;
+    XXJBSJId: string;
   },
   options?: { [key: string]: any }
 ) {
@@ -346,9 +337,9 @@ export async function getAllCourses(
 /** 获取机构的首页统计数据 POST /khjyjg/homePage */
 export async function homePage(
   body: {
-    KHJYJGId?: string;
-    XN?: string;
-    XQ?: string;
+    KHJYJGId: string;
+    XN: string;
+    XQ: string;
   },
   options?: { [key: string]: any }
 ) {
@@ -366,7 +357,7 @@ export async function homePage(
 export async function getCourseEvaluation(
   body: {
     /** 机构ID */
-    KHJYJGId?: string;
+    KHJYJGId: string;
     /** 课程名称 */
     KCMC?: string;
   },
@@ -386,14 +377,14 @@ export async function getCourseEvaluation(
 export async function getCourseSchools(
   body: {
     /** 课程ID */
-    KHKCSJId?: string;
+    KHKCSJId: string;
     /** 学校名称 */
     XXMC?: string;
   },
   options?: { [key: string]: any }
 ) {
   return request<{
-    status?: 'ok' | 'error';
+    status: 'ok' | 'error';
     data?: {
       count?: number;
       rows?: {
@@ -423,9 +414,9 @@ export async function cooperateSchoolOrder(
     name?: string;
     JGId?: string;
     /** 页数 */
-    page?: number;
+    page: number;
     /** 每页记录数 */
-    pageSize?: number;
+    pageSize: number;
   },
   options?: { [key: string]: any }
 ) {
@@ -443,11 +434,11 @@ export async function cooperateSchoolOrder(
 export async function cooperateSchoolOrderList(
   body: {
     /** 机构id */
-    KHJYJGId?: string;
+    KHJYJGId: string;
     /** 学校id */
-    XXId?: string;
+    XXId: string;
     /** 学期id */
-    XQId?: string;
+    XQId: string;
     /** 课程id */
     KCId?: string;
     /** 课程类型Id */
@@ -455,9 +446,9 @@ export async function cooperateSchoolOrderList(
     /** 学生名称 */
     XSMC?: string;
     /** 页数 */
-    page?: number;
+    page: number;
     /** 每页记录数 */
-    pageSize?: number;
+    pageSize: number;
   },
   options?: { [key: string]: any }
 ) {
@@ -474,9 +465,9 @@ export async function cooperateSchoolOrderList(
 /** 培训机构查看考勤趋势 POST /khjyjg/getAttendanceTrend */
 export async function getAttendanceTrend(
   body: {
-    KHJYJGId?: string;
-    startDate?: string;
-    endDate?: string;
+    KHJYJGId: string;
+    startDate: string;
+    endDate: string;
   },
   options?: { [key: string]: any }
 ) {
@@ -493,9 +484,9 @@ export async function getAttendanceTrend(
 /** 培训机构按日期统计收款，退款信息 POST /khjyjg/getRefund */
 export async function getRefund(
   body: {
-    KHJYJGId?: string;
-    startDate?: string;
-    endDate?: string;
+    KHJYJGId: string;
+    startDate: string;
+    endDate: string;
   },
   options?: { [key: string]: any }
 ) {

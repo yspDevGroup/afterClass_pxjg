@@ -6,11 +6,11 @@ import { request } from 'umi';
 export async function createSSOToken(
   body: {
     /** 认证token */
-    access_token?: string;
+    access_token: string;
     /** token有效时间 */
-    expires_in?: number;
+    expires_in: number;
     /** 刷新token */
-    refresh_token?: string;
+    refresh_token: string;
     /** token类型 */
     token_type?: string;
   },
@@ -37,10 +37,10 @@ export async function ssoExpiredCallback(options?: { [key: string]: any }) {
 /** 同步用户信息 POST /sso/synchroUsers */
 export async function synchroUsers(
   body: {
-    type?: '老师' | '学生';
+    type: '老师' | '学生';
     /** 学校代码 */
-    XXDM?: string;
-    sign?: string;
+    XXDM: string;
+    sign: string;
   },
   options?: { [key: string]: any }
 ) {
@@ -57,12 +57,12 @@ export async function synchroUsers(
 /** 获取用户信息 POST /sso/getUserInfos */
 export async function getUserInfos(
   body: {
-    type?: '老师' | '学生';
+    type: '老师' | '学生';
     /** 学号/工号 */
-    username?: string;
+    username: string;
     /** 学校代码 */
-    XXDM?: string;
-    sign?: string;
+    XXDM: string;
+    sign: string;
   },
   options?: { [key: string]: any }
 ) {
@@ -188,10 +188,10 @@ export async function bulkCreateAgency(
 export async function createTeacher(
   body: {
     /** 学校代码 */
-    corpID?: string;
+    corpID: string;
     /** 企微用户ID */
-    UserId?: string;
-    sign?: string;
+    UserId: string;
+    sign: string;
   },
   options?: { [key: string]: any }
 ) {
@@ -209,10 +209,10 @@ export async function createTeacher(
 export async function deleteTeacher(
   body: {
     /** 学校代码 */
-    corpID?: string;
+    corpID: string;
     /** 企微用户ID */
-    UserId?: string;
-    sign?: string;
+    UserId: string;
+    sign: string;
   },
   options?: { [key: string]: any }
 ) {
@@ -230,17 +230,38 @@ export async function deleteTeacher(
 export async function getAdministrative(
   body: {
     /** 查询类型,省市区 */
-    type?: 'province' | 'city' | 'region';
+    type: 'province' | 'city' | 'region';
     /** 行政区划码 */
-    code?: string;
+    code: string;
   },
   options?: { [key: string]: any }
 ) {
   return request<{
-    status?: 'ok' | 'error';
+    status: 'ok' | 'error';
     data?: { count?: number; rows?: { id?: string; lx?: string; dm?: string; mc?: string }[] };
     message?: string;
   }>('/sso/getAdministrative', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    data: body,
+    ...(options || {})
+  });
+}
+
+/** 学校新建/修改学生信息 POST /sso/createStudent */
+export async function createStudent(
+  body: {
+    /** 学校代码 */
+    corpID: string;
+    /** 学生ID */
+    UserId: string;
+    sign: string;
+  },
+  options?: { [key: string]: any }
+) {
+  return request<any>('/sso/createStudent', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'

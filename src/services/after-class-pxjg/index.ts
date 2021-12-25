@@ -27,6 +27,8 @@ import * as kcsj from './kcsj';
 import * as khbjjsrl from './khbjjsrl';
 import * as khbjpj from './khbjpj';
 import * as khbjsj from './khbjsj';
+import * as khfwbj from './khfwbj';
+import * as khfwsj from './khfwsj';
 import * as khjgrzsq from './khjgrzsq';
 import * as khjscq from './khjscq';
 import * as khjspj from './khjspj';
@@ -106,6 +108,8 @@ export default {
   khbjjsrl,
   khbjpj,
   khbjsj,
+  khfwbj,
+  khfwsj,
   khjgrzsq,
   khjscq,
   khjspj,

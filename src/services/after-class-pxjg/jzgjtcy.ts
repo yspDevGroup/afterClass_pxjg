@@ -5,8 +5,8 @@ import { request } from 'umi';
 /** 创建教师家庭成员 PUT /jzgjtcy/create */
 export async function createJZGJTCY(body: API.CreateJZGJTCY, options?: { [key: string]: any }) {
   return request<{
-    status?: 'ok' | 'error';
-    data: {
+    status: 'ok' | 'error';
+    data?: {
       id?: string;
       GXM?: string;
       CYXM?: string;
@@ -24,10 +24,10 @@ export async function createJZGJTCY(body: API.CreateJZGJTCY, options?: { [key: s
   }>('/jzgjtcy/create', {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     data: body,
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
@@ -37,61 +37,55 @@ export async function getJZGJTCY(
     /** 教师ID */
     JZGJBSJId?: string;
     /** 页数 */
-    page?: number;
+    page: number;
     /** 每页记录数 */
-    pageSize?: number;
+    pageSize: number;
   },
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
   return request<{
-    status?: 'ok' | 'error';
+    status: 'ok' | 'error';
     data?: { count?: number; rows?: API.JZGJTCY[] };
     message?: string;
   }>('/jzgjtcy/getAll', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     data: body,
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
 /** 删除教师家庭成员 DELETE /jzgjtcy/${param0} */
 export async function deleteJZGJTCY(
-  params: {
-    // path
-    /** 教师家庭成员ID */
-    id: string;
-  },
-  options?: { [key: string]: any },
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: API.deleteJZGJTCYParams,
+  options?: { [key: string]: any }
 ) {
   const { id: param0, ...queryParams } = params;
-  return request<{ status?: 'ok' | 'error'; message?: string }>(`/jzgjtcy/${param0}`, {
+  return request<{ status: 'ok' | 'error'; message?: string }>(`/jzgjtcy/${param0}`, {
     method: 'DELETE',
     params: { ...queryParams },
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
 /** 更新教师家庭成员 PUT /jzgjtcy/update/${param0} */
 export async function updateJZGJTCY(
-  params: {
-    // path
-    /** 教师家庭成员ID */
-    id: string;
-  },
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: API.updateJZGJTCYParams,
   body: API.UpdateJZGJTCY,
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
   const { id: param0, ...queryParams } = params;
-  return request<{ status?: 'ok' | 'error'; message?: string }>(`/jzgjtcy/update/${param0}`, {
+  return request<{ status: 'ok' | 'error'; message?: string }>(`/jzgjtcy/update/${param0}`, {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     params: { ...queryParams },
     data: body,
-    ...(options || {}),
+    ...(options || {})
   });
 }

@@ -79,8 +79,11 @@ const Edit = (props: any) => {
     (async () => {
       // 课程类型
       const res = await getAllKHKCLX({ name: '' });
-      if (res.status === 'ok') {
-        const data = res.data?.map((item: any) => {
+      if (res.status === 'ok' && res.data) {
+        const newData = res.data.filter((v) => {
+          return v.KCTAG !== '校内辅导';
+        });
+        const data = newData?.map((item: any) => {
           return {
             value: item.id,
             text: item.KCTAG

@@ -4,17 +4,14 @@ import { request } from 'umi';
 
 /** 根据ID获取机构入驻申请记录 GET /khjgrzsq/${param0} */
 export async function KHJGRZSQ(
-  params: {
-    // path
-    /** 机构入驻申请记录ID */
-    id: string;
-  },
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: API.KHJGRZSQParams,
   options?: { [key: string]: any }
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{
-    status?: 'ok' | 'error';
-    data: {
+    status: 'ok' | 'error';
+    data?: {
       id?: string;
       ZT?: number;
       LX?: number;
@@ -38,15 +35,12 @@ export async function KHJGRZSQ(
 
 /** 删除机构入驻申请记录 DELETE /khjgrzsq/${param0} */
 export async function deleteKHJGRZSQ(
-  params: {
-    // path
-    /** 机构入驻申请记录ID */
-    id: string;
-  },
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: API.deleteKHJGRZSQParams,
   options?: { [key: string]: any }
 ) {
   const { id: param0, ...queryParams } = params;
-  return request<{ status?: 'ok' | 'error'; message?: string }>(`/khjgrzsq/${param0}`, {
+  return request<{ status: 'ok' | 'error'; message?: string }>(`/khjgrzsq/${param0}`, {
     method: 'DELETE',
     params: { ...queryParams },
     ...(options || {})
@@ -56,8 +50,8 @@ export async function deleteKHJGRZSQ(
 /** 创建机构入驻申请记录 PUT /khjgrzsq/create */
 export async function createKHJGRZSQ(body: API.CreateKHJGRZSQ, options?: { [key: string]: any }) {
   return request<{
-    status?: 'ok' | 'error';
-    data: {
+    status: 'ok' | 'error';
+    data?: {
       id?: string;
       ZT?: number;
       LX?: number;
@@ -98,9 +92,9 @@ export async function getKHJGRZSQ(
     /** 机构名称 */
     name?: string;
     /** 页数 */
-    page?: number;
+    page: number;
     /** 每页记录数 */
-    pageSize?: number;
+    pageSize: number;
   },
   options?: { [key: string]: any }
 ) {
@@ -116,16 +110,13 @@ export async function getKHJGRZSQ(
 
 /** 更新机构入驻申请记录 PUT /khjgrzsq/update/${param0} */
 export async function updateKHJGRZSQ(
-  params: {
-    // path
-    /** 机构入驻申请记录ID */
-    id: string;
-  },
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: API.updateKHJGRZSQParams,
   body: API.UpdateKHJGRZSQ,
   options?: { [key: string]: any }
 ) {
   const { id: param0, ...queryParams } = params;
-  return request<{ status?: 'ok' | 'error'; message?: string }>(`/khjgrzsq/update/${param0}`, {
+  return request<{ status: 'ok' | 'error'; message?: string }>(`/khjgrzsq/update/${param0}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json'
@@ -139,7 +130,7 @@ export async function updateKHJGRZSQ(
 /** 拉黑机构 POST /khjgrzsq/block */
 export async function blockKHJGRZSQ(
   body: {
-    id?: string;
+    id: string;
     /** 备注信息 */
     BZ?: string;
     /** 行政区划码 */
@@ -155,7 +146,7 @@ export async function blockKHJGRZSQ(
   },
   options?: { [key: string]: any }
 ) {
-  return request<{ status?: 'ok' | 'error'; data?: string; message?: string }>('/khjgrzsq/block', {
+  return request<{ status: 'ok' | 'error'; data?: string; message?: string }>('/khjgrzsq/block', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'

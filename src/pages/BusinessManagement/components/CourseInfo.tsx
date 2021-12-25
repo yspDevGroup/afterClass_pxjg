@@ -41,7 +41,7 @@ const CourseItemDom = (props: { school: string; course: any; type: string; ind: 
   };
   useEffect(() => {
     if (course?.KHBJSJs?.length) {
-      const list = course?.KHBJSJs?.filter((item: { BJZT: string; }) => item.BJZT === '已开班');
+      const list = course?.KHBJSJs?.filter((item: { BJZT: string }) => item.BJZT === '已开班');
       setClassList(list);
     }
   }, [course]);
@@ -49,7 +49,7 @@ const CourseItemDom = (props: { school: string; course: any; type: string; ind: 
     <div className={styles.courseItem}>
       <div>
         <h3>
-          {course.KCMC}
+          <span>{course.KCMC}</span>
           <span className={styles.extraInfo}>
             {/* <span style={{ backgroundColor: bgColor }}>{courseStatus[ZT]}</span> */}
             <div className={styles.synj}>
@@ -82,7 +82,7 @@ const CourseItemDom = (props: { school: string; course: any; type: string; ind: 
               <Col key={item.id} span={6}>
                 <div className={styles.classItem}>
                   <p style={{ backgroundColor: colorTagDisk[colorInd], fontWeight: 'bold' }}>
-                    {item.BJMC}
+                    <span>{item.BJMC}</span>
                     <span>
                       {item.XNXQ.XN} &nbsp; {item.XNXQ.XQ}
                     </span>
@@ -90,7 +90,7 @@ const CourseItemDom = (props: { school: string; course: any; type: string; ind: 
                   <p>
                     任课教师：
                     {item.KHBJJs?.map((val: any, index: number) => {
-                      if(val.JSLX === '主教师'){
+                      if (val.JSLX === '主教师') {
                         const showWXName = val.JZGJBSJ?.XM === '未知' && val.JZGJBSJ?.WechatUserId;
                         return (
                           <Link
@@ -112,7 +112,7 @@ const CourseItemDom = (props: { school: string; course: any; type: string; ind: 
                           </Link>
                         );
                       }
-                      return ''
+                      return '';
                     })}
                   </p>
                   <p>

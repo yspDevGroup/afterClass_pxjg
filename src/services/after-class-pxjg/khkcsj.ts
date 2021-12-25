@@ -6,21 +6,21 @@ import { request } from 'umi';
 export async function getKHKCSJ(
   body: {
     /** 课程ID */
-    kcId?: string;
+    kcId: string;
     /** 学校ID */
     XXJBSJId?: string;
     /** 学年学期ID */
     XNXQId?: string;
   },
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
   return request<any>('/khkcsj/detail', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     data: body,
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
@@ -28,13 +28,13 @@ export async function getKHKCSJ(
 export async function getAllKHKCSJ(
   body: {
     /** 是否与班级关联查询 */
-    isRequired?: boolean;
+    isRequired: boolean;
     /** 课程类型ID */
     KHKCLXId?: string;
     /** 学年学期ID */
     XNXQId?: string;
     /** 学校ID */
-    XXJBSJId?: string;
+    XXJBSJId: string;
     /** 校区ID */
     XQSJId?: string;
     /** 年级ID 班级维度 */
@@ -52,23 +52,23 @@ export async function getAllKHKCSJ(
     /** 课后教育机构名称 */
     KHJYJG?: string;
   },
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
   return request<any>('/khkcsj/', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     data: body,
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
 /** 创建课后课程数据 PUT /khkcsj/create */
 export async function createKHKCSJ(body: API.CreateKHKCSJ, options?: { [key: string]: any }) {
   return request<{
-    status?: 'ok' | 'error';
-    data: {
+    status: 'ok' | 'error';
+    data?: {
       id?: string;
       KCMC?: string;
       KCTP?: string;
@@ -106,70 +106,61 @@ export async function createKHKCSJ(body: API.CreateKHKCSJ, options?: { [key: str
   }>('/khkcsj/create', {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     data: body,
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
 /** 删除课后课程数据 DELETE /khkcsj/${param0} */
 export async function deleteKHKCSJ(
-  params: {
-    // path
-    /** 课后课程ID */
-    id: string;
-  },
-  options?: { [key: string]: any },
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: API.deleteKHKCSJParams,
+  options?: { [key: string]: any }
 ) {
   const { id: param0, ...queryParams } = params;
-  return request<{ status?: 'ok' | 'error'; message?: string }>(`/khkcsj/${param0}`, {
+  return request<{ status: 'ok' | 'error'; message?: string }>(`/khkcsj/${param0}`, {
     method: 'DELETE',
     params: { ...queryParams },
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
 /** 更新课后课程数据 PUT /khkcsj/update/${param0} */
 export async function updateKHKCSJ(
-  params: {
-    // path
-    /** 课后课程ID */
-    id: string;
-  },
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: API.updateKHKCSJParams,
   body: API.UpdateKHKCSJ,
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
   const { id: param0, ...queryParams } = params;
-  return request<{ status?: 'ok' | 'error'; message?: string }>(`/khkcsj/update/${param0}`, {
+  return request<{ status: 'ok' | 'error'; message?: string }>(`/khkcsj/update/${param0}`, {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     params: { ...queryParams },
     data: body,
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
 /** 根据ID查找所有年级 GET /khkcsj/njs/${param0} */
 export async function allNJs(
-  params: {
-    // path
-    /** 课后课程ID */
-    id: string;
-  },
-  options?: { [key: string]: any },
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: API.allNJsParams,
+  options?: { [key: string]: any }
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{
-    status?: 'ok' | 'error';
+    status: 'ok' | 'error';
     data?: { NJS?: string[]; NJSName?: string[] };
     message?: string;
   }>(`/khkcsj/njs/${param0}`, {
     method: 'GET',
     params: { ...queryParams },
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
@@ -177,18 +168,18 @@ export async function allNJs(
 export async function allKCsByNJ(
   body: {
     /** 学年学期ID */
-    XNXQId?: string;
+    XNXQId: string;
     /** 课程类型ID */
     kclxId?: string;
     /** 课程状态 */
     kczt?: string;
     /** 年级ID */
-    njId?: string;
+    njId: string;
   },
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
   return request<{
-    status?: 'ok' | 'error';
+    status: 'ok' | 'error';
     data?: {
       id?: string;
       KCMC?: string;
@@ -205,10 +196,10 @@ export async function allKCsByNJ(
   }>('/khkcsj/khkcs', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     data: body,
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
@@ -216,19 +207,19 @@ export async function allKCsByNJ(
 export async function getSchools(
   body: {
     /** 课程ID */
-    KHKCSJId?: string;
+    KHKCSJId: string;
     /** 学校名称 */
     XXMC?: string;
   },
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
   return request<any>('/khkcsj/getSchools', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     data: body,
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
@@ -236,7 +227,7 @@ export async function getSchools(
 export async function getAllCourses(
   body: {
     /** 学校ID */
-    XXJBSJId?: string;
+    XXJBSJId: string;
     /** 学年学期ID */
     XNXQId?: string;
     /** 课程类型ID */
@@ -254,15 +245,15 @@ export async function getAllCourses(
     /** 每页记录数 */
     pageSize?: number;
   },
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
   return request<any>('/khkcsj/getAllCourses', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     data: body,
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
@@ -270,21 +261,21 @@ export async function getAllCourses(
 export async function getTeacherByClassId(
   body: {
     /** 课后课程ID */
-    KHKCSJId?: string;
+    KHKCSJId: string;
     /** 页数 */
     page?: number;
     /** 每页记录数 */
     pageSize?: number;
   },
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
   return request<any>('/khkcsj/getTeacherByClassId', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     data: body,
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
@@ -292,19 +283,19 @@ export async function getTeacherByClassId(
 export async function getClassesByCourse(
   body: {
     /** 课程ID */
-    KHKCSJId?: string;
+    KHKCSJId: string;
     /** 学年学期ID */
-    XNXQId?: string;
+    XNXQId: string;
   },
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
   return request<any>('/khkcsj/getClassesByCourse', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     data: body,
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
@@ -322,19 +313,19 @@ export async function getAllCourses2(
     /** 市行政区划码 */
     SXZQHM?: string;
     /** 页数 */
-    page?: number;
+    page: number;
     /** 每页记录数 */
-    pageSize?: number;
+    pageSize: number;
   },
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
   return request<any>('/khkcsj/getAllCourses2', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     data: body,
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
@@ -348,7 +339,7 @@ export async function getSchoolCoursesTJ(
     /** 课程来源 */
     KCLY?: string;
     /** 学校ID */
-    XXJBSJId?: string;
+    XXJBSJId: string;
     /** 学年学期ID */
     XNXQId?: string;
     /** 页数 */
@@ -356,14 +347,14 @@ export async function getSchoolCoursesTJ(
     /** 每页记录数 */
     pageSize?: number;
   },
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
   return request<any>('/khkcsj/getSchoolCoursesTJ', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     data: body,
-    ...(options || {}),
+    ...(options || {})
   });
 }
