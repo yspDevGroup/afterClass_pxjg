@@ -102,6 +102,9 @@ export async function getAllKHFWSJ(
   body: {
     FWMC?: string;
     XNXQId?: string;
+    FWZT?: number[];
+    /** 年级IDs */
+    NJSJIds?: string[];
     XQSJId?: string;
   },
   options?: { [key: string]: any }

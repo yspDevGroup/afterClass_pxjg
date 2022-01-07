@@ -19,6 +19,12 @@ export async function getKHTKSJ(
   body: {
     /** 退课状态 */
     ZT?: number[];
+    /** 班级ID */
+    BJSJId?: string;
+    /** 年级ID */
+    NJSJId?: string;
+    /** 校区ID */
+    XQSJId?: string;
     /** 学生ID */
     XSJBSJId?: string;
     /** 学生姓名 */
@@ -199,6 +205,8 @@ export async function getAllRefunds(
     XNXQId: string;
     /** 课后服务班级ID */
     KHBJSJId?: string;
+    /** 学生报名服务班ID */
+    XSFWBJId?: string;
     /** 课后增值服务ID */
     KHXXZZFWId?: string;
     /** 退课类型，0:退课;1:停餐 */
@@ -210,11 +218,7 @@ export async function getAllRefunds(
   },
   options?: { [key: string]: any }
 ) {
-  return request<{
-    status: 'ok' | 'error';
-    data?: { count?: number; rows?: API.KHTKSJ[] };
-    message?: string;
-  }>('/khtksj/getAllRefunds', {
+  return request<any>('/khtksj/getAllRefunds', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'

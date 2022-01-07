@@ -146,3 +146,31 @@ export async function getAllpresence(
     ...(options || {})
   });
 }
+
+/** 家长端查看课堂风采 POST /khktfc/getPresenceByStudent */
+export async function getPresenceByStudent(
+  body: {
+    /** 学年学期ID */
+    XNXQId: string;
+    /** 学生数据ID */
+    XSJBSJId: string;
+    /** 页数 */
+    page?: number;
+    /** 每页记录数 */
+    pageSize?: number;
+  },
+  options?: { [key: string]: any }
+) {
+  return request<{
+    status: 'ok' | 'error';
+    data?: { count?: number; rows?: any[] };
+    message?: string;
+  }>('/khktfc/getPresenceByStudent', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    data: body,
+    ...(options || {})
+  });
+}

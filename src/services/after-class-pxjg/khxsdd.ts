@@ -27,7 +27,7 @@ export async function getKHXSDD(
         XH?: string;
         XM?: string;
         WechatUserId?: string;
-        BJSJ?: { id?: string; BJ?: string; NJSJ?: { id?: string; NJMC?: string; XD?: string } };
+        BJSJ?: { id?: string; BJ?: string; NJSJ?: { id?: string; NJMC?: string; XD?: string } } | any;
       };
       KHBJSJ?:
         | {
@@ -55,7 +55,25 @@ export async function getKHXSDD(
             KHZZFW?: { id?: string; FWMC?: string; FWNR?: string; FWJGMC?: string; FWZT?: number };
           }
         | any;
-      XSFWBJ?: { ZT?: number; KHFWBJ?: { FWMC?: string; FWTP?: string; FWMS?: string } } | any;
+      XSFWBJ?:
+        | {
+            id?: string;
+            ZT?: number;
+            KHFWBJ?: {
+              id?: string;
+              FWFY?: string | any;
+              FWMC?: string;
+              FWTP?: string | any;
+              FWMS?: string | any;
+              BJSJ?: {
+                id?: string;
+                BJ?: string;
+                NJSJ?: { id?: string; NJMC?: string; XD?: string };
+              };
+            };
+            KHFWSJPZ?: { id?: string; KSRQ?: string; JSRQ?: string };
+          }
+        | any;
     };
     message?: string;
   }>(`/khxsdd/${param0}`, {
@@ -86,6 +104,12 @@ export async function getAllKHXSDD(
     DDLX?: number;
     /** 学生ID */
     XSJBSJId?: string;
+    /** 班级ID */
+    BJSJId?: string;
+    /** 年级ID */
+    NJSJId?: string;
+    /** 校区ID */
+    XQSJId?: string;
     /** 学生姓名 */
     XSXM?: string;
     /** 课后服务名称 */
@@ -139,7 +163,7 @@ export async function createKHXSDD(body: API.CreateKHXSDD, options?: { [key: str
         XH?: string;
         XM?: string;
         WechatUserId?: string;
-        BJSJ?: { id?: string; BJ?: string; NJSJ?: { id?: string; NJMC?: string; XD?: string } };
+        BJSJ?: { id?: string; BJ?: string; NJSJ?: { id?: string; NJMC?: string; XD?: string } } | any;
       };
       KHBJSJ?:
         | {
@@ -167,7 +191,25 @@ export async function createKHXSDD(body: API.CreateKHXSDD, options?: { [key: str
             KHZZFW?: { id?: string; FWMC?: string; FWNR?: string; FWJGMC?: string; FWZT?: number };
           }
         | any;
-      XSFWBJ?: { ZT?: number; KHFWBJ?: { FWMC?: string; FWTP?: string; FWMS?: string } } | any;
+      XSFWBJ?:
+        | {
+            id?: string;
+            ZT?: number;
+            KHFWBJ?: {
+              id?: string;
+              FWFY?: string | any;
+              FWMC?: string;
+              FWTP?: string | any;
+              FWMS?: string | any;
+              BJSJ?: {
+                id?: string;
+                BJ?: string;
+                NJSJ?: { id?: string; NJMC?: string; XD?: string };
+              };
+            };
+            KHFWSJPZ?: { id?: string; KSRQ?: string; JSRQ?: string };
+          }
+        | any;
     };
     message?: string;
   }>('/khxsdd/create', {

@@ -15,7 +15,12 @@ export async function getKHBJJSRL(
       id?: string;
       RQ?: string;
       JSLX?: number;
-      KHBJSJ?: { id?: string; BJMC?: string };
+      KHBJSJ?: {
+        KHKCSJ?: { id?: string; KCMC?: string };
+        id?: string;
+        BJMC?: string;
+        FJSJ?: { id?: string; FJBH?: string; FJMC?: string; FJLC?: string };
+      };
       JZGJBSJ?: { id?: string; XM?: string; GH?: string; LXDH?: string; WechatUserId?: string };
       XXSJPZ?: {
         id?: string;
@@ -72,11 +77,7 @@ export async function getAll(
   },
   options?: { [key: string]: any }
 ) {
-  return request<{
-    status: 'ok' | 'error';
-    data?: { count?: number; rows?: API.KHBJJSRL[] };
-    message?: string;
-  }>('/khbjjsrl/getAll', {
+  return request<any>('/khbjjsrl/getAll', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -94,7 +95,12 @@ export async function createKHBJJSRL(body: API.CreateKHBJJSRL, options?: { [key:
       id?: string;
       RQ?: string;
       JSLX?: number;
-      KHBJSJ?: { id?: string; BJMC?: string };
+      KHBJSJ?: {
+        KHKCSJ?: { id?: string; KCMC?: string };
+        id?: string;
+        BJMC?: string;
+        FJSJ?: { id?: string; FJBH?: string; FJMC?: string; FJLC?: string };
+      };
       JZGJBSJ?: { id?: string; XM?: string; GH?: string; LXDH?: string; WechatUserId?: string };
       XXSJPZ?: {
         id?: string;

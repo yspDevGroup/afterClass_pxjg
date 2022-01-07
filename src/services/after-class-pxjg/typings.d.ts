@@ -157,14 +157,14 @@ declare namespace API {
     XQ?: string;
     /** 校区名称 */
     XQName?: string;
-    XXJBSJ?: {
+    XQSJ?: {
       id?: string;
-      XXDM?: string;
-      XXMC?: string;
-      XXYWMC?: string;
-      XXDZ?: string;
-      XXYZBM?: string;
-      XZQHM?: string;
+      XQH?: string;
+      XQMC?: string;
+      XQDZ?: string;
+      XQYZBM?: string;
+      XQLXDH?: string;
+      XQCZDH?: string;
     };
     FJLX?: { id?: string; FJLX?: string };
   };
@@ -190,8 +190,8 @@ declare namespace API {
     XQ?: string;
     /** 校区名称 */
     XQName?: string;
-    /** 学校ID */
-    XXJBSJId?: string;
+    /** 校区ID */
+    XQSJId?: string;
     /** 房间类型ID */
     FJLXId?: string;
   };
@@ -213,10 +213,6 @@ declare namespace API {
     JXL?: string;
     /** 备注信息 */
     BZXX?: string;
-    /** 校区ID */
-    XQ?: string;
-    /** 校区名称 */
-    XQName?: string;
     /** 房间类型ID */
     FJLXId?: string;
   };
@@ -1516,6 +1512,7 @@ declare namespace API {
       id?: string;
       BJMC?: string;
       KCTP?: string;
+      ISFW?: number;
       KHKCSJ?: { id?: string; KCMC?: string; KCTP?: string };
     };
     /** 节次ID */
@@ -1632,7 +1629,12 @@ declare namespace API {
     RQ?: string;
     /** 教师类型 */
     JSLX?: number;
-    KHBJSJ?: { id?: string; BJMC?: string };
+    KHBJSJ?: {
+      KHKCSJ?: { id?: string; KCMC?: string };
+      id?: string;
+      BJMC?: string;
+      FJSJ?: { id?: string; FJBH?: string; FJMC?: string; FJLC?: string };
+    };
     JZGJBSJ?: { id?: string; XM?: string; GH?: string; LXDH?: string; WechatUserId?: string };
     XXSJPZ?: {
       id?: string;
@@ -1788,8 +1790,7 @@ declare namespace API {
     XQSJId: string;
     /** 学年学期ID */
     XNXQId: string;
-    /** 场地ID */
-    FJSJId?: string;
+    FJSJId?: string | any;
     KHKCJMs?: { FYJM?: string; JMDX?: string; JFBL?: number; ZJFY?: number }[];
     KHKCJCs?: { JCMC?: string; JCFY?: number }[];
     KHBJJSs?: { JSLX?: string; JSXM?: string; JZGJBSJId?: string }[];
@@ -1833,7 +1834,7 @@ declare namespace API {
     /** 学年学期ID */
     XNXQId?: string;
     /** 场地ID */
-    FJSJId?: string;
+    FJSJId?: string | any;
     KHKCJMs?: { FYJM?: string; JMDX?: string; JFBL?: number; ZJFY?: number; KHBJSJId?: string }[];
     KHKCJCs?: { JCMC?: string; JCFY?: number; KHBJSJId?: string }[];
     KHBJJSs?: { JSLX?: string; JSXM?: string; JZGJBSJId?: string; KHBJSJId?: string }[];
@@ -1869,7 +1870,7 @@ declare namespace API {
     /** 学年学期Id */
     XNXQId: string;
     /** 课后班级数据Id */
-    KHBJSJIds: string[];
+    KHBJSJIds?: string[];
     /** 行政年级Id */
     NJIds: string[];
     /** 服务名称 */
@@ -2973,7 +2974,7 @@ declare namespace API {
       XH?: string;
       XM?: string;
       WechatUserId?: string;
-      BJSJ?: { id?: string; BJ?: string; NJSJ?: { id?: string; NJMC?: string; XD?: string } };
+      BJSJ?: { id?: string; BJ?: string; NJSJ?: { id?: string; NJMC?: string; XD?: string } } | any;
     };
     KHBJSJ?:
       | {
@@ -3002,7 +3003,21 @@ declare namespace API {
         }
       | any;
     KHXSTKs?: { id?: string; BZ?: string; TKZT?: string; TKSJ?: string; TKJE?: number }[];
-    XSFWBJ?: { ZT?: number; KHFWBJ?: { FWMC?: string; FWTP?: string; FWMS?: string } } | any;
+    XSFWBJ?:
+      | {
+          id?: string;
+          ZT?: number;
+          KHFWBJ?: {
+            id?: string;
+            FWFY?: string | any;
+            FWMC?: string;
+            FWTP?: string | any;
+            FWMS?: string | any;
+            BJSJ?: { id?: string; BJ?: string; NJSJ?: { id?: string; NJMC?: string; XD?: string } };
+          };
+          KHFWSJPZ?: { id?: string; KSRQ?: string; JSRQ?: string };
+        }
+      | any;
   };
 
   type CreateKHTKSJ = {
@@ -3226,7 +3241,7 @@ declare namespace API {
       XH?: string;
       XM?: string;
       WechatUserId?: string;
-      BJSJ?: { id?: string; BJ?: string; NJSJ?: { id?: string; NJMC?: string; XD?: string } };
+      BJSJ?: { id?: string; BJ?: string; NJSJ?: { id?: string; NJMC?: string; XD?: string } } | any;
     };
     KHBJSJ?:
       | {
@@ -3254,7 +3269,21 @@ declare namespace API {
           KHZZFW?: { id?: string; FWMC?: string; FWNR?: string; FWJGMC?: string; FWZT?: number };
         }
       | any;
-    XSFWBJ?: { ZT?: number; KHFWBJ?: { FWMC?: string; FWTP?: string; FWMS?: string } } | any;
+    XSFWBJ?:
+      | {
+          id?: string;
+          ZT?: number;
+          KHFWBJ?: {
+            id?: string;
+            FWFY?: string | any;
+            FWMC?: string;
+            FWTP?: string | any;
+            FWMS?: string | any;
+            BJSJ?: { id?: string; BJ?: string; NJSJ?: { id?: string; NJMC?: string; XD?: string } };
+          };
+          KHFWSJPZ?: { id?: string; KSRQ?: string; JSRQ?: string };
+        }
+      | any;
   };
 
   type CreateKHXSDD = {
@@ -3461,17 +3490,31 @@ declare namespace API {
       XH?: string;
       XM?: string;
       WechatUserId?: string;
-      BJSJ?: { id?: string; BJ?: string; NJSJ?: { id?: string; NJMC?: string; XD?: string } };
+      BJSJ?: { id?: string; BJ?: string; NJSJ?: { id?: string; NJMC?: string; XD?: string } } | any;
     };
     JZGJBSJ?: { id?: string; XM?: string; WechatUserId?: string } | any;
     KHBJSJ?: { BJMC?: string; KHKCSJ?: { KCMC?: string } } | any;
     KHXXZZFW?: { id?: string; FWMC?: string; KHZZFW?: { id?: string; FWMC?: string; FWJGMC?: string } } | any;
-    XSFWBJ?: { ZT?: number; KHFWBJ?: { FWMC?: string; FWTP?: string; FWMS?: string } } | any;
+    XSFWBJ?:
+      | {
+          id?: string;
+          ZT?: number;
+          KHFWBJ?: {
+            id?: string;
+            FWFY?: string | any;
+            FWMC?: string;
+            FWTP?: string | any;
+            FWMS?: string | any;
+            BJSJ?: { id?: string; BJ?: string; NJSJ?: { id?: string; NJMC?: string; XD?: string } };
+          };
+          KHFWSJPZ?: { id?: string; KSRQ?: string; JSRQ?: string };
+        }
+      | any;
   };
 
   type CreateKHXSTK = {
     /** 退款金额 */
-    TKJE: number;
+    TKJE?: number;
     /** 退款状态 */
     TKZT?: number;
     /** 退款时间 */
@@ -5690,6 +5733,11 @@ declare namespace API {
   };
 
   type getEnrolledParams = {
+    /** 课后班级ID */
+    id: string;
+  };
+
+  type getSerEnrolledParams = {
     /** 课后班级ID */
     id: string;
   };

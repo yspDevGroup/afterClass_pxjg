@@ -144,9 +144,13 @@ const CourseItemDom = (props: { school: string; course: any; type: string; ind: 
                   <p>
                     总课时：{item?.KSS}节<span style={{ marginLeft: '16px' }}>费用：{item?.FY}元</span>
                   </p>
-                  <p>
-                    报名时段：{moment(item?.BMKSSJ).format('YYYY.MM.DD')}~{moment(item?.BMJSSJ).format('YYYY.MM.DD')}
-                  </p>
+                  {item?.BMKSSJ && item?.BMJSSJ ? (
+                    <p>
+                      报名时段：{moment(item?.BMKSSJ).format('YYYY.MM.DD')}~{moment(item?.BMJSSJ).format('YYYY.MM.DD')}
+                    </p>
+                  ) : (
+                    ''
+                  )}
                   <p>
                     学生总数：{item.xs_count || 0}人{' '}
                     <Link

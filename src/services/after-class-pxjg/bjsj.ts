@@ -284,3 +284,33 @@ export async function getClassStudents(
     ...(options || {})
   });
 }
+
+/** 查找学校所有班级服务班报名数据 POST /bjsj/getKHFWBJXSbm */
+export async function getKHFWBJXSbm(
+  body: {
+    /** 学校ID */
+    XXJBSJId: string;
+    /** 学年学期ID */
+    XNXQId: string;
+    /** 校区ID */
+    XQSJId?: string;
+    /** 班级ID */
+    BJSJId?: string;
+    /** 年级ID */
+    NJId?: string[];
+    /** 页数 */
+    page?: number;
+    /** 每页记录数 */
+    pageSize?: number;
+  },
+  options?: { [key: string]: any }
+) {
+  return request<any>('/bjsj/getKHFWBJXSbm', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    data: body,
+    ...(options || {})
+  });
+}
