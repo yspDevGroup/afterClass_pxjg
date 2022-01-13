@@ -1,9 +1,10 @@
+/* eslint-disable prettier/prettier */
 /*
  * @description:
  * @author: Sissle Lynn
  * @Date: 2021-09-01 08:49:11
- * @LastEditTime: 2021-10-22 10:19:05
- * @LastEditors: Sissle Lynn
+ * @LastEditTime: 2022-01-13 10:00:49
+ * @LastEditors: wsl
  */
 import React, { useEffect, useState } from 'react';
 import { Card, Col, Row } from 'antd';
@@ -30,6 +31,7 @@ const Index = () => {
   const [applyData, setApplyData] = useState<any>();
   const [xxbmData, setXxbmData] = useState<any>([]);
   const [kcbmData, setKcbmData] = useState<any>([]);
+  const [PendingData, setPendingData] = useState<any>([]);
 
   useEffect(() => {
     async function fetchData() {
@@ -94,15 +96,15 @@ const Index = () => {
         setApplyData(resgetXXTZGG.data?.rows);
       }
       // 配置待确认课程申请数据
-      // const response = await getKHKCSQ({
-      //   JGId: currentUser?.jgId,
-      //   ZT: [0],
-      //   page: 1,
-      //   pageSize: 3
-      // });
-      // if (response.status === 'ok') {
-      //   setApplyData(response.data?.rows);
-      // }
+      const response = await getKHKCSQ({
+        JGId: currentUser?.jgId,
+        ZT: [0],
+        page: 1,
+        pageSize: 3
+      });
+      if (response.status === 'ok') {
+        setPendingData(response.data?.rows);
+      }
     }
     fetchData();
   }, []);
@@ -111,7 +113,21 @@ const Index = () => {
     <div className={styles.pageWrapper}>
       <Topbar data={homeData} />
       <Row className={`${styles.listWrapper} ${styles.rowWrapper}`}>
-        <Col span={12}>
+        <Col span={8}>
+          <Card
+            title="待办事项"
+            bordered={false}
+            extra={
+              <a href="/businessManagement/courseManagement">
+                更多
+                <RightOutlined style={{ fontSize: '12px' }} />
+              </a>
+            }
+          >
+            <List type="padding" data={PendingData} noDataImg={noCourse} noDataText="暂无信息" />
+          </Card>
+        </Col>
+        <Col span={8}>
           <Card
             title="内部通知"
             bordered={false}
@@ -125,7 +141,7 @@ const Index = () => {
             <List type="notice" data={annoceData} noDataImg={noAnnoce} noDataText="暂无通知" />
           </Card>
         </Col>
-        <Col span={12}>
+        <Col span={8}>
           <Card
             title="政策公告"
             bordered={false}

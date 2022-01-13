@@ -48,11 +48,11 @@
       }
 
       p {
+        overflow: hidden;
         font-size: 14px;
         line-height: 18px;
-        text-overflow: ellipsis;
-        overflow: hidden;
         white-space: nowrap;
+        text-overflow: ellipsis;
       }
     }
   }
@@ -61,6 +61,7 @@
     div[class*='ant-col']:nth-child(1) {
       padding-right: 12px;
     }
+
     div[class*='ant-col'] + div[class*='ant-col'] {
       padding-left: 12px;
     }
@@ -68,9 +69,17 @@
 
   .listWrapper {
     margin-top: @padding-lg;
+    :global {
+      .ant-card-body {
+        padding: 14px 24px;
+      }
+    }
+    div[class*='ant-col']:nth-child(2) {
+      padding-right: 12px;
+    }
 
     .annceList {
-      height: 115px;
+      height: 190px;
       overflow: hidden;
 
       ul {
@@ -79,12 +88,14 @@
         list-style: none;
 
         li {
-          padding: 0 0 @padding-lg 0;
+          margin-bottom: 10px;
+          border-bottom: 1px dashed #dde2e8;
 
           a {
             display: block;
             display: flex;
             line-height: 22px;
+
             .Headlines {
               display: inline-block;
               width: 36px;
@@ -97,6 +108,7 @@
               background: #ff4646;
               border-radius: 11px;
             }
+
             span:nth-of-type(1) {
               flex: 1 1 140px;
               overflow: hidden;
@@ -110,14 +122,26 @@
               //   text-align: right;
               // }
             }
-            span:nth-of-type(2) {
-              width: 140px;
-              color: @normal-color;
-              text-align: right;
-            }
 
             &:nth-last-child(1) {
               padding: 0;
+            }
+
+            .XXMC {
+              margin-left: 10px;
+              padding: 4px 6px;
+              color: #999 !important;
+              background-color: #efefef;
+              border-radius: 8px;
+            }
+          }
+
+          > p {
+            margin: 5px 0px;
+            text-align: right;
+
+            span {
+              color: @normal-color;
             }
           }
         }
