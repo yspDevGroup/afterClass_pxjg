@@ -9,7 +9,7 @@ import React from 'react';
 import type { CSSProperties } from 'react';
 
 const Version = ({ style }: { style?: CSSProperties }) => {
-  return <div style={style}>版本号：V2.2.1231</div>;
+  return <div style={style}>版本号：V2.3.0114</div>;
 };
 
 export default Version;
