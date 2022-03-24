@@ -29,6 +29,7 @@
     "ENV_subTitle": true,
     "ENV_debug": true,
     "UserInfo": true,
+    "AuthType": false,
     "BuildOptions": true,
     "InitialState": true,
     "AccessInfo": true,

@@ -2,28 +2,28 @@
  * @description: OAuth认证回调页面，password模式，本页面会先写入本地token缓存并触发身份信息获取，然后跳转向权限对应的页面
  * @author: zpl
  * @Date: 2021-07-14 16:54:06
- * @LastEditTime: 2021-09-08 12:28:53
+ * @LastEditTime: 2022-03-24 14:42:56
  * @LastEditors: zpl
  */
 import React, { FC, useEffect } from 'react';
 import { useParams, history, useModel } from 'umi';
 import LoadingPage from '@/components/Loading';
-import { getQueryString, removeOAuthToken, saveOAuthToken } from '@/utils';
+import { getLoginPath, getQueryString, gotoLink, removeOAuthToken, saveOAuthToken } from '@/utils';
 import { createSSOToken } from '@/services/after-class-pxjg/sso';
 import { message } from 'antd';
 
 const AuthCallback: FC = () => {
-  const { loading, refresh } = useModel('@@initialState');
- const ysp_access_token = getQueryString('ysp_access_token');
+  const { loading, refresh, initialState } = useModel('@@initialState');
+  const ysp_access_token = getQueryString('ysp_access_token');
   const ysp_expires_in = getQueryString('ysp_expires_in');
   const ysp_refresh_token = getQueryString('ysp_refresh_token');
   const ysp_token_type = getQueryString('ysp_token_type');
- const goto = async () => {
+  const goto = async () => {
     // 通知后台产生token
     const tokenRes = await createSSOToken({
       access_token: ysp_access_token!,
       expires_in: parseInt(ysp_expires_in || '0', 10),
-      refresh_token: ysp_refresh_token || undefined,
+      refresh_token: ysp_refresh_token || '',
       token_type: ysp_token_type || undefined
     });
     if (tokenRes.status === 'ok') {
@@ -44,11 +44,13 @@ const AuthCallback: FC = () => {
   };
 
   useEffect(() => {
+    localStorage.setItem('authType', 'password');
     if (ysp_access_token) {
       goto();
     } else {
       removeOAuthToken();
-      history.replace('/403');
+      const url = getLoginPath(initialState?.buildOptions);
+      gotoLink(url);
     }
   }, []);
 

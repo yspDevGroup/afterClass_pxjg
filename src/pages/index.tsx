@@ -1,7 +1,6 @@
-import React from 'react';
+import { useModel, history } from 'umi';
 import Register from '@/components/IndexComp/Register';
 import IndexComp from '@/components/IndexComp';
-import { useModel, history } from 'umi';
 import { envjudge } from '@/utils';
 
 const Index = () => {
@@ -13,7 +12,6 @@ const Index = () => {
   const ej = envjudge();
   if (ej === 'mobile' || ej === 'wx-mobile' || ej === 'com-wx-mobile') {
     history.replace('/mobile/homepage');
-    return '';
   }
   return <IndexComp />;
 };

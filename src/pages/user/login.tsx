@@ -2,11 +2,11 @@
  * @description: 登录页
  * @author: zpl
  * @Date: 2021-07-22 08:52:55
- * @LastEditTime: 2021-08-27 14:47:41
+ * @LastEditTime: 2022-03-24 16:11:03
  * @LastEditors: zpl
  */
-import { useState } from 'react';
-import { history, Link, Redirect, useModel } from 'umi';
+import { useEffect, useState } from 'react';
+import { Redirect, useModel } from 'umi';
 import { Button, message } from 'antd';
 import CustomForm from '@/components/CustomForm';
 import type { FormInstance } from 'antd/lib/form/hooks/useForm';
@@ -81,7 +81,7 @@ const LoginPage = () => {
     const res = await postAccount({ ...values, autoLogin: false, type: 'account' });
     const { status, data } = res;
     if (status === 'ok') {
-      saveOAuthToken({ access_token: data.token || '' });
+      saveOAuthToken({ access_token: data?.token || '' });
       // 刷新全局属性后向首页跳转
       if (!loading) {
         refresh().then(() => {
@@ -101,6 +101,11 @@ const LoginPage = () => {
     }
     return <Redirect to={redirect} />;
   }
+
+  useEffect(() => {
+    localStorage.setItem('authType', 'local');
+  }, []);
+
   return (
     <div className={styles.container}>
       <div className={styles.content}>

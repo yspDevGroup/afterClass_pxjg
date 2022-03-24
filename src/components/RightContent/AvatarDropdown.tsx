@@ -1,13 +1,14 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react';
 import { Menu, message, Spin } from 'antd';
+import type { MenuInfo } from 'rc-menu/lib/interface';
 import { LogoutOutlined } from '@ant-design/icons';
 import { useAccess, useModel, history } from 'umi';
-import WWOpenDataCom from '@/components/WWOpenDataCom'
+import WWOpenDataCom from '@/components/WWOpenDataCom';
 import { KHJYJG } from '@/services/after-class-pxjg/khjyjg';
 import { initWXAgentConfig, initWXConfig, showUserName } from '@/wx';
-import styles from './index.less';
 import HeaderDropdown from '../HeaderDropdown';
 import { removeOAuthToken } from '@/utils';
+import styles from './index.less';
 
 export type GlobalHeaderRightProps = {
   menu?: boolean;
@@ -20,7 +21,7 @@ const AvatarDropdown: React.FC<GlobalHeaderRightProps> = () => {
   const [wechatReded, setWechatReded] = useState(false);
   const [wechatInfo, setWechatInfo] = useState({
     openId: ''
-  })
+  });
   const [jgData, setJgData] = useState<any>();
   const userRef = useRef(null);
   useEffect(() => {
@@ -51,27 +52,25 @@ const AvatarDropdown: React.FC<GlobalHeaderRightProps> = () => {
   }, [currentUser]);
 
   useEffect(() => {
-    wechatReded && setWechatInfo({
-      openId: currentUser?.UserId || ''
-    })
-  }, [wechatReded])
+    wechatReded &&
+      setWechatInfo({
+        openId: currentUser?.UserId || ''
+      });
+  }, [wechatReded]);
 
   const onMenuClick = useCallback(
-    (event: {
-      key: React.Key;
-      keyPath: React.Key[];
-      item: React.ReactInstance;
-      domEvent: React.MouseEvent<HTMLElement>;
-    }) => {
+    (event: MenuInfo) => {
       const { key } = event;
       if (key === 'logout' && initialState) {
+        const authType = localStorage.getItem('authType') || 'local';
+        localStorage.removeItem('authType');
         setInitialState({ ...initialState, currentUser: null });
         removeOAuthToken();
-        history.replace(initialState.buildOptions.authType === 'wechat' ? '/authCallback/overDue' : '/');
+        history.replace(authType === 'wechat' ? '/authCallback/overDue' : '/');
         return;
       }
     },
-    [initialState, setInitialState],
+    [initialState, setInitialState]
   );
 
   const loading = (
@@ -91,7 +90,6 @@ const AvatarDropdown: React.FC<GlobalHeaderRightProps> = () => {
 
   const menuHeaderDropdown = (
     <Menu className={styles.menu} selectedKeys={[]} onClick={onMenuClick}>
-
       <Menu.Item key="logout">
         <LogoutOutlined />
         退出登录
@@ -119,7 +117,7 @@ const AvatarDropdown: React.FC<GlobalHeaderRightProps> = () => {
           ''
         )}
         <span className={`${styles.name} anticon`} ref={userRef}>
-          <WWOpenDataCom type='userName' openid={wechatInfo.openId} />
+          <WWOpenDataCom type="userName" openid={wechatInfo.openId} />
           {/* {currentUser?.username} */}
           {isAdmin ? '' : '老师'}
         </span>

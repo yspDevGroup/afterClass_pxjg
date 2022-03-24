@@ -3,8 +3,8 @@
  * @description: 运行时配置
  * @author: zpl
  * @Date: 2021-08-09 10:44:42
- * @LastEditTime: 2021-12-09 15:57:59
- * @LastEditors: Wu Zhan
+ * @LastEditTime: 2022-03-24 16:42:11
+ * @LastEditors: zpl
  */
 import { notification, message } from 'antd';
 import { history } from 'umi';
@@ -31,10 +31,9 @@ export async function getInitialState(): Promise<InitialState> {
   console.log('process.env.REACT_APP_ENV: ', process.env.REACT_APP_ENV);
   const buildOptions = await getBuildOptions();
   const fetchUserInfo = async (): Promise<UserInfo | null> => {
+    const authType: AuthType = (localStorage.getItem('authType') as AuthType) || 'local';
     const res =
-      buildOptions.authType === 'wechat'
-        ? await currentWechatUser({ plat: 'agency' })
-        : await getCurrentUser({ plat: 'agency' });
+      authType === 'wechat' ? await currentWechatUser({ plat: 'agency' }) : await getCurrentUser({ plat: 'agency' });
     const { status, data } = res;
     if (status === 'ok' && data?.info) {
       return data.info;

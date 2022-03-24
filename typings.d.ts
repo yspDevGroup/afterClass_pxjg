@@ -76,6 +76,8 @@ type UserInfo = {
   UserId?: string;
   /** 机构ID */
   jgId?: string;
+  /** 企业名称 */
+  QYMC?: string;
   /** 微信用户企业ID */
   CorpId?: string;
   subscriber_info?: {
@@ -86,7 +88,7 @@ type UserInfo = {
   enterprise?: Enterprise;
 };
 
-type AuthType = 'wechat' | 'password' | 'authorization_code';
+type AuthType = 'wechat' | 'password' | 'authorization_code' | 'xaedu' | 'local';
 
 type BuildOptions = {
   /** 部署环境标记，如chanming、9dy等 */
@@ -97,8 +99,6 @@ type BuildOptions = {
   ENV_host: string;
   /** sso认证地址 */
   ssoHost: string;
-  /** 认证方式 */
-  authType: AuthType;
   /** 注册的应用id */
   clientId: string;
   /** 注册的应用密钥 */
