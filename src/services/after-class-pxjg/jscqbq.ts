@@ -69,7 +69,7 @@ export async function getAllJSCQBQ(
     /** 审批人id */
     SPRId?: string;
     /** 学年学期id */
-    XNXQId?: string;
+    XNXQId: string;
     /** 申请内容：出勤，请假，代课 */
     SQNR?: string;
     /** 补签开始日期 */

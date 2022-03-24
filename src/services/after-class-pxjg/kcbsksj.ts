@@ -7,6 +7,8 @@ export async function getKCBSKSJ(
   body: {
     KHBJSJId?: string[];
     XNXQId?: string;
+    XN?: string;
+    XQ?: string;
     JZGJBSJId?: string;
     startDate?: string;
     endDate?: string;
@@ -17,11 +19,7 @@ export async function getKCBSKSJ(
   },
   options?: { [key: string]: any }
 ) {
-  return request<{
-    status: 'ok' | 'error';
-    data?: { count?: number; rows?: API.KCBSKSJ[] };
-    message?: string;
-  }>('/kcbsksj/getAll', {
+  return request<any>('/kcbsksj/getAll', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -42,6 +40,14 @@ export async function calcAllPeriod(options?: { [key: string]: any }) {
 /** 获取所有已开班的班级ID GET /kcbsksj/getAllClassIds */
 export async function getAllClassIds(options?: { [key: string]: any }) {
   return request<{ status: 'ok' | 'error'; data?: string[]; message?: string }>('/kcbsksj/getAllClassIds', {
+    method: 'GET',
+    ...(options || {})
+  });
+}
+
+/** 合并重复教师 GET /kcbsksj/mergeTeachers */
+export async function mergeTeachers(options?: { [key: string]: any }) {
+  return request<any>('/kcbsksj/mergeTeachers', {
     method: 'GET',
     ...(options || {})
   });

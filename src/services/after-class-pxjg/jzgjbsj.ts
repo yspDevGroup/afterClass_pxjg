@@ -401,3 +401,25 @@ export async function getIgnoreTeacherByClassesId(
     ...(options || {})
   });
 }
+
+/** 按学期查询教师为主班的课程班 POST /jzgjbsj/getClasses */
+export async function getClasses_2(
+  body: {
+    /** 教师ID */
+    JZGJBSJId: string;
+    /** 学年 */
+    XN: string;
+    /** 学期 */
+    XQ: string;
+  },
+  options?: { [key: string]: any }
+) {
+  return request<any>('/jzgjbsj/getClasses', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    data: body,
+    ...(options || {})
+  });
+}

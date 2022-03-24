@@ -13,7 +13,8 @@ import {
   AppstoreAddOutlined,
   NotificationOutlined,
   ZoomInOutlined,
-  PieChartOutlined
+  PieChartOutlined,
+  BarChartOutlined
 } from '@ant-design/icons';
 export default {
   route: {
@@ -201,7 +202,24 @@ export default {
           }
         ]
       },
-
+      {
+        path: '/statistics',
+        name: '统计报表',
+        icon: <BarChartOutlined />,
+        routes: [
+          {
+            path: '/statistics/attendance',
+            name: '考勤统计',
+            routes: [
+              {
+                path: '/statistics/attendance/details',
+                name: '考勤统计详情',
+                hideInMenu: 'true'
+              }
+            ]
+          }
+        ]
+      },
       {
         path: '/graphic',
         name: '数据大屏',

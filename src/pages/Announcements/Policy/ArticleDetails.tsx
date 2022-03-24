@@ -9,14 +9,16 @@ const ArticleDetails = (props: any) => {
   const { state } = props.history.location;
   const [nrInfo, setNrInfo] = useState<any>();
 
-  useEffect(()=>{
+  console.log(state, 'state');
+  useEffect(() => {
     getData();
-  },[state.id])
+  }, [state.id]);
 
   const getData = async () => {
     const result = await JYJGTZGG({ id: state.id });
-    setNrInfo(result.data.NR);
-  }
+    console.log(result, 'result-----');
+    setNrInfo(result?.data?.NR);
+  };
 
   return (
     <>
@@ -36,7 +38,7 @@ const ArticleDetails = (props: any) => {
         <h1>{state.BT}</h1>
         <p className={styles.RQ}>时间：{state.RQ}</p>
         <div dangerouslySetInnerHTML={{ __html: nrInfo }} />
-        <p className={styles.LY}>来源：{state.LY}</p>
+        <p className={styles.LY}>来源：{state?.JYJGSJ?.BMMC}</p>
       </div>
     </>
   );

@@ -188,6 +188,8 @@ export async function bulkCreateAgency(
 export async function createTeacher(
   body: {
     /** 学校代码 */
+    suiteID: string;
+    /** 学校代码 */
     corpID: string;
     /** 企微用户ID */
     UserId: string;
@@ -208,6 +210,8 @@ export async function createTeacher(
 /** 学校删除教师 POST /sso/deleteTeacher */
 export async function deleteTeacher(
   body: {
+    /** 学校代码 */
+    suiteID: string;
     /** 学校代码 */
     corpID: string;
     /** 企微用户ID */

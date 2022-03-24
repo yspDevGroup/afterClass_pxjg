@@ -40,6 +40,8 @@ export async function getKHXXZZFW(
     XXJBSJId: string;
     /** 学年学期ID */
     XNXQId?: string;
+    /** 年级ID */
+    NJSJId?: string;
     /** 课后增值服务ID */
     KHZZFWId?: string;
     /** 状态 */

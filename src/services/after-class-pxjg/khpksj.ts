@@ -14,6 +14,9 @@ export async function getKHPKSJ(
     data?: {
       id?: string;
       WEEKDAY?: '0' | '1' | '2' | '3' | '4' | '5' | '6';
+      RQ?: string;
+      PKTYPE?: number;
+      PKBZ?: string;
       KHBJSJ?: {
         id?: string;
         BJMC?: string;
@@ -111,6 +114,12 @@ export async function getAllKHPKSJ(
     njId: string;
     /** 学年学期ID */
     XNXQId: string;
+    /** 场地id */
+    FJSJId?: string;
+    /** 行政班id */
+    BJSJId?: string;
+    /** 排课类型 */
+    PKTYPE?: string;
     /** 课程名称 */
     name: string;
   },
@@ -142,6 +151,8 @@ export async function createKHPKSJ(
       XXSJPZId?: string;
       KHBJSJId?: string;
       FJSJId?: string;
+      RQ?: string;
+      PKTYPE?: string;
       XNXQId?: string;
     }[];
     message?: string;
@@ -155,10 +166,102 @@ export async function createKHPKSJ(
   });
 }
 
-/** 添加课后排课数据 PUT /khpksj/addKHPKSJ */
-export async function addKHPKSJ(body: API.CreateKHPKSJ, options?: { [key: string]: any }) {
+/** 批量为某个课程班在部分日期进行排课创建 PUT /khpksj/bulkCreatePK */
+export async function bulkCreatePK(
+  body: {
+    /** 上课日期(周几):0,1,2,3,4,5,6 */
+    WEEKDAY?: string;
+    /** 课后班级数据id */
+    KHBJSJId?: string;
+    /** 学校时间配置id */
+    XXSJPZId?: string;
+    /** 学年学期id */
+    XNXQId?: string;
+    /** 场地id */
+    FJSJId?: string;
+    /** 具体日期 */
+    RQs?: any[];
+    /** 排课类型:0:按天排课,1:按周排课,3:单双周排课 */
+    PKTYPE?: number;
+  },
+  options?: { [key: string]: any }
+) {
+  return request<any>('/khpksj/bulkCreatePK', {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    data: body,
+    ...(options || {})
+  });
+}
+
+/** 添加按日排课 PUT /khpksj/addKHPKSJ */
+export async function addKHPKSJ(
+  body: {
+    /** 上课日期(周几) */
+    WEEKDAY?: '0' | '1' | '2' | '3' | '4' | '5' | '6';
+    /** 学校时间配置ID */
+    XXSJPZId?: string;
+    /** 课后班级ID */
+    KHBJSJId?: string;
+    /** 房间ID */
+    FJSJId?: string;
+    /** 学年学期ID */
+    XNXQId?: string;
+    /** 日期 */
+    RQ?: string;
+    /** 是否单双周:0:单周,1:双周 */
+    IsDSZ?: number;
+    /** 排课备注 */
+    PKBZ?: string;
+    /** 排课类型:0:按天排课,1:按周排课,2:单周排课,3:双周排课 */
+    PKTYPE?: number;
+  },
+  options?: { [key: string]: any }
+) {
   return request<{ status: 'ok' | 'error'; data?: { id?: string }; message?: string }>('/khpksj/addKHPKSJ', {
     method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    data: body,
+    ...(options || {})
+  });
+}
+
+/** 查看所有排课 POST /khpksj/getAllPK */
+export async function getAllPK(
+  body: {
+    /** 课后班级ID */
+    KHBJSJIds?: string[];
+    /** 课后课程ID */
+    KHKCSJId?: string;
+    /** 房间ID */
+    FJSJId?: string;
+    /** 场地类型ID */
+    FJLXId?: string;
+    /** 教师ID */
+    JZGJBSJId?: string;
+    /** 学年学期ID */
+    XNXQId: string;
+    /** 学校基本数据id */
+    XXJBSJId: string;
+    /** 校区数据id */
+    XQSJId?: string;
+    /** 行政班id */
+    BJSJId?: string;
+    /** 年级id */
+    NJSJId?: string;
+    /** 日期 */
+    RQ?: string;
+    /** 排课类型:0:按天排课,1:按周排课,2:单周排课,3:双周排课 */
+    PKTYPE?: number[];
+  },
+  options?: { [key: string]: any }
+) {
+  return request<any>('/khpksj/getAllPK', {
+    method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
@@ -204,6 +307,46 @@ export async function getAgencySchedule(
       'Content-Type': 'application/json'
     },
     data: body,
+    ...(options || {})
+  });
+}
+
+/** 课时判断 POST /khpksj/judge */
+export async function judgeKHPKSJ(
+  body: {
+    /** 学年学期ID */
+    XNXQId: string;
+    /** 课程班ID */
+    KHBJSJId: string;
+    /** 课时数 */
+    KSS: number;
+    /** 排课类型 */
+    startDate?: string;
+    /** 课程名称 */
+    endDate?: string;
+  },
+  options?: { [key: string]: any }
+) {
+  return request<any>('/khpksj/judge', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    data: body,
+    ...(options || {})
+  });
+}
+
+/** 获取班级信息及课表 GET /khpksj/classSchedule/${param0} */
+export async function classSchedule(
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: API.classScheduleParams,
+  options?: { [key: string]: any }
+) {
+  const { id: param0, ...queryParams } = params;
+  return request<any>(`/khpksj/classSchedule/${param0}`, {
+    method: 'GET',
+    params: { ...queryParams },
     ...(options || {})
   });
 }

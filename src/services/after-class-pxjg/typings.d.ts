@@ -1513,6 +1513,7 @@ declare namespace API {
       BJMC?: string;
       KCTP?: string;
       ISFW?: number;
+      ISZB?: number;
       KHKCSJ?: { id?: string; KCMC?: string; KCTP?: string };
     };
     /** 节次ID */
@@ -1728,6 +1729,10 @@ declare namespace API {
     ISFW?: number;
     /** 是否启用 */
     ISQY?: number;
+    /** 是否走班 */
+    ISZB?: number;
+    /** 报名状态 */
+    BMZT?: number;
     /** 课后课程ID */
     KHKCSJId?: string;
     FJSJ?: { id?: string; FJBH?: string; FJMC?: string; FJLC?: string } | any;
@@ -1751,7 +1756,7 @@ declare namespace API {
 
   type CreateKHBJSJ = {
     /** 班级名称 */
-    BJMC: string;
+    BJMC?: string;
     /** 班级描述 */
     BJMS?: string;
     /** 班级状态 */
@@ -1780,6 +1785,10 @@ declare namespace API {
     ISFW?: number;
     /** 是否启用 */
     ISQY?: number;
+    /** 是否走班 */
+    ISZB?: number;
+    /** 报名状态 */
+    BMZT?: number;
     /** 试用年级 */
     NJIds?: string[];
     /** 适用行政班 */
@@ -1827,6 +1836,10 @@ declare namespace API {
     ISFW?: number;
     /** 是否启用 */
     ISQY?: number;
+    /** 是否走班 */
+    ISZB?: number;
+    /** 报名状态 */
+    BMZT?: number;
     /** 试用年级 */
     NJIds?: string[];
     /** 课后课程ID */
@@ -1994,6 +2007,8 @@ declare namespace API {
     JZGJBSJId?: string;
     /** 班级ID */
     KHBJSJId?: string;
+    /** 教师类型,0:副班;1:主班 */
+    JSLX?: number | any;
     JZGJBSJ?: { id?: string; XM?: string; GH?: string; LXDH?: string | any; WechatUserId?: string } | any;
     XXSJPZ?:
       | {
@@ -2019,6 +2034,8 @@ declare namespace API {
     JZGJBSJId?: string;
     /** 班级ID */
     KHBJSJId?: string;
+    /** 教师类型,0:副班;1:主班 */
+    JSLX?: number;
   };
 
   type UpdateKHJSCQ = {
@@ -2867,6 +2884,12 @@ declare namespace API {
     id: string;
     /** 上课日期(周几) */
     WEEKDAY?: '0' | '1' | '2' | '3' | '4' | '5' | '6';
+    /** 上课日期 */
+    RQ?: string;
+    /** 排课类型:0:按天排课,1:按周排课,2:单周排课,3:双周排课 */
+    PKTYPE?: number;
+    /** 排课备注 */
+    PKBZ?: string;
     KHBJSJ?: {
       id?: string;
       BJMC?: string;
@@ -2933,6 +2956,12 @@ declare namespace API {
     FJSJId?: string;
     /** 学年学期ID */
     XNXQId?: string;
+    /** 排课备注 */
+    PKBZ?: string;
+    /** 日期 */
+    RQ?: string;
+    /** 排课类型:0:按天排课,1:按周排课,2:单周排课,3:双周排课 */
+    PKTYPE: number;
   };
 
   type UpdateKHPKSJ = {
@@ -2946,6 +2975,12 @@ declare namespace API {
     FJSJId?: string;
     /** 学校ID */
     XNXQId?: string;
+    /** 排课备注 */
+    PKBZ?: string;
+    /** 日期 */
+    RQ?: string;
+    /** 排课类型:0:按天排课,1:按周排课,2:单周排课,3:双周排课 */
+    PKTYPE?: string;
   };
 
   type KHTKSJ = {
@@ -3033,6 +3068,8 @@ declare namespace API {
     KHBJSJId?: string;
     /** 学生ID */
     XSJBSJId: string;
+    /** 学年学期ID */
+    XNXQId: string;
     /** 增值服务ID */
     KHXXZZFWId?: string;
     /** 学生报名的服务班ID */
@@ -3529,6 +3566,8 @@ declare namespace API {
     KHBJSJId?: string;
     /** 学校ID */
     XXJBSJId: string;
+    /** 学年学期ID */
+    XNXQId: string;
     /** 增值服务ID */
     KHXXZZFWId?: string;
     /** 审批人ID */
@@ -3921,6 +3960,31 @@ declare namespace API {
     };
     /** 学年学期ID */
     XNXQId?: string;
+  };
+
+  type CreateTeacherUser = {
+    /** 密码 */
+    password: string;
+    /** 密码 */
+    username: string;
+    /** 状态，0无效1有效，其他可由业务自行定义 */
+    status: number;
+    JZGJBSJId: string;
+    /** 登录时间 */
+    loginTime?: string;
+    /** 登出时间 */
+    logoutTime?: string;
+  };
+
+  type updateTeacherUser = {
+    /** 登录时间 */
+    loginTime?: string;
+    /** 登出时间 */
+    logoutTime?: string;
+    /** 密码 */
+    password?: string;
+    /** 状态，0无效1有效，其他可由业务自行定义 */
+    status?: number;
   };
 
   type CurrentUser = {
@@ -5747,6 +5811,11 @@ declare namespace API {
     id: string;
   };
 
+  type getMobileClassDetailParams = {
+    /** 课后班级ID */
+    id: string;
+  };
+
   type deleteKHFWBJParams = {
     /** 课后服务-服务班ID */
     id: string;
@@ -5987,6 +6056,11 @@ declare namespace API {
     id: string;
   };
 
+  type classScheduleParams = {
+    /** 班级ID */
+    id: string;
+  };
+
   type deleteKHTKSJParams = {
     /** 课后服务退课记录ID */
     id: string;
@@ -6137,16 +6211,14 @@ declare namespace API {
     id: string;
   };
 
+  type updateTeacherUserParams = {
+    /** 校历ID */
+    id: string;
+  };
+
   type importWechatTeachersParams = {
     /** 登录平台类型 */
     plat?: string;
-  };
-
-  type importStudentSignUpParams = {
-    /** 课后班级id */
-    KHBJSJId: string;
-    /** 教师id */
-    JZGJBSJId: string;
   };
 
   type currentUserParams = {

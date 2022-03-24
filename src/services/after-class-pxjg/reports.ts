@@ -53,6 +53,7 @@ export async function getClasses(
     KHBJSJId?: string;
     /** 学年学期ID */
     XNXQId?: string;
+    isFW?: number;
     /** 课后课程ID */
     KHKCSJId: string;
     /** 页数 */
@@ -63,6 +64,64 @@ export async function getClasses(
   options?: { [key: string]: any }
 ) {
   return request<any>('/reports/getClasses', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    data: body,
+    ...(options || {})
+  });
+}
+
+/** 获取服务课程班级统计报表 POST /reports/getFWClasses */
+export async function getFWClasses(
+  body: {
+    /** 课后班级ID */
+    KHBJSJId?: string;
+    /** 学年学期ID */
+    XNXQId?: string;
+    /** 班级名称 */
+    BJMC?: string;
+    /** 课程类型 */
+    KCTAG?: string;
+    /** 页数 */
+    page?: number;
+    /** 每页记录数 */
+    pageSize?: number;
+  },
+  options?: { [key: string]: any }
+) {
+  return request<any>('/reports/getFWClasses', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    data: body,
+    ...(options || {})
+  });
+}
+
+/** 通过行政班来统计服务数据 POST /reports/getFWTJByXZB */
+export async function getFWTJByXZB(
+  body: {
+    /** 学年学期ID */
+    XNXQId?: string;
+    /** 校区ID */
+    XQSJId?: string;
+    /** 年级id */
+    NJSJId?: string;
+    /** 班级数据id */
+    BJSJId?: string;
+    /** 课后服务时间配置id */
+    KHFWSJPZId?: string;
+    /** 页数 */
+    page?: number;
+    /** 每页记录数 */
+    pageSize?: number;
+  },
+  options?: { [key: string]: any }
+) {
+  return request<any>('/reports/getFWTJByXZB', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -278,6 +337,72 @@ export async function statisClasses(
   });
 }
 
+/** 统计学校课后服务报表基本信息 POST /reports/statisticalKHFWBJ */
+export async function statisticalKHFWBJ(
+  body: {
+    /** 学年学期ID */
+    XNXQId: string;
+    /** 学校ID */
+    XXJBSJId: string;
+  },
+  options?: { [key: string]: any }
+) {
+  return request<any>('/reports/statisticalKHFWBJ', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    data: body,
+    ...(options || {})
+  });
+}
+
+/** 统计学校课后服务报表基本信息 POST /reports/statisticalKHFWXZB */
+export async function statisticalKHFWXZB(
+  body: {
+    /** 学年学期ID */
+    XNXQId: string;
+    /** 学校ID */
+    XXJBSJId: string;
+  },
+  options?: { [key: string]: any }
+) {
+  return request<any>('/reports/statisticalKHFWXZB', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    data: body,
+    ...(options || {})
+  });
+}
+
+/** 服务班统计数据 POST /reports/summaryFWBTJ */
+export async function summaryFWBTJ(
+  body: {
+    /** 学年学期ID */
+    XNXQId?: string;
+    /** 校区ID */
+    XQSJId?: string;
+    /** 年级id */
+    NJSJId?: string;
+    /** 班级数据id */
+    BJSJId?: string;
+    /** 课后服务时间配置id */
+    KHFWSJPZId?: string;
+  },
+  options?: { [key: string]: any }
+) {
+  return request<any>('/reports/summaryFWBTJ', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    data: body,
+    ...(options || {})
+  });
+}
+
 /** 导出课后服务教师考勤统计报表 POST /reports/exportTeachers */
 export async function exportTeachers(
   body: {
@@ -285,6 +410,10 @@ export async function exportTeachers(
     XM?: string;
     /** 学年学期ID */
     XNXQId: string;
+    /** 学校ID */
+    XXJBSJId?: string;
+    /** 机构ID */
+    KHJYJGId?: string;
     /** 教师ID */
     JZGJBSJId?: string;
     /** 页数 */
@@ -309,6 +438,10 @@ export async function getTeachersAttendanceByDate(
   body: {
     /** 学年学期ID */
     XNXQId: string;
+    /** 学校ID */
+    XXJBSJId?: string;
+    /** 机构ID */
+    KHJYJGId?: string;
     /** 教师姓名 */
     JSXM?: string;
     /** 开始日期 */
@@ -337,6 +470,10 @@ export async function exportTeachersAttendanceByDate(
   body: {
     /** 学年学期ID */
     XNXQId: string;
+    /** 学校ID */
+    XXJBSJId?: string;
+    /** 机构ID */
+    KHJYJGId?: string;
     /** 教师姓名 */
     JSXM?: string;
     /** 开始日期 */
@@ -532,6 +669,104 @@ export async function exportStudentAttendanceDetailByDate(
 export async function recalculateKCTJInfo(options?: { [key: string]: any }) {
   return request<any>('/reports/recalculateKCTJInfo', {
     method: 'POST',
+    ...(options || {})
+  });
+}
+
+/** 重新统计班级报表基本信息 POST /reports/recalculateBJTJInfo */
+export async function recalculateBJTJInfo(options?: { [key: string]: any }) {
+  return request<any>('/reports/recalculateBJTJInfo', {
+    method: 'POST',
+    ...(options || {})
+  });
+}
+
+/** 导出学生报名总览表 POST /reports/exportStudentEnroll */
+export async function exportStudentEnroll(
+  body: {
+    /** 学年学期ID */
+    XNXQId: string;
+  },
+  options?: { [key: string]: any }
+) {
+  return request<any>('/reports/exportStudentEnroll', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    data: body,
+    ...(options || {})
+  });
+}
+
+/** 导出班级学生课后服务报名表 POST /reports/exportServiceEnroll */
+export async function exportServiceEnroll(
+  body: {
+    /** 学年学期ID */
+    XNXQId: string;
+    /** 班级ID */
+    BJSJId: string;
+    /** 导出时段 */
+    KHFWSJPZIds: string[];
+  },
+  options?: { [key: string]: any }
+) {
+  return request<any>('/reports/exportServiceEnroll', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    data: body,
+    ...(options || {})
+  });
+}
+
+/** 区县教育局获取全部课程的统计报表 POST /reports/exportEducationCoursesInfo */
+export async function exportEducationCoursesInfo(
+  body: {
+    XZQHM?: string;
+    SXZQHM?: string;
+    /** 课程名称 */
+    KCMC?: string;
+    /** 课程类型 */
+    KCLX?: string;
+    /** 学校名称 */
+    XXMC?: string;
+    /** 课程来源 */
+    KCLY?: string;
+    /** 学年学期 */
+    XNXQ?: string;
+  },
+  options?: { [key: string]: any }
+) {
+  return request<any>('/reports/exportEducationCoursesInfo', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    data: body,
+    ...(options || {})
+  });
+}
+
+/** 局端信息统计 POST /reports/statisEducation */
+export async function statisEducation(
+  body: {
+    XZQHM?: string;
+    SXZQHM?: string;
+    /** 学年 */
+    XN?: string;
+    /** 学期 */
+    XQ?: string;
+  },
+  options?: { [key: string]: any }
+) {
+  return request<any>('/reports/statisEducation', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    data: body,
     ...(options || {})
   });
 }

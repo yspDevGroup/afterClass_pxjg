@@ -30,6 +30,36 @@ export async function createKHFWBJ(
   });
 }
 
+/** 批量创建课后服务-服务班 PUT /khfwbj/bulkCreate */
+export async function bulkCreateKHFWBJ(
+  body: {
+    BJSJIds?: string[];
+    XNXQId: string;
+    ZT?: number;
+    FWMC: string;
+    FWTP?: string;
+    FWMS?: string;
+    FWFY?: number;
+    KXSL?: number;
+    /** 校区id */
+    XQSJId: string;
+    /** 缴费类型，0:按月缴费,1:自由缴费 */
+    JFLX?: number;
+    RQs?: { KSRQ?: string; JSRQ?: string; SDBM?: string }[];
+    KHBJSJIds?: { KHBJSJId?: string; LX?: number }[];
+  },
+  options?: { [key: string]: any }
+) {
+  return request<any>('/khfwbj/bulkCreate', {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    data: body,
+    ...(options || {})
+  });
+}
+
 /** 获取课后服务-服务班 POST /khfwbj/getDetail */
 export async function getKHFWBJ(
   body: {
@@ -70,7 +100,7 @@ export async function updateKHFWBJ(
   params: API.updateKHFWBJParams,
   body: {
     BJSJId?: string;
-    XNXQId?: string;
+    XNXQId: string;
     ZT?: number;
     FWMC?: string;
     FWTP?: string;
@@ -207,9 +237,16 @@ export async function updateKHFWBJisPay(
 export async function getKHFWBBySJ(
   body: {
     NJSJId?: string;
-    KHFWSJPZId?: string;
-    /** 缴费类型 */
-    JFLX?: number;
+    XNXQId?: string;
+    XQSJId?: string;
+    /** 开始日期 */
+    KSRQ?: string;
+    /** 结束日期 */
+    JSRQ?: string;
+    /** 是否开启付费:0关闭，1开启 */
+    isPay?: number;
+    /** 服务班状态，0:未发布;1:已发布 */
+    ZT?: number;
     /** 时段别名 */
     SDBM?: string;
     /** 页数 */
@@ -232,13 +269,32 @@ export async function getKHFWBBySJ(
 /** 批量修改服务班对应时间缴费功能 POST /khfwbj/bulkEditIsPay */
 export async function bulkEditIsPay(
   body: {
-    KHFWBJAndSJPZ?: { KHFWBJId?: string; KHFWSJPZId?: string }[];
+    KHFWSJPZIds?: string[];
     /** 是否开启付费，0:关闭;1:开启 */
     isPay: number;
   },
   options?: { [key: string]: any }
 ) {
   return request<any>('/khfwbj/bulkEditIsPay', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    data: body,
+    ...(options || {})
+  });
+}
+
+/** 批量修改服务班对应发布状态 POST /khfwbj/bulkEditKHFWBJZT */
+export async function bulkEditKHFWBJZT(
+  body: {
+    KHFWBJIds?: string[];
+    /** 是否发布状态，0:关闭;1:开启 */
+    ZT: number;
+  },
+  options?: { [key: string]: any }
+) {
+  return request<any>('/khfwbj/bulkEditKHFWBJZT', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -257,6 +313,42 @@ export async function getWBMXS(
   options?: { [key: string]: any }
 ) {
   return request<any>('/khfwbj/getWBMXS', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    data: body,
+    ...(options || {})
+  });
+}
+
+/** 清除课后服务班级相关信息 POST /khfwbj/clean */
+export async function cleanKHFWBJ(
+  body: {
+    KHFWBJIds: string[];
+  },
+  options?: { [key: string]: any }
+) {
+  return request<any>('/khfwbj/clean', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    data: body,
+    ...(options || {})
+  });
+}
+
+/** 批量修改服务班状态 POST /khfwbj/bulkUpdate */
+export async function bulkUpdate(
+  body: {
+    /** 服务班ID */
+    KHFWBJIds: string[];
+    ZT: 0 | 1;
+  },
+  options?: { [key: string]: any }
+) {
+  return request<any>('/khfwbj/bulkUpdate', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'

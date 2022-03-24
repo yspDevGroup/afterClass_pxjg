@@ -7,17 +7,17 @@ export const teacherConfig: any = {
   height: 500,
   meta: {
     yuan: {
-      time: { type: 'cat' },
-    },
+      time: { type: 'cat' }
+    }
   },
   legend: {
-    position: 'bottom',
+    position: 'bottom'
   },
   xField: 'time',
   yField: 'count',
   seriesField: 'date',
   tooltip: { showMarkers: false },
-  point: { shape: 'breath-point' },
+  point: { shape: 'breath-point' }
 };
 
 export const studentConfig: any = {
@@ -26,17 +26,17 @@ export const studentConfig: any = {
   height: 500,
   meta: {
     yuan: {
-      time: { type: 'cat' },
-    },
+      time: { type: 'cat' }
+    }
   },
   legend: {
-    position: 'bottom',
+    position: 'bottom'
   },
   xField: 'time',
   yField: 'count',
   seriesField: 'date',
   tooltip: { showMarkers: false },
-  point: { shape: 'breath-point' },
+  point: { shape: 'breath-point' }
 };
 
 export const pieConfig: any = {
@@ -46,7 +46,7 @@ export const pieConfig: any = {
   legend: {
     flipPage: false,
     position: 'bottom',
-    itemWidth: 80,
+    itemWidth: 80
   },
   data: [],
   angleField: 'value',
@@ -57,21 +57,21 @@ export const pieConfig: any = {
   pieStyle: {
     stroke: '#fff',
     lineWidth: 0,
-    strokeOpacity: 0,
+    strokeOpacity: 0
   },
   label: false,
   interactions: [{ type: 'element-selected' }, { type: 'element-active' }],
   statistic: {
     title: false,
-    content: false,
-  },
+    content: false
+  }
 };
 export const proportionConfig: any = {
   appendPadding: 20,
   legend: {
     flipPage: false,
     position: 'bottom',
-    itemWidth: 100,
+    itemWidth: 100
   },
   data: [],
   angleField: 'value',
@@ -82,14 +82,14 @@ export const proportionConfig: any = {
   pieStyle: {
     stroke: '#fff',
     lineWidth: 0,
-    strokeOpacity: 0,
+    strokeOpacity: 0
   },
   label: false,
   interactions: [{ type: 'element-selected' }, { type: 'element-active' }],
   statistic: {
     title: false,
-    content: false,
-  },
+    content: false
+  }
 };
 export const barConfig: any = {
   scrollbar: { type: 'vertical' },
@@ -100,18 +100,14 @@ export const barConfig: any = {
   seriesField: 'type',
   marginRatio: 0,
   legend: {
-    position: 'bottom',
+    position: 'bottom'
   },
-  items:{
+  items: {
     min: 0.000001
   },
   label: {
     position: 'middle',
-    layout: [
-      { type: 'interval-adjust-position' },
-      { type: 'interval-hide-overlap' },
-      { type: 'adjust-color' },
-    ],
+    layout: [{ type: 'interval-adjust-position' }, { type: 'interval-hide-overlap' }, { type: 'adjust-color' }]
   },
   maxBarWidth: 30
 };
@@ -124,18 +120,14 @@ export const courseBarConfig: any = {
   seriesField: 'type',
   marginRatio: 0,
   legend: {
-    position: 'bottom',
+    position: 'bottom'
   },
-  items:{
+  items: {
     min: 0.000001
   },
   label: {
     position: 'middle',
-    layout: [
-      { type: 'interval-adjust-position' },
-      { type: 'interval-hide-overlap' },
-      { type: 'adjust-color' },
-    ],
+    layout: [{ type: 'interval-adjust-position' }, { type: 'interval-hide-overlap' }, { type: 'adjust-color' }]
   },
   maxBarWidth: 30
 };
@@ -148,18 +140,14 @@ export const tollBarConfig: any = {
   seriesField: 'type',
   marginRatio: 0,
   legend: {
-    position: 'bottom',
+    position: 'bottom'
   },
-  items:{
+  items: {
     min: 0.000001
   },
   label: {
     position: 'middle',
-    layout: [
-      { type: 'interval-adjust-position' },
-      { type: 'interval-hide-overlap' },
-      { type: 'adjust-color' },
-    ],
+    layout: [{ type: 'interval-adjust-position' }, { type: 'interval-hide-overlap' }, { type: 'adjust-color' }]
   },
   maxBarWidth: 30
 };
@@ -171,16 +159,12 @@ export const conditionConfig: any = {
   seriesField: 'type',
   marginRatio: 0,
   legend: {
-    position: 'bottom',
+    position: 'bottom'
   },
   label: {
     position: 'middle',
-    layout: [
-      { type: 'interval-adjust-position' },
-      { type: 'interval-hide-overlap' },
-      { type: 'adjust-color' },
-    ],
-  },
+    layout: [{ type: 'interval-adjust-position' }, { type: 'interval-hide-overlap' }, { type: 'adjust-color' }]
+  }
 };
 export const defaultData: any = {
   serviceNum: [],
@@ -196,15 +180,20 @@ export const getTerm = () => {
   const now = new Date();
   const month = now.getMonth();
   const year = now.getFullYear();
-  if (month < 8) {
+  if (month > 1 && month < 8) {
     return {
       XN: `${year - 1}-${year}`,
       XQ: '第二学期'
-    }
-  } else {
+    };
+  }
+  if (month > 7) {
     return {
       XN: `${year}-${year + 1}`,
       XQ: '第一学期'
-    }
+    };
   }
-}
+  return {
+    XN: `${year - 1}-${year}`,
+    XQ: '第一学期'
+  };
+};

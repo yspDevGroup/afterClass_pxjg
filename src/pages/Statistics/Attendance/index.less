@@ -1,0 +1,32 @@
+.TopCards {
+  // display: none;
+  display: flex;
+  margin-bottom: 24px;
+  > div {
+    flex: 1;
+    & + div {
+      padding-left: 24px;
+    }
+    > div {
+      display: flex;
+      align-items: center;
+      padding: 10px;
+      background-color: #ebf4ff;
+      border-radius: 8px;
+      img {
+        width: 50px;
+        margin: 0 10px 0 0;
+      }
+      h3 {
+        font-weight: bold;
+      }
+      h3,
+      p {
+        margin: 0;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
+    }
+  }
+}

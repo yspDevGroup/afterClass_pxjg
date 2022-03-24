@@ -9,14 +9,14 @@ const ArticleDetails = (props: any) => {
   const { state } = props.history.location;
   const [nrInfo, setNrInfo] = useState<any>();
 
-  useEffect(()=>{
+  useEffect(() => {
     getData();
-  },[state.id])
+  }, [state.id]);
 
   const getData = async () => {
     const result = await KHJYTZGG({ id: state.id });
-    setNrInfo(result.data.NR);
-  }
+    setNrInfo(result?.data?.NR);
+  };
   return (
     <>
       <Button

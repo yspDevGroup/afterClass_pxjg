@@ -499,3 +499,22 @@ export async function getRefund(
     ...(options || {})
   });
 }
+
+/** 根据学年学期获取机构的合作学校 POST /khjyjg/getSchools */
+export async function getSchools(
+  body: {
+    KHJYJGId: string;
+    XN: string;
+    XQ: string;
+  },
+  options?: { [key: string]: any }
+) {
+  return request<any>('/khjyjg/getSchools', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    data: body,
+    ...(options || {})
+  });
+}

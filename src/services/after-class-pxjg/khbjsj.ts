@@ -68,48 +68,7 @@ export async function getAllKHBJSJ(
 
 /** 创建课后班级数据 PUT /khbjsj/create */
 export async function createKHBJSJ(body: API.CreateKHBJSJ, options?: { [key: string]: any }) {
-  return request<{
-    status: 'ok' | 'error';
-    data?: {
-      id?: string;
-      BJMC?: string;
-      BJMS?: string;
-      BJZT?: '未开班' | '已开班' | '已结课';
-      ZJS?: string;
-      FJS?: string;
-      BJRS?: number;
-      KSS?: number;
-      FY?: number;
-      KKRQ?: string | any;
-      JKRQ?: string | any;
-      BMKSSJ?: string;
-      BMJSSJ?: string;
-      KCTP?: string;
-      BMLX?: number;
-      BJLX?: number;
-      ISFW?: number;
-      ISQY?: number;
-      KHKCSJId?: string;
-      FJSJ?: { id?: string; FJBH?: string; FJMC?: string; FJLC?: string } | any;
-      KHKCSJ?: {
-        id?: string;
-        KCMC?: string;
-        KCLX?: string;
-        KCTP?: string;
-        KCZT?: number;
-        KCMS?: string;
-        KKRQ?: string | any;
-        JKRQ?: string | any;
-        BMKSSJ?: string;
-        BMJSSJ?: string;
-        XNXQId?: string;
-        KHKCLX?: { id?: string; KCLX?: string; KBYS?: string };
-      };
-      KHPKSJs?: { id?: string; WEEKDAY?: '0' | '1' | '2' | '3' | '4' | '5' | '6' }[];
-      KHXSBJs?: { id?: string; createdAt?: string; XSId?: string; XSXM?: string }[];
-    };
-    message?: string;
-  }>('/khbjsj/create', {
+  return request<any>('/khbjsj/create', {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json'
@@ -175,6 +134,8 @@ export async function getStudentClasses(
     ZT?: number[];
     /** 是否被服务使用:0没有，1有 */
     ISFW?: number;
+    /** 是否走班 */
+    ISZB?: number;
     /** 是否启用 */
     ISQY?: number;
     /** 学年学期ID */
@@ -197,14 +158,8 @@ export async function getStudentEvaluationClasses(
   body: {
     /** 学生ID */
     XSJBSJId: string;
-    /** 状态 */
-    ZT?: number[];
-    /** 是否被服务使用:0没有，1有 */
-    ISFW?: number;
-    /** 是否启用 */
-    ISQY?: number;
     /** 学年学期ID */
-    XNXQId?: string;
+    XNXQId: string;
   },
   options?: { [key: string]: any }
 ) {
@@ -241,6 +196,8 @@ export async function getAllClasses(
     XQ?: string;
     /** 是否被服务使用:0没有，1有 */
     ISFW?: number;
+    /** 是否走班 */
+    ISZB?: number;
     /** 是否启用 */
     ISQY?: number;
     /** 课程类型 */
@@ -299,6 +256,8 @@ export async function getClassesEvaluation(
     BJMC?: string;
     /** 是否被服务使用:0没有，1有 */
     ISFW?: number;
+    /** 是否走班 */
+    ISZB?: number;
     /** 是否启用 */
     ISQY?: number;
     /** 页数 */
@@ -345,6 +304,8 @@ export async function getClasses(
     ISFW?: number;
     /** 是否启用 */
     ISQY?: number;
+    /** 是否走班 */
+    ISZB?: number;
     /** 课程类型 */
     KCTAG?: string;
     /** 校区ID */
@@ -524,11 +485,13 @@ export async function getNoTeacherClasses(
   body: {
     BJZT?: string;
     RQ?: string;
-    XNXQId?: string;
+    XNXQId: string;
     /** 是否启用 */
     ISQY?: number;
     /** 是否被服务使用:0没有，1有 */
     ISFW?: number;
+    /** 是否走班 */
+    ISZB?: number;
     XQSJId?: string;
     NJSJId?: string;
     KHKCLXId?: string;
@@ -581,6 +544,8 @@ export async function getAllClassesByNJ(
     BJZT?: string;
     /** 是否启用 */
     ISQY?: number;
+    /** 是否走班 */
+    ISZB?: number;
     /** 课后课程类型ids */
     KHKCLXIds?: string[];
     /** 班级名称 */
@@ -600,6 +565,81 @@ export async function getAllClassesByNJ(
       'Content-Type': 'application/json'
     },
     data: body,
+    ...(options || {})
+  });
+}
+
+/** 判断学生选课报名时间冲突 POST /khbjsj/judgeClassConflict */
+export async function judgeClassConflict(
+  body: {
+    /** 学年学期ID */
+    XNXQId: string;
+    /** 课程班ID */
+    KHBJSJId: string;
+    /** 学生ID */
+    XSJBSJId: string;
+  },
+  options?: { [key: string]: any }
+) {
+  return request<any>('/khbjsj/judgeClassConflict', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    data: body,
+    ...(options || {})
+  });
+}
+
+/** 批量修改班级状态 POST /khbjsj/bulkUpdate */
+export async function bulkUpdate(
+  body: {
+    /** 课程班ID */
+    KHBJSJIds: string[];
+    BJZT?: '未开班' | '已开班' | '已结课';
+    BMZT?: 0 | 1;
+  },
+  options?: { [key: string]: any }
+) {
+  return request<any>('/khbjsj/bulkUpdate', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    data: body,
+    ...(options || {})
+  });
+}
+
+/** 根据学期获取班级列表 POST /khbjsj/getClassesBySemester */
+export async function getClassesBySemester(
+  body: {
+    XNXQId: string;
+    XQSJId?: string;
+    KHKCSJId?: string;
+  },
+  options?: { [key: string]: any }
+) {
+  return request<any>('/khbjsj/getClassesBySemester', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    data: body,
+    ...(options || {})
+  });
+}
+
+/** 移动端获取班级详情 GET /khbjsj/getMobileClassDetail/${param0} */
+export async function getMobileClassDetail(
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: API.getMobileClassDetailParams,
+  options?: { [key: string]: any }
+) {
+  const { id: param0, ...queryParams } = params;
+  return request<any>(`/khbjsj/getMobileClassDetail/${param0}`, {
+    method: 'GET',
+    params: { ...queryParams },
     ...(options || {})
   });
 }

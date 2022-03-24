@@ -1,0 +1,19 @@
+.searchLayout {
+  :global(.ant-space-item) {
+    > div {
+      label {
+        display: inline-block;
+        overflow: hidden;
+        font-size: 14px;
+        line-height: 32px;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        vertical-align: middle;
+
+        & + * {
+          width: 170px;
+        }
+      }
+    }
+  }
+}

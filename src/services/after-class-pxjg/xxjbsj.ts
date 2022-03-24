@@ -252,3 +252,37 @@ export async function getAllUnfinish(
     ...(options || {})
   });
 }
+
+/** 根据学年学期获取学校的合作机构 POST /xxjbsj/getAgencies */
+export async function getAgencies(
+  body: {
+    XNXQId: string;
+  },
+  options?: { [key: string]: any }
+) {
+  return request<any>('/xxjbsj/getAgencies', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    data: body,
+    ...(options || {})
+  });
+}
+
+/** 获取与学校合作过的所有机构教师 POST /xxjbsj/getAgencyTeachers */
+export async function getAgencyTeachers(
+  body: {
+    XXJBSJId: string;
+  },
+  options?: { [key: string]: any }
+) {
+  return request<any>('/xxjbsj/getAgencyTeachers', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    data: body,
+    ...(options || {})
+  });
+}

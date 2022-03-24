@@ -60,8 +60,10 @@ import * as redis from './redis';
 import * as reports from './reports';
 import * as sso from './sso';
 import * as statistic from './statistic';
+import * as teacherUser from './teacherUser';
 import * as upload from './upload';
 import * as wechat from './wechat';
+import * as xaedu from './xaedu';
 import * as xksj from './xksj';
 import * as xl from './xl';
 import * as xnjgsj from './xnjgsj';
@@ -142,8 +144,10 @@ export default {
   reports,
   sso,
   statistic,
+  teacherUser,
   upload,
   wechat,
+  xaedu,
   xksj,
   xl,
   xnjgsj,

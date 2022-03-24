@@ -93,6 +93,8 @@ export async function getAllFWByschooId(
   body: {
     /** 学校ID */
     XXJBSJId: string;
+    /** 年级ID */
+    NJSJId?: string;
     /** 状态 */
     FWZT?: number;
     /** 服务名称 */

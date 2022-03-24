@@ -151,19 +151,7 @@ export async function countKHXSCQ(
   },
   options?: { [key: string]: any }
 ) {
-  return request<{
-    status: 'ok' | 'error';
-    data?: {
-      id?: string;
-      KSS?: number;
-      KCMC?: string;
-      BJMC?: string;
-      normal?: number;
-      abnormal?: number;
-      remain?: number;
-    }[];
-    message?: string;
-  }>('/khxscq/statistical', {
+  return request<any>('/khxscq/statistical', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
