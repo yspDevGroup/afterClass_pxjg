@@ -2,8 +2,8 @@
  * @description:
  * @author: Sissle Lynn
  * @Date: 2021-08-24 17:21:12
- * @LastEditTime: 2021-10-22 10:00:49
- * @LastEditors: Sissle Lynn
+ * @LastEditTime: 2022-03-25 17:49:28
+ * @LastEditors: zpl
  */
 import React from 'react';
 import {
@@ -15,7 +15,8 @@ import {
   ZoomInOutlined,
   PieChartOutlined,
   BarChartOutlined,
-  ContainerOutlined
+  ContainerOutlined,
+  UserOutlined
 } from '@ant-design/icons';
 export default {
   route: {
@@ -91,6 +92,11 @@ export default {
         path: '/courseManagement/mechanismCourse/edit',
         name: '课程详情',
         hideInMenu: 'true'
+      },
+      {
+        path: '/userManagement',
+        name: '账号管理',
+        icon: <UserOutlined />
       },
       {
         path: '/announcements',

@@ -35,28 +35,28 @@ import * as khjspj from './khjspj';
 import * as khjsqj from './khjsqj';
 import * as khjssj from './khjssj';
 import * as khjstdk from './khjstdk';
+import * as khjyjg from './khjyjg';
 import * as khjyjspjl from './khjyjspjl';
 import * as khjytzgg from './khjytzgg';
 import * as khkclx from './khkclx';
 import * as khkcpj from './khkcpj';
 import * as khkcsj from './khkcsj';
 import * as khkcsq from './khkcsq';
-import * as khjyjg from './khjyjg';
 import * as khktfc from './khktfc';
 import * as khpksj from './khpksj';
 import * as khtksj from './khtksj';
-import * as khxksj from './khxksj';
 import * as khxkjl from './khxkjl';
+import * as khxksj from './khxksj';
 import * as khxscq from './khxscq';
 import * as khxsdd from './khxsdd';
 import * as khxspj from './khxspj';
 import * as khxsqj from './khxsqj';
 import * as khxstk from './khxstk';
-import * as khxxzzfw from './khxxzzfw';
 import * as khzzfw from './khzzfw';
 import * as njsj from './njsj';
 import * as pksj from './pksj';
 import * as redis from './redis';
+import * as khxxzzfw from './khxxzzfw';
 import * as reports from './reports';
 import * as sso from './sso';
 import * as statistic from './statistic';
@@ -68,20 +68,20 @@ import * as xksj from './xksj';
 import * as xl from './xl';
 import * as xnjgsj from './xnjgsj';
 import * as xnxq from './xnxq';
-import * as xscfsj from './xscfsj';
 import * as xqsj from './xqsj';
+import * as xscfsj from './xscfsj';
 import * as xsjbsj from './xsjbsj';
 import * as xsjlsj from './xsjlsj';
 import * as xsjtcy from './xsjtcy';
-import * as xsxxjl from './xsxxjl';
 import * as xsjzxx from './xsjzxx';
+import * as xsxxjl from './xsxxjl';
 import * as xxgg from './xxgg';
 import * as xxjbpz from './xxjbpz';
 import * as xxjbsj from './xxjbsj';
 import * as xxjtpz from './xxjtpz';
 import * as xxpz from './xxpz';
-import * as xxsppz from './xxsppz';
 import * as xxsjpz from './xxsjpz';
+import * as xxsppz from './xxsppz';
 import * as xxtzgg from './xxtzgg';
 import * as zxfa from './zxfa';
 import * as zxsj from './zxsj';
@@ -119,28 +119,28 @@ export default {
   khjsqj,
   khjssj,
   khjstdk,
+  khjyjg,
   khjyjspjl,
   khjytzgg,
   khkclx,
   khkcpj,
   khkcsj,
   khkcsq,
-  khjyjg,
   khktfc,
   khpksj,
   khtksj,
-  khxksj,
   khxkjl,
+  khxksj,
   khxscq,
   khxsdd,
   khxspj,
   khxsqj,
   khxstk,
-  khxxzzfw,
   khzzfw,
   njsj,
   pksj,
   redis,
+  khxxzzfw,
   reports,
   sso,
   statistic,
@@ -152,20 +152,20 @@ export default {
   xl,
   xnjgsj,
   xnxq,
-  xscfsj,
   xqsj,
+  xscfsj,
   xsjbsj,
   xsjlsj,
   xsjtcy,
-  xsxxjl,
   xsjzxx,
+  xsxxjl,
   xxgg,
   xxjbpz,
   xxjbsj,
   xxjtpz,
   xxpz,
-  xxsppz,
   xxsjpz,
+  xxsppz,
   xxtzgg,
   zxfa,
   zxsj,

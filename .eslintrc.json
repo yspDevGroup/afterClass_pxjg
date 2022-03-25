@@ -20,6 +20,7 @@
     // 您的全局变量（设置为 false 表示它不允许被重新赋值）
     // Your global variables (setting to false means it's not allowed to be reassigned)
     // myGlobal: false
+    "NodeJS": false,
     "PlatType": true,
     "TokenInfo": true,
     "CustomWindow": true,
