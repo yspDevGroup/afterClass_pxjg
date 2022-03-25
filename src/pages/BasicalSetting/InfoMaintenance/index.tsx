@@ -304,7 +304,7 @@ const InfoMaintenance = (props: any) => {
     <div className={styles.InfoMaintenance}>
       <div>
         <div className={styles.header}>
-          {SQDatas?.[0]?.ZT === 5 ? (
+          {SQDatas?.length === 0 || SQDatas?.[0]?.ZT === 5 ? (
             <Popconfirm
               placement="topRight"
               title="确定本机构信息填写完整且无误后，点击“确定”申请准入资格"
@@ -478,12 +478,8 @@ const InfoMaintenance = (props: any) => {
                   }}
                 />
               </Form.Item>
-              <Form.Item
-                name="QYMC"
-                key="QYMC"
-                label="企业名称："
-              >
-                <Input placeholder={'——'} disabled={true} />
+              <Form.Item name="QYMC" key="QYMC" label="企业名称：">
+                <Input placeholder="——" disabled={true} />
               </Form.Item>
               <Form.Item
                 name="ZZJGDM"

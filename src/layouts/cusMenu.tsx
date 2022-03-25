@@ -14,7 +14,8 @@ import {
   NotificationOutlined,
   ZoomInOutlined,
   PieChartOutlined,
-  BarChartOutlined
+  BarChartOutlined,
+  ContainerOutlined
 } from '@ant-design/icons';
 export default {
   route: {
@@ -124,6 +125,11 @@ export default {
             ]
           }
         ]
+      },
+      {
+        path: '/timeTable',
+        name: '教师课表',
+        icon: <ContainerOutlined />
       },
       {
         path: '/query',

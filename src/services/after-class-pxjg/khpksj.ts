@@ -292,12 +292,18 @@ export async function updateKHPKSJ(
 /** 查看机构课表 POST /khpksj/getAgencySchedule */
 export async function getAgencySchedule(
   body: {
-    /** 教师ID */
-    JSId?: string;
+    /** 学年 */
+    XN: string;
+    /** 学期 */
+    XQ: string;
+    /** 机构ID */
+    KHJYJGId: string;
     /** 学校ID */
     XXJBSJId?: string;
-    /** 课程名称 */
-    KCMC?: string;
+    /** 课程ID */
+    KHKCSJId?: string;
+    /** 教师ID */
+    JZGJBSJId?: string;
   },
   options?: { [key: string]: any }
 ) {

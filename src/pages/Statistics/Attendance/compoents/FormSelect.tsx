@@ -2,13 +2,11 @@ import { Select, Input, DatePicker } from 'antd';
 import { useEffect, useState } from 'react';
 import { useModel } from 'umi';
 import type { Moment } from 'moment';
-import moment from 'moment';
 import type { ReactNode } from '@umijs/renderer-react/node_modules/@types/react';
 import SearchLayout from '@/components/Search/Layout';
 import styles from './index.less';
 import { getSchools } from '@/services/after-class-pxjg/khjyjg';
 import Semester from '@/components/Semester';
-// import { getAgencies } from '@/services/after-class/xxjbsj';
 
 const { Search } = Input;
 const { Option } = Select;
@@ -27,7 +25,7 @@ const FormSelect = (props: formSelectProps) => {
   const [newDate, setNewDate] = useState<Moment[]>([]);
   const [XM, setXM] = useState<string | undefined>(undefined);
   const [XXJBSJId, setXXJBSJId] = useState<string | undefined>(undefined);
-  const [JGData, setJGData] = useState<any[]>();
+  const [XXData, setXXData] = useState<any[]>();
 
   useEffect(() => {
     if (XNXQ && newDate?.length > 0) {
@@ -44,7 +42,7 @@ const FormSelect = (props: formSelectProps) => {
       XQ: XNXQ.substring(10, 14)
     });
     if (res?.status === 'ok') {
-      setJGData(res?.data);
+      setXXData(res?.data);
     }
   };
   useEffect(() => {
@@ -91,7 +89,7 @@ const FormSelect = (props: formSelectProps) => {
               getDataSource(XNXQ, newDate, '', value);
             }}
           >
-            {JGData?.map((item: any) => {
+            {XXData?.map((item: any) => {
               return (
                 <Option key={item.id} value={item.id}>
                   {item.XXMC}
