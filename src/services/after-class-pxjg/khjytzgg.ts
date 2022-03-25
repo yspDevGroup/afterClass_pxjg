@@ -6,7 +6,7 @@ import { request } from 'umi';
 export async function KHJYTZGG(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.KHJYTZGGParams,
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{
@@ -34,7 +34,7 @@ export async function KHJYTZGG(
   }>(`/khjytzgg/${param0}`, {
     method: 'GET',
     params: { ...queryParams },
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -42,13 +42,13 @@ export async function KHJYTZGG(
 export async function deleteKHJYTZGG(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.deleteKHJYTZGGParams,
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{ status: 'ok' | 'error'; message?: string }>(`/khjytzgg/${param0}`, {
     method: 'DELETE',
     params: { ...queryParams },
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -79,10 +79,10 @@ export async function createKHJYTZGG(body: API.CreateKHJYTZGG, options?: { [key:
   }>('/khjytzgg/create', {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -102,7 +102,7 @@ export async function getKHJYTZGG(
     /** 每页记录数 */
     pageSize: number;
   },
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   return request<{
     status: 'ok' | 'error';
@@ -111,10 +111,10 @@ export async function getKHJYTZGG(
   }>('/khjytzgg/getAll', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -123,16 +123,16 @@ export async function updateKHJYTZGG(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.updateKHJYTZGGParams,
   body: API.UpdateKHJYTZGG,
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{ status: 'ok' | 'error'; message?: string }>(`/khjytzgg/update/${param0}`, {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     params: { ...queryParams },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }

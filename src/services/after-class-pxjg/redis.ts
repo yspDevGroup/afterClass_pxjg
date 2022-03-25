@@ -9,14 +9,14 @@ export async function getHash(
     fields: string[];
     isAll: boolean;
   },
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   return request<{ status: 'ok' | 'error'; data?: any[]; message?: string }>('/redis/getHash', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }

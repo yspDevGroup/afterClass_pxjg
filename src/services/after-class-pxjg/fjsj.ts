@@ -6,7 +6,7 @@ import { request } from 'umi';
 export async function getFJSJ(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.getFJSJParams,
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{
@@ -38,7 +38,7 @@ export async function getFJSJ(
   }>(`/fjsj/${param0}`, {
     method: 'GET',
     params: { ...queryParams },
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -46,13 +46,13 @@ export async function getFJSJ(
 export async function deleteFJSJ(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.deleteFJSJParams,
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{ status: 'ok' | 'error'; message?: string }>(`/fjsj/${param0}`, {
     method: 'DELETE',
     params: { ...queryParams },
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -72,7 +72,7 @@ export async function getAllFJSJ(
     /** 场地名称 */
     name?: string;
   },
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   return request<{
     status: 'ok' | 'error';
@@ -81,10 +81,10 @@ export async function getAllFJSJ(
   }>('/fjsj/', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -119,10 +119,10 @@ export async function createFJSJ(body: API.CreateFJSJ, options?: { [key: string]
   }>('/fjsj/create', {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -131,17 +131,17 @@ export async function updateFJSJ(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.updateFJSJParams,
   body: API.UpdateFJSJ,
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{ status: 'ok' | 'error'; message?: string }>(`/fjsj/update/${param0}`, {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     params: { ...queryParams },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -177,15 +177,15 @@ export async function getFJPlan(
     /** 学年 */
     XNXQId: string;
   },
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   return request<any>('/fjsj/plan', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -209,7 +209,7 @@ export async function freeSpace(
     /** 每页记录数 */
     pageSize?: number;
   },
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   return request<{
     status: 'ok' | 'error';
@@ -218,9 +218,9 @@ export async function freeSpace(
   }>('/fjsj/freeSpace', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }

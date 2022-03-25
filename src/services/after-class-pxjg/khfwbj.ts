@@ -18,15 +18,15 @@ export async function createKHFWBJ(
     RQs?: { KSRQ?: string; JSRQ?: string; SDBM?: string }[];
     KHBJSJIds?: { KHBJSJId?: string; LX?: number }[];
   },
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   return request<any>('/khfwbj/create', {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -48,15 +48,15 @@ export async function bulkCreateKHFWBJ(
     RQs?: { KSRQ?: string; JSRQ?: string; SDBM?: string }[];
     KHBJSJIds?: { KHBJSJId?: string; LX?: number }[];
   },
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   return request<any>('/khfwbj/bulkCreate', {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -68,15 +68,15 @@ export async function getKHFWBJ(
     ZT?: number[];
     XNXQId: string;
   },
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   return request<any>('/khfwbj/getDetail', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -84,13 +84,13 @@ export async function getKHFWBJ(
 export async function deleteKHFWBJ(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.deleteKHFWBJParams,
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{ status: 'ok' | 'error'; message?: string }>(`/khfwbj/${param0}`, {
     method: 'DELETE',
     params: { ...queryParams },
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -112,17 +112,17 @@ export async function updateKHFWBJ(
     RQs?: { KSRQ?: string; JSRQ?: string; SDBM?: string }[];
     KHBJSJIds?: { KHBJSJId?: string; LX?: number }[];
   },
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{ status: 'ok' | 'error'; message?: string }>(`/khfwbj/update/${param0}`, {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     params: { ...queryParams },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -132,15 +132,15 @@ export async function addKCtoKCFWBJ(
     KHFWBJId?: string;
     KHBJSJIds?: { KHBJSJId?: string; LX?: number }[];
   },
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   return request<{ status: 'ok' | 'error'; message?: string }>('/khfwbj/addKCtoKCFWBJ', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -153,16 +153,19 @@ export async function studentRegistration(
     XSJBSJIds: string[];
     KHBJSJIds?: string[];
   },
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
-  return request<{ status: 'ok' | 'error'; data?: string; message?: string }>('/khfwbj/studentRegistration', {
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json'
+  return request<{ status: 'ok' | 'error'; data?: string; message?: string }>(
+    '/khfwbj/studentRegistration',
+    {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      data: body,
+      ...(options || {}),
     },
-    data: body,
-    ...(options || {})
-  });
+  );
 }
 
 /** 查询学生列表通过行政班级 POST /khfwbj/getStudentListByBjid */
@@ -179,15 +182,15 @@ export async function getStudentListByBjid(
     /** 每页记录数 */
     pageSize: number;
   },
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   return request<any>('/khfwbj/getStudentListByBjid', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -201,15 +204,15 @@ export async function chooseKCByXSId(
     ZT?: number;
     KHBJSJIds?: string[];
   },
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   return request<any>('/khfwbj/chooseKCByXSId', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -221,15 +224,15 @@ export async function updateKHFWBJisPay(
     /** 是否开启付费，0:关闭;1:开启 */
     isPay: number;
   },
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   return request<any>('/khfwbj/updateKHFWBJisPay', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -254,15 +257,15 @@ export async function getKHFWBBySJ(
     /** 每页记录数 */
     pageSize: number;
   },
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   return request<any>('/khfwbj/getKHFWBBySJ', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -273,15 +276,15 @@ export async function bulkEditIsPay(
     /** 是否开启付费，0:关闭;1:开启 */
     isPay: number;
   },
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   return request<any>('/khfwbj/bulkEditIsPay', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -292,15 +295,15 @@ export async function bulkEditKHFWBJZT(
     /** 是否发布状态，0:关闭;1:开启 */
     ZT: number;
   },
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   return request<any>('/khfwbj/bulkEditKHFWBJZT', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -310,15 +313,15 @@ export async function getWBMXS(
     XSJBSJId: string;
     KHFWBJId: string;
   },
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   return request<any>('/khfwbj/getWBMXS', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -327,15 +330,15 @@ export async function cleanKHFWBJ(
   body: {
     KHFWBJIds: string[];
   },
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   return request<any>('/khfwbj/clean', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -346,14 +349,14 @@ export async function bulkUpdate(
     KHFWBJIds: string[];
     ZT: 0 | 1;
   },
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   return request<any>('/khfwbj/bulkUpdate', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }

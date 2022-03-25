@@ -18,10 +18,10 @@ export async function createJZGCFSJ(body: API.CreateJZGCFSJ, options?: { [key: s
   }>('/jzgcfsj/create', {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -35,7 +35,7 @@ export async function getJZGCFSJ(
     /** 每页记录数 */
     pageSize: number;
   },
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   return request<{
     status: 'ok' | 'error';
@@ -44,10 +44,10 @@ export async function getJZGCFSJ(
   }>('/jzgcfsj/getAll', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -55,13 +55,13 @@ export async function getJZGCFSJ(
 export async function deleteJZGCFSJ(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.deleteJZGCFSJParams,
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{ status: 'ok' | 'error'; message?: string }>(`/jzgcfsj/${param0}`, {
     method: 'DELETE',
     params: { ...queryParams },
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -70,16 +70,16 @@ export async function updateJZGCFSJ(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.updateJZGCFSJParams,
   body: API.UpdateJZGCFSJ,
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{ status: 'ok' | 'error'; message?: string }>(`/jzgcfsj/update/${param0}`, {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     params: { ...queryParams },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }

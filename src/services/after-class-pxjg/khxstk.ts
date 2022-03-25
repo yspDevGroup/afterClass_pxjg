@@ -6,7 +6,7 @@ import { request } from 'umi';
 export async function getKHXSTK(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.getKHXSTKParams,
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{
@@ -28,11 +28,15 @@ export async function getKHXSTK(
         XH?: string;
         XM?: string;
         WechatUserId?: string;
-        BJSJ?: { id?: string; BJ?: string; NJSJ?: { id?: string; NJMC?: string; XD?: string } } | any;
+        BJSJ?:
+          | { id?: string; BJ?: string; NJSJ?: { id?: string; NJMC?: string; XD?: string } }
+          | any;
       };
       JZGJBSJ?: { id?: string; XM?: string; WechatUserId?: string } | any;
       KHBJSJ?: { BJMC?: string; KHKCSJ?: { KCMC?: string } } | any;
-      KHXXZZFW?: { id?: string; FWMC?: string; KHZZFW?: { id?: string; FWMC?: string; FWJGMC?: string } } | any;
+      KHXXZZFW?:
+        | { id?: string; FWMC?: string; KHZZFW?: { id?: string; FWMC?: string; FWJGMC?: string } }
+        | any;
       XSFWBJ?:
         | {
             id?: string;
@@ -57,7 +61,7 @@ export async function getKHXSTK(
   }>(`/khxstk/${param0}`, {
     method: 'GET',
     params: { ...queryParams },
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -65,13 +69,13 @@ export async function getKHXSTK(
 export async function deleteKHXSTK(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.deleteKHXSTKParams,
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{ status: 'ok' | 'error'; message?: string }>(`/khxstk/${param0}`, {
     method: 'DELETE',
     params: { ...queryParams },
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -109,7 +113,7 @@ export async function getAllKHXSTK(
     /** 每页记录数 */
     pageSize?: number;
   },
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   return request<{
     status: 'ok' | 'error';
@@ -118,10 +122,10 @@ export async function getAllKHXSTK(
   }>('/khxstk/', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -146,11 +150,15 @@ export async function createKHXSTK(body: API.CreateKHXSTK, options?: { [key: str
         XH?: string;
         XM?: string;
         WechatUserId?: string;
-        BJSJ?: { id?: string; BJ?: string; NJSJ?: { id?: string; NJMC?: string; XD?: string } } | any;
+        BJSJ?:
+          | { id?: string; BJ?: string; NJSJ?: { id?: string; NJMC?: string; XD?: string } }
+          | any;
       };
       JZGJBSJ?: { id?: string; XM?: string; WechatUserId?: string } | any;
       KHBJSJ?: { BJMC?: string; KHKCSJ?: { KCMC?: string } } | any;
-      KHXXZZFW?: { id?: string; FWMC?: string; KHZZFW?: { id?: string; FWMC?: string; FWJGMC?: string } } | any;
+      KHXXZZFW?:
+        | { id?: string; FWMC?: string; KHZZFW?: { id?: string; FWMC?: string; FWJGMC?: string } }
+        | any;
       XSFWBJ?:
         | {
             id?: string;
@@ -175,10 +183,10 @@ export async function createKHXSTK(body: API.CreateKHXSTK, options?: { [key: str
   }>('/khxstk/create', {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -187,17 +195,17 @@ export async function updateKHXSTK(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.updateKHXSTKParams,
   body: API.UpdateKHXSTK,
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{ status: 'ok' | 'error'; message?: string }>(`/khxstk/update/${param0}`, {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     params: { ...queryParams },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -227,14 +235,14 @@ export async function exportTKJL(
     /** 每页记录数 */
     pageSize?: number;
   },
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   return request<any>('/khxstk/exportTKJL', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }

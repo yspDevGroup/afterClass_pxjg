@@ -6,7 +6,7 @@ import { request } from 'umi';
 export async function getXXJBSJ(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.getXXJBSJParams,
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{
@@ -57,7 +57,7 @@ export async function getXXJBSJ(
   }>(`/xxjbsj/${param0}`, {
     method: 'GET',
     params: { ...queryParams },
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -65,13 +65,13 @@ export async function getXXJBSJ(
 export async function deleteXXJBSJ(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.deleteXXJBSJParams,
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{ status: 'ok' | 'error'; message?: string }>(`/xxjbsj/${param0}`, {
     method: 'DELETE',
     params: { ...queryParams },
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -87,7 +87,7 @@ export async function getAllXXJBSJ(
     /** 每页记录数 */
     pageSize: number;
   },
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   return request<{
     status: 'ok' | 'error';
@@ -96,10 +96,10 @@ export async function getAllXXJBSJ(
   }>('/xxjbsj/getAll', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -153,10 +153,10 @@ export async function createXXJBSJ(body: API.CreateXXJBSJ, options?: { [key: str
   }>('/xxjbsj/create', {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -165,17 +165,17 @@ export async function updateXXJBSJ(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.updateXXJBSJParams,
   body: API.UpdateXXJBSJ,
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{ status: 'ok' | 'error'; message?: string }>(`/xxjbsj/update/${param0}`, {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     params: { ...queryParams },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -185,15 +185,15 @@ export async function homePage(
     XXJBSJId: string;
     XNXQId: string;
   },
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   return request<any>('/xxjbsj/homePage', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -204,15 +204,15 @@ export async function getAttendanceTrend(
     startDate: string;
     endDate: string;
   },
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   return request<any>('/xxjbsj/getAttendanceTrend', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -223,15 +223,15 @@ export async function getRefund(
     startDate: string;
     endDate: string;
   },
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   return request<any>('/xxjbsj/getRefund', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -241,15 +241,15 @@ export async function getAllUnfinish(
     XXJBSJId: string;
     XNXQId: string;
   },
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   return request<any>('/xxjbsj/getAllUnfinish', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -258,15 +258,15 @@ export async function getAgencies(
   body: {
     XNXQId: string;
   },
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   return request<any>('/xxjbsj/getAgencies', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -275,14 +275,14 @@ export async function getAgencyTeachers(
   body: {
     XXJBSJId: string;
   },
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   return request<any>('/xxjbsj/getAgencyTeachers', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }

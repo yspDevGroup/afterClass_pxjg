@@ -6,7 +6,7 @@ import { request } from 'umi';
 export async function getXL(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.getXLParams,
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{
@@ -22,7 +22,7 @@ export async function getXL(
   }>(`/xl/${param0}`, {
     method: 'GET',
     params: { ...queryParams },
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -30,13 +30,13 @@ export async function getXL(
 export async function deleteXL(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.deleteXLParams,
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{ status: 'ok' | 'error'; message?: string }>(`/xl/${param0}`, {
     method: 'DELETE',
     params: { ...queryParams },
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -52,7 +52,7 @@ export async function getAllXL(
     /** 每页记录数 */
     pageSize: number;
   },
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   return request<{
     status: 'ok' | 'error';
@@ -61,10 +61,10 @@ export async function getAllXL(
   }>('/xl/getAll', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -83,10 +83,10 @@ export async function createXL(body: API.CreateXL, options?: { [key: string]: an
   }>('/xl/create', {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -95,16 +95,16 @@ export async function updateXL(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.updateXLParams,
   body: API.UpdateXL,
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{ status: 'ok' | 'error'; message?: string }>(`/xl/update/${param0}`, {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     params: { ...queryParams },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }

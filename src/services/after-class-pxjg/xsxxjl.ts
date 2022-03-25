@@ -21,10 +21,10 @@ export async function createXSXXJL(body: API.CreateXSXXJL, options?: { [key: str
   }>('/xsxxjl/create', {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -38,7 +38,7 @@ export async function getXSXXJL(
     /** 每页记录数 */
     pageSize: number;
   },
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   return request<{
     status: 'ok' | 'error';
@@ -47,10 +47,10 @@ export async function getXSXXJL(
   }>('/xsxxjl/getAll', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -58,13 +58,13 @@ export async function getXSXXJL(
 export async function deleteXSXXJL(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.deleteXSXXJLParams,
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{ status: 'ok' | 'error'; message?: string }>(`/xsxxjl/${param0}`, {
     method: 'DELETE',
     params: { ...queryParams },
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -73,16 +73,16 @@ export async function updateXSXXJL(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.updateXSXXJLParams,
   body: API.UpdateXSXXJL,
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{ status: 'ok' | 'error'; message?: string }>(`/xsxxjl/update/${param0}`, {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     params: { ...queryParams },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }

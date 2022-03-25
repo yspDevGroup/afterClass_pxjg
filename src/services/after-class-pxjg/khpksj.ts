@@ -6,7 +6,7 @@ import { request } from 'umi';
 export async function getKHPKSJ(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.getKHPKSJParams,
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{
@@ -75,7 +75,7 @@ export async function getKHPKSJ(
   }>(`/khpksj/${param0}`, {
     method: 'GET',
     params: { ...queryParams },
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -83,13 +83,13 @@ export async function getKHPKSJ(
 export async function deleteKHPKSJ(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.deleteKHPKSJParams,
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{ status: 'ok' | 'error'; message?: string }>(`/khpksj/${param0}`, {
     method: 'DELETE',
     params: { ...queryParams },
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -97,14 +97,17 @@ export async function deleteKHPKSJ(
 export async function getKHPKSJByBJID(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.getKHPKSJByBJIDParams,
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   const { id: param0, ...queryParams } = params;
-  return request<{ status: 'ok' | 'error'; data?: API.KHPKSJ[]; message?: string }>(`/khpksj/weekSchedule/${param0}`, {
-    method: 'GET',
-    params: { ...queryParams },
-    ...(options || {})
-  });
+  return request<{ status: 'ok' | 'error'; data?: API.KHPKSJ[]; message?: string }>(
+    `/khpksj/weekSchedule/${param0}`,
+    {
+      method: 'GET',
+      params: { ...queryParams },
+      ...(options || {}),
+    },
+  );
 }
 
 /** 查询所有课后排课数据 POST /khpksj/ */
@@ -123,15 +126,15 @@ export async function getAllKHPKSJ(
     /** 课程名称 */
     name: string;
   },
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   return request<{ status: 'ok' | 'error'; data?: API.KHPKSJ[]; message?: string }>('/khpksj/', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -141,7 +144,7 @@ export async function createKHPKSJ(
     bjIds?: string[];
     data?: API.CreateKHPKSJ[];
   },
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   return request<{
     status: 'ok' | 'error';
@@ -159,10 +162,10 @@ export async function createKHPKSJ(
   }>('/khpksj/create', {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -184,15 +187,15 @@ export async function bulkCreatePK(
     /** 排课类型:0:按天排课,1:按周排课,3:单双周排课 */
     PKTYPE?: number;
   },
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   return request<any>('/khpksj/bulkCreatePK', {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -218,16 +221,19 @@ export async function addKHPKSJ(
     /** 排课类型:0:按天排课,1:按周排课,2:单周排课,3:双周排课 */
     PKTYPE?: number;
   },
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
-  return request<{ status: 'ok' | 'error'; data?: { id?: string }; message?: string }>('/khpksj/addKHPKSJ', {
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json'
+  return request<{ status: 'ok' | 'error'; data?: { id?: string }; message?: string }>(
+    '/khpksj/addKHPKSJ',
+    {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      data: body,
+      ...(options || {}),
     },
-    data: body,
-    ...(options || {})
-  });
+  );
 }
 
 /** 查看所有排课 POST /khpksj/getAllPK */
@@ -258,15 +264,15 @@ export async function getAllPK(
     /** 排课类型:0:按天排课,1:按周排课,2:单周排课,3:双周排课 */
     PKTYPE?: number[];
   },
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   return request<any>('/khpksj/getAllPK', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -275,17 +281,17 @@ export async function updateKHPKSJ(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.updateKHPKSJParams,
   body: API.UpdateKHPKSJ,
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{ status: 'ok' | 'error'; message?: string }>(`/khpksj/update/${param0}`, {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     params: { ...queryParams },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -305,15 +311,15 @@ export async function getAgencySchedule(
     /** 教师ID */
     JZGJBSJId?: string;
   },
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   return request<any>('/khpksj/getAgencySchedule', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -331,15 +337,15 @@ export async function judgeKHPKSJ(
     /** 课程名称 */
     endDate?: string;
   },
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   return request<any>('/khpksj/judge', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -347,12 +353,12 @@ export async function judgeKHPKSJ(
 export async function classSchedule(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.classScheduleParams,
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   const { id: param0, ...queryParams } = params;
   return request<any>(`/khpksj/classSchedule/${param0}`, {
     method: 'GET',
     params: { ...queryParams },
-    ...(options || {})
+    ...(options || {}),
   });
 }

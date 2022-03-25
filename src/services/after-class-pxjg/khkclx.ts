@@ -6,7 +6,7 @@ import { request } from 'umi';
 export async function getKHKCLX(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.getKHKCLXParams,
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{
@@ -16,7 +16,7 @@ export async function getKHKCLX(
   }>(`/khkclx/${param0}`, {
     method: 'GET',
     params: { ...queryParams },
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -24,13 +24,13 @@ export async function getKHKCLX(
 export async function deleteKHKCLX(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.deleteKHKCLXParams,
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{ status: 'ok' | 'error'; message?: string }>(`/khkclx/${param0}`, {
     method: 'DELETE',
     params: { ...queryParams },
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -40,15 +40,15 @@ export async function getAllKHKCLX(
     /** 课程类型 */
     name?: string;
   },
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   return request<{ status: 'ok' | 'error'; data?: API.KHKCLX[]; message?: string }>('/khkclx/', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -61,10 +61,10 @@ export async function createKHKCLX(body: API.CreateKHKCLX, options?: { [key: str
   }>('/khkclx/create', {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -73,16 +73,16 @@ export async function updateKHKCLX(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.updateKHKCLXParams,
   body: API.UpdateKHKCLX,
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{ status: 'ok' | 'error'; message?: string }>(`/khkclx/update/${param0}`, {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     params: { ...queryParams },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }

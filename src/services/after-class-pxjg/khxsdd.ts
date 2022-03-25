@@ -6,7 +6,7 @@ import { request } from 'umi';
 export async function getKHXSDD(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.getKHXSDDParams,
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{
@@ -27,7 +27,9 @@ export async function getKHXSDD(
         XH?: string;
         XM?: string;
         WechatUserId?: string;
-        BJSJ?: { id?: string; BJ?: string; NJSJ?: { id?: string; NJMC?: string; XD?: string } } | any;
+        BJSJ?:
+          | { id?: string; BJ?: string; NJSJ?: { id?: string; NJMC?: string; XD?: string } }
+          | any;
       };
       KHBJSJ?:
         | {
@@ -79,7 +81,7 @@ export async function getKHXSDD(
   }>(`/khxsdd/${param0}`, {
     method: 'GET',
     params: { ...queryParams },
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -87,13 +89,13 @@ export async function getKHXSDD(
 export async function deleteKHXSDD(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.deleteKHXSDDParams,
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{ status: 'ok' | 'error'; message?: string }>(`/khxsdd/${param0}`, {
     method: 'DELETE',
     params: { ...queryParams },
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -131,15 +133,15 @@ export async function getAllKHXSDD(
     /** 课后服务订单状态 */
     DDZT?: string[];
   },
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   return request<{ status: 'ok' | 'error'; data?: API.KHXSDD[]; message?: string }>('/khxsdd/', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -163,7 +165,9 @@ export async function createKHXSDD(body: API.CreateKHXSDD, options?: { [key: str
         XH?: string;
         XM?: string;
         WechatUserId?: string;
-        BJSJ?: { id?: string; BJ?: string; NJSJ?: { id?: string; NJMC?: string; XD?: string } } | any;
+        BJSJ?:
+          | { id?: string; BJ?: string; NJSJ?: { id?: string; NJMC?: string; XD?: string } }
+          | any;
       };
       KHBJSJ?:
         | {
@@ -215,10 +219,10 @@ export async function createKHXSDD(body: API.CreateKHXSDD, options?: { [key: str
   }>('/khxsdd/create', {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -240,15 +244,15 @@ export async function payKHXSDD(
     /** 学校ID */
     XXJBSJId: string;
   },
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   return request<{ status: 'ok' | 'error'; data?: string; message?: string }>('/khxsdd/pay', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -264,15 +268,15 @@ export async function refundKHXSDD(
     /** 使用设备所在网络的IP地址 */
     deviceIp?: string;
   },
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   return request<{ status: 'ok' | 'error'; data?: string; message?: string }>('/khxsdd/refund', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -280,13 +284,13 @@ export async function refundKHXSDD(
 export async function overdueKHXSDD(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.overdueKHXSDDParams,
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{ status: 'ok' | 'error'; message?: string }>(`/khxsdd/overdue/${param0}`, {
     method: 'DELETE',
     params: { ...queryParams },
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -299,15 +303,15 @@ export async function getStudentOrders(
     /** 学生ID */
     XSJBSJId: string;
   },
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   return request<any>('/khxsdd/getStudentOrders', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -331,14 +335,17 @@ export async function exportStudentOrders(
     /** 课后服务订单状态 */
     DDZT?: string[];
   },
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
-  return request<{ status: 'ok' | 'error'; data?: string; message?: string }>('/khxsdd/exportStudentOrders', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
+  return request<{ status: 'ok' | 'error'; data?: string; message?: string }>(
+    '/khxsdd/exportStudentOrders',
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      data: body,
+      ...(options || {}),
     },
-    data: body,
-    ...(options || {})
-  });
+  );
 }

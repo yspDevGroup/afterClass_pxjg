@@ -6,7 +6,7 @@ import { request } from 'umi';
 export async function getKHFWSJ(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.getKHFWSJParams,
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{
@@ -30,7 +30,7 @@ export async function getKHFWSJ(
   }>(`/khfwsj/${param0}`, {
     method: 'GET',
     params: { ...queryParams },
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -39,17 +39,17 @@ export async function updateKHFWSJ(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.updateKHFWSJParams,
   body: API.UpdateKHFWSJ,
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   const { id: param0, ...queryParams } = params;
   return request<any>(`/khfwsj/${param0}`, {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     params: { ...queryParams },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -57,13 +57,13 @@ export async function updateKHFWSJ(
 export async function deleteKHFWSJ(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.deleteKHFWSJParams,
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{ status: 'ok' | 'error'; message?: string }>(`/khfwsj/${param0}`, {
     method: 'DELETE',
     params: { ...queryParams },
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -90,10 +90,10 @@ export async function createKHFWSJ(body: API.CreateKHFWSJ, options?: { [key: str
   }>('/khfwsj/create', {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -107,7 +107,7 @@ export async function getAllKHFWSJ(
     NJSJIds?: string[];
     XQSJId?: string;
   },
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   return request<{
     status: 'ok' | 'error';
@@ -116,9 +116,9 @@ export async function getAllKHFWSJ(
   }>('/khfwsj/getAll', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }

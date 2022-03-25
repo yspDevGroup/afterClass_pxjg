@@ -22,10 +22,10 @@ export async function createJZGKTYJ(body: API.CreateJZGKTYJ, options?: { [key: s
   }>('/jzgktyj/create', {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -39,7 +39,7 @@ export async function getJZGKTYJ(
     /** 每页记录数 */
     pageSize: number;
   },
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   return request<{
     status: 'ok' | 'error';
@@ -48,10 +48,10 @@ export async function getJZGKTYJ(
   }>('/jzgktyj/getAll', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -59,13 +59,13 @@ export async function getJZGKTYJ(
 export async function deleteJZGKTYJ(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.deleteJZGKTYJParams,
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{ status: 'ok' | 'error'; message?: string }>(`/jzgktyj/${param0}`, {
     method: 'DELETE',
     params: { ...queryParams },
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -74,16 +74,16 @@ export async function updateJZGKTYJ(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.updateJZGKTYJParams,
   body: API.UpdateJZGKTYJ,
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{ status: 'ok' | 'error'; message?: string }>(`/jzgktyj/update/${param0}`, {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     params: { ...queryParams },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }

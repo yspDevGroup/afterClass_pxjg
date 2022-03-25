@@ -14,7 +14,7 @@ export async function getCityJYJTJSJ(
     /** 是否为市教育局 */
     isCity: boolean;
   },
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   return request<{
     status: 'ok' | 'error';
@@ -39,9 +39,9 @@ export async function getCityJYJTJSJ(
   }>('/statistic/getAll', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }

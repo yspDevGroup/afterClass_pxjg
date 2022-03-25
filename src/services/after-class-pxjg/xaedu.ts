@@ -10,7 +10,7 @@ export async function validateUrl(
     /** 认证对应的服务地址 */
     service: string;
   },
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   return request<{
     status: 'ok' | 'error';
@@ -30,10 +30,10 @@ export async function validateUrl(
   }>('/xaedu/validateUrl', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -47,7 +47,7 @@ export async function getUsers(
     /** 访问平台 */
     plat: string;
   },
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   return request<{
     status: 'ok' | 'error';
@@ -65,10 +65,10 @@ export async function getUsers(
   }>('/xaedu/getUsers', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -82,15 +82,15 @@ export async function bindUser(
     /** 选择绑定的企微CorpID */
     CorpID: string;
   },
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   return request<{ status: 'ok' | 'error'; data?: string; message?: string }>('/xaedu/bindUser', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -104,15 +104,15 @@ export async function checkCode(
     /** 验证码 */
     code: string;
   },
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   return request<{ status: 'ok' | 'error'; data?: string; message?: string }>('/xaedu/checkCode', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -124,14 +124,17 @@ export async function createToken(
     /** 用户名 */
     username: string;
   },
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
-  return request<{ status: 'ok' | 'error'; data?: string; message?: string }>('/xaedu/createToken', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
+  return request<{ status: 'ok' | 'error'; data?: string; message?: string }>(
+    '/xaedu/createToken',
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      data: body,
+      ...(options || {}),
     },
-    data: body,
-    ...(options || {})
-  });
+  );
 }

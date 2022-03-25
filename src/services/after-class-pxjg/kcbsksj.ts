@@ -17,15 +17,15 @@ export async function getKCBSKSJ(
     /** 每页记录数 */
     pageSize?: number;
   },
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   return request<any>('/kcbsksj/getAll', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -33,22 +33,25 @@ export async function getKCBSKSJ(
 export async function calcAllPeriod(options?: { [key: string]: any }) {
   return request<{ status: 'ok' | 'error'; message?: string }>('/kcbsksj/calcAllPeriod', {
     method: 'GET',
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
 /** 获取所有已开班的班级ID GET /kcbsksj/getAllClassIds */
 export async function getAllClassIds(options?: { [key: string]: any }) {
-  return request<{ status: 'ok' | 'error'; data?: string[]; message?: string }>('/kcbsksj/getAllClassIds', {
-    method: 'GET',
-    ...(options || {})
-  });
+  return request<{ status: 'ok' | 'error'; data?: string[]; message?: string }>(
+    '/kcbsksj/getAllClassIds',
+    {
+      method: 'GET',
+      ...(options || {}),
+    },
+  );
 }
 
 /** 合并重复教师 GET /kcbsksj/mergeTeachers */
 export async function mergeTeachers(options?: { [key: string]: any }) {
   return request<any>('/kcbsksj/mergeTeachers', {
     method: 'GET',
-    ...(options || {})
+    ...(options || {}),
   });
 }
