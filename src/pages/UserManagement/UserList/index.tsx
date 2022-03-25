@@ -2,7 +2,7 @@
  * @description: 用户列表
  * @author: zpl
  * @Date: 2021-11-18 16:55:08
- * @LastEditTime: 2022-03-25 18:20:23
+ * @LastEditTime: 2022-03-25 18:28:37
  * @LastEditors: zpl
  */
 import React, { useRef, useState, useEffect } from 'react';
@@ -23,7 +23,7 @@ import {
 
 import styles from './index.less';
 
-const UserList: FC<UserListProps> = ({ CorpID, readonly, hiddenTitle, filterType = 'query', columnOptions }) => {
+const UserList: FC<UserListProps> = ({ CorpID, readonly, filterType = 'query', columnOptions }) => {
   const actionRef = useRef<ActionType>();
   const [seleteRowNum, setSeleteRowNum] = useState<number>(0);
 

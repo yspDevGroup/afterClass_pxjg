@@ -2,7 +2,7 @@
  * @description: 用户列表数据结构定义
  * @author: zpl
  * @Date: 2021-11-18 18:01:21
- * @LastEditTime: 2022-03-25 14:15:24
+ * @LastEditTime: 2022-03-25 18:32:56
  * @LastEditors: zpl
  */
 declare namespace TeacherUser {
@@ -28,7 +28,7 @@ declare namespace TeacherUser {
 }
 
 export type ColumnOptions = {
-  [key in keyof TeacherUser.UserInfo]: {
+  [key in keyof TeacherUser.UserInfo]?: {
     /** 是否在表格中隐藏 */
     hidden?: true;
     /** 列宽 */
@@ -38,7 +38,7 @@ export type ColumnOptions = {
   };
 } & {
   /** 更新用户方法 */
-  putUsers: (id: string, info: TeacherUser.UserInfo) => Promise<TeacherUser.UserInfo>;
+  putUsers?: (id: string, info: TeacherUser.UserInfo) => Promise<TeacherUser.UserInfo>;
 };
 
 export type UserListProps = {
@@ -46,8 +46,6 @@ export type UserListProps = {
   CorpID: string;
   /** 是否只读 */
   readonly?: true;
-  /** 是否隐藏头部标题 */
-  hiddenTitle?: true;
   /** 搜索表单样式 */
   filterType?: 'query' | 'light';
   /** 列配置 */

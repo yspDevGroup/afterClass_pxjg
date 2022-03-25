@@ -4,7 +4,7 @@
 
 | 配置项        | 是否必填 | 值                 | 默认值    | 说明             |
 | ------------- | -------- | ------------------ | --------- | ---------------- |
-| enterprise    | 是       | Object             |           | 服务商对象       |
+| CorpID        | 是       | string             |           | 机构ID           |
 | readonly      | 否       | true               | undefined | 是否只读模式     |
 | hiddenTitle   | 否       | true               | undefined | 是否隐藏头部标题 |
 | filterType    | 否       | 'query' \| 'light' | 'query'   | 搜索表单样式     |
@@ -28,12 +28,5 @@
 
 ```js
 /** 更新用户方法 */
-  putUsers: (id: API.controllerUserUpdateParams, info: API.userRequese) => Promise<API.UserInfo>;
-```
-
-- delUsers
-
-```js
-/** 删除用户方法 */
-  delUsers: (id: API.controllerUserDestroyParams) => Promise<any>;
+  putUsers: (id: string, info: TeacherUser.UserInfo) => Promise<TeacherUser.UserInfo>;
 ```
