@@ -2,7 +2,7 @@
  * @description: 新建或编辑用户组件
  * @author: zpl
  * @Date: 2021-11-24 14:47:36
- * @LastEditTime: 2022-03-25 15:10:04
+ * @LastEditTime: 2022-03-28 13:42:38
  * @LastEditors: zpl
  */
 import type { ChangeEvent } from 'react';
@@ -32,8 +32,8 @@ const PutUser = (props: {
   const checkName = useDebounce(async (e: ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
     if (value) {
-      const flag = await checkUsername({ CorpID, username: value });
-      if (flag && (!defaultValue || defaultValue.username !== value)) {
+      const res = await checkUsername({ CorpID, username: value });
+      if (res.data && (!defaultValue || defaultValue.username !== value)) {
         setUsernameValStatus('error');
         setHelpText('已有相同用户名');
       } else {

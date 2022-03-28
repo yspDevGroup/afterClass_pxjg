@@ -2,7 +2,7 @@
  * @description: 用户管理
  * @author: zpl
  * @Date: 2022-03-25 09:40:24
- * @LastEditTime: 2022-03-28 11:05:05
+ * @LastEditTime: 2022-03-28 16:41:28
  * @LastEditors: zpl
  */
 import { Card } from 'antd';
@@ -15,7 +15,7 @@ const UserManagement = () => {
 
   return (
     <Card bodyStyle={{ paddingTop: '0' }} bordered={false}>
-      <UserList CorpID={initialState?.currentUser?.XXDM || ''} columnOptions={{ usertype: { search: false } }} />
+      <UserList CorpID={initialState?.currentUser?.XXDM || ''} columnOptions={{ UserTypes: { search: false } }} />
     </Card>
   );
 };

@@ -2,7 +2,7 @@
  * @description: 用户列表
  * @author: zpl
  * @Date: 2021-11-18 16:55:08
- * @LastEditTime: 2022-03-25 18:28:37
+ * @LastEditTime: 2022-03-28 17:12:26
  * @LastEditors: zpl
  */
 import React, { useRef, useState, useEffect } from 'react';
@@ -15,7 +15,7 @@ import type { SortOrder } from 'antd/lib/table/interface';
 import { tableAlertOptionRender } from './TableAlertOptionRender';
 import { toolBarRender } from './ToolBarRender';
 import ColumnConf from './ColumnConf';
-import type { TeacherUser, UserListProps } from './type.d';
+import type { TeacherUser, UserListProps } from './type';
 import {
   getAllTeacherUser as getUserList,
   CreateTeacherUser as addUser
@@ -42,15 +42,8 @@ const UserList: FC<UserListProps> = ({ CorpID, readonly, filterType = 'query', c
     scrollYOutSide += 3;
   }
 
-  const toolBar = (
-    action: ActionType | undefined,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    rows: {
-      selectedRowKeys?: (string | number)[];
-      selectedRows?: TeacherUser.UserInfo[];
-    }
-  ) => {
-    return toolBarRender({
+  const toolBar = () => {
+    const btns = toolBarRender({
       CorpID,
       createHandler: async (user: TeacherUser.UserInfo) => {
         for (const key in user) {
@@ -62,15 +55,19 @@ const UserList: FC<UserListProps> = ({ CorpID, readonly, filterType = 'query', c
           }
         }
         if (user.password) {
-          await addUser({ ...user, password: user.password });
+          await addUser({ ...user, password: user.password, usertype: user.UserTypes.map((type) => type.id) });
           message.success('创建完成');
-          action?.reload();
+          actionRef.current?.reload();
           return true;
         }
         message.warn('请设置用户密码');
         return false;
       }
     });
+    return {
+      search: {},
+      actions: btns
+    };
   };
 
   /**
@@ -95,6 +92,7 @@ const UserList: FC<UserListProps> = ({ CorpID, readonly, filterType = 'query', c
     <ProTable<TeacherUser.UserInfo>
       columns={columns}
       actionRef={actionRef}
+      search={false}
       sortDirections={['asc' as SortOrder, 'desc' as SortOrder]}
       request={async (tableParams = {}, sort, filter) => {
         const { JZGJBSJId, current, pageSize, ...opts } = tableParams;
@@ -138,10 +136,6 @@ const UserList: FC<UserListProps> = ({ CorpID, readonly, filterType = 'query', c
         persistenceType: 'localStorage'
       }}
       rowKey="id"
-      search={{
-        filterType,
-        labelWidth: 'auto'
-      }}
       rowSelection={{
         onChange: (selectedRowKeys: React.Key[]) => {
           setSeleteRowNum(selectedRowKeys.length);
@@ -150,14 +144,13 @@ const UserList: FC<UserListProps> = ({ CorpID, readonly, filterType = 'query', c
         // 注释该行则默认不显示下拉选项
         // type: 'radio'
       }}
-      toolBarRender={toolBar}
+      toolbar={toolBar()}
       tableAlertOptionRender={tableAlertOption}
       scroll={{ y: `calc(100vh - ${scrollYOutSide}rem)`, x: scrollX }}
       pagination={{
         defaultPageSize: 20
       }}
       className={styles.list}
-      headerTitle
       options={{
         setting: false,
         fullScreen: false,

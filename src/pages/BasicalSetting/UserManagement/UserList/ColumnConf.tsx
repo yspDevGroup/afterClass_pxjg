@@ -2,15 +2,14 @@
  * @description: 表格列配置
  * @author: zpl
  * @Date: 2021-11-19 10:31:02
- * @LastEditTime: 2022-03-25 17:55:37
+ * @LastEditTime: 2022-03-28 16:32:25
  * @LastEditors: zpl
  */
-import { message, Popconfirm } from 'antd';
+import { message, Space, Tag, Tooltip } from 'antd';
 import type { ProColumns } from '@ant-design/pro-table';
-
+import { updateTeacherUser } from '@/services/after-class-pxjg/teacherUser';
 import type { ColumnOptions, TeacherUser } from './type';
 import PutUser from './PutUser';
-import { updateTeacherUser } from '@/services/after-class-pxjg/teacherUser';
 
 /**
  * 封装列配置
@@ -39,7 +38,7 @@ const ColumnConf = (
       title: '姓名',
       key: 'realname',
       dataIndex: 'realname',
-      width: columnOptions?.realname?.width || 100,
+      width: columnOptions?.realname?.width || 80,
       // 默认显示
       hideInTable: columnOptions?.realname?.hidden,
       // 默认搜索
@@ -60,17 +59,41 @@ const ColumnConf = (
       title: '用户身份',
       key: 'usertype',
       dataIndex: 'usertype',
-      width: columnOptions?.usertype?.width || 120,
+      width: columnOptions?.UserTypes?.width || 120,
       // 默认显示
-      hideInTable: columnOptions?.usertype?.hidden,
+      hideInTable: columnOptions?.UserTypes?.hidden,
       // 默认搜索
-      search: columnOptions?.usertype ? columnOptions.usertype.search : undefined
+      search: columnOptions?.UserTypes ? columnOptions.UserTypes.search : undefined,
+      render: (_dom, entity) => {
+        return (
+          <Tooltip title={entity?.UserTypes?.map(({ name }) => name).join(', ')}>
+            <Space>
+              {entity?.UserTypes?.map(({ name }, i) => {
+                if (i < 3) {
+                  return <Tag key={name}>{name}</Tag>;
+                }
+                return '';
+              })}
+            </Space>
+          </Tooltip>
+        );
+      }
+    },
+    {
+      title: '最近登录时间',
+      key: 'loginTime',
+      dataIndex: 'loginTime',
+      valueType: 'dateTime',
+      width: columnOptions?.loginTime?.width || 100,
+      // 默认显示
+      hideInTable: columnOptions?.loginTime?.hidden,
+      search: false,
+      align: 'center'
     },
     {
       title: '状态',
       key: 'status',
       dataIndex: 'status',
-      align: 'center',
       valueType: 'select',
       filters: true,
       valueEnum: {
@@ -86,7 +109,34 @@ const ColumnConf = (
       width: columnOptions?.status?.width || 100,
       // 默认显示
       hideInTable: columnOptions?.status?.hidden,
-      search: false
+      search: false,
+      align: 'center'
+    },
+    {
+      title: '教师信息',
+      key: 'JZGJBSJ',
+      dataIndex: 'JZGJBSJ',
+      width: columnOptions?.JZGJBSJ?.width || 60,
+      // 默认显示
+      hideInTable: columnOptions?.JZGJBSJ?.hidden,
+      // 默认不搜索
+      search: columnOptions?.JZGJBSJ ? columnOptions.JZGJBSJ.search : false,
+      ellipsis: true,
+      render: (_dom, entity) => {
+        return (
+          <Tooltip
+            title={
+              <>
+                <div>{`${entity.JZGJBSJ?.KHJYJG?.QYMC}`}</div>
+                <div>{`${entity.JZGJBSJ?.XM}(${entity.JZGJBSJ?.GH})`}</div>
+              </>
+            }
+          >
+            {entity.JZGJBSJ?.XM}
+          </Tooltip>
+        );
+      },
+      align: 'center'
     },
     {
       title: '操作',
@@ -94,7 +144,7 @@ const ColumnConf = (
       valueType: 'option',
       align: 'center',
       fixed: 'right',
-      width: 150,
+      width: 120,
       // eslint-disable-next-line max-params
       render: (text, record, _, action) => {
         return (

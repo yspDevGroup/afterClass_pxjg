@@ -2,7 +2,7 @@
  * @description: 用户列表数据结构定义
  * @author: zpl
  * @Date: 2021-11-18 18:01:21
- * @LastEditTime: 2022-03-25 18:32:56
+ * @LastEditTime: 2022-03-28 15:58:49
  * @LastEditors: zpl
  */
 declare namespace TeacherUser {
@@ -18,12 +18,29 @@ declare namespace TeacherUser {
     realname: string;
     /** 账号状态，1 启用，0 禁用 */
     status: 0 | 1;
-    /** 教师ID */
+    /** 教师信息 */
+    JZGJBSJ?: {
+      id: string;
+      /** 工号 */
+      GH: string;
+      /** 姓名 */
+      XM: string;
+      /** 教育机构 */
+      KHJYJG?: {
+        /** 企业ID */
+        CorpID: string;
+        /** 企业名称 */
+        QYMC: string;
+      };
+    };
     JZGJBSJId?: string;
     /** 最近登录时间 */
     loginTime?: string;
     /** 用户身份 */
-    usertype: string[];
+    UserTypes: {
+      id: string;
+      name: string;
+    }[];
   };
 }
 

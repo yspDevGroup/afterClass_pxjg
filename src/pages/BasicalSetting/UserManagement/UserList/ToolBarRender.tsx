@@ -2,11 +2,11 @@
  * @description: 渲染工具栏
  * @author: zpl
  * @Date: 2021-11-19 11:12:16
- * @LastEditTime: 2022-03-25 15:07:55
+ * @LastEditTime: 2022-03-28 17:12:41
  * @LastEditors: zpl
  */
 import PutUser from './PutUser';
-import type { TeacherUser } from './type.d';
+import type { TeacherUser } from './type';
 
 /**
  * 企业维度表格的操作按钮
