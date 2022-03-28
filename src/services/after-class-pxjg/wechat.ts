@@ -36,6 +36,7 @@ export async function syncAuthInfo(options?: { [key: string]: any }) {
 /** 给家长发送消息通知 POST /wechat/sendMessageToParent */
 export async function sendMessageToParent(
   body: {
+    CorpId?: string;
     to?: string;
     text?: string;
     ids?: string[];
@@ -75,6 +76,7 @@ export async function sendMessageToTeacher(
 export async function msgLeaveSchool(
   body: {
     KHBJSJId: string;
+    CorpId?: string;
     text: string;
   },
   options?: { [key: string]: any },

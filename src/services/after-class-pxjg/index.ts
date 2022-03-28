@@ -52,16 +52,16 @@ import * as khxsdd from './khxsdd';
 import * as khxspj from './khxspj';
 import * as khxsqj from './khxsqj';
 import * as khxstk from './khxstk';
+import * as khxxzzfw from './khxxzzfw';
 import * as khzzfw from './khzzfw';
 import * as njsj from './njsj';
 import * as pksj from './pksj';
 import * as redis from './redis';
-import * as khxxzzfw from './khxxzzfw';
 import * as reports from './reports';
 import * as sso from './sso';
 import * as statistic from './statistic';
-import * as upload from './upload';
 import * as teacherUser from './teacherUser';
+import * as upload from './upload';
 import * as wechat from './wechat';
 import * as xaedu from './xaedu';
 import * as xksj from './xksj';
@@ -136,16 +136,16 @@ export default {
   khxspj,
   khxsqj,
   khxstk,
+  khxxzzfw,
   khzzfw,
   njsj,
   pksj,
   redis,
-  khxxzzfw,
   reports,
   sso,
   statistic,
-  upload,
   teacherUser,
+  upload,
   wechat,
   xaedu,
   xksj,

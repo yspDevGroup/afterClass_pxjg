@@ -3599,6 +3599,78 @@ declare namespace API {
     deviceIp?: string;
   };
 
+  type KHXXZZFW = {
+    id: string;
+    /** 服务名称 */
+    FWMC?: string;
+    /** 服务内容 */
+    FWNR?: string;
+    /** 服务状态,0:未生效,1:生效 */
+    FWZT?: number;
+    /** 费用 */
+    FY?: number;
+    /** 报名学生人数 */
+    xs_count?: number;
+    /** 开始日期 */
+    KSRQ?: string | any;
+    /** 结束日期 */
+    JSRQ?: string | any;
+    /** 报名开始时间 */
+    BMKSSJ?: string;
+    /** 报名结束时间 */
+    BMJSSJ?: string;
+    /** 服务图片 */
+    FWTP?: string;
+    XNXQ?: { id?: string; XN?: string; XQ?: string };
+    XQSJ?: { id?: string; XQMC?: string };
+    KHZZFW?: { id?: string; FWMC?: string; FWNR?: string; FWJGMC?: string; FWZT?: number };
+  };
+
+  type CreateKHXXZZFW = {
+    /** 服务名称 */
+    FWMC?: string;
+    /** 服务内容 */
+    FWNR?: string;
+    /** 服务状态,0:未生效,1:生效 */
+    FWZT?: number;
+    /** 费用 */
+    FY?: number;
+    /** 开始日期 */
+    KSRQ?: string | any;
+    /** 结束日期 */
+    JSRQ?: string | any;
+    /** 报名开始时间 */
+    BMKSSJ?: string;
+    /** 报名结束时间 */
+    BMJSSJ?: string;
+    /** 服务图片 */
+    FWTP?: string;
+    XNXQId: string;
+    KHZZFWId: string;
+    XQSJId: string;
+  };
+
+  type UpdateKHXXZZFW = {
+    /** 服务名称 */
+    FWMC?: string;
+    /** 服务内容 */
+    FWNR?: string;
+    /** 服务状态,0:未生效,1:生效 */
+    FWZT?: number;
+    /** 费用 */
+    FY?: number;
+    /** 服务图片 */
+    FWTP?: string;
+    /** 开始日期 */
+    KSRQ?: string | any;
+    /** 结束日期 */
+    JSRQ?: string | any;
+    /** 报名开始时间 */
+    BMKSSJ?: string;
+    /** 报名结束时间 */
+    BMJSSJ?: string;
+  };
+
   type KHZZFW = {
     id: string;
     /** 服务名称 */
@@ -3762,78 +3834,6 @@ declare namespace API {
         KCSJ?: { id?: string; KCMC?: string; KCBM?: string; XKSJ?: { id?: string; XKMC?: string } };
       }[];
     }[];
-  };
-
-  type KHXXZZFW = {
-    id: string;
-    /** 服务名称 */
-    FWMC?: string;
-    /** 服务内容 */
-    FWNR?: string;
-    /** 服务状态,0:未生效,1:生效 */
-    FWZT?: number;
-    /** 费用 */
-    FY?: number;
-    /** 报名学生人数 */
-    xs_count?: number;
-    /** 开始日期 */
-    KSRQ?: string | any;
-    /** 结束日期 */
-    JSRQ?: string | any;
-    /** 报名开始时间 */
-    BMKSSJ?: string;
-    /** 报名结束时间 */
-    BMJSSJ?: string;
-    /** 服务图片 */
-    FWTP?: string;
-    XNXQ?: { id?: string; XN?: string; XQ?: string };
-    XQSJ?: { id?: string; XQMC?: string };
-    KHZZFW?: { id?: string; FWMC?: string; FWNR?: string; FWJGMC?: string; FWZT?: number };
-  };
-
-  type CreateKHXXZZFW = {
-    /** 服务名称 */
-    FWMC?: string;
-    /** 服务内容 */
-    FWNR?: string;
-    /** 服务状态,0:未生效,1:生效 */
-    FWZT?: number;
-    /** 费用 */
-    FY?: number;
-    /** 开始日期 */
-    KSRQ?: string | any;
-    /** 结束日期 */
-    JSRQ?: string | any;
-    /** 报名开始时间 */
-    BMKSSJ?: string;
-    /** 报名结束时间 */
-    BMJSSJ?: string;
-    /** 服务图片 */
-    FWTP?: string;
-    XNXQId: string;
-    KHZZFWId: string;
-    XQSJId: string;
-  };
-
-  type UpdateKHXXZZFW = {
-    /** 服务名称 */
-    FWMC?: string;
-    /** 服务内容 */
-    FWNR?: string;
-    /** 服务状态,0:未生效,1:生效 */
-    FWZT?: number;
-    /** 费用 */
-    FY?: number;
-    /** 服务图片 */
-    FWTP?: string;
-    /** 开始日期 */
-    KSRQ?: string | any;
-    /** 结束日期 */
-    JSRQ?: string | any;
-    /** 报名开始时间 */
-    BMKSSJ?: string;
-    /** 报名结束时间 */
-    BMJSSJ?: string;
   };
 
   type KHKCTJSJ = {
@@ -6173,6 +6173,21 @@ declare namespace API {
     id: string;
   };
 
+  type KHXXZZFWParams = {
+    /** 学校课后增值服务ID */
+    id: string;
+  };
+
+  type deleteKHXXZZFWParams = {
+    /** 学校课后增值服务ID */
+    id: string;
+  };
+
+  type updateKHXXZZFWParams = {
+    /** 学校课后增值服务数据ID */
+    id: string;
+  };
+
   type deleteKHZZFWParams = {
     /** 课后增值服务ID */
     id: string;
@@ -6208,29 +6223,14 @@ declare namespace API {
     id: string;
   };
 
-  type KHXXZZFWParams = {
-    /** 学校课后增值服务ID */
-    id: string;
-  };
-
-  type deleteKHXXZZFWParams = {
-    /** 学校课后增值服务ID */
-    id: string;
-  };
-
-  type updateKHXXZZFWParams = {
-    /** 学校课后增值服务数据ID */
+  type updateTeacherUserParams = {
+    /** 校历ID */
     id: string;
   };
 
   type importWechatTeachersParams = {
     /** 登录平台类型 */
     plat?: string;
-  };
-
-  type updateTeacherUserParams = {
-    /** 校历ID */
-    id: string;
   };
 
   type currentUserParams = {
