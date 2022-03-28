@@ -1,11 +1,10 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react';
-import { Menu, message, Spin } from 'antd';
+import { Menu, Spin } from 'antd';
 import type { MenuInfo } from 'rc-menu/lib/interface';
 import { LogoutOutlined } from '@ant-design/icons';
 import { useAccess, useModel, history } from 'umi';
-import WWOpenDataCom from '@/components/WWOpenDataCom';
+import ShowName from '@/components/ShowName';
 import { KHJYJG } from '@/services/after-class-pxjg/khjyjg';
-import { initWXAgentConfig, initWXConfig, showUserName } from '@/wx';
 import HeaderDropdown from '../HeaderDropdown';
 import { removeOAuthToken } from '@/utils';
 import styles from './index.less';
@@ -18,10 +17,6 @@ const AvatarDropdown: React.FC<GlobalHeaderRightProps> = () => {
   const { isAdmin } = useAccess();
   const { initialState, setInitialState } = useModel('@@initialState');
   const { currentUser } = initialState || {};
-  const [wechatReded, setWechatReded] = useState(false);
-  const [wechatInfo, setWechatInfo] = useState({
-    openId: ''
-  });
   const [jgData, setJgData] = useState<any>();
   const userRef = useRef(null);
   useEffect(() => {
@@ -37,26 +32,6 @@ const AvatarDropdown: React.FC<GlobalHeaderRightProps> = () => {
       fetchData(currentUser?.jgId);
     }
   }, [currentUser]);
-  useEffect(() => {
-    (async () => {
-      if (/MicroMessenger/i.test(navigator.userAgent)) {
-        await initWXConfig(['checkJsApi']);
-      }
-      if (await initWXAgentConfig(['checkJsApi'])) {
-        setWechatReded(true);
-      } else {
-        console.warn('微信登录过期，请重新授权');
-        message.warn('微信登录过期，请重新授权');
-      }
-    })();
-  }, [currentUser]);
-
-  useEffect(() => {
-    wechatReded &&
-      setWechatInfo({
-        openId: currentUser?.UserId || ''
-      });
-  }, [wechatReded]);
 
   const onMenuClick = useCallback(
     (event: MenuInfo) => {
@@ -117,8 +92,10 @@ const AvatarDropdown: React.FC<GlobalHeaderRightProps> = () => {
           ''
         )}
         <span className={`${styles.name} anticon`} ref={userRef}>
-          <WWOpenDataCom type="userName" openid={wechatInfo.openId} />
-          {/* {currentUser?.username} */}
+          <ShowName
+            XM={currentUser?.realName || currentUser?.XM}
+            openid={currentUser?.wechatUserId || currentUser?.username}
+          />
           {isAdmin ? '' : '老师'}
         </span>
       </span>

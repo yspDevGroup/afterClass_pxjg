@@ -2,7 +2,7 @@
  * @description: 显示用户名部门名称控件，自动判断各种情况
  * @author: zpl
  * @Date: 2021-12-10 09:48:42
- * @LastEditTime: 2021-12-10 12:04:20
+ * @LastEditTime: 2022-03-28 15:30:37
  * @LastEditors: zpl
  */
 import type { CSSProperties } from 'react';
@@ -10,7 +10,7 @@ import { useModel } from 'umi';
 import WWOpenDataCom from './WWOpenDataCom';
 
 type Props = {
-  type: 'userName' | 'departmentName';
+  type?: 'userName' | 'departmentName';
   openid?: string;
   style?: CSSProperties;
   XM?: string;
@@ -22,7 +22,7 @@ type Props = {
  * @param {Props} {type, openid, style, XM}
  * @return {*}
  */
-const ShowWechatName = ({ type, openid, style, XM }: Props) => {
+const ShowWechatName = ({ type = 'userName', openid, style, XM }: Props) => {
   if (!openid || XM !== '未知') {
     return <>{XM}</>;
   }
@@ -30,9 +30,8 @@ const ShowWechatName = ({ type, openid, style, XM }: Props) => {
 };
 
 const ShowName = (props: Props) => {
-  const { initialState } = useModel('@@initialState');
-  const { buildOptions } = initialState || {};
-  switch (buildOptions?.authType) {
+  const authType: AuthType = (localStorage.getItem('authType') as AuthType) || 'local';
+  switch (authType) {
     case 'wechat':
       return <ShowWechatName {...props} />;
 

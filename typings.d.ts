@@ -58,6 +58,8 @@ type UserInfo = {
   loginName?: string;
   /** 姓名 */
   username?: string;
+  realName?: string;
+  XM?: string;
   /** 头像 */
   avatar?: string;
   /** 身份ID */
