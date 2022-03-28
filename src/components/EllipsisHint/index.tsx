@@ -10,9 +10,11 @@ const EllipsisHint = (props: { text: any; width?: string | number; twoLines?: nu
   const { text, width, twoLines } = props;
   return (
     <Tooltip title={text}>
-      <div style={{width: width || 200, WebkitLineClamp:twoLines || 1 }} className={styles.ellips2} >{text}</div>
+      <div style={{ width: width || 200, WebkitLineClamp: twoLines || 1 }} className={styles.ellips2}>
+        {text}
+      </div>
     </Tooltip>
-  )
-}
+  );
+};
 
 export default EllipsisHint;

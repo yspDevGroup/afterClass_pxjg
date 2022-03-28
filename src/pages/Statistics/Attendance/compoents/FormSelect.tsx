@@ -32,6 +32,8 @@ const FormSelect = (props: formSelectProps) => {
       if (getDataSource) {
         getDataSource(XNXQ, newDate, XM, XXJBSJId);
       }
+    } else {
+      getDataSource(XNXQ, '', XM, XXJBSJId);
     }
   }, [newDate]);
 

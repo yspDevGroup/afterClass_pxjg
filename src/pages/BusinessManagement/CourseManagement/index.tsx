@@ -60,7 +60,7 @@ const CourseManagement = () => {
       dataIndex: 'index',
       valueType: 'index',
       width: 58,
-      fixed:'left',
+      fixed: 'left',
       align: 'center'
     },
     {
@@ -69,7 +69,7 @@ const CourseManagement = () => {
       key: 'KHKCSJ',
       align: 'center',
       width: 150,
-      fixed:'left',
+      fixed: 'left',
       ellipsis: true,
       render: (_, record) => record.KHKCSJ?.KCMC
     },
@@ -108,7 +108,7 @@ const CourseManagement = () => {
             width="100%"
             text={grade?.map((item) => {
               return (
-                <Tag key={item.id} color="#EFEFEF" style={{ color: '#333' }}>
+                <Tag key={item.id} style={{ color: '#333', margin: '4px' }}>
                   {item.NJMC}
                 </Tag>
               );
@@ -159,7 +159,11 @@ const CourseManagement = () => {
               const showWXName = item?.JZGJBSJ?.XM === '未知' && item?.JZGJBSJ?.WechatUserId;
               return (
                 <Tag key={item?.JZGJBSJId}>
-                  {showWXName ? <WWOpenDataCom type="userName" openid={item?.JZGJBSJ?.WechatUserId} /> : item?.JZGJBSJ?.XM}
+                  {showWXName ? (
+                    <WWOpenDataCom type="userName" openid={item?.JZGJBSJ?.WechatUserId} />
+                  ) : (
+                    item?.JZGJBSJ?.XM
+                  )}
                 </Tag>
               );
             })}
@@ -198,7 +202,7 @@ const CourseManagement = () => {
       title: '操作',
       valueType: 'option',
       width: 200,
-      fixed:'right',
+      fixed: 'right',
       align: 'center',
       render: (_, record) => {
         return (
@@ -275,7 +279,7 @@ const CourseManagement = () => {
         pagination={{
           showQuickJumper: true,
           pageSize: 10,
-          defaultCurrent: 1,
+          defaultCurrent: 1
         }}
         scroll={{ x: getTableWidth(columns) }}
         request={async (
@@ -370,7 +374,7 @@ const CourseManagement = () => {
           </Button>,
           <Button key="back" onClick={() => setModalVisible(false)}>
             取消
-          </Button>,
+          </Button>
         ]}
         style={{ maxHeight: '430px' }}
         centered
