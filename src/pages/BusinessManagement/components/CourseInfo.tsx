@@ -2,7 +2,7 @@
  * @description:
  * @author: Sissle Lynn
  * @Date: 2021-08-26 19:54:41
- * @LastEditTime: 2021-11-25 15:34:33
+ * @LastEditTime: 2022-03-28 15:31:38
  * @LastEditors: Sissle Lynn
  */
 import React, { useEffect, useState } from 'react';
@@ -119,27 +119,9 @@ const CourseItemDom = (props: { school: string; course: any; type: string; ind: 
                     上课时段：{moment(item?.KKRQ).format('YYYY.MM.DD')}~{moment(item?.JKRQ).format('YYYY.MM.DD')}
                   </p>
                   <p>
-                    上课时间：
-                    {item.KHPKSJs.map((val: { XXSJPZ: any; WEEKDAY: number }) => {
-                      const weeks = `每周${'日一二三四五六'.charAt(val.WEEKDAY)}`;
-                      return (
-                        // eslint-disable-next-line react/jsx-key
-                        <span>
-                          {weeks}
-                          {val.XXSJPZ.KSSJ.substring(0, 5)}-{val.XXSJPZ.JSSJ.substring(0, 5)}
-                        </span>
-                      );
-                    })}
-                  </p>
-                  <p>
                     上课地点：{item.XQSJ?.XQMC}
                     <Divider type="vertical" />
-                    {item.KHPKSJs.map((val: { FJSJ: any }) => {
-                      return (
-                        // eslint-disable-next-line react/jsx-key
-                        <span>{val.FJSJ.FJMC}</span>
-                      );
-                    })}
+                    {item.FJSJ?.FJMC}
                   </p>
                   <p>
                     总课时：{item?.KSS}节<span style={{ marginLeft: '16px' }}>费用：{item?.FY}元</span>
@@ -225,8 +207,8 @@ const CourseInfo = (props: { values: any }) => {
         text: '全部'
       });
       setTermList(term);
-      setTerm(currentXQ?.id || data[0].id);
-      getCourseList(xxid, kcid, currentXQ?.id || data[0].id);
+      setTerm(currentXQ?.id || data?.[0]?.id);
+      getCourseList(xxid, kcid, currentXQ?.id || data?.[0]?.id);
     } else {
       message.error(res.message);
     }
