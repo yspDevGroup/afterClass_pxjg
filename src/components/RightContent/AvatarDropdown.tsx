@@ -75,29 +75,31 @@ const AvatarDropdown: React.FC<GlobalHeaderRightProps> = () => {
   return (
     <>
       <span className={`${styles.action}`}>
-        {jgData ? (
-          <HeaderDropdown overlay={menuHeaderDropdown}>
-            <span className={`${styles.action} ${styles.account}`}>
-              <span style={{ paddingRight: '40px' }}>
-                {jgData?.QYTB && jgData?.QYTB.indexOf('http') > -1 ? (
-                  <img style={{ width: '40px', height: '40px', borderRadius: '40px' }} src={jgData?.QYTB} />
-                ) : (
-                  ''
-                )}{' '}
-                {jgData?.QYMC}
+        <HeaderDropdown overlay={menuHeaderDropdown}>
+          <div>
+            {jgData ? (
+              <span className={styles.account}>
+                <span style={{ paddingRight: '40px' }}>
+                  {jgData?.QYTB && jgData?.QYTB.indexOf('http') > -1 ? (
+                    <img style={{ width: '40px', height: '40px', borderRadius: '40px' }} src={jgData?.QYTB} />
+                  ) : (
+                    ''
+                  )}{' '}
+                  {jgData?.QYMC}
+                </span>
               </span>
+            ) : (
+              ''
+            )}
+            <span className={`${styles.name} anticon`} ref={userRef}>
+              <ShowName
+                XM={currentUser?.realName || currentUser?.XM}
+                openid={currentUser?.wechatUserId || currentUser?.username}
+              />
+              {isAdmin ? '' : '老师'}
             </span>
-          </HeaderDropdown>
-        ) : (
-          ''
-        )}
-        <span className={`${styles.name} anticon`} ref={userRef}>
-          <ShowName
-            XM={currentUser?.realName || currentUser?.XM}
-            openid={currentUser?.wechatUserId || currentUser?.username}
-          />
-          {isAdmin ? '' : '老师'}
-        </span>
+          </div>
+        </HeaderDropdown>
       </span>
     </>
   );
