@@ -371,8 +371,9 @@ declare namespace API {
     KHBJSJId?: string;
     /** 学校时间配置Id */
     XXSJPZId?: string;
-    SPR?: { id?: string; XM?: string; WechatUserId?: string } | any;
-    BQR?: { id?: string; XM?: string; WechatUserId?: string } | any;
+    SPR?: { id?: string; GH?: string; XM?: string; WechatUserId?: string } | any;
+    BQR?: { id?: string; GH?: string; XM?: string; WechatUserId?: string } | any;
+    DKR?: { id?: string; GH?: string; XM?: string; WechatUserId?: string } | any;
     KHBJSJ?: {
       id?: string;
       BJMC?: string;
@@ -394,6 +395,8 @@ declare namespace API {
     SQNR?: '出勤' | '请假' | '代课';
     /** 补签教师ID */
     BQRId?: string;
+    /** 代课教师ID */
+    DKRId?: string;
     /** 课程班id */
     KHBJSJId?: string;
     /** 学校时间配置Id */
@@ -3986,13 +3989,11 @@ declare namespace API {
   };
 
   type updateTeacherUser = {
-    /** 登录时间 */
-    loginTime?: string;
-    /** 登出时间 */
-    logoutTime?: string;
     JZGJBSJId?: string;
     /** 密码 */
     password?: string;
+    /** 姓名 */
+    realname?: string;
     /** 状态，0无效1有效，其他可由业务自行定义 */
     status?: number;
     /** 用户身份ID */
@@ -6225,6 +6226,11 @@ declare namespace API {
 
   type updateTeacherUserParams = {
     /** 校历ID */
+    id: string;
+  };
+
+  type DeleteTeacherUserParams = {
+    /** 教师登录账户ID */
     id: string;
   };
 

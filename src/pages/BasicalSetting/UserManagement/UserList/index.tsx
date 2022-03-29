@@ -2,13 +2,13 @@
  * @description: 用户列表
  * @author: zpl
  * @Date: 2021-11-18 16:55:08
- * @LastEditTime: 2022-03-28 17:12:26
+ * @LastEditTime: 2022-03-29 17:25:19
  * @LastEditors: zpl
  */
 import React, { useRef, useState, useEffect } from 'react';
 import type { FC, Key } from 'react';
 import { message } from 'antd';
-import type { ActionType, ProColumns } from '@ant-design/pro-table';
+import type { ActionType, ListToolBarProps, ProColumns } from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
 import type { SortOrder } from 'antd/lib/table/interface';
 
@@ -42,30 +42,25 @@ const UserList: FC<UserListProps> = ({ CorpID, readonly, filterType = 'query', c
     scrollYOutSide += 3;
   }
 
-  const toolBar = () => {
+  const toolBar = (): ListToolBarProps => {
     const btns = toolBarRender({
       CorpID,
-      createHandler: async (user: TeacherUser.UserInfo) => {
-        for (const key in user) {
-          if (Object.prototype.hasOwnProperty.call(user, key)) {
-            const opt = user[key];
-            if (opt === '') {
-              user[key] = undefined;
-            }
-          }
-        }
-        if (user.password) {
-          await addUser({ ...user, password: user.password, usertype: user.UserTypes.map((type) => type.id) });
+      createHandler: async (user: API.CreateTeacherUser | API.updateTeacherUser) => {
+        const res = await addUser(user as API.CreateTeacherUser);
+        const { status } = res;
+        if (status === 'ok') {
           message.success('创建完成');
           actionRef.current?.reload();
           return true;
         }
-        message.warn('请设置用户密码');
+        message.error(res.message || '用户创建失败');
         return false;
       }
     });
     return {
-      search: {},
+      search: {
+        placeholder: '请输入账号或姓名'
+      },
       actions: btns
     };
   };

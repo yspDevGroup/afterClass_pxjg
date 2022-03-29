@@ -18,10 +18,10 @@ export async function postAccount(body: API.LoginParams, options?: { [key: strin
   });
 }
 
-/** 退出登录 POST /auth/outLogin */
+/** 退出登录 GET /auth/outLogin */
 export async function outLogin(options?: { [key: string]: any }) {
   return request<{ status?: 'ok' | 'error' }>('/auth/outLogin', {
-    method: 'POST',
+    method: 'GET',
     ...(options || {}),
   });
 }

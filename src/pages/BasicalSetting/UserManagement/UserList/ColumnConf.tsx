@@ -2,12 +2,12 @@
  * @description: 表格列配置
  * @author: zpl
  * @Date: 2021-11-19 10:31:02
- * @LastEditTime: 2022-03-28 16:32:25
+ * @LastEditTime: 2022-03-29 18:39:10
  * @LastEditors: zpl
  */
-import { message, Space, Tag, Tooltip } from 'antd';
+import { message, Popconfirm, Space, Tag, Tooltip } from 'antd';
 import type { ProColumns } from '@ant-design/pro-table';
-import { updateTeacherUser } from '@/services/after-class-pxjg/teacherUser';
+import { updateTeacherUser, DeleteTeacherUser } from '@/services/after-class-pxjg/teacherUser';
 import type { ColumnOptions, TeacherUser } from './type';
 import PutUser from './PutUser';
 
@@ -163,22 +163,41 @@ const ColumnConf = (
             <PutUser
               CorpID={CorpID}
               defaultValue={record}
-              onSave={async (user: TeacherUser.UserInfo) => {
-                for (const key in user) {
-                  if (Object.prototype.hasOwnProperty.call(user, key)) {
-                    const opt = user[key];
-                    if (opt === '') {
-                      user[key] = undefined;
-                    }
-                  }
+              onSave={async (user: API.updateTeacherUser) => {
+                if (!user.password || user.password === '********') {
+                  delete user.password;
                 }
-                const { id, ...oldInfo } = record;
-                await updateTeacherUser({ id: id! }, { ...oldInfo, ...user });
-                message.success('更新完成');
-                action?.reload();
-                return true;
+                const { id } = record;
+                const res = await updateTeacherUser({ id: id! }, user);
+                const { status } = res;
+                if (status === 'ok') {
+                  message.success('更新完成');
+                  action?.reload();
+                  return true;
+                }
+                message.error(res.message || '账号修改失败');
+                return false;
               }}
             />
+            <Popconfirm
+              key="deleteTable"
+              title="确定要删除吗?"
+              onConfirm={async () => {
+                const params = { id: record.id! };
+                const resDelroles = await DeleteTeacherUser(params);
+                if (resDelroles) {
+                  message.success('删除成功');
+                  action?.reload();
+                } else {
+                  message.success('删除失败');
+                }
+              }}
+              okText="确定"
+              cancelText="取消"
+              placement="topRight"
+            >
+              <a>删除</a>
+            </Popconfirm>
           </>
         );
       },

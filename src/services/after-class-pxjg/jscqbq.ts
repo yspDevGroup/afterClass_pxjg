@@ -22,8 +22,9 @@ export async function getJSCQBQ(
       BQRId?: string;
       KHBJSJId?: string;
       XXSJPZId?: string;
-      SPR?: { id?: string; XM?: string; WechatUserId?: string } | any;
-      BQR?: { id?: string; XM?: string; WechatUserId?: string } | any;
+      SPR?: { id?: string; GH?: string; XM?: string; WechatUserId?: string } | any;
+      BQR?: { id?: string; GH?: string; XM?: string; WechatUserId?: string } | any;
+      DKR?: { id?: string; GH?: string; XM?: string; WechatUserId?: string } | any;
       KHBJSJ?: {
         id?: string;
         BJMC?: string;
@@ -108,8 +109,9 @@ export async function CreateJSCQBQ(body: API.CreateJSCQBQ, options?: { [key: str
       BQRId?: string;
       KHBJSJId?: string;
       XXSJPZId?: string;
-      SPR?: { id?: string; XM?: string; WechatUserId?: string } | any;
-      BQR?: { id?: string; XM?: string; WechatUserId?: string } | any;
+      SPR?: { id?: string; GH?: string; XM?: string; WechatUserId?: string } | any;
+      BQR?: { id?: string; GH?: string; XM?: string; WechatUserId?: string } | any;
+      DKR?: { id?: string; GH?: string; XM?: string; WechatUserId?: string } | any;
       KHBJSJ?: {
         id?: string;
         BJMC?: string;

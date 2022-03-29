@@ -426,3 +426,27 @@ export async function getClasses_2(
     ...(options || {}),
   });
 }
+
+/** 根据CorpId查询教师基本信息 POST /jzgjbsj/getTeacherBasis */
+export async function getTeacherBasis(
+  body: {
+    /** 企业ID */
+    CorpId: string;
+    /** 是否注册 */
+    IsRegistered: boolean;
+  },
+  options?: { [key: string]: any },
+) {
+  return request<{
+    status: 'ok' | 'error';
+    data?: { id?: string; XM?: string }[];
+    message?: string;
+  }>('/jzgjbsj/getTeacherBasis', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data: body,
+    ...(options || {}),
+  });
+}
