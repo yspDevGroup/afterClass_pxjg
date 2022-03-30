@@ -14,7 +14,7 @@ import { FormItemType } from '@/components/CustomForm/interfice';
 
 const formLayout = {
   labelCol: { span: 5 },
-  wrapperCol: { span: 16 },
+  wrapperCol: { span: 16 }
 };
 
 type PropsType = {
@@ -40,14 +40,14 @@ const OperationForm = (props: PropsType) => {
       name: 'ZT',
       key: 'ZT',
       items: [
-      {
-        text: '同意',
-        value: '1'
-      },
-      {
-        text: '不同意',
-        value: '2'
-      },
+        {
+          text: '同意',
+          value: '1'
+        },
+        {
+          text: '不同意',
+          value: '2'
+        }
       ],
       onChange: (e: any) => {
         setRequired(e.target.value === '2');
@@ -57,18 +57,12 @@ const OperationForm = (props: PropsType) => {
       type: 'textArea',
       label: '备注',
       name: 'BZ',
-      key: 'BZ',
+      key: 'BZ'
     }
   ];
   return (
     <>
-      <CustomForm
-        values={current}
-        setForm={setForm}
-        formItems={formItems}
-        formLayout={formLayout}
-        hideBtn={true}
-      />
+      <CustomForm values={current} setForm={setForm} formItems={formItems} formLayout={formLayout} hideBtn={true} />
     </>
   );
 };
