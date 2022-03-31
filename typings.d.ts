@@ -101,10 +101,8 @@ type BuildOptions = {
   ENV_host: string;
   /** sso认证地址 */
   ssoHost: string;
-  /** 注册的应用id */
-  clientId: string;
-  /** 注册的应用密钥 */
-  clientSecret: string;
+  /** 注册的应用id，机构管理端固定为00003 */
+  clientId: '00003';
 };
 
 /** 全局初始信息 */

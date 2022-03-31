@@ -2,7 +2,7 @@
  * @description: 工具类
  * @author: zpl
  * @Date: 2021-08-09 10:36:53
- * @LastEditTime: 2022-03-24 12:21:47
+ * @LastEditTime: 2022-04-01 05:23:56
  * @LastEditors: zpl
  */
 import { history } from 'umi';
@@ -27,8 +27,7 @@ export const getBuildOptions = async (): Promise<BuildOptions> => {
         ENV_copyRight: '2021 版权所有：陕西五育汇智信息技术有限公司',
         ENV_host: 'http://afterclassPxjg.prod.xianyunshipei.com',
         ssoHost: 'http://sso.prod.xianyunshipei.com',
-        clientId: 'wwa3e7ccaca504ab3d',
-        clientSecret: 'z-DxOlOgLADZ_4MtEHIoYX0WrUFHwoXVDbOyzPiVtF4'
+        clientId: '00003'
       };
     case 'chanming':
       // 禅鸣环境
@@ -37,8 +36,7 @@ export const getBuildOptions = async (): Promise<BuildOptions> => {
         ENV_copyRight: '2021 版权所有：蝉鸣科技（西安）有限公司',
         ENV_host: 'http://afterclassPxjg.wuyu.imzhiliao.com',
         ssoHost: 'http://sso.wuyu.imzhiliao.com',
-        clientId: 'ww47296cadbd4de507',
-        clientSecret: 'Do9LvJl3Xnf8Tj0rt9iy-wvcT-shBvdzsQZqp4IKkJc'
+        clientId: '00003'
       };
     case '9dy':
       // 9朵云环境
@@ -47,8 +45,7 @@ export const getBuildOptions = async (): Promise<BuildOptions> => {
         ENV_copyRight: '2021 版权所有：广东九朵云科技有限公司',
         ENV_host: 'http://afterclassPxjg.9cloudstech.com',
         ssoHost: 'http://sso.9cloudstech.com',
-        clientId: 'ww201fdc0b014dbbf5',
-        clientSecret: '2apZaZvNHwzqcukXc54bzN6pmjel3U76Vgk15ecL3CY'
+        clientId: '00003'
       };
     case 'development':
       // 开发测试环境
@@ -57,8 +54,7 @@ export const getBuildOptions = async (): Promise<BuildOptions> => {
         ENV_copyRight: '2021 版权所有：陕西五育汇智信息技术有限公司',
         ENV_host: 'http://afterclassPxjg.test.xianyunshipei.com',
         ssoHost: 'http://sso.test.xianyunshipei.com',
-        clientId: 'ww73f350f785b450ab',
-        clientSecret: 'GioaHZFINvGOlb3e6rW2BBgjVEpHi-CUYBxGpC0NI9c'
+        clientId: '00003'
       };
     default:
       // 默认为local，本地开发模式下请在此处修改配置，但不要提交此处修改
@@ -68,8 +64,7 @@ export const getBuildOptions = async (): Promise<BuildOptions> => {
         ENV_host: 'http://localhost:8080',
         ssoHost: 'http://platform.test.xianyunshipei.com',
         // ssoHost: 'http://192.168.0.17:1000',
-        clientId: 'ww73f350f785b450ab',
-        clientSecret: 'KtRSw8E256TEb-x5JwQ5'
+        clientId: '00003'
       };
   }
 };
@@ -126,13 +121,13 @@ export const envjudge = (): PlatType => {
  * @return {*} {string}
  */
 export const getLoginPath = (buildOptions?: BuildOptions, reLogin?: boolean): string => {
-  const { ssoHost, ENV_host, clientId, clientSecret } = buildOptions || {};
+  const { ssoHost, ENV_host, clientId } = buildOptions || {};
   const authType: AuthType = (localStorage.getItem('authType') as AuthType) || 'local';
   let loginPath: string;
   switch (authType) {
     case 'wechat':
       // 前提是本应该已经注册为微信认证，且正确配置认证回调地址为 ${ENV_host}/AuthCallback/wechat
-      loginPath = `${ssoHost}/wechat/authorizeUrl?suiteID=${clientId}&client_secret=${clientSecret}`;
+      loginPath = `${ssoHost}/wechat/authorizeUrl?suiteID=${clientId}`;
       break;
     case 'authorization_code':
       // TODO 待处理
@@ -142,7 +137,7 @@ export const getLoginPath = (buildOptions?: BuildOptions, reLogin?: boolean): st
       {
         // 为方便本地调试登录，认证回调地址通过参数传递给后台
         const callback = encodeURIComponent(`${ENV_host}/AuthCallback/password`);
-        loginPath = `${ssoHost}/oauth2/password?response_type=${authType}&client_id=${clientId}&client_secret=${clientSecret}&redirect_uri=${callback}&reLogin=${
+        loginPath = `${ssoHost}/oauth2/password?response_type=${authType}&client_id=${clientId}&redirect_uri=${callback}&reLogin=${
           reLogin || 'false'
         }`;
       }
