@@ -1,11 +1,12 @@
 import { getTableWidth } from '@/utils';
 import ProTable from '@ant-design/pro-table';
+import { Card } from 'antd';
 
 const Table = (props: any) => {
   const { dataSource, columns } = props;
 
   return (
-    <>
+    <Card bordered={false} bodyStyle={{ padding: '24px 0 0 0 ' }}>
       <ProTable
         pagination={{
           showQuickJumper: true,
@@ -23,7 +24,7 @@ const Table = (props: any) => {
         dataSource={dataSource}
         search={false}
       />
-    </>
+    </Card>
   );
 };
 export default Table;

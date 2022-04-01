@@ -1,9 +1,10 @@
 .content {
   // height: calc(100vh - 100px);
   height: 100%;
-  padding: 0 24px 24px 24px;
+  padding: 0;
   background: #fff;
   border-radius: 8px;
+
   .proTable {
     :global {
       .ant-card-body {
@@ -11,6 +12,7 @@
       }
     }
   }
+
   form {
     div[imagename='image'] {
       label::before {
@@ -24,13 +26,15 @@
       }
     }
   }
-    .formType {
+
+  .formType {
     :global {
       .ant-select-multiple.ant-select-disabled.ant-select:not(.ant-select-customize-input) .ant-select-selector {
         background: none;
         border: none;
         cursor: auto;
       }
+
       .ant-form-item-control-input {
         line-height: 32px;
       }
@@ -43,6 +47,7 @@
         cursor: default;
         resize: none;
       }
+
       .ant-select-disabled {
         .ant-select-selector {
           color: #000;
@@ -50,23 +55,28 @@
           border-color: #fff;
           cursor: auto;
         }
+
         .ant-select-arrow {
           display: none;
         }
       }
     }
   }
+
   .introduction {
     margin-top: 24px;
     margin-left: 100px;
+
     span {
       padding-top: 4px;
       line-height: 28px;
       vertical-align: top;
     }
+
     span:nth-of-type(2) {
       margin: 0 6px 0 2px;
     }
+
     .box {
       display: inline-block;
       width: 450px;

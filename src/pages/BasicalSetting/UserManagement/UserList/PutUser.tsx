@@ -2,8 +2,8 @@
  * @description: 新建或编辑用户组件
  * @author: zpl
  * @Date: 2021-11-24 14:47:36
- * @LastEditTime: 2022-03-29 19:24:16
- * @LastEditors: zpl
+ * @LastEditTime: 2022-03-30 11:59:47
+ * @LastEditors: Wu Zhan
  */
 import { useState, useRef, ChangeEvent } from 'react';
 import { Button, Col, message, Row } from 'antd';
@@ -18,7 +18,7 @@ import { useDebounce } from '@/CustomHooks';
 import { TeacherUser } from './type';
 
 import styles from './index.less';
-import { DefaultOptionType } from 'antd/lib/select';
+import type { DefaultOptionType } from 'antd/lib/select';
 
 const PutUser = (props: {
   CorpID: string;
@@ -54,6 +54,13 @@ const PutUser = (props: {
     <ModalForm<TeacherUser.UserInfo>
       formRef={formRef}
       title={defaultValue ? '编辑账号' : '新增账号'}
+      onVisibleChange={(visible: boolean) => {
+        if (visible) {
+          const data = defaultValue ? defaultValue : { status: 0 };
+          console.log('data', data);
+          // formRef.current?.setFieldsValue({ ...data });
+        }
+      }}
       trigger={
         <Button type={defaultValue ? 'link' : 'primary'}>
           {!defaultValue && <PlusOutlined />}
@@ -125,7 +132,7 @@ const PutUser = (props: {
         </Col>
         <Col span={12}>
           {defaultValue ? (
-            <ProFormText key="JZGJBSJ" name="JZGJBSJ" label="教师" convertValue={(value) => value?.XM}>
+            <ProFormText key="JZGJBSJ" name="JZGJBSJ" label="教师" convertValue={(value: { XM: any }) => value?.XM}>
               <Field mode="read" />
             </ProFormText>
           ) : (

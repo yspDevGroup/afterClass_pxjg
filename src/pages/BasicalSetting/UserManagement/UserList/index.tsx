@@ -2,8 +2,8 @@
  * @description: 用户列表
  * @author: zpl
  * @Date: 2021-11-18 16:55:08
- * @LastEditTime: 2022-03-29 17:25:19
- * @LastEditors: zpl
+ * @LastEditTime: 2022-04-01 09:00:08
+ * @LastEditors: Wu Zhan
  */
 import React, { useRef, useState, useEffect } from 'react';
 import type { FC, Key } from 'react';
@@ -145,7 +145,7 @@ const UserList: FC<UserListProps> = ({ CorpID, readonly, filterType = 'query', c
       pagination={{
         defaultPageSize: 20
       }}
-      className={styles.list}
+      // className={styles.list}
       options={{
         setting: false,
         fullScreen: false,
