@@ -2,21 +2,25 @@
   width: 100%;
   text-align: center;
 
-  button+button {
+  button + button {
     margin-left: @padding-lg*2;
   }
 }
 
 .contentWrapper {
-  background-color: #fff;
   padding-bottom: @padding-lg;
+  background-color: #fff;
 }
 
 .uploadBtn {
+  position: relative;
   display: flex;
   align-items: center;
 
   .uploadText {
+    position: absolute;
+    top: 7px;
+    left: 115px;
     margin-left: 10px;
   }
 
