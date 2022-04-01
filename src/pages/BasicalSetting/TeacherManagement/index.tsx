@@ -66,7 +66,7 @@ const TeacherManagement = () => {
         if (code.status === 'ok') {
           message.success(`上传成功`);
         } else {
-          message.error(`上传出错`);
+          message.error(code.message);
         }
       } else if (info.file.status === 'error') {
         const code = info.file.response;
@@ -80,7 +80,7 @@ const TeacherManagement = () => {
       dataIndex: 'index',
       valueType: 'index',
       width: 58,
-      fixed:'left',
+      fixed: 'left',
       align: 'center'
     },
     {
@@ -89,11 +89,11 @@ const TeacherManagement = () => {
       key: 'XM',
       align: 'center',
       width: 100,
-      fixed:'left',
+      fixed: 'left',
       render: (_, record) => {
         const showWXName = record.XM === '未知' && record.WechatUserId;
         if (showWXName) {
-          return <WWOpenDataCom type="userName" openid={record.WechatUserId} />
+          return <WWOpenDataCom type="userName" openid={record.WechatUserId} />;
         }
         return record.XM;
       }
@@ -134,7 +134,7 @@ const TeacherManagement = () => {
       valueType: 'option',
       width: 150,
       align: 'center',
-      fixed:'right',
+      fixed: 'right',
       render: (_, record) => (
         <>
           <Link
@@ -179,7 +179,7 @@ const TeacherManagement = () => {
         pagination={{
           showQuickJumper: true,
           pageSize: 10,
-          defaultCurrent: 1,
+          defaultCurrent: 1
         }}
         scroll={{ x: getTableWidth(columns) }}
         request={async (
@@ -238,7 +238,7 @@ const TeacherManagement = () => {
           </Button>,
           <Button key="back" onClick={() => setModalVisible(false)}>
             取消
-          </Button>,
+          </Button>
         ]}
         centered
         maskClosable={false}

@@ -186,7 +186,10 @@ const Edit = (props: any) => {
           name: 'KCMC',
           key: 'KCMC',
           disabled,
-          rules: [{ required: true, message: '请输入课程名称' }]
+          rules: [
+            { required: true, message: '请输入课程名称' },
+            { max: 32, message: '最长为 32 位' }
+          ]
         },
         {}
       ]
@@ -384,8 +387,10 @@ const Edit = (props: any) => {
               <div className={classes.box}>{Introduction}</div>
             ) : (
               <TextArea
+                showCount
                 disabled={disabled}
                 value={Introduction}
+                maxLength={1000}
                 style={{ height: 100, width: 450 }}
                 onChange={onChange}
               />
