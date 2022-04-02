@@ -5,7 +5,7 @@ import ProTable, { ProColumns } from '@ant-design/pro-table';
 import { useState } from 'react';
 import { getClassesEvaluation } from '@/services/after-class-pxjg/khbjsj';
 import EllipsisHint from '@/components/EllipsisHint';
-import styles from '../index.less';
+import styles from './index.less';
 // eslint-disable-next-line @typescript-eslint/no-duplicate-imports
 import { useEffect } from 'react';
 import WWOpenDataCom from '@/components/WWOpenDataCom';
@@ -110,7 +110,6 @@ const Class = (props: any) => {
   ];
   const [dataSource, setDataSource] = useState<any>([]);
 
-  console.log(dataSource, 'dataSource--------');
   useEffect(() => {
     (async () => {
       const res1 = await getClassesEvaluation({
