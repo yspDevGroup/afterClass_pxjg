@@ -2,8 +2,8 @@
  * @description: 工具类
  * @author: zpl
  * @Date: 2021-08-09 10:36:53
- * @LastEditTime: 2022-04-01 05:23:56
- * @LastEditors: zpl
+ * @LastEditTime: 2022-04-02 09:49:27
+ * @LastEditors: Sissle Lynn
  */
 import { history } from 'umi';
 import { parse } from 'querystring';
@@ -137,9 +137,16 @@ export const getLoginPath = (buildOptions?: BuildOptions, reLogin?: boolean): st
       {
         // 为方便本地调试登录，认证回调地址通过参数传递给后台
         const callback = encodeURIComponent(`${ENV_host}/AuthCallback/password`);
-        loginPath = `${ssoHost}/oauth2/password?response_type=${authType}&client_id=${clientId}&redirect_uri=${callback}&reLogin=${
-          reLogin || 'false'
-        }`;
+        const url = new URL(`${ssoHost}/oauth2/password`);
+        url.searchParams.append('response_type', authType);
+        url.searchParams.append('client_id', clientId || '');
+        url.searchParams.append('logo', `${ENV_host}/logo.png`);
+        url.searchParams.append('title', `${ENV_title}`);
+        url.searchParams.append('redirect_uri', callback);
+        url.searchParams.append('reLogin', String(reLogin || 'false'));
+        loginPath = url.href;
+        // loginPath = `${ssoHost}/oauth2/password?response_type=${authType}&client_id=${clientId}&redirect_uri=${callback}&reLogin=${reLogin || 'false'
+        //   }`;
       }
       break;
     case 'local':
