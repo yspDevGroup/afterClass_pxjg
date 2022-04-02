@@ -2,8 +2,8 @@
  * @description:
  * @author: Sissle Lynn
  * @Date: 2021-08-28 09:22:33
- * @LastEditTime: 2021-11-25 15:21:18
- * @LastEditors: Sissle Lynn
+ * @LastEditTime: 2022-04-01 18:37:51
+ * @LastEditors: Wu Zhan
  */
 /*
  * @description:
@@ -60,7 +60,7 @@ const TeacherManagement = () => {
       }
       return isLt2M;
     },
-    onChange(info: { file: { status: string; name: any; response: any }; fileList: any }) {
+    onChange(info: { file: { status: string; name: any; response: any; event: any }; fileList: any }) {
       if (info.file.status === 'done') {
         const code = info.file.response;
         if (code.status === 'ok') {
@@ -70,6 +70,7 @@ const TeacherManagement = () => {
             message.success(`上传成功${code?.data?.success_count}条,失败${code?.data?.fail_count}条`);
           }
         } else {
+          event?.currentTarget?.onerror(code);
           message.error(code.message);
         }
       } else if (info.file.status === 'error') {
