@@ -7,7 +7,7 @@ import { getKHBJPJ } from '@/services/after-class-pxjg/khbjpj';
 import WWOpenDataCom from '@/components/WWOpenDataCom';
 
 const Details = (props: any) => {
-  const { KCMC, XXMC, BJId } = props.location.state;
+  const { KCMC, XXMC, BJId, BJMC } = props.location.state;
   // 弹出框显示隐藏
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [DetailsValue, setDetailsValue] = useState('');
@@ -55,7 +55,7 @@ const Details = (props: any) => {
       key: 'createdAt',
       align: 'center',
       width: 200
-    },
+    }
   ];
 
   const student: ProColumns<any>[] | undefined = [
@@ -76,7 +76,11 @@ const Details = (props: any) => {
       width: 120,
       render: (_text: any, record: any) => {
         const showWXName = record?.XSJBSJ?.XM === '未知' && record?.XSJBSJ?.XM.WechatUserId;
-        return showWXName ? (<WWOpenDataCom type="userName" openid={record?.XSJBSJ?.WechatUserId} />) : (record?.XSJBSJ?.XM);
+        return showWXName ? (
+          <WWOpenDataCom type="userName" openid={record?.XSJBSJ?.WechatUserId} />
+        ) : (
+          record?.XSJBSJ?.XM
+        );
       }
     },
     {
@@ -109,7 +113,7 @@ const Details = (props: any) => {
       width: 170
     },
     {
-      title: '课程评分',
+      title: '该学生课堂评分',
       dataIndex: 'PJFS',
       key: 'PJFS',
       align: 'center',
@@ -139,7 +143,7 @@ const Details = (props: any) => {
   ];
   const [StuList, setStuList] = useState<API.KHXSDD[] | undefined>([]);
   const [teacherList, setTeacherList] = useState<API.KHXSDD[] | undefined>([]);
-  const [activeKey, setActiveKey] = useState<string>('teacher');
+  const [activeKey, setActiveKey] = useState<string>('student');
   useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     (async () => {
@@ -165,7 +169,7 @@ const Details = (props: any) => {
         // 家长给老师的评价
         setTeacherList(res.data.rows);
       }
-    })()
+    })();
   }, []);
 
   return (
@@ -183,12 +187,14 @@ const Details = (props: any) => {
         返回上一页
       </Button>
       <div style={{ backgroundColor: '#fff' }}>
-        <p style={{
-          padding: '24px 24px 0',
-          fontSize: '16px',
-          fontWeight:'bold',
-          marginBottom:0
-        }}>{`${KCMC} / ${XXMC}`}</p>
+        <p
+          style={{
+            padding: '24px 24px 0',
+            fontSize: '16px',
+            fontWeight: 'bold',
+            marginBottom: 0
+          }}
+        >{`${KCMC} / ${XXMC} / ${BJMC}`}</p>
         <ProTable
           columns={activeKey === 'student' ? teacher : student}
           dataSource={activeKey === 'student' ? teacherList : StuList}
@@ -198,7 +204,7 @@ const Details = (props: any) => {
           pagination={{
             showQuickJumper: true,
             pageSize: 10,
-            defaultCurrent: 1,
+            defaultCurrent: 1
           }}
           scroll={{ x: 900 }}
           options={{
@@ -213,12 +219,12 @@ const Details = (props: any) => {
               activeKey,
               items: [
                 {
-                  key: 'teacher',
-                  label: <span>学生评价</span>
-                },
-                {
                   key: 'student',
                   label: <span>课程反馈</span>
+                },
+                {
+                  key: 'teacher',
+                  label: <span>学生评价</span>
                 }
               ],
               onChange: (key) => {

@@ -97,6 +97,7 @@ const Class = (props: any) => {
                 type: 'detail',
                 KCMC,
                 XXMC,
+                BJMC: record?.BJMC,
                 BJId: record?.id
               }
             }}
@@ -109,6 +110,7 @@ const Class = (props: any) => {
   ];
   const [dataSource, setDataSource] = useState<any>([]);
 
+  console.log(dataSource, 'dataSource--------');
   useEffect(() => {
     (async () => {
       const res1 = await getClassesEvaluation({
