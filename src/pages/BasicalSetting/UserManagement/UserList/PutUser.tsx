@@ -2,7 +2,7 @@
  * @description: 新建或编辑用户组件
  * @author: zpl
  * @Date: 2021-11-24 14:47:36
- * @LastEditTime: 2022-03-30 11:59:47
+ * @LastEditTime: 2022-04-06 10:02:29
  * @LastEditors: Wu Zhan
  */
 import { useState, useRef, ChangeEvent } from 'react';
@@ -153,7 +153,15 @@ const PutUser = (props: {
               fieldProps={{
                 onChange: (value, option) => {
                   setHasTeacherInfo(!!value);
-                  formRef.current?.setFieldsValue({ realname: (option as DefaultOptionType | undefined)?.label || '' });
+                  console.log('value', value);
+                  if (!value) {
+                    formRef.current?.setFieldsValue({
+                      UserTypes: []
+                    });
+                  }
+                  formRef.current?.setFieldsValue({
+                    realname: (option as DefaultOptionType | undefined)?.label || ''
+                  });
                 }
               }}
             />
