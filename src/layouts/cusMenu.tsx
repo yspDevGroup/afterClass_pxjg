@@ -15,7 +15,9 @@ import {
   ZoomInOutlined,
   PieChartOutlined,
   BarChartOutlined,
-  ContainerOutlined
+  ContainerOutlined,
+  AuditOutlined,
+  SlidersOutlined
 } from '@ant-design/icons';
 export default {
   route: {
@@ -97,6 +99,24 @@ export default {
         hideInMenu: 'true'
       },
       {
+        path: '/timeTable',
+        name: '教师课表',
+        icon: <ContainerOutlined />
+      },
+      {
+        // 行政审批
+        path: '/audit',
+        name: '行政审批',
+        icon: <AuditOutlined />,
+        routes: [
+          // 教师代课管理
+          {
+            name: '代课管理',
+            path: '/audit/substituteCourse'
+          }
+        ]
+      },
+      {
         path: '/announcements',
         name: '通知公告',
         icon: <NotificationOutlined />,
@@ -130,11 +150,7 @@ export default {
           }
         ]
       },
-      {
-        path: '/timeTable',
-        name: '教师课表',
-        icon: <ContainerOutlined />
-      },
+
       {
         path: '/query',
         name: '信息查询',
@@ -234,6 +250,19 @@ export default {
         path: '/graphic',
         name: '数据大屏',
         icon: <PieChartOutlined />
+      },
+      {
+        // 系统配置
+        path: '/sysSettings',
+        icon: <SlidersOutlined />,
+        name: '系统配置',
+        routes: [
+          {
+            path: '/sysSettings/auditSettings',
+            name: '审批配置',
+            component: './Manager/SysSettings/AuditSettings'
+          }
+        ]
       }
     ]
   }

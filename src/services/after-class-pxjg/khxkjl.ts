@@ -21,6 +21,15 @@ export async function createKHXKJL(body: API.CreateKHXKJL, options?: { [key: str
       SKJSId?: string;
       FJSJId?: string;
       KHBJSJId?: string;
+      XXSJPZId?: string;
+      XXSJPZ?: {
+        id?: string;
+        KSSJ?: string;
+        JSSJ?: string;
+        KJS?: string;
+        TITLE?: string;
+        BZXX?: string;
+      };
       KHBJSJ?: { id?: string; BJMC?: string };
       FJSJ?: { id?: string; FJBH?: string; FJMC?: string; FJLC?: string };
       XKJS?: { id?: string; XM?: string };
@@ -30,10 +39,10 @@ export async function createKHXKJL(body: API.CreateKHXKJL, options?: { [key: str
   }>('/khxkjl/create', {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     data: body,
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
@@ -61,7 +70,7 @@ export async function getKHXKJL(
     /** 每页记录数 */
     pageSize?: number;
   },
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
   return request<{
     status: 'ok' | 'error';
@@ -70,10 +79,10 @@ export async function getKHXKJL(
   }>('/khxkjl/getAll', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     data: body,
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
@@ -81,7 +90,7 @@ export async function getKHXKJL(
 export async function KHXKJL(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.KHXKJLParams,
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{
@@ -101,6 +110,15 @@ export async function KHXKJL(
       SKJSId?: string;
       FJSJId?: string;
       KHBJSJId?: string;
+      XXSJPZId?: string;
+      XXSJPZ?: {
+        id?: string;
+        KSSJ?: string;
+        JSSJ?: string;
+        KJS?: string;
+        TITLE?: string;
+        BZXX?: string;
+      };
       KHBJSJ?: { id?: string; BJMC?: string };
       FJSJ?: { id?: string; FJBH?: string; FJMC?: string; FJLC?: string };
       XKJS?: { id?: string; XM?: string };
@@ -110,7 +128,7 @@ export async function KHXKJL(
   }>(`/khxkjl/${param0}`, {
     method: 'GET',
     params: { ...queryParams },
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
@@ -118,13 +136,13 @@ export async function KHXKJL(
 export async function deleteKHXKJL(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.deleteKHXKJLParams,
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{ status: 'ok' | 'error'; message?: string }>(`/khxkjl/${param0}`, {
     method: 'DELETE',
     params: { ...queryParams },
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
@@ -133,16 +151,16 @@ export async function updateKHXKJL(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.updateKHXKJLParams,
   body: API.UpdateKHXKJL,
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{ status: 'ok' | 'error'; message?: string }>(`/khxkjl/update/${param0}`, {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     params: { ...queryParams },
     data: body,
-    ...(options || {}),
+    ...(options || {})
   });
 }

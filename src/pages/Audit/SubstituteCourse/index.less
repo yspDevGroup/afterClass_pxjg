@@ -1,0 +1,95 @@
+.modals {
+  width: 580px !important;
+
+  .TkDetails,
+  .DkDetails {
+    > p,
+    div[class*='ant-row'] {
+      margin: 0;
+      line-height: 28px;
+    }
+
+    .TkAfter {
+      display: flex;
+      justify-content: space-between;
+
+      > div {
+        width: 47%;
+        padding: 14px 12px;
+        background: #eee;
+        border-left: 6px solid rgba(62, 136, 248, 0.5);
+        border-radius: 6px;
+
+        p {
+          margin: 0;
+          line-height: 28px;
+        }
+
+        .title {
+          margin-bottom: 4px;
+          color: #333;
+          font-weight: bold;
+          font-size: 16px;
+        }
+      }
+
+      > div:nth-of-type(2) {
+        border-left: 6px solid #3e88f8;
+      }
+    }
+
+    .Line {
+      margin: 30px 0;
+      border-top: 1px dashed #ddd;
+    }
+
+    .reason {
+      width: 47%;
+      padding: 14px 12px;
+      border-left: 6px solid #ff8f51;
+      border-radius: 6px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+
+      p {
+        margin: 0;
+        line-height: 28px;
+      }
+
+      .title {
+        margin-bottom: 4px;
+        color: #333;
+        font-weight: bold;
+        font-size: 16px;
+      }
+    }
+  }
+
+  .TkDetails {
+    > p:nth-of-type(3) {
+      margin-bottom: 20px;
+    }
+
+    > p:nth-of-type(5) {
+      margin-bottom: 20px;
+    }
+  }
+
+  .DkDetails {
+    > p:nth-of-type(5) {
+      margin-bottom: 20px;
+    }
+  }
+}
+
+.leaveWrapper {
+  :global {
+    .ant-space-item {
+      > div {
+        span,
+        label {
+          font-weight: normal;
+        }
+      }
+    }
+  }
+}

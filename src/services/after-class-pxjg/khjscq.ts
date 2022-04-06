@@ -6,7 +6,7 @@ import { request } from 'umi';
 export async function getKHJSCQ(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.getKHJSCQParams,
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{
@@ -19,26 +19,15 @@ export async function getKHJSCQ(
       JZGJBSJId?: string;
       KHBJSJId?: string;
       JSLX?: number | any;
-      JZGJBSJ?:
-        | { id?: string; XM?: string; GH?: string; LXDH?: string | any; WechatUserId?: string }
-        | any;
-      XXSJPZ?:
-        | {
-            id?: string;
-            KSSJ?: string;
-            JSSJ?: string;
-            KJS?: string | any;
-            TITLE?: string;
-            BZXX?: string;
-          }
-        | any;
+      JZGJBSJ?: { id?: string; XM?: string; GH?: string; LXDH?: string | any; WechatUserId?: string } | any;
+      XXSJPZ?: { id?: string; KSSJ?: string; JSSJ?: string; TITLE?: string } | any;
       KHBJSJ?: { id?: string; BJMC?: string } | any;
     };
     message?: string;
   }>(`/khjscq/${param0}`, {
     method: 'GET',
     params: { ...queryParams },
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
@@ -46,13 +35,13 @@ export async function getKHJSCQ(
 export async function deleteKHJSCQ(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.deleteKHJSCQParams,
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{ status: 'ok' | 'error'; message?: string }>(`/khjscq/${param0}`, {
     method: 'DELETE',
     params: { ...queryParams },
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
@@ -72,19 +61,16 @@ export async function getAllKHJSCQ(
     /** 结束日期 */
     endDate?: string;
   },
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
-  return request<{ status: 'ok' | 'error'; data?: API.KHJSCQ[]; message?: string }>(
-    '/khjscq/getAll',
-    {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      data: body,
-      ...(options || {}),
+  return request<{ status: 'ok' | 'error'; data?: API.KHJSCQ[]; message?: string }>('/khjscq/getAll', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
     },
-  );
+    data: body,
+    ...(options || {})
+  });
 }
 
 /** 统计月份累计出勤记录 POST /khjscq/computedMonth */
@@ -101,15 +87,15 @@ export async function computedMonth(
     /** 月份 */
     MONTH?: number[];
   },
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
   return request<any>('/khjscq/computedMonth', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     data: body,
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
@@ -118,10 +104,10 @@ export async function createKHJSCQ(body: API.CreateKHJSCQ[], options?: { [key: s
   return request<{ status: 'ok' | 'error'; data?: any[]; message?: string }>('/khjscq/create', {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     data: body,
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
@@ -130,17 +116,17 @@ export async function updateKHJSCQ(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.updateKHJSCQParams,
   body: API.UpdateKHJSCQ,
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{ status: 'ok' | 'error'; message?: string }>(`/khjscq/update/${param0}`, {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     params: { ...queryParams },
     data: body,
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
@@ -152,15 +138,15 @@ export async function countKHJSCQ(
     /** 学年学期ID */
     XNXQId: string;
   },
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
   return request<any>('/khjscq/statistical', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     data: body,
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
@@ -172,15 +158,15 @@ export async function statisSubstitute(
     /** 学年学期ID */
     XNXQId: string;
   },
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
   return request<any>('/khjscq/statisSubstitute', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     data: body,
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
@@ -196,15 +182,15 @@ export async function getAllByDate(
     /** 出勤日期 */
     CQRQ: string;
   },
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
   return request<any>('/khjscq/getAllByDate', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     data: body,
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
@@ -220,15 +206,15 @@ export async function statisticalByTeacher(
     /** 学校ID */
     XXJBSJId?: string;
   },
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
   return request<any>('/khjscq/statisticalByTeacher', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     data: body,
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
@@ -258,15 +244,15 @@ export async function agencyStatistical(
     /** 每页记录数 */
     pageSize?: number;
   },
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
   return request<any>('/khjscq/agencyStatistical', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     data: body,
-    ...(options || {}),
+    ...(options || {})
   });
 }
 
@@ -292,14 +278,14 @@ export async function agencyStatisticalDetail(
     /** 每页记录数 */
     pageSize?: number;
   },
-  options?: { [key: string]: any },
+  options?: { [key: string]: any }
 ) {
   return request<any>('/khjscq/agencyStatisticalDetail', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     data: body,
-    ...(options || {}),
+    ...(options || {})
   });
 }
