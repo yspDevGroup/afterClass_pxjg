@@ -13,6 +13,7 @@ import noData from '@/assets/noData.png';
 import styles from './index.less';
 import moment from 'moment';
 import { Link } from 'umi';
+import ShowName from '../ShowName';
 
 const List = (props: { type: string; data?: any; noDataImg?: any; noDataText?: string }) => {
   const { type, data, noDataImg = noData, noDataText = '暂无信息' } = props;
@@ -29,6 +30,8 @@ const List = (props: { type: string; data?: any; noDataImg?: any; noDataText?: s
                     pathname: `${
                       type === 'padding'
                         ? '/businessManagement/courseManagement'
+                        : type === 'Audit'
+                        ? '/audit/substituteCourse'
                         : `/announcements/${type}/articleDetails`
                     }`,
                     state: item
@@ -42,7 +45,23 @@ const List = (props: { type: string; data?: any; noDataImg?: any; noDataText?: s
                       </>
                     ) : (
                       <>{item.BT} </>
-                    )}{' '}
+                    )}
+                    {type === 'padding' ? (
+                      <>
+                        收到一条来自{item?.XXJBSJ?.XXMC}（{item?.KHKCSJ?.KCMC}）的合作申请，请及时处理
+                      </>
+                    ) : (
+                      <>{item.BT} </>
+                    )}
+                    {type === 'Audit' ? (
+                      <>
+                        收到一条来自
+                        <ShowName type="userName" openid={item?.SKJS?.WechatUserId} XM={item?.SKJS?.XM} />
+                        教师的代课申请，请及时处理
+                      </>
+                    ) : (
+                      <>{item.BT} </>
+                    )}
                   </span>
                 </Link>
                 <p>

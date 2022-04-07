@@ -250,7 +250,6 @@ const SubstituteFor = () => {
     setXNXQ(value);
   };
 
-  console.log(dataSource, 'dataSource-----');
   return (
     <>
       <div className={styles.leaveWrapper}>

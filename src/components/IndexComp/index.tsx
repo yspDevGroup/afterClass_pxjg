@@ -22,6 +22,7 @@ import styles from './index.less';
 import { getKHKCSQ } from '@/services/after-class-pxjg/khkcsq';
 import { getJYJGTZGG } from '@/services/after-class-pxjg/jyjgtzgg';
 import { getTerm } from '@/pages/Graphic/component/utils';
+import { getAllByAgency } from '@/services/after-class-pxjg/khjstdk';
 
 const Index = () => {
   const { initialState } = useModel('@@initialState');
@@ -32,12 +33,13 @@ const Index = () => {
   const [xxbmData, setXxbmData] = useState<any>([]);
   const [kcbmData, setKcbmData] = useState<any>([]);
   const [PendingData, setPendingData] = useState<any>([]);
+  const [DKDataSourse, setDKDataSourse] = useState<any>([]);
 
   useEffect(() => {
     async function fetchData() {
       const term = getTerm();
       const res = await homePage({
-        KHJYJGId: currentUser?.jgId,
+        KHJYJGId: currentUser?.jgId || '',
         ...term
       });
       if (res.status === 'ok') {
@@ -76,7 +78,7 @@ const Index = () => {
         BT: '',
         ZT: ['已发布'],
         LX: 0,
-        KHJYJGId: currentUser?.jgId,
+        KHJYJGId: currentUser?.jgId || '',
         page: 1,
         pageSize: 3
       });
@@ -88,7 +90,7 @@ const Index = () => {
         BT: '',
         LX: 1,
         ZT: ['已发布'],
-        XZQHM: currentUser?.XZQHM,
+        XZQHM: currentUser?.XZQHM || '',
         page: 1,
         pageSize: 3
       });
@@ -105,6 +107,22 @@ const Index = () => {
       if (response.status === 'ok') {
         setPendingData(response.data?.rows);
       }
+      const obj = {
+        LX: [1],
+        // 0:申请中;1:同意;2:拒绝;3:撤销;4:代课教师同意;5:代课教师拒绝
+        ZT: [4],
+        KHJYJGId: currentUser?.jgId || '',
+        XN: term?.XN,
+        XQ: term?.XQ,
+        page: 1,
+        pageSize: 3
+      };
+      const resAll = await getAllByAgency(obj);
+      if (resAll.status === 'ok') {
+        setDKDataSourse(resAll?.data?.rows);
+      } else {
+        setDKDataSourse([]);
+      }
     }
     fetchData();
   }, []);
@@ -113,9 +131,9 @@ const Index = () => {
     <div className={styles.pageWrapper}>
       <Topbar data={homeData} />
       <Row className={`${styles.listWrapper} ${styles.rowWrapper}`}>
-        <Col span={8}>
+        <Col span={6}>
           <Card
-            title="待办事项"
+            title="合作申请"
             bordered={false}
             extra={
               <a href="/businessManagement/courseManagement">
@@ -127,7 +145,21 @@ const Index = () => {
             <List type="padding" data={PendingData} noDataImg={noCourse} noDataText="暂无信息" />
           </Card>
         </Col>
-        <Col span={8}>
+        <Col span={6}>
+          <Card
+            title="代课申请"
+            bordered={false}
+            extra={
+              <a href="/audit/substituteCourse">
+                更多
+                <RightOutlined style={{ fontSize: '12px' }} />
+              </a>
+            }
+          >
+            <List type="Audit" data={DKDataSourse} noDataImg={noCourse} noDataText="暂无信息" />
+          </Card>
+        </Col>
+        <Col span={6}>
           <Card
             title="内部通知"
             bordered={false}
@@ -141,7 +173,7 @@ const Index = () => {
             <List type="notice" data={annoceData} noDataImg={noAnnoce} noDataText="暂无通知" />
           </Card>
         </Col>
-        <Col span={8}>
+        <Col span={6}>
           <Card
             title="政策公告"
             bordered={false}
