@@ -85,15 +85,6 @@ const Appraise = (props: any) => {
         return <Rate allowHalf defaultValue={fs} disabled={true} />;
       }
     },
-    // {
-    //   title: '课程数量',
-    //   key: 'KHKCSQs',
-    //   dataIndex: 'KHKCSQs',
-    //   align: 'center',
-    //   width: 90,
-    //   search: false,
-    //   render: (text:any) =>text.length
-    // },
     {
       title: '操作',
       align: 'center',
@@ -106,7 +97,7 @@ const Appraise = (props: any) => {
             <Link
               to={{
                 pathname: '/query/Appraise/class',
-                state: { KCMC, KHKCSJId: id, XXMC: record?.XXMC }
+                state: { KCMC, KHKCSJId: id, XXMC: record?.XXMC, xxId: record?.id }
               }}
             >
               查看课程班

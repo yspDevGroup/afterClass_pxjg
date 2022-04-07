@@ -1,5 +1,5 @@
 import { Link, useModel } from 'umi';
-import { Select, Rate, Button, Tag } from 'antd';
+import { Select, Rate, Button, Tag, message } from 'antd';
 import { LeftOutlined } from '@ant-design/icons';
 import ProTable, { ProColumns } from '@ant-design/pro-table';
 import { useState } from 'react';
@@ -9,9 +9,16 @@ import styles from './index.less';
 // eslint-disable-next-line @typescript-eslint/no-duplicate-imports
 import { useEffect } from 'react';
 import WWOpenDataCom from '@/components/WWOpenDataCom';
+import { getAllSemester } from '@/services/after-class-pxjg/khjyjg';
+import { getCurrentXQ } from '@/utils';
 const { Option } = Select;
 const Class = (props: any) => {
-  const { KCMC, KHKCSJId, XXMC } = props.location.state;
+  const { KCMC, KHKCSJId, XXMC, xxId } = props.location.state;
+  const { initialState } = useModel('@@initialState');
+  const { currentUser } = initialState || {};
+  const [term, setTerm] = useState<string>();
+  const [XNXQMC, setXNXQMC] = useState<string>();
+  const [termList, setTermList] = useState<any>();
   const columns: ProColumns<any>[] | undefined = [
     {
       title: '序号',
@@ -98,7 +105,9 @@ const Class = (props: any) => {
                 KCMC,
                 XXMC,
                 BJMC: record?.BJMC,
-                BJId: record?.id
+                BJId: record?.id,
+                XNXQId: term,
+                XNXQMC
               }
             }}
           >
@@ -109,17 +118,46 @@ const Class = (props: any) => {
     }
   ];
   const [dataSource, setDataSource] = useState<any>([]);
-
-  useEffect(() => {
-    (async () => {
-      const res1 = await getClassesEvaluation({
-        KHKCSJId,
-        page: 0,
-        pageSize: 0
+  const getXNXQ = async (xxdm: string, jgdm: any) => {
+    const res = await getAllSemester({
+      KHJYJGId: jgdm,
+      XXJBSJId: xxdm
+    });
+    if (res?.status === 'ok') {
+      const { data = [] } = res;
+      console.log(data, '===================');
+      const currentXQ = getCurrentXQ(data);
+      console.log(currentXQ, 'currentXQ----');
+      const term = [].map.call(data, (item: any) => {
+        return {
+          value: item.id,
+          text: `${item.XN} ${item.XQ}`
+        };
       });
-      setDataSource(res1.data.rows);
-    })();
+      setTermList(term);
+      setTerm(currentXQ?.id || data?.[0]?.id);
+      setXNXQMC(`${currentXQ?.XN}-${currentXQ?.XQ}` || `${data?.[0]?.XN}-${data?.[0]?.XQ}`);
+    } else {
+      message.error(res.message);
+    }
+  };
+  useEffect(() => {
+    getXNXQ(xxId, currentUser?.jgId);
   }, []);
+  useEffect(() => {
+    console.log(term, 'term-------');
+    (async () => {
+      if (term) {
+        const res1 = await getClassesEvaluation({
+          KHKCSJId,
+          XNXQId: term,
+          page: 0,
+          pageSize: 0
+        });
+        setDataSource(res1.data.rows);
+      }
+    })();
+  }, [term]);
 
   return (
     <>
@@ -136,6 +174,25 @@ const Class = (props: any) => {
         返回上一页
       </Button>
       <div className={styles.Tables}>
+        <span>
+          所属学年学期：
+          <Select
+            value={term}
+            style={{ width: 200 }}
+            onChange={(value: string) => {
+              setTerm(value);
+              // getCourseList(xxid, kcid, value);
+            }}
+          >
+            {termList?.map((item: any) => {
+              return (
+                <Option key={item.value} value={item.value}>
+                  {item.text}
+                </Option>
+              );
+            })}
+          </Select>
+        </span>
         <ProTable
           headerTitle={`${KCMC} / ${XXMC}`}
           columns={columns}

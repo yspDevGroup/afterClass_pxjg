@@ -7,7 +7,7 @@ import { getKHBJPJ } from '@/services/after-class-pxjg/khbjpj';
 import WWOpenDataCom from '@/components/WWOpenDataCom';
 
 const Details = (props: any) => {
-  const { KCMC, XXMC, BJId, BJMC } = props.location.state;
+  const { KCMC, XXMC, BJId, BJMC, XNXQId, XNXQMC } = props.location.state;
   // 弹出框显示隐藏
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [DetailsValue, setDetailsValue] = useState('');
@@ -149,6 +149,7 @@ const Details = (props: any) => {
     (async () => {
       const res2 = await getAllKHXSPJ({
         KHBJSJId: BJId,
+        XNXQId,
         JSId: '',
         page: 0,
         pageSize: 0
@@ -160,6 +161,7 @@ const Details = (props: any) => {
       const res = await getKHBJPJ({
         // 课后班级数据
         KHBJSJId: BJId,
+        XNXQId,
         XSJBSJId: '',
         XXJBSJId: '',
         page: 0,
@@ -194,7 +196,7 @@ const Details = (props: any) => {
             fontWeight: 'bold',
             marginBottom: 0
           }}
-        >{`${KCMC} / ${XXMC} / ${BJMC}`}</p>
+        >{`${XNXQMC} / ${KCMC} / ${XXMC} / ${BJMC}`}</p>
         <ProTable
           columns={activeKey === 'student' ? teacher : student}
           dataSource={activeKey === 'student' ? teacherList : StuList}
