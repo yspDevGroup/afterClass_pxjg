@@ -2,7 +2,7 @@
  * @description:
  * @author: Sissle Lynn
  * @Date: 2021-08-28 09:22:33
- * @LastEditTime: 2022-04-06 17:35:52
+ * @LastEditTime: 2022-04-08 11:37:25
  * @LastEditors: Wu Zhan
  */
 /*
@@ -45,8 +45,6 @@ const TeacherManagement = () => {
     }
   };
   const onClose = async () => {
-    // setModalVisible(false);
-    // actionRef.current?.reload();
     const formData = new FormData();
 
     if (newFileList?.length) {
@@ -138,7 +136,7 @@ const TeacherManagement = () => {
         file.type === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' ||
         file.type === 'application/vnd.ms-excel';
       if (!isType) {
-        message.error('请选择正确文件格式!');
+        message.error('请上传正确表格文件!');
         return isType;
       }
       const isLt2M = file.size / 1024 / 1024 < 2;
