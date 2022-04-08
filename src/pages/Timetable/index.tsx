@@ -155,8 +155,10 @@ const Timetable = () => {
     const sameClassData: any[] = [];
 
     let Weekss: any = [];
+    let weekIndex: number;
     if (week && week !== undefined) {
       Weekss = week;
+      weekIndex = Weeks.indexOf(week[0]);
     } else {
       Weekss = Weeks;
     }
@@ -171,9 +173,9 @@ const Timetable = () => {
             FJLXId: '', // 场地类型ID
             rowspan: timeKey === 0 ? timeData?.length : 0,
             SD: `${moment(stateTime)
-              .add(index * 7, 'days')
+              .add((weekIndex || index) * 7, 'days')
               .format('MM.DD')}-${moment(stateTime)
-              .add(6 + index * 7, 'days')
+              .add(6 + (weekIndex || index) * 7, 'days')
               .format('MM.DD')} `
           },
           course: {
