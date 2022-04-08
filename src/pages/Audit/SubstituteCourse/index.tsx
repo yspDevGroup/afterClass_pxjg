@@ -117,6 +117,17 @@ const SubstituteFor = () => {
       )
     },
     {
+      title: '学校名称',
+      dataIndex: 'XXMC',
+      key: 'XXMC',
+      align: 'center',
+      ellipsis: true,
+      render: (text: any, record: any) => {
+        return record?.SKJC?.XXJBSJ?.XXMC;
+      },
+      width: 120
+    },
+    {
       title: '课程名称',
       dataIndex: 'KHQJKCs',
       key: 'KHQJKCs',
@@ -393,6 +404,7 @@ const SubstituteFor = () => {
       >
         {Datas ? (
           <div className={styles.DkDetails}>
+            <p>学校名称：{Datas?.SKJC?.XXJBSJ?.XXMC}</p>
             <p>课程名称：{Datas?.KHBJSJ?.KHKCSJ?.KCMC}</p>
             <p>课程班名称：{Datas?.KHBJSJ?.BJMC}</p>
             <p>代课日期：{Datas?.SKRQ}</p>
