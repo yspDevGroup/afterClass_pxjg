@@ -25,7 +25,7 @@ const AttendanceDetail = (props: any) => {
     const res = await getAllKHJSCQ({
       JZGJBSJId: data?.id,
       KHBJSJId: id,
-      CQZT: ['缺席'],
+      CQZT: ['缺席', '代课', '请假'],
       startDate,
       endDate
     });
