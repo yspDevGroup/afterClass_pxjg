@@ -131,7 +131,6 @@ const Attendance = () => {
   }, []);
   // eslint-disable-next-line max-params
   const getDataSource = async (XNXQ: string, newDate: any, name?: string, XXJBSJId?: string) => {
-    console.log(XNXQ, 'XNXQ----');
     let startDate;
     let endDate;
     if (newDate.length > 0) {
