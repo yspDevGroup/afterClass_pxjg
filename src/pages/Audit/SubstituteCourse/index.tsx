@@ -411,7 +411,7 @@ const SubstituteFor = () => {
             <p>
               代课时段：{Datas?.SKJC?.KSSJ.substring(0, 5)}~{Datas?.SKJC?.JSSJ.substring(0, 5)}
             </p>
-            <p>代课场地：{Datas?.SKFJ?.FJMC}</p>
+            <p style={{ marginBottom: '20px' }}>代课场地：{Datas?.SKFJ?.FJMC}</p>
             <div className={styles.TkAfter}>
               <div>
                 <p className={styles.title}>代课前</p>
