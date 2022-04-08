@@ -2,8 +2,8 @@
  * @description: 工具类
  * @author: zpl
  * @Date: 2021-08-09 10:36:53
- * @LastEditTime: 2022-04-02 09:49:27
- * @LastEditors: Sissle Lynn
+ * @LastEditTime: 2022-04-08 18:57:52
+ * @LastEditors: Wu Zhan
  */
 import { history } from 'umi';
 import { parse } from 'querystring';
@@ -334,4 +334,24 @@ export const getTableWidth = (columns: any[]) => {
     return sum;
   }
   return 1300;
+};
+
+export const getCorpId = () => {
+  return localStorage.getItem('corp') || '';
+};
+
+export const setCorpId = (corp: string) => {
+  localStorage.setItem('corp', corp);
+};
+
+export const setAuthType = (authType: string) => {
+  if (authType) {
+    localStorage.setItem('authType', authType);
+  }
+};
+export const getAuthType = () => {
+  return localStorage.getItem('authType') || 'local';
+};
+export const removeAuthType = () => {
+  localStorage.removeItem('authType');
 };

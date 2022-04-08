@@ -83,17 +83,13 @@ const renderFormItems = (formItems: FormItemType[], formDisabled: boolean) => {
       case 'uploadImage':
         return (
           <Form.Item {...currentProps} key={key}>
-            <UploadImage { ...currentProps} key={key} />
+            <UploadImage {...currentProps} key={key} />
           </Form.Item>
-          );
+        );
       case 'group': {
         const colW = 24 / (groupItems ? groupItems.length : 1);
         return (
-          <Row
-            className={cls}
-            gutter={typeof formItem.gutter === 'undefined' ? 10 : formItem.gutter}
-            key={key}
-          >
+          <Row className={cls} gutter={typeof formItem.gutter === 'undefined' ? 10 : formItem.gutter} key={key}>
             {groupItems?.map((item) => {
               const wInfo: {
                 span?: number | string;

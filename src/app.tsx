@@ -3,8 +3,8 @@
  * @description: 运行时配置
  * @author: zpl
  * @Date: 2021-08-09 10:44:42
- * @LastEditTime: 2022-03-24 16:42:11
- * @LastEditors: zpl
+ * @LastEditTime: 2022-04-08 19:22:38
+ * @LastEditors: Wu Zhan
  */
 import { notification, message } from 'antd';
 import { history } from 'umi';
@@ -15,6 +15,7 @@ import { getAuthorization, getBuildOptions, getCookie, removeOAuthToken } from '
 
 import { currentUser as getCurrentUser } from '@/services/after-class-pxjg/user';
 import { currentWechatUser } from '@/services/after-class-pxjg/wechat';
+import { currentUser as getLocalCurrentUser } from '@/services/after-class-pxjg/auth';
 
 /** 获取用户信息比较慢的时候会展示一个 loading */
 export const initialStateConfig = {
@@ -30,18 +31,85 @@ export const initialStateConfig = {
 export async function getInitialState(): Promise<InitialState> {
   console.log('process.env.REACT_APP_ENV: ', process.env.REACT_APP_ENV);
   const buildOptions = await getBuildOptions();
+
   const fetchUserInfo = async (): Promise<UserInfo | null> => {
     const authType: AuthType = (localStorage.getItem('authType') as AuthType) || 'local';
-    const res =
-      authType === 'wechat' ? await currentWechatUser({ plat: 'agency' }) : await getCurrentUser({ plat: 'agency' });
-    const { status, data } = res;
-    if (status === 'ok' && data?.info) {
-      return data.info;
+
+    console.log('authType', authType);
+    let res;
+    let dataUser: UserInfo;
+    switch (authType) {
+      case 'wechat':
+        res = await currentWechatUser({ plat: 'agency' });
+        if (res.status === 'ok') {
+          const data = res?.data?.info;
+          dataUser = data;
+        }
+        break;
+      case 'password':
+        res = await getCurrentUser({ plat: 'agency' });
+        if (res.status === 'ok') {
+          const data = res?.data?.info;
+          dataUser = data;
+        }
+        break;
+      case 'local':
+      default:
+        res = await getLocalCurrentUser({ plat: 'agency' });
+        console.log('res', res);
+        if (res.status === 'ok') {
+          const { data } = res;
+          if (data?.userType) {
+            const listType: string[] = data.userType.map((item: { name: string }) => item.name);
+            if (listType.indexOf('管理员') !== -1) {
+              dataUser = {
+                id: data.UserId,
+                /** 微信用户id */
+                wechatUserId: data.WechatUserId,
+                /** 学段 */
+                XD: data.XD,
+                /** 学校代码 */
+                XXDM: '',
+                /** 行政区号码 */
+                XZQHM: data.XZQHM,
+                /** 登录名，学号或工号 */
+                loginName: data.XM,
+                /** 姓名 */
+                username: data.XM,
+                realName: data.XM,
+                XM: data.XM,
+                avatar: '',
+                type: '管理员',
+                userId: data.UserId,
+                /** 微信用户ID(教师) */
+                UserId: data.UserId,
+                /** 机构ID */
+                jgId: data.QYId,
+                /** 企业名称 */
+                QYMC: data.QYMC,
+                /** 微信用户企业ID */
+                CorpId: data.CorpId
+              };
+            } else {
+              message.error('抱歉，您无登录权限');
+            }
+          }
+        }
+        break;
     }
-    const isFirstPage = location.pathname !== '/' && !location.pathname.toLowerCase().startsWith('/authcallback');
-    isFirstPage && message.warn(res.message === 'Invalid Token!' ? '未登录' : res.message);
-    return null;
+
+    // const res =
+    //   authType === 'wechat' ? await currentWechatUser({ plat: 'agency' }) : await getCurrentUser({ plat: 'agency' });
+    // const { status, data } = res;
+    // if (status === 'ok' && data?.info) {
+    //   return data.info;
+    // }
+    return dataUser;
+    // const isFirstPage = location.pathname !== '/' && !location.pathname.toLowerCase().startsWith('/authcallback');
+    // isFirstPage && message.warn(res.message === 'Invalid Token!' ? '未登录' : res.message);
+    // return null;
   };
+
   const user = await fetchUserInfo();
   return {
     currentUser: user,
@@ -159,6 +227,7 @@ export const request: RequestConfig = {
         path !== '/' &&
         !path.startsWith('/authcallback') &&
         !path.startsWith('/40') &&
+        !path.startsWith('/user/login') &&
         (ctx.res.message?.includes('Authorization token is invalid') || ctx.res.message?.includes('Invalid Token'))
       ) {
         removeOAuthToken();
