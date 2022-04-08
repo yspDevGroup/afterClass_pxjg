@@ -28,19 +28,6 @@ const Attendance = () => {
   const [Name, setName] = useState<any>();
   const [newDate, setNewDate] = useState<any[]>([]);
 
-  const getData = async (res: any) => {
-    const result = await agencyStatistical({
-      KHJYJGId: currentUser?.jgId || '',
-      XN: res.XN,
-      XQ: res.XQ,
-      output: false
-    });
-    if (result?.status === 'ok' && result.data) {
-      const { rows, ...rest } = result.data;
-      setCollectData({ ...rest });
-      setDataSource(rows);
-    }
-  };
   const teacher: ProColumns<any>[] = [
     {
       title: '序号',
@@ -139,15 +126,12 @@ const Attendance = () => {
 
   useEffect(() => {
     const res = getTerm();
-    console.log(res, 'res-------');
     setCurXN(res.XN);
     setCurXQ(res.XQ);
-    if (res.XN && res.XQ) {
-      getData(res);
-    }
   }, []);
   // eslint-disable-next-line max-params
   const getDataSource = async (XNXQ: string, newDate: any, name?: string, XXJBSJId?: string) => {
+    console.log(XNXQ, 'XNXQ----');
     let startDate;
     let endDate;
     if (newDate.length > 0) {
@@ -172,11 +156,13 @@ const Attendance = () => {
       XXJBSJId,
       output: false
     };
-    const result = await agencyStatistical(params);
-    if (result?.status === 'ok' && result.data) {
-      const { rows, ...rest } = result.data;
-      setCollectData({ ...rest });
-      setDataSource(rows);
+    if (XNXQ) {
+      const result = await agencyStatistical(params);
+      if (result?.status === 'ok' && result.data) {
+        const { rows, ...rest } = result.data;
+        setCollectData({ ...rest });
+        setDataSource(rows);
+      }
     }
   };
   // 导出

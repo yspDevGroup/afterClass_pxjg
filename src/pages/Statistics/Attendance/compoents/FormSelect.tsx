@@ -49,13 +49,16 @@ const FormSelect = (props: formSelectProps) => {
   };
   useEffect(() => {
     if (XNXQ) {
+      getDataSource(XNXQ, newDate, XM, XXJBSJId);
       getXX();
     }
   }, [XNXQ]);
 
   const onSelectChange = (value: string) => {
     setXNXQ(value);
-    console.log(value);
+    setNewDate([]);
+    setXXJBSJId(undefined);
+    setXM(undefined);
   };
 
   return (
