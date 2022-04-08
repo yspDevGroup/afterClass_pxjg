@@ -139,9 +139,12 @@ const Attendance = () => {
 
   useEffect(() => {
     const res = getTerm();
+    console.log(res, 'res-------');
     setCurXN(res.XN);
     setCurXQ(res.XQ);
-    getData(res);
+    if (res.XN && res.XQ) {
+      getData(res);
+    }
   }, []);
   // eslint-disable-next-line max-params
   const getDataSource = async (XNXQ: string, newDate: any, name?: string, XXJBSJId?: string) => {
