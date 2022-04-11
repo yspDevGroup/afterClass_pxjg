@@ -3,7 +3,7 @@
  * @author: zpl
  * @Date: 2021-07-22 08:52:55
 
- * @LastEditTime: 2022-04-08 18:29:19
+ * @LastEditTime: 2022-04-11 11:03:58
  * @LastEditors: Wu Zhan
  */
 import { useEffect, useState } from 'react';
@@ -19,6 +19,10 @@ import { login } from '@/services/after-class-pxjg/auth';
 import jgPng from '@/assets/jg.png';
 import username from '@/assets/username.png';
 import password from '@/assets/password.png';
+
+import leftBg from '@/assets/groupletf.png';
+import peopleBg from '@/assets/groupimg.png';
+import rightBg from '@/assets/groupright.png';
 
 const formLayout: {
   labelCol: {
@@ -125,12 +129,19 @@ const LoginPage = () => {
   return (
     <div className={styles.container}>
       <div className={styles.content}>
+        <div className={styles.leftBg}>
+          <img src={leftBg} />
+        </div>
+        <div className={styles.middleBg}>
+          <img src={peopleBg} />
+        </div>
+
         <div className={styles.main}>
           <div className={styles.circular1} />
           <div className={styles.circular2} />
           <div className={styles.top}>
             <img src={logo} />
-            <span>老师您好!</span>
+            <span>课后服务管理培训机构-管理端</span>
             {/* <span>欢迎使用课后服务平台</span> */}
           </div>
           <div className={styles.form}>
@@ -140,6 +151,9 @@ const LoginPage = () => {
             </Button>
           </div>
         </div>
+      </div>
+      <div className={styles.rightBg}>
+        <img src={rightBg} />
       </div>
     </div>
   );
