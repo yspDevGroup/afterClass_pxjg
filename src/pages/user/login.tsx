@@ -3,11 +3,11 @@
  * @author: zpl
  * @Date: 2021-07-22 08:52:55
 
- * @LastEditTime: 2022-04-11 11:03:58
+ * @LastEditTime: 2022-04-11 11:53:15
  * @LastEditors: Wu Zhan
  */
 import { useEffect, useState } from 'react';
-import { history, Link, Redirect, useModel } from 'umi';
+import { useModel } from 'umi';
 import { Button, message } from 'antd';
 import CustomForm from './CustomForm';
 import type { FormInstance } from 'antd/lib/form/hooks/useForm';

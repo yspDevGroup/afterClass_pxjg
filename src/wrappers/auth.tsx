@@ -2,7 +2,7 @@
  * @description: 统一页面鉴权
  * @author: zpl
  * @Date: 2021-08-19 11:59:39
- * @LastEditTime: 2022-04-08 18:53:18
+ * @LastEditTime: 2022-04-11 16:20:10
  * @LastEditors: Wu Zhan
  */
 import { useAccess, useModel, history } from 'umi';
@@ -14,8 +14,8 @@ export default (props: any) => {
 
   const path = location.pathname.toLowerCase();
   const isAuthPage = path.startsWith('/authcallback');
-  const isLoginPage = path.startsWith('/user');
-  if (!isLogin && !isAuthPage && !isLoginPage) {
+  // const isLoginPage = path.startsWith('/user');
+  if (!isLogin && !isAuthPage) {
     const loginPath = getLoginPath(initialState?.buildOptions, true);
     gotoLink(loginPath);
     return '';
