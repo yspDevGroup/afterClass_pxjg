@@ -2,7 +2,7 @@
  * @description: 统一页面鉴权
  * @author: zpl
  * @Date: 2021-08-19 11:59:39
- * @LastEditTime: 2022-04-11 16:20:10
+ * @LastEditTime: 2022-04-11 16:49:47
  * @LastEditors: Wu Zhan
  */
 import { useAccess, useModel, history } from 'umi';
@@ -20,11 +20,10 @@ export default (props: any) => {
     gotoLink(loginPath);
     return '';
   }
-
-  // if (auth === '其他') {
-  //   history.replace('/403?message=抱歉，您的企业暂未通过审核，请联系管理员');
-  //   return '';
-  // }
+  if (auth === '其他') {
+    history.replace('/403?message=抱歉，您的企业暂未通过审核，请联系管理员');
+    return '';
+  }
 
   return <>{props.children}</>;
 };
