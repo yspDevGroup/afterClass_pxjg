@@ -45,6 +45,7 @@ type Enterprise = {
 };
 
 type UserInfo = {
+  JSId?: string;
   id?: string;
   /** 微信用户id */
   wechatUserId?: string;
