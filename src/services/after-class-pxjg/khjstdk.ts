@@ -334,3 +334,25 @@ export async function updateAgency(
     ...(options || {})
   });
 }
+
+/** 查询教师在日期范围内的代课班级记录 POST /khjstdk/getSubClassByTeacher */
+export async function getSubClassByTeacher(
+  body: {
+    /** 开始日期 */
+    startDate: string;
+    /** 结束日期 */
+    endDate: string;
+    /** 教师ID */
+    JZGJBSJId: string;
+  },
+  options?: { [key: string]: any }
+) {
+  return request<any>('/khjstdk/getSubClassByTeacher', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    data: body,
+    ...(options || {})
+  });
+}

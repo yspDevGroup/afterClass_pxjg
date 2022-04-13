@@ -52,6 +52,8 @@ export async function getAllKHJSCQ(
     JZGJBSJId?: string;
     /** 班级ID */
     KHBJSJId?: string;
+    /** 节次ID */
+    XXSJPZId?: string;
     /** 出勤状态 */
     CQZT?: string[];
     /** 出勤日期 */
