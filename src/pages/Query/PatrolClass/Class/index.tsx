@@ -79,13 +79,16 @@ const PatrolClass = (props: any) => {
         return (
           <EllipsisHint
             width="100%"
-            text={grade?.map((item: { id: string; NJMC: string }) => {
-              return (
-                <Tag key={item.id} color="#EFEFEF" style={{ color: '#333' }}>
-                  {item.NJMC}
-                </Tag>
-              );
-            })}
+            text={
+              grade?.length &&
+              grade.map((item: any) => {
+                return (
+                  <Tag key={item.id} style={{ margin: '4px' }}>
+                    {`${item.XD}${item.NJMC}`}
+                  </Tag>
+                );
+              })
+            }
           />
         );
       }
