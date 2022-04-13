@@ -11,6 +11,7 @@ import SearchLayout from '@/components/Search/Layout';
 import Semester from '@/components/Semester';
 import { getAllJZGJBSJ } from '@/services/after-class-pxjg/jzgjbsj';
 import { getTerm } from '@/pages/Graphic/component/utils';
+import { JSInforMation } from '@/components/JSInforMation';
 
 const { TextArea } = Input;
 const { Option } = Select;
@@ -73,6 +74,8 @@ const SubstituteFor = () => {
   }, [XNXQ, SPZT, SQJS, DKJS]);
 
   const handleSubmit = async (param: any) => {
+    // 判断 审批是否存在教师
+
     const { ZT, BZ } = param;
     try {
       const res = await updateAgency(
@@ -232,8 +235,10 @@ const SubstituteFor = () => {
               <>
                 <a
                   onClick={() => {
-                    setCurrent(record);
-                    setVisible(true);
+                    if (JSInforMation(currentUser)) {
+                      setCurrent(record);
+                      setVisible(true);
+                    }
                   }}
                 >
                   审批

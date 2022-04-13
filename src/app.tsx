@@ -3,8 +3,8 @@
  * @description: 运行时配置
  * @author: zpl
  * @Date: 2021-08-09 10:44:42
- * @LastEditTime: 2022-03-24 16:42:11
- * @LastEditors: zpl
+ * @LastEditTime: 2022-04-12 16:09:26
+ * @LastEditors: Wu Zhan
  */
 import { notification, message } from 'antd';
 import { history } from 'umi';
@@ -28,20 +28,31 @@ export const initialStateConfig = {
  * @return {*}
  */
 export async function getInitialState(): Promise<InitialState> {
-  console.log('process.env.REACT_APP_ENV: ', process.env.REACT_APP_ENV);
   const buildOptions = await getBuildOptions();
   const fetchUserInfo = async (): Promise<UserInfo | null> => {
     const authType: AuthType = (localStorage.getItem('authType') as AuthType) || 'local';
-    const res =
-      authType === 'wechat' ? await currentWechatUser({ plat: 'agency' }) : await getCurrentUser({ plat: 'agency' });
-    const { status, data } = res;
-    if (status === 'ok' && data?.info) {
-      return data.info;
+    let res;
+    let dataUser: UserInfo;
+    switch (authType) {
+      case 'wechat':
+        res = await currentWechatUser({ plat: 'agency' });
+        if (res.status === 'ok') {
+          const data = res?.data?.info;
+          dataUser = data;
+        }
+        break;
+      case 'password':
+      default:
+        res = await getCurrentUser({ plat: 'agency' });
+        if (res.status === 'ok') {
+          const data = res?.data?.info;
+          dataUser = data;
+        }
+        break;
     }
-    const isFirstPage = location.pathname !== '/' && !location.pathname.toLowerCase().startsWith('/authcallback');
-    isFirstPage && message.warn(res.message === 'Invalid Token!' ? '未登录' : res.message);
-    return null;
+    return dataUser;
   };
+
   const user = await fetchUserInfo();
   return {
     currentUser: user,
@@ -159,6 +170,7 @@ export const request: RequestConfig = {
         path !== '/' &&
         !path.startsWith('/authcallback') &&
         !path.startsWith('/40') &&
+        // !path.startsWith('/user/login') &&
         (ctx.res.message?.includes('Authorization token is invalid') || ctx.res.message?.includes('Invalid Token'))
       ) {
         removeOAuthToken();

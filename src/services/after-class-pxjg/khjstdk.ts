@@ -9,43 +9,7 @@ export async function getKHJSTDK(
   options?: { [key: string]: any }
 ) {
   const { id: param0, ...queryParams } = params;
-  return request<{
-    status: 'ok' | 'error';
-    data?: {
-      id?: string;
-      LX?: number;
-      ZT?: number;
-      BZ?: string;
-      DKBZ?: string;
-      SKRQ?: string | any;
-      TKRQ?: string | any;
-      DKSPSJ?: string;
-      SKJS?: { id?: string; XM?: string; WechatUserId?: string } | any;
-      DKJS?: { id?: string; XM?: string; WechatUserId?: string } | any;
-      SKFJ?: { id?: string; BH?: string; FJMC?: string } | any;
-      TKFJ?: { id?: string; BH?: string; FJMC?: string } | any;
-      SKJC?: { id?: string; KSSJ?: string; JSSJ?: string; TITLE?: string } | any;
-      TKJC?: { id?: string; KSSJ?: string; JSSJ?: string; TITLE?: string } | any;
-      KHBJSJ?: {
-        id?: string;
-        BJMC?: string;
-        KCTP?: string;
-        KHKCSJ?: { id?: string; KCMC?: string; KCTP?: string };
-      };
-      desKHBJSJ?:
-        | {
-            id?: string;
-            BJMC?: string;
-            KCTP?: string;
-            KHKCSJ?: { id?: string; KCMC?: string; KCTP?: string };
-          }
-        | any;
-      SPJS?: { id?: string; XM?: string; WechatUserId?: string } | any;
-      createdAt?: string;
-      updatedAt?: string;
-    };
-    message?: string;
-  }>(`/khjstdk/${param0}`, {
+  return request<any>(`/khjstdk/${param0}`, {
     method: 'GET',
     params: { ...queryParams },
     ...(options || {})
@@ -227,11 +191,7 @@ export async function getAllByAgency(
   },
   options?: { [key: string]: any }
 ) {
-  return request<{
-    status: 'ok' | 'error';
-    data?: { count?: number; rows?: API.KHJSTDK[] };
-    message?: string;
-  }>('/khjstdk/getAllByAgency', {
+  return request<any>('/khjstdk/getAllByAgency', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -242,7 +202,41 @@ export async function getAllByAgency(
 }
 
 /** 创建课后服务机构教师调代课记录 PUT /khjstdk/createByAgency */
-export async function createByAgency(body: API.CreateKHJSTDK, options?: { [key: string]: any }) {
+export async function createByAgency(
+  body: {
+    /** 类型 */
+    LX?: number;
+    /** 状态 */
+    ZT?: number;
+    /** 备注信息 */
+    BZ?: string;
+    /** 代课备注信息 */
+    DKBZ?: string;
+    /** 原定上课日期 */
+    SKRQ?: string | any;
+    /** 调课后的上课日期 */
+    TKRQ?: string | any;
+    /** 授课教师ID */
+    SKJSId?: string | any;
+    /** 代课教师ID */
+    DKJSId?: string | any;
+    /** 原定场地ID */
+    SKFJId?: string | any;
+    /** 调课后场地ID */
+    TKFJId?: string | any;
+    /** 班级ID */
+    KHBJSJId: string;
+    /** 换课班级ID */
+    DESKHBJSJId?: string | any;
+    /** 原定节次ID */
+    SKJCId?: string | any;
+    /** 调课后节次ID */
+    TKJCId?: string | any;
+    /** 审批教师ID */
+    SPJSId?: string | any;
+  },
+  options?: { [key: string]: any }
+) {
   return request<{
     status: 'ok' | 'error';
     data?: {

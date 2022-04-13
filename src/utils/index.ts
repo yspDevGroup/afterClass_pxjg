@@ -2,8 +2,8 @@
  * @description: 工具类
  * @author: zpl
  * @Date: 2021-08-09 10:36:53
- * @LastEditTime: 2022-04-02 09:49:27
- * @LastEditors: Sissle Lynn
+ * @LastEditTime: 2022-04-11 16:30:13
+ * @LastEditors: Wu Zhan
  */
 import { history } from 'umi';
 import { parse } from 'querystring';
@@ -122,7 +122,7 @@ export const envjudge = (): PlatType => {
  */
 export const getLoginPath = (buildOptions?: BuildOptions, reLogin?: boolean): string => {
   const { ssoHost, ENV_host, clientId } = buildOptions || {};
-  const authType: AuthType = (localStorage.getItem('authType') as AuthType) || 'local';
+  const authType: AuthType = (localStorage.getItem('authType') as AuthType) || 'password';
   let loginPath: string;
   switch (authType) {
     case 'wechat':
@@ -134,24 +134,18 @@ export const getLoginPath = (buildOptions?: BuildOptions, reLogin?: boolean): st
       loginPath = `${ssoHost}/oauth2/code?client_id=${clientId}&response_type=${authType}&redirect_uri=${''}state=${''}scope=${''}`;
       break;
     case 'password':
-      {
-        // 为方便本地调试登录，认证回调地址通过参数传递给后台
-        const callback = encodeURIComponent(`${ENV_host}/AuthCallback/password`);
-        const url = new URL(`${ssoHost}/oauth2/password`);
-        url.searchParams.append('response_type', authType);
-        url.searchParams.append('client_id', clientId || '');
-        url.searchParams.append('logo', `${ENV_host}/logo.png`);
-        url.searchParams.append('title', `${ENV_title}`);
-        url.searchParams.append('redirect_uri', callback);
-        url.searchParams.append('reLogin', String(reLogin || 'false'));
-        loginPath = url.href;
-        // loginPath = `${ssoHost}/oauth2/password?response_type=${authType}&client_id=${clientId}&redirect_uri=${callback}&reLogin=${reLogin || 'false'
-        //   }`;
-      }
-      break;
-    case 'local':
-    default:
-      loginPath = '/user/login';
+    default: {
+      // 为方便本地调试登录，认证回调地址通过参数传递给后台
+      const callback = encodeURIComponent(`${ENV_host}/AuthCallback/password`);
+      const url = new URL(`${ssoHost}/oauth2/password`);
+      url.searchParams.append('response_type', authType);
+      url.searchParams.append('client_id', clientId || '');
+      url.searchParams.append('logo', `${ENV_host}/logo.png`);
+      url.searchParams.append('title', `${ENV_title}`);
+      url.searchParams.append('redirect_uri', callback);
+      url.searchParams.append('reLogin', String(reLogin || 'false'));
+      loginPath = url.href;
+    }
   }
   return loginPath;
 };
@@ -334,4 +328,24 @@ export const getTableWidth = (columns: any[]) => {
     return sum;
   }
   return 1300;
+};
+
+export const getCorpId = () => {
+  return localStorage.getItem('corp') || '';
+};
+
+export const setCorpId = (corp: string) => {
+  localStorage.setItem('corp', corp);
+};
+
+export const setAuthType = (authType: string) => {
+  if (authType) {
+    localStorage.setItem('authType', authType);
+  }
+};
+export const getAuthType = () => {
+  return localStorage.getItem('authType') || 'local';
+};
+export const removeAuthType = () => {
+  localStorage.removeItem('authType');
 };
