@@ -3,7 +3,7 @@
  * @description: 运行时配置
  * @author: zpl
  * @Date: 2021-08-09 10:44:42
- * @LastEditTime: 2022-04-12 16:09:26
+ * @LastEditTime: 2022-04-13 17:12:59
  * @LastEditors: Wu Zhan
  */
 import { notification, message } from 'antd';
@@ -13,7 +13,7 @@ import type { ResponseError } from 'umi-request';
 import LoadingPage from '@/components/Loading';
 import { getAuthorization, getBuildOptions, getCookie, removeOAuthToken } from './utils';
 
-import { currentUser as getCurrentUser } from '@/services/after-class-pxjg/user';
+import { currentUser as getCurrentUser } from '@/services/after-class-pxjg/auth';
 import { currentWechatUser } from '@/services/after-class-pxjg/wechat';
 
 /** 获取用户信息比较慢的时候会展示一个 loading */
@@ -29,10 +29,10 @@ export const initialStateConfig = {
  */
 export async function getInitialState(): Promise<InitialState> {
   const buildOptions = await getBuildOptions();
-  const fetchUserInfo = async (): Promise<UserInfo | null> => {
+  const fetchUserInfo = async (): Promise<UserInfo | undefined> => {
     const authType: AuthType = (localStorage.getItem('authType') as AuthType) || 'local';
     let res;
-    let dataUser: UserInfo;
+    let dataUser: UserInfo | undefined;
     switch (authType) {
       case 'wechat':
         res = await currentWechatUser({ plat: 'agency' });
@@ -45,8 +45,13 @@ export async function getInitialState(): Promise<InitialState> {
       default:
         res = await getCurrentUser({ plat: 'agency' });
         if (res.status === 'ok') {
-          const data = res?.data?.info;
-          dataUser = data;
+          const data = res?.data;
+          dataUser = {
+            ...data,
+            jgId: data?.QYId,
+            JSId: data?.UserId,
+            type: data?.userType?.map((item: { name: string }) => item.name)
+          };
         }
         break;
     }
@@ -55,7 +60,7 @@ export async function getInitialState(): Promise<InitialState> {
 
   const user = await fetchUserInfo();
   return {
-    currentUser: user,
+    currentUser: user || null,
     buildOptions
   };
 }

@@ -19,10 +19,10 @@ const Home = () => {
         <Row className={styles.teacherInfo}>
           <Col span={22}>
             <p>
-              {currentUser?.UserId === '未知' && currentUser.wechatUserId ? (
+              {currentUser?.XM === '未知' && currentUser.wechatUserId ? (
                 <WWOpenDataCom type="userName" openid={currentUser.wechatUserId} />
               ) : (
-                currentUser?.UserId
+                currentUser?.XM
               )}
               老师，您好！
             </p>

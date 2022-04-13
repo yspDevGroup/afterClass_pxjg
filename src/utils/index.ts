@@ -2,7 +2,7 @@
  * @description: 工具类
  * @author: zpl
  * @Date: 2021-08-09 10:36:53
- * @LastEditTime: 2022-04-11 16:30:13
+ * @LastEditTime: 2022-04-12 14:56:16
  * @LastEditors: Wu Zhan
  */
 import { history } from 'umi';
@@ -63,7 +63,7 @@ export const getBuildOptions = async (): Promise<BuildOptions> => {
         ENV_copyRight: '2021 版权所有：陕西五育汇智信息技术有限公司',
         ENV_host: 'http://localhost:8080',
         ssoHost: 'http://platform.test.xianyunshipei.com',
-        // ssoHost: 'http://192.168.0.17:1000',
+        // ssoHost: 'http://localhost:1000',
         clientId: '00003'
       };
   }
@@ -142,6 +142,7 @@ export const getLoginPath = (buildOptions?: BuildOptions, reLogin?: boolean): st
       url.searchParams.append('client_id', clientId || '');
       url.searchParams.append('logo', `${ENV_host}/logo.png`);
       url.searchParams.append('title', `${ENV_title}`);
+      url.searchParams.append('subtitle', `${ENV_subTitle}`);
       url.searchParams.append('redirect_uri', callback);
       url.searchParams.append('reLogin', String(reLogin || 'false'));
       loginPath = url.href;

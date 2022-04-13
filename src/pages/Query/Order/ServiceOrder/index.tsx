@@ -69,21 +69,23 @@ const ServiceOrder = (props: any) => {
 
   useEffect(() => {
     (async () => {
-      const res1 = await getAllSemester({
-        KHJYJGId: currentUser.jgId,
-        XXJBSJId: id
-      });
-      if (res1.status === 'ok') {
-        (async () => {
-          const res = await getAllKHXSDD({
-            XNXQId: res1.data[0].id,
-            XXJBSJId: id,
-            // 父传子判断要请求的状态
-            DDZT: activeKey === '已付款' ? ['已付款', '已退款'] : [activeKey],
-            DDLX: 1
-          });
-          setDataSource(res?.data);
-        })();
+      if (currentUser?.jgId) {
+        const res1 = await getAllSemester({
+          KHJYJGId: currentUser?.jgId,
+          XXJBSJId: id
+        });
+        if (res1.status === 'ok') {
+          (async () => {
+            const res = await getAllKHXSDD({
+              XNXQId: res1.data[0].id,
+              XXJBSJId: id,
+              // 父传子判断要请求的状态
+              DDZT: activeKey === '已付款' ? ['已付款', '已退款'] : [activeKey],
+              DDLX: 1
+            });
+            setDataSource(res?.data);
+          })();
+        }
       }
     })();
   }, [activeKey]);
