@@ -2,8 +2,8 @@
  * @description: 默认配置
  * @author: zpl
  * @Date: 2021-08-24 10:53:03
- * @LastEditTime: 2021-11-01 12:34:04
- * @LastEditors: zpl
+ * @LastEditTime: 2022-04-14 14:31:50
+ * @LastEditors: Wu Zhan
  */
 import { defineConfig } from 'umi';
 import CompressionWebpackPlugin from 'compression-webpack-plugin';
@@ -19,8 +19,8 @@ export default defineConfig({
   },
   fastRefresh: {},
   define: {
-    ENV_title: '课后服务平台',
-    ENV_subTitle: '课后服务平台',
+    ENV_title: '课后服务-培训机构',
+    ENV_subTitle: '管理员登录',
     ENV_copyRight: '2021 版权所有：陕西五育汇智信息技术有限公司',
     ENV_debug: false
   },
