@@ -45,6 +45,8 @@ type Enterprise = {
 };
 
 type UserInfo = {
+  /** 登录的 */
+  authType: 'sso' | 'wechat';
   JSId?: string;
   id?: string;
   /** 微信用户id */
@@ -117,6 +119,8 @@ type AccessInfo = {
   isLogin: boolean;
   isAdmin?: boolean;
   auth: '管理员' | '老师' | '学生' | '家长' | '其他';
+  isSso: boolean;
+  isWechat: boolean;
 };
 
 /** oAuth认证token */
