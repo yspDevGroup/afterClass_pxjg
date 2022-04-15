@@ -3761,6 +3761,47 @@ declare namespace API {
     FBZRId?: string;
   };
 
+  type Parent = {
+    id: string;
+    /** 姓名 */
+    XM: string;
+    /** 联系电话 */
+    LXDH: string;
+    XSJBSJs?: {
+      id?: string;
+      XM?: string;
+      XH?: string;
+      WechatUserId?: string;
+      BJSJ?: {
+        id?: string;
+        BH?: number;
+        BJ?: string;
+        NJSJ?: { id?: string; NJ?: number; NJMC?: string; XD?: string };
+      };
+    }[];
+    XXJBSJs?: { id?: string; XXMC?: string; XXDM?: string; XD?: string }[];
+  };
+
+  type CreateParent = {
+    /** 姓名 */
+    XM: string;
+    /** 联系电话 */
+    LXDH: string;
+    /** 学生ID */
+    XSJBSJIds?: string[];
+    /** 学校ID */
+    XXJBSJIds?: string[];
+  };
+
+  type UpdateParent = {
+    /** 姓名 */
+    XM?: string;
+    /** 学生ID */
+    XSJBSJIds?: string[];
+    /** 学校ID */
+    XXJBSJIds?: string[];
+  };
+
   type PKSJ = {
     id: string;
     /** 上课日期(周几) */
@@ -4380,6 +4421,7 @@ declare namespace API {
       BJ?: string;
       NJSJ?: { id?: string; NJ?: number; NJMC?: string; XD?: string };
     };
+    Parents?: { id?: string; XM?: string; LXDH?: string }[];
   };
 
   type CreateXSJBSJ = {
@@ -6225,6 +6267,21 @@ declare namespace API {
     id: string;
   };
 
+  type getDetailParams = {
+    /** 家长ID */
+    id: string;
+  };
+
+  type deleteParentParams = {
+    /** 家长ID */
+    id: string;
+  };
+
+  type updateParentParams = {
+    /** 家长ID */
+    id: string;
+  };
+
   type deletePKSJParams = {
     /** 排课ID */
     id: string;
@@ -6243,6 +6300,11 @@ declare namespace API {
   type DeleteTeacherUserParams = {
     /** 教师登录账户ID */
     id: string;
+  };
+
+  type importTeachersParams = {
+    /** 登录平台类型 */
+    plat?: string;
   };
 
   type importWechatTeachersParams = {

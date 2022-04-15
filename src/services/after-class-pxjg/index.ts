@@ -56,6 +56,7 @@ import * as khxxzzfw from './khxxzzfw';
 import * as khzzfw from './khzzfw';
 import * as njsj from './njsj';
 import * as operation from './operation';
+import * as parent from './parent';
 import * as pksj from './pksj';
 import * as redis from './redis';
 import * as reports from './reports';
@@ -141,6 +142,7 @@ export default {
   khzzfw,
   njsj,
   operation,
+  parent,
   pksj,
   redis,
   reports,

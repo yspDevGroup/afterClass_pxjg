@@ -11,9 +11,16 @@ export async function uploadFile(options?: { [key: string]: any }) {
 }
 
 /** 导入教师信息 POST /upload/importTeachers */
-export async function importTeachers(options?: { [key: string]: any }) {
+export async function importTeachers(
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: API.importTeachersParams,
+  options?: { [key: string]: any }
+) {
   return request<{ status: 'ok' | 'error'; data?: string; message?: string }>('/upload/importTeachers', {
     method: 'POST',
+    params: {
+      ...params
+    },
     ...(options || {})
   });
 }
