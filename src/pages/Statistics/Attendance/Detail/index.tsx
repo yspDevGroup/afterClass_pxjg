@@ -13,6 +13,7 @@ import { DownloadOutlined, LeftOutlined } from '@ant-design/icons';
 import ShowName from '@/components/ShowName';
 import { agencyStatisticalDetail, getAllKHJSCQ } from '@/services/after-class-pxjg/khjscq';
 import { getTableWidth } from '@/utils';
+import styles from './index.less';
 
 const AttendanceDetail = (props: any) => {
   const { data, XN, XQ, position, startDate, endDate } = props.location.state;
@@ -203,6 +204,7 @@ const AttendanceDetail = (props: any) => {
           setVisible(false);
         }}
         footer={null}
+        className={styles.QQDetails}
       >
         <ProTable
           options={{
@@ -220,6 +222,7 @@ const AttendanceDetail = (props: any) => {
           search={false}
           columns={colomns}
           dataSource={absenteeismData}
+          className={styles.QQTable}
         />
       </Modal>
     </div>
