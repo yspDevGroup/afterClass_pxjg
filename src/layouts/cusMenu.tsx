@@ -2,8 +2,8 @@
  * @description:
  * @author: Sissle Lynn
  * @Date: 2021-08-24 17:21:12
- * @LastEditTime: 2022-04-11 16:41:06
- * @LastEditors: Wu Zhan
+ * @LastEditTime: 2022-04-18 09:36:30
+ * @LastEditors: zpl
  */
 import React from 'react';
 import {
@@ -47,6 +47,11 @@ export default {
                 name: '详情查看'
               }
             ]
+          },
+          {
+            path: '/basicalSetting/userManagement',
+            name: '账号管理',
+            hideInMenu: 'true'
           }
         ]
       },
