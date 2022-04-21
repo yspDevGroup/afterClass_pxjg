@@ -15,7 +15,7 @@ const { TabPane } = Tabs;
 const Notice = () => {
   const { initialState } = useModel('@@initialState');
   const { currentUser } = initialState || {};
-  const { jgId } = currentUser!;
+  const { jgId } = currentUser || {};
   const [dataTZGG, setTZGGData] = useState<any>();
   const [dataZCGG, setZCGGData] = useState<any>();
   const [tabSelect, setTabSelect] = useState<any>('policy');
@@ -25,7 +25,7 @@ const Notice = () => {
 
   const handalTabClick = (key: string) => {
     setTabSelect(key);
-  }
+  };
 
   const enterLoading = (index: number) => {
     const newLoadings = [...loadings];
@@ -55,7 +55,7 @@ const Notice = () => {
           cls: 'azeList',
           list: resgetXXTZGG.data?.rows?.slice(0, 3) || [],
           noDataText: '暂无待办',
-          noDataImg: noData,
+          noDataImg: noData
         };
         setZCGGData(newData);
         const newAllData = {
@@ -63,9 +63,9 @@ const Notice = () => {
           cls: 'azeList',
           list: resgetXXTZGG.data?.rows || [],
           noDataText: '暂无待办',
-          noDataImg: noData,
-        }
-        setAllZCDataSource(newAllData)
+          noDataImg: noData
+        };
+        setAllZCDataSource(newAllData);
       }
 
       // 政策公告
@@ -83,7 +83,7 @@ const Notice = () => {
           cls: 'azeList',
           list: resgetXXZCGG.data?.rows?.slice(0, 3) || [],
           noDataText: '暂无待办',
-          noDataImg: noData,
+          noDataImg: noData
         };
         setTZGGData(newData);
         const newAllData = {
@@ -91,8 +91,8 @@ const Notice = () => {
           cls: 'azeList',
           list: resgetXXZCGG.data?.rows || [],
           noDataText: '暂无待办',
-          noDataImg: noData,
-        }
+          noDataImg: noData
+        };
         setAllTZDataSource(newAllData);
       }
     }
@@ -102,43 +102,76 @@ const Notice = () => {
 
   return (
     <div className={styles.notice}>
-      <Tabs
-        centered={true}
-        onTabClick={handalTabClick}
-      >
+      <Tabs centered={true} onTabClick={handalTabClick}>
         <TabPane tab="政策公告" key="policy">
-          {
-            dataTZGG ?  <>
-              <ListComp listData={dataTZGG} infoType='zc'/>
-              <Link to={{ pathname: '/mobile/homepage/home/allNotice', state: { allDataSource: allTZDataSource , type: 'zc'} }}>
-                <Col span={12} offset={8}><Button type="primary" onClick={() => enterLoading(1)} className={styles.moreBtn} loading={loadings[1]} ghost={true} icon={<ArrowDownOutlined />}>查看更多</Button></Col>
+          {dataTZGG ? (
+            <>
+              <ListComp listData={dataTZGG} infoType="zc" />
+              <Link
+                to={{
+                  pathname: '/mobile/homepage/home/allNotice',
+                  state: { allDataSource: allTZDataSource, type: 'zc' }
+                }}
+              >
+                <Col span={12} offset={8}>
+                  <Button
+                    type="primary"
+                    onClick={() => enterLoading(1)}
+                    className={styles.moreBtn}
+                    loading={loadings[1]}
+                    ghost={true}
+                    icon={<ArrowDownOutlined />}
+                  >
+                    查看更多
+                  </Button>
+                </Col>
               </Link>
-            </> : <Empty
-            image={noData}
-            imageStyle={{
-              minHeight: 135
-            }}
-            style={{ minHeight: 200,background: '#fff',borderRadius: '8px' }}
-            description={'暂无公告'} />
-          }
-
-        </TabPane>
-        <TabPane tab="内部通知" key="notify">
-          {
-            (dataZCGG?.list && dataZCGG?.list.length) ? <>
-              <ListComp listData={dataZCGG} infoType='tz'/>
-              <Link to={{ pathname: '/mobile/homepage/home/allNotice', state: { allDataSource: allZCDataSource , type: 'tz' } }}>
-                <Col span={12} offset={8}><Button type="primary" onClick={() => enterLoading(2)} className={styles.moreBtn} loading={loadings[2]} ghost={true} icon={<ArrowDownOutlined />}>查看更多</Button></Col>
-              </Link>
-            </> : <Empty
+            </>
+          ) : (
+            <Empty
               image={noData}
               imageStyle={{
                 minHeight: 135
               }}
-              style={{ minHeight: 200,background: '#fff',borderRadius: '8px' }}
-              description={'暂无公告'} />
-          }
-
+              style={{ minHeight: 200, background: '#fff', borderRadius: '8px' }}
+              description={'暂无公告'}
+            />
+          )}
+        </TabPane>
+        <TabPane tab="内部通知" key="notify">
+          {dataZCGG?.list && dataZCGG?.list.length ? (
+            <>
+              <ListComp listData={dataZCGG} infoType="tz" />
+              <Link
+                to={{
+                  pathname: '/mobile/homepage/home/allNotice',
+                  state: { allDataSource: allZCDataSource, type: 'tz' }
+                }}
+              >
+                <Col span={12} offset={8}>
+                  <Button
+                    type="primary"
+                    onClick={() => enterLoading(2)}
+                    className={styles.moreBtn}
+                    loading={loadings[2]}
+                    ghost={true}
+                    icon={<ArrowDownOutlined />}
+                  >
+                    查看更多
+                  </Button>
+                </Col>
+              </Link>
+            </>
+          ) : (
+            <Empty
+              image={noData}
+              imageStyle={{
+                minHeight: 135
+              }}
+              style={{ minHeight: 200, background: '#fff', borderRadius: '8px' }}
+              description={'暂无公告'}
+            />
+          )}
         </TabPane>
       </Tabs>
     </div>

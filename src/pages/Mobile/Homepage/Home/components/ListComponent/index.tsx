@@ -13,25 +13,25 @@ const NewsList = (props: { data: ListItem[]; type: any; operation: any; infoType
     <div className={styles[type]}>
       <List
         dataSource={data}
-        renderItem={(v: any,index) => {
+        renderItem={(v: any, index) => {
           return (
             <div className={operation ? 'ui-listItemWrapper' : ''}>
               <div className={operation ? 'ui-listItemContent' : ''}>
-                <Link to={{pathname: '/mobile/homepage/home/noticeDetails', state: { allDataSource: data, index, infoType }}}>
+                <Link
+                  to={{
+                    pathname: '/mobile/homepage/home/noticeDetails',
+                    state: { allDataSource: data, index, infoType }
+                  }}
+                >
                   <List.Item.Meta
                     title={
                       <div className={styles.TitleRow}>
                         <div className={styles.Title}>
                           {v.SFTT === 1 ? <div className={styles.Headlines}>头条</div> : <></>}
-                          {
-                            <span style={{fontSize: '14px', fontWeight: 'bold'}}>{v.BT || v.KCMC}</span>
-                          }
-
+                          <span style={{ fontSize: '14px', fontWeight: 'bold' }}>{v.BT || v.KCMC}</span>
                         </div>
                         <div className={styles.TitleRight}>
-                         {
-                           type === 'azeList' ? '' : <span>{moment(v.createdAt).format('YYYY.MM.DD')}</span>
-                         }
+                          {type === 'azeList' ? '' : <span>{moment(v.createdAt).format('YYYY.MM.DD')}</span>}
                         </div>
                       </div>
                     }
@@ -39,14 +39,17 @@ const NewsList = (props: { data: ListItem[]; type: any; operation: any; infoType
                       <>
                         <div className={styles.descRow} key={`${v.title}`}>
                           <div className={styles.descleft}>
-                            {
-                              type === 'azeList' ? <span style={{fontSize: '12px'}}>{moment(v.RQ).format('YYYY.MM.DD h:mm:ss')}</span> : <span>{'类型：'}{v.KCMC ? '课程引入申请' : '机构准入申请'}</span>
-                            }
+                            {type === 'azeList' ? (
+                              <span style={{ fontSize: '12px' }}>{moment(v.RQ).format('YYYY.MM.DD HH:mm:ss')}</span>
+                            ) : (
+                              <span>
+                                类型：
+                                {v.KCMC ? '课程引入申请' : '机构准入申请'}
+                              </span>
+                            )}
                           </div>
                           <div className={styles.descright}>
-                            {
-                               type === 'azeList' ? <IconFont type="icon-gengduo" className={styles.gengduo} /> : ''
-                            }
+                            {type === 'azeList' ? <IconFont type="icon-gengduo" className={styles.gengduo} /> : ''}
                           </div>
                         </div>
                       </>
@@ -87,7 +90,7 @@ const ListComp = (props: { listData?: ListData; cls?: string; operation?: any; i
 
     return (
       <div className={`${styles.ListComponentBigBox} ${cls}`}>
-        {header && header.title ? (
+        {header?.title ? (
           <div className={styles.ListHeader}>
             <div className={styles.ListHeaderTitle}>{header?.title}</div>
             <div className={styles.ListHeaderMore}>
@@ -97,8 +100,8 @@ const ListComp = (props: { listData?: ListData; cls?: string; operation?: any; i
         ) : (
           ''
         )}
-        {list && list.length ? (
-          <NewsList data={list} type={type} operation={operation} infoType={props.infoType}/>
+        {list?.length ? (
+          <NewsList data={list} type={type} operation={operation} infoType={props.infoType} />
         ) : (
           <>
             {noDataIcon ? (
@@ -114,6 +117,6 @@ const ListComp = (props: { listData?: ListData; cls?: string; operation?: any; i
     );
   }
   return <></>;
-}
+};
 
 export default ListComp;
