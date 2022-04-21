@@ -2,8 +2,8 @@
  * @description:
  * @author: Sissle Lynn
  * @Date: 2021-08-26 19:54:41
- * @LastEditTime: 2022-03-28 15:31:38
- * @LastEditors: Sissle Lynn
+ * @LastEditTime: 2022-04-21 16:11:33
+ * @LastEditors: zpl
  */
 import React, { useEffect, useState } from 'react';
 import { Link } from 'umi';
@@ -41,7 +41,7 @@ const CourseItemDom = (props: { school: string; course: any; type: string; ind: 
   };
   useEffect(() => {
     if (course?.KHBJSJs?.length) {
-      const list = course?.KHBJSJs?.filter((item: { BJZT: string }) => item.BJZT === '已开班');
+      const list = course?.KHBJSJs?.filter((item: { BJZT: string }) => item.BJZT !== '未开班');
       setClassList(list);
     }
   }, [course]);
@@ -152,6 +152,7 @@ const CourseItemDom = (props: { school: string; course: any; type: string; ind: 
                       <RightOutlined />
                     </Link>
                   </p>
+                  <p>课程状态：{item?.BJZT}</p>
                 </div>
               </Col>
             );
