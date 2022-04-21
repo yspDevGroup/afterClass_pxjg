@@ -104,6 +104,8 @@ type BuildOptions = {
   ENV_host: string;
   /** sso认证地址 */
   ssoHost: string;
+  /** 西安教育平台认证地址 */
+  xaeduSsoHost?: string;
   /** 注册的应用id，机构管理端固定为00003 */
   clientId: '00003';
 };
@@ -112,6 +114,7 @@ type BuildOptions = {
 type InitialState = {
   currentUser: UserInfo | null;
   buildOptions: BuildOptions;
+  fetchUserInfo?: () => Promise<UserInfo | undefined>;
 };
 
 /** 通过useAccess获取到的应用权限详情信息 */

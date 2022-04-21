@@ -3,8 +3,8 @@
  * @description: 运行时配置
  * @author: zpl
  * @Date: 2021-08-09 10:44:42
- * @LastEditTime: 2022-04-13 17:12:59
- * @LastEditors: Wu Zhan
+ * @LastEditTime: 2022-04-21 14:56:23
+ * @LastEditors: zpl
  */
 import { notification, message } from 'antd';
 import { history } from 'umi';
@@ -61,7 +61,8 @@ export async function getInitialState(): Promise<InitialState> {
   const user = await fetchUserInfo();
   return {
     currentUser: user || null,
-    buildOptions
+    buildOptions,
+    fetchUserInfo
   };
 }
 

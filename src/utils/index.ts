@@ -2,8 +2,8 @@
  * @description: 工具类
  * @author: zpl
  * @Date: 2021-08-09 10:36:53
- * @LastEditTime: 2022-04-12 14:56:16
- * @LastEditors: Wu Zhan
+ * @LastEditTime: 2022-04-19 14:25:32
+ * @LastEditors: zpl
  */
 import { history } from 'umi';
 import { parse } from 'querystring';
@@ -27,6 +27,7 @@ export const getBuildOptions = async (): Promise<BuildOptions> => {
         ENV_copyRight: '2021 版权所有：陕西五育汇智信息技术有限公司',
         ENV_host: 'http://afterclassPxjg.prod.xianyunshipei.com',
         ssoHost: 'http://sso.prod.xianyunshipei.com',
+        xaeduSsoHost: 'http://www.xaedu.cloud',
         clientId: '00003'
       };
     case 'chanming':
