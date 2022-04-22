@@ -87,7 +87,6 @@ const FormSelect = (props: formSelectProps) => {
     setJSId(undefined);
     setKCId(undefined);
   };
-  console.log(KCId, 'KCId');
 
   return (
     <div className={styles.FormSelect}>
@@ -108,6 +107,7 @@ const FormSelect = (props: formSelectProps) => {
               setXXJBSJId(value);
               setJSId(undefined);
               setKCId(undefined);
+              setWeekNum(undefined);
               getDataSource(XNXQ, value, '', '', '');
             }}
           >
@@ -148,7 +148,7 @@ const FormSelect = (props: formSelectProps) => {
             allowClear
             placeholder="请选择"
             onChange={(value: string) => {
-              setJSId(JSId);
+              setJSId(value);
               getDataSource(XNXQ, XXJBSJId, KCId, value);
             }}
           >
