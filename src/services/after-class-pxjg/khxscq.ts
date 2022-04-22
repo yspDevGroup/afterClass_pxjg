@@ -6,7 +6,7 @@ import { request } from 'umi';
 export async function getKHXSCQ(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.getKHXSCQParams,
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{
@@ -36,7 +36,7 @@ export async function getKHXSCQ(
   }>(`/khxscq/${param0}`, {
     method: 'GET',
     params: { ...queryParams },
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -44,13 +44,13 @@ export async function getKHXSCQ(
 export async function deleteKHXSCQ(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.deleteKHXSCQParams,
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{ status: 'ok' | 'error'; message?: string }>(`/khxscq/${param0}`, {
     method: 'DELETE',
     params: { ...queryParams },
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -72,15 +72,15 @@ export async function getAllKHXSCQ(
     /** 结束日期 */
     endDate?: string;
   },
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   return request<{ status: 'ok' | 'error'; data?: API.KHXSCQ[]; message?: string }>('/khxscq/', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -95,7 +95,7 @@ export async function createKHXSCQ(
     XXSJPZId: string;
     XSCQs?: { CQZT?: '出勤' | '请假' | '缺席'; XSJBSJId?: string }[];
   },
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   return request<{
     status: 'ok' | 'error';
@@ -124,10 +124,10 @@ export async function createKHXSCQ(
   }>('/khxscq/create', {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -136,17 +136,17 @@ export async function updateKHXSCQ(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.updateKHXSCQParams,
   body: API.UpdateKHXSCQ,
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{ status: 'ok' | 'error'; message?: string }>(`/khxscq/update/${param0}`, {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     params: { ...queryParams },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -160,15 +160,15 @@ export async function countKHXSCQ(
     /** 学年学期ID */
     XNXQId: string;
   },
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   return request<any>('/khxscq/statistical', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -182,15 +182,15 @@ export async function getArrangement(
     /** 节次ID */
     XXSJPZId?: string;
   },
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   return request<any>('/khxscq/getArrangement', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -204,14 +204,14 @@ export async function getStudentArrangement(
     /** 学生ID */
     XSJBSJId?: string;
   },
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   return request<any>('/khxscq/getStudentArrangement', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }

@@ -6,13 +6,13 @@ import { request } from 'umi';
 export async function getKHJSTDK(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.getKHJSTDKParams,
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   const { id: param0, ...queryParams } = params;
   return request<any>(`/khjstdk/${param0}`, {
     method: 'GET',
     params: { ...queryParams },
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -20,13 +20,13 @@ export async function getKHJSTDK(
 export async function deleteKHJSTDK(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.deleteKHJSTDKParams,
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{ status: 'ok' | 'error'; message?: string }>(`/khjstdk/${param0}`, {
     method: 'DELETE',
     params: { ...queryParams },
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -54,7 +54,7 @@ export async function getAllKHJSTDK(
     /** 每页记录数 */
     pageSize?: number;
   },
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   return request<{
     status: 'ok' | 'error';
@@ -63,10 +63,10 @@ export async function getAllKHJSTDK(
   }>('/khjstdk/getAll', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -111,10 +111,10 @@ export async function createKHJSTDK(body: API.CreateKHJSTDK, options?: { [key: s
   }>('/khjstdk/create', {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -123,17 +123,17 @@ export async function updateKHJSTDK(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.updateKHJSTDKParams,
   body: API.UpdateKHJSTDK,
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{ status: 'ok' | 'error'; message?: string }>(`/khjstdk/update/${param0}`, {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     params: { ...queryParams },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -147,7 +147,7 @@ export async function getTodaySubstitute(
     /** 每页记录数 */
     pageSize?: number;
   },
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   return request<{
     status: 'ok' | 'error';
@@ -156,10 +156,10 @@ export async function getTodaySubstitute(
   }>('/khjstdk/getTodaySubstitute', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -189,15 +189,15 @@ export async function getAllByAgency(
     /** 每页记录数 */
     pageSize?: number;
   },
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   return request<any>('/khjstdk/getAllByAgency', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -235,7 +235,7 @@ export async function createByAgency(
     /** 审批教师ID */
     SPJSId?: string | any;
   },
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   return request<{
     status: 'ok' | 'error';
@@ -276,10 +276,10 @@ export async function createByAgency(
   }>('/khjstdk/createByAgency', {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -321,17 +321,17 @@ export async function updateAgency(
     /** 机构ID */
     KHJYJGId: string;
   },
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{ status: 'ok' | 'error'; message?: string }>(`/khjstdk/updateAgency/${param0}`, {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     params: { ...queryParams },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -345,14 +345,14 @@ export async function getSubClassByTeacher(
     /** 教师ID */
     JZGJBSJId: string;
   },
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   return request<any>('/khjstdk/getSubClassByTeacher', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }

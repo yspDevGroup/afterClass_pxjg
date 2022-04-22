@@ -7,10 +7,10 @@ export async function createKHXKSJ(body: API.CreateKHXKSJ[], options?: { [key: s
   return request<{ status: 'ok' | 'error'; data?: string; message?: string }>('/khxksj/create', {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -28,7 +28,7 @@ export async function getKHXKSJ(
     /** 每页记录数 */
     pageSize?: number;
   },
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   return request<{
     status: 'ok' | 'error';
@@ -37,10 +37,10 @@ export async function getKHXKSJ(
   }>('/khxksj/getAll', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -52,15 +52,15 @@ export async function deleteKHXKSJ(
     /** 学校ID */
     XXJBSJId?: string;
   },
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   return request<{ status: 'ok' | 'error'; message?: string }>('/khxksj', {
     method: 'DELETE',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -69,10 +69,10 @@ export async function updateKHXKSJ(body: API.UpdateKHXKSJ[], options?: { [key: s
   return request<{ status: 'ok' | 'error'; message?: string }>('/khxksj/update', {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -88,15 +88,15 @@ export async function getScheduleByDate(
     /** 学校ID */
     XXJBSJId: string;
   },
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   return request<any>('/khxksj/getScheduleByDate', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -112,15 +112,15 @@ export async function getXKrecordBydate(
     /** 学校ID */
     XXJBSJId: string;
   },
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   return request<any>('/khxksj/getXKrecordBydate', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -136,14 +136,14 @@ export async function getCourseSchedule(
     /** 学校ID */
     XXJBSJId: string;
   },
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   return request<any>('/khxksj/getCourseSchedule', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }

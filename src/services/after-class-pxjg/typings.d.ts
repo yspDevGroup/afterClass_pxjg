@@ -2012,7 +2012,9 @@ declare namespace API {
     KHBJSJId?: string;
     /** 教师类型,0:副班;1:主班 */
     JSLX?: number | any;
-    JZGJBSJ?: { id?: string; XM?: string; GH?: string; LXDH?: string | any; WechatUserId?: string } | any;
+    JZGJBSJ?:
+      | { id?: string; XM?: string; GH?: string; LXDH?: string | any; WechatUserId?: string }
+      | any;
     XXSJPZ?: { id?: string; KSSJ?: string; JSSJ?: string; TITLE?: string } | any;
     KHBJSJ?: { id?: string; BJMC?: string } | any;
   };
@@ -3539,7 +3541,9 @@ declare namespace API {
     };
     JZGJBSJ?: { id?: string; XM?: string; WechatUserId?: string } | any;
     KHBJSJ?: { BJMC?: string; KHKCSJ?: { KCMC?: string } } | any;
-    KHXXZZFW?: { id?: string; FWMC?: string; KHZZFW?: { id?: string; FWMC?: string; FWJGMC?: string } } | any;
+    KHXXZZFW?:
+      | { id?: string; FWMC?: string; KHZZFW?: { id?: string; FWMC?: string; FWJGMC?: string } }
+      | any;
     XSFWBJ?:
       | {
           id?: string;

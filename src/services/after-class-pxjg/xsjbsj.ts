@@ -6,7 +6,7 @@ import { request } from 'umi';
 export async function getXSJBSJ(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.getXSJBSJParams,
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{
@@ -63,7 +63,7 @@ export async function getXSJBSJ(
   }>(`/xsjbsj/${param0}`, {
     method: 'GET',
     params: { ...queryParams },
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -71,13 +71,13 @@ export async function getXSJBSJ(
 export async function deleteXSJBSJ(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.deleteXSJBSJParams,
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{ status: 'ok' | 'error'; message?: string }>(`/xsjbsj/${param0}`, {
     method: 'DELETE',
     params: { ...queryParams },
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -99,7 +99,7 @@ export async function getAllXSJBSJ(
     /** 每页记录数 */
     pageSize: number;
   },
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   return request<{
     status: 'ok' | 'error';
@@ -108,10 +108,10 @@ export async function getAllXSJBSJ(
   }>('/xsjbsj/', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -171,10 +171,10 @@ export async function createXSJBSJ(body: API.CreateXSJBSJ, options?: { [key: str
   }>('/xsjbsj/create', {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -183,17 +183,17 @@ export async function updateXSJBSJ(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.updateXSJBSJParams,
   body: API.UpdateXSJBSJ,
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{ status: 'ok' | 'error'; message?: string }>(`/xsjbsj/update/${param0}`, {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     params: { ...queryParams },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -201,7 +201,7 @@ export async function updateXSJBSJ(
 export async function getPortrait(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.getPortraitParams,
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   const { id: param0, ...queryParams } = params;
   return request<{
@@ -291,7 +291,7 @@ export async function getPortrait(
   }>(`/xsjbsj/portrait/${param0}`, {
     method: 'GET',
     params: { ...queryParams },
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -301,15 +301,15 @@ export async function studentTodo(
     XSJBSJId?: string;
     XNXQId?: string;
   },
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   return request<any>('/xsjbsj/studentTodo', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -320,15 +320,15 @@ export async function signClass(
     KHBJSJId: string;
     ZT: number;
   },
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   return request<any>('/xsjbsj/signClass', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }
 
@@ -339,14 +339,14 @@ export async function signService(
     KHXXZZFWId: string;
     ZT: number;
   },
-  options?: { [key: string]: any }
+  options?: { [key: string]: any },
 ) {
   return request<any>('/xsjbsj/signService', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     data: body,
-    ...(options || {})
+    ...(options || {}),
   });
 }

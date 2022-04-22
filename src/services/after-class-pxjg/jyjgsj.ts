@@ -391,6 +391,7 @@ export async function getCoursesEvaluation(
 export async function getSchoolCoursesEvaluation(
   body: {
     XZQHM?: string;
+    SXZQHM?: string;
     /** 课程ID */
     KHKCSJId: string;
     /** 学年 */

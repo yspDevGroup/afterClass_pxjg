@@ -172,5 +172,5 @@ export default {
   xxsppz,
   xxtzgg,
   zxfa,
-  zxsj
+  zxsj,
 };
