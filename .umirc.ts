@@ -21,7 +21,7 @@ export default defineConfig({
   define: {
     ENV_title: '课后服务-培训机构',
     ENV_subTitle: '管理员登录',
-    ENV_copyRight: '2021 版权所有：陕西五育汇智信息技术有限公司',
+    ENV_copyRight: '2022 版权所有：陕西五育汇智信息技术有限公司',
     ENV_debug: false
   },
   links: [{ rel: 'icon', href: './title.png' }],
