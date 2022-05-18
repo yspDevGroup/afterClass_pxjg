@@ -2,7 +2,7 @@
  * @description: OAuth认证回调页面，password模式，本页面会先写入本地token缓存并触发身份信息获取，然后跳转向权限对应的页面
  * @author: zpl
  * @Date: 2021-07-14 16:54:06
- * @LastEditTime: 2022-04-13 16:14:14
+ * @LastEditTime: 2022-05-18 14:55:52
  * @LastEditors: Wu Zhan
  */
 import React, { FC, useEffect } from 'react';
@@ -26,7 +26,8 @@ const AuthCallback: FC = () => {
       access_token: ysp_access_token!,
       expires_in: parseInt(ysp_expires_in || '0', 10),
       refresh_token: ysp_refresh_token || '',
-      token_type: ysp_token_type || undefined
+      token_type: ysp_token_type || undefined,
+      appCode: ENV_clientId
     });
     if (tokenRes.status === 'ok') {
       saveOAuthToken({

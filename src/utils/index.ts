@@ -2,8 +2,8 @@
  * @description: 工具类
  * @author: zpl
  * @Date: 2021-08-09 10:36:53
- * @LastEditTime: 2022-04-19 14:25:32
- * @LastEditors: zpl
+ * @LastEditTime: 2022-05-18 14:57:11
+ * @LastEditors: Wu Zhan
  */
 import { history } from 'umi';
 import { parse } from 'querystring';
@@ -27,8 +27,7 @@ export const getBuildOptions = async (): Promise<BuildOptions> => {
         ENV_copyRight: '2022 版权所有：陕西五育汇智信息技术有限公司',
         ENV_host: 'http://afterclassPxjg.prod.xianyunshipei.com',
         ssoHost: 'http://sso.prod.xianyunshipei.com',
-        xaeduSsoHost: 'http://www.xaedu.cloud',
-        clientId: '00003'
+        xaeduSsoHost: 'http://www.xaedu.cloud'
       };
     case 'chanming':
       // 禅鸣环境
@@ -36,8 +35,7 @@ export const getBuildOptions = async (): Promise<BuildOptions> => {
         ENV_type: 'chanming',
         ENV_copyRight: '2022 版权所有：蝉鸣科技（西安）有限公司',
         ENV_host: 'http://afterclassPxjg.wuyu.imzhiliao.com',
-        ssoHost: 'http://sso.wuyu.imzhiliao.com',
-        clientId: '00003'
+        ssoHost: 'http://sso.wuyu.imzhiliao.com'
       };
     case '9dy':
       // 9朵云环境
@@ -45,8 +43,7 @@ export const getBuildOptions = async (): Promise<BuildOptions> => {
         ENV_type: '9dy',
         ENV_copyRight: '2022 版权所有：广东九朵云科技有限公司',
         ENV_host: 'http://afterclassPxjg.9cloudstech.com',
-        ssoHost: 'http://sso.9cloudstech.com',
-        clientId: '00003'
+        ssoHost: 'http://sso.9cloudstech.com'
       };
     case 'development':
       // 开发测试环境
@@ -54,8 +51,7 @@ export const getBuildOptions = async (): Promise<BuildOptions> => {
         ENV_type: 'dev',
         ENV_copyRight: '2022 版权所有：陕西五育汇智信息技术有限公司',
         ENV_host: 'http://afterclassPxjg.test.xianyunshipei.com',
-        ssoHost: 'http://sso.test.xianyunshipei.com',
-        clientId: '00003'
+        ssoHost: 'http://sso.test.xianyunshipei.com'
       };
     default:
       // 默认为local，本地开发模式下请在此处修改配置，但不要提交此处修改
@@ -63,9 +59,7 @@ export const getBuildOptions = async (): Promise<BuildOptions> => {
         ENV_type: 'dev',
         ENV_copyRight: '2022 版权所有：陕西五育汇智信息技术有限公司',
         ENV_host: 'http://localhost:8080',
-        ssoHost: 'http://platform.test.xianyunshipei.com',
-        // ssoHost: 'http://localhost:1000',
-        clientId: '00003'
+        ssoHost: 'http://platform.test.xianyunshipei.com'
       };
   }
 };
@@ -122,17 +116,17 @@ export const envjudge = (): PlatType => {
  * @return {*} {string}
  */
 export const getLoginPath = (buildOptions?: BuildOptions, reLogin?: boolean): string => {
-  const { ssoHost, ENV_host, clientId } = buildOptions || {};
+  const { ssoHost, ENV_host } = buildOptions || {};
   const authType: AuthType = (localStorage.getItem('authType') as AuthType) || 'password';
   let loginPath: string;
   switch (authType) {
     case 'wechat':
       // 前提是本应该已经注册为微信认证，且正确配置认证回调地址为 ${ENV_host}/AuthCallback/wechat
-      loginPath = `${ssoHost}/wechat/authorizeUrl?suiteID=${clientId}`;
+      loginPath = `${ssoHost}/wechat/authorizeUrl?suiteID=${ENV_clientId}`;
       break;
     case 'authorization_code':
       // TODO 待处理
-      loginPath = `${ssoHost}/oauth2/code?client_id=${clientId}&response_type=${authType}&redirect_uri=${''}state=${''}scope=${''}`;
+      loginPath = `${ssoHost}/oauth2/code?client_id=${ENV_clientId}&response_type=${authType}&redirect_uri=${''}state=${''}scope=${''}`;
       break;
     case 'password':
     default: {
@@ -140,7 +134,7 @@ export const getLoginPath = (buildOptions?: BuildOptions, reLogin?: boolean): st
       const callback = encodeURIComponent(`${ENV_host}/AuthCallback/password`);
       const url = new URL(`${ssoHost}/oauth2/password`);
       url.searchParams.append('response_type', authType);
-      url.searchParams.append('client_id', clientId || '');
+      url.searchParams.append('client_id', ENV_clientId || '');
       url.searchParams.append('logo', `${ENV_host}/logo.png`);
       url.searchParams.append('title', `${ENV_title}`);
       url.searchParams.append('subtitle', `${ENV_subTitle}`);

@@ -71,7 +71,7 @@ const InfoMaintenance = (props: any) => {
     });
     if (response?.status === 'ok') {
       console.log('response', response);
-      return response?.data?.rows;
+      return response?.data?.list?.map((item: { name: string; code: string }) => ({ mc: item.name, dm: item.code }));
     } else {
       message.error(response.message);
     }

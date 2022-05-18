@@ -2,7 +2,7 @@
  * @description: 默认配置
  * @author: zpl
  * @Date: 2021-08-24 10:53:03
- * @LastEditTime: 2022-04-14 14:31:50
+ * @LastEditTime: 2022-05-18 14:55:31
  * @LastEditors: Wu Zhan
  */
 import { defineConfig } from 'umi';
@@ -22,7 +22,8 @@ export default defineConfig({
     ENV_title: '课后服务-培训机构',
     ENV_subTitle: '管理员登录',
     ENV_copyRight: '2022 版权所有：陕西五育汇智信息技术有限公司',
-    ENV_debug: false
+    ENV_debug: false,
+    ENV_clientId: '00003'
   },
   links: [{ rel: 'icon', href: './title.png' }],
   dynamicImport: {
