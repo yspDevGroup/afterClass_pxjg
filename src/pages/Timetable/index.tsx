@@ -9,7 +9,7 @@ import { getTerm } from '../Graphic/component/utils';
 import FormSelect from './compoents/FormSelect';
 import styles from './index.less';
 import noJF from '@/assets/noJF.png';
-import { Divider } from 'antd';
+import { Divider, Spin } from 'antd';
 
 const Timetable = () => {
   const { initialState } = useModel('@@initialState');
@@ -33,6 +33,7 @@ const Timetable = () => {
   const [Datas, setDatas] = useState<any>([]);
   // 教学周筛选
   const [weekNum, setWeekNum] = useState<any>();
+  const [loading, setLoading] = useState<boolean>(false);
 
   const columns: {
     title: string;
@@ -195,8 +196,9 @@ const Timetable = () => {
           data.forEach((KHItem: any) => {
             if (KHItem?.PKBZ === item) {
               if (KHItem?.XXSJPZId === timeItem?.id) {
-                // eslint-disable-next-line max-nested-callbacks
-                const currentTeacher = KHItem?.KHBJSJ?.KHBJJs?.find((items: any) => items?.JSLX === '主教师');
+                const currentTeacher =
+                  // eslint-disable-next-line max-nested-callbacks
+                  KHItem?.KHBJSJ?.KHBJJs?.find((items: any) => items?.JSLX === '主教师') || KHItem?.KHBJSJ?.KHBJJs?.[0];
                 const newObj: any = {
                   weekId: KHItem?.id, // 周
                   cla: KHItem?.KHBJSJ?.BJMC, // 班级名称
@@ -299,6 +301,7 @@ const Timetable = () => {
   }, [Datas, weekNum, xXSJPZData]);
   // eslint-disable-next-line max-params
   const getDataSource = async (XNXQ: string, XXJBSJId: string, KCId: string, JSId: string) => {
+    setLoading(true);
     const term = getTerm();
     const params: any = {
       KHJYJGId: currentUser?.jgId || '',
@@ -322,6 +325,7 @@ const Timetable = () => {
     if (res?.status === 'ok') {
       setDatas(res.data);
     }
+    setLoading(false);
   };
 
   /**
@@ -337,19 +341,22 @@ const Timetable = () => {
     <div className={styles.Timetable}>
       <FormSelect getDataSource={getDataSource} Weeks={Weeks} setWeekNum={setWeekNum} weekNum={weekNum} />
       <Divider />
+
       {XXJBSJId ? (
-        <ExcelTable
-          className=""
-          columns={columns}
-          dataSource={tableDataSource}
-          onExcelTableClick={onExcelTableClick}
-          radioValue={radioValue}
-          bjmcValue={bjmcValue}
-          xXSJPZData={xXSJPZData}
-          style={{
-            height: weekNum === undefined ? 'calc(100vh - 360px)' : 'auto'
-          }}
-        />
+        <Spin spinning={loading}>
+          <ExcelTable
+            className=""
+            columns={columns}
+            dataSource={tableDataSource}
+            onExcelTableClick={onExcelTableClick}
+            radioValue={radioValue}
+            bjmcValue={bjmcValue}
+            xXSJPZData={xXSJPZData}
+            style={{
+              height: weekNum === undefined ? 'calc(100vh - 360px)' : 'auto'
+            }}
+          />
+        </Spin>
       ) : (
         <div className={styles.noDate}>
           <img src={noJF} alt="" /> <p>请选择学校查看课表</p>{' '}
