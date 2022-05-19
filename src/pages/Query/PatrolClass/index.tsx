@@ -1,11 +1,10 @@
 import ProTable, { ProColumns } from '@ant-design/pro-table';
-import { Space, Tag, } from 'antd';
+import { Space, Tag } from 'antd';
 import { useEffect, useState } from 'react';
 import { Link, useModel } from 'umi';
 import { cooperateSchool } from '@/services/after-class-pxjg/khjyjg';
 import styles from './index.less';
 import EllipsisHint from '@/components/EllipsisHint';
-import { getTableWidth } from '@/utils';
 
 const PatrolClass = () => {
   const [school, setSchool] = useState<string>();
@@ -18,7 +17,7 @@ const PatrolClass = () => {
       align: 'center',
       dataIndex: 'index',
       valueType: 'index',
-      fixed:'left',
+      fixed: 'left',
       width: 58
     },
     {
@@ -26,7 +25,7 @@ const PatrolClass = () => {
       dataIndex: 'XXMC',
       key: 'XXMC',
       align: 'center',
-      fixed:'left',
+      fixed: 'left',
       width: 130
     },
     {
@@ -36,18 +35,21 @@ const PatrolClass = () => {
       align: 'center',
       search: false,
       width: 120,
-      render: (_: any,record: any) => {
+      render: (_: any, record: any) => {
         const text = record?.XD?.split(/,/g);
         return (
           <EllipsisHint
             width="100%"
-            text={text?.length && text.map((item: any) => {
-              return (
-                <Tag key={item} style={{ margin: '4px' }}>
-                  {item}
-                </Tag>
-              );
-            })}
+            text={
+              text?.length &&
+              text.map((item: any) => {
+                return (
+                  <Tag key={item} style={{ margin: '4px' }}>
+                    {item}
+                  </Tag>
+                );
+              })
+            }
           />
         );
       }
@@ -75,8 +77,8 @@ const PatrolClass = () => {
       align: 'center',
       width: 100,
       search: false,
-      render: (_: any,record: any) =>{
-        return record?.KHKCSQs?.length
+      render: (_: any, record: any) => {
+        return record?.KHKCSQs?.length;
       }
     },
     {
@@ -84,7 +86,7 @@ const PatrolClass = () => {
       align: 'center',
       search: false,
       width: 100,
-      fixed:'right',
+      fixed: 'right',
       render: (_, record) => {
         return (
           <Space>
@@ -108,27 +110,27 @@ const PatrolClass = () => {
       page: 0,
       pageSize: 0,
       name: school
-    })
+    });
     if (res.status === 'ok') {
-      setDataSource(res.data?.rows)
+      setDataSource(res.data?.rows);
     }
   };
   useEffect(() => {
-    getSchool()
-  }, [school])
+    getSchool();
+  }, [school]);
   return (
     <div>
       <div>
         <ProTable
           toolbar={{
             onSearch: (value: string) => {
-              setSchool(value)
+              setSchool(value);
             }
           }}
           pagination={{
             showQuickJumper: true,
             pageSize: 10,
-            defaultCurrent: 1,
+            defaultCurrent: 1
           }}
           scroll={{ x: getTableWidth(columns) }}
           dataSource={dataSource}
@@ -140,14 +142,14 @@ const PatrolClass = () => {
             reload: false,
             search: {
               placeholder: '学校名称',
-              allowClear: true,
+              allowClear: true
             }
           }}
           search={false}
         />
       </div>
     </div>
-  )
-}
+  );
+};
 PatrolClass.wrappers = ['@/wrappers/auth'];
-export default PatrolClass
+export default PatrolClass;
