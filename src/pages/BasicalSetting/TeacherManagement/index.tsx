@@ -61,7 +61,7 @@ const TeacherManagement = () => {
         formData.append('KHJYJGId', currentUser?.jgId || '');
         res = await importTeachers({ plat: 'agency' }, { body: formData });
       } else if (isWechat) {
-        res = await importWechatTeachers({}, { body: formData });
+        res = await importWechatTeachers({ plat: 'agency' }, { body: formData });
       }
       console.log('res', res);
 
