@@ -5,6 +5,7 @@ import { Link, useModel } from 'umi';
 import { cooperateSchool } from '@/services/after-class-pxjg/khjyjg';
 import styles from './index.less';
 import EllipsisHint from '@/components/EllipsisHint';
+import { getTableWidth } from '@/utils';
 
 const PatrolClass = () => {
   const [school, setSchool] = useState<string>();
