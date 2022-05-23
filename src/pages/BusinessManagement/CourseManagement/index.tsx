@@ -83,7 +83,7 @@ const CourseManagement = () => {
       render: (_, record) => record.XXJBSJ?.XXMC
     },
     {
-      title: '引入时间',
+      title: '合作时间',
       key: 'YRSJ',
       dataIndex: 'YRSJ',
       align: 'center',
