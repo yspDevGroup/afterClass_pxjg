@@ -83,6 +83,16 @@ const CourseManagement = () => {
       render: (_, record) => record.XXJBSJ?.XXMC
     },
     {
+      title: '引入时间',
+      key: 'YRSJ',
+      dataIndex: 'YRSJ',
+      align: 'center',
+      width: 120,
+      ellipsis: true,
+      hideInTable: activeKey !== 'duration',
+      render: (_, record) => record.updatedAt
+    },
+    {
       title: '课程类型',
       dataIndex: 'KHKCLX',
       key: 'KHKCLX',
